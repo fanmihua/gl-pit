@@ -32,7 +32,7 @@ export async function loadPublishedCommunityQuotes() {
   if (!supabase) return [];
   const { data, error } = await supabase
     .from("community_quotes")
-    .select("id,text,speaker,cover_path,sort_order")
+    .select("id,text,speaker,cover_path,sort_order,is_pinned,created_at")
     .eq("status", "published")
     .order("sort_order", { ascending: true })
     .order("created_at", { ascending: true });
@@ -96,4 +96,18 @@ export async function submitCommunityComment({ targetType, targetId, nickname, b
   });
   throwIfError(error);
   return normalizeRpcRow(data);
+}
+
+export async function submitCommunityQuote({ speaker, text }) {
+  await ensureCommunitySession();
+  const { data, error } = await supabase.rpc("submit_community_quote", {
+    p_speaker: speaker,
+    p_text: text,
+  });
+  throwIfError(error);
+  return {
+    ...normalizeRpcRow(data),
+    created_at: new Date().toISOString(),
+    is_pinned: false,
+  };
 }

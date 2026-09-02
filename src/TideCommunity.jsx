@@ -16,6 +16,7 @@ import {
   loadPublishedComments,
   recordCommunityView,
   submitCommunityComment,
+  submitCommunityQuote,
   toggleCommunityReaction,
 } from "./community-api.js";
 import { collectedQuotes, getTideTargetKey, tideWordsPageTarget } from "./data/tide-words.js";
@@ -44,6 +45,7 @@ function saveNickname(nickname) {
 function formatCommunityError(error) {
   const message = error?.message || "互动服务暂时没有回应，请稍后再试。";
   if (message.includes("rate_limit")) return "留言有点密集，先歇十分钟再来。";
+  if (message.includes("quote_text")) return "原话需要 2—120 个字。";
   if (message.includes("comment_body")) return "留言需要 2—400 个字。";
   if (message.includes("nickname")) return "昵称请控制在 24 个字以内。";
   if (message.includes("JWT") || message.includes("session")) return "匿名身份没有接通，请刷新后再试。";
@@ -70,8 +72,6 @@ export function useTideCommunity() {
   const [activeQuote, setActiveQuote] = useState(null);
   const [quoteComments, setQuoteComments] = useState([]);
   const [quoteCommentsState, setQuoteCommentsState] = useState("idle");
-  const [guestbookComments, setGuestbookComments] = useState([]);
-  const [guestbookState, setGuestbookState] = useState(isCommunityConfigured ? "loading" : "idle");
 
   const getStats = useCallback((targetType, targetId) => (
     statsByTarget[getTideTargetKey(targetType, targetId)] ?? emptyStats
@@ -92,21 +92,17 @@ export function useTideCommunity() {
     Promise.all([
       loadCommunityStats(),
       loadCommunityReactionState(),
-      loadPublishedComments(tideWordsPageTarget.targetType, tideWordsPageTarget.targetId, 12),
       loadPublishedCommunityQuotes(),
     ])
-      .then(([nextStats, nextLikedTargets, nextGuestbookComments, nextQuotes]) => {
+      .then(([nextStats, nextLikedTargets, nextQuotes]) => {
         if (!alive) return;
         setStatsByTarget(nextStats);
         setLikedTargets(new Set(nextLikedTargets));
-        setGuestbookComments(nextGuestbookComments);
         setQuotes(nextQuotes);
-        setGuestbookState("ready");
         setConnectionState("ready");
       })
       .catch(() => {
         if (!alive) return;
-        setGuestbookState("error");
         setConnectionState("error");
       });
 
@@ -206,9 +202,7 @@ export function useTideCommunity() {
         status: result.status,
         created_at: result.created_at,
       };
-      if (targetType === "page") {
-        setGuestbookComments((current) => [publishedComment, ...current].slice(0, 12));
-      } else if (targetType === "quote") {
+      if (targetType === "quote") {
         setQuoteComments((current) => [publishedComment, ...current].slice(0, 30));
       }
       setStatsByTarget((current) => {
@@ -222,6 +216,19 @@ export function useTideCommunity() {
     }
   }, []);
 
+  const submitQuote = useCallback(async ({ nickname, body }) => {
+    const cleanedSpeaker = nickname.trim() || "匿名坑底人";
+    const cleanedText = body.trim();
+    try {
+      const quote = await submitCommunityQuote({ speaker: cleanedSpeaker, text: cleanedText });
+      setQuotes((current) => [quote, ...current.filter((item) => item.id !== quote.id)]);
+      saveNickname(cleanedSpeaker === "匿名坑底人" ? "" : cleanedSpeaker);
+      return { ok: true, quoteId: quote.id, message: "已经上岸，在上面的原话卡片里。" };
+    } catch (error) {
+      return { ok: false, message: formatCommunityError(error) };
+    }
+  }, []);
+
   return {
     activeQuote,
     busyTargets,
@@ -229,8 +236,6 @@ export function useTideCommunity() {
     configured: isCommunityConfigured,
     connectionState,
     getStats,
-    guestbookComments,
-    guestbookState,
     isLiked: (targetType, targetId) => likedTargets.has(getTideTargetKey(targetType, targetId)),
     openQuote,
     quoteComments,
@@ -238,6 +243,7 @@ export function useTideCommunity() {
     quotes,
     refreshStats,
     submitComment,
+    submitQuote,
     toggleReaction,
   };
 }
@@ -259,7 +265,11 @@ export function CommunityReactionButton({ busy = false, compact = false, disable
 }
 
 export function TideCommunitySummary({ community }) {
-  const stats = community.getStats(tideWordsPageTarget.targetType, tideWordsPageTarget.targetId);
+  const pageStats = community.getStats(tideWordsPageTarget.targetType, tideWordsPageTarget.targetId);
+  const stats = {
+    ...pageStats,
+    comments: community.quotes.reduce((total, quote) => total + community.getStats("quote", quote.id).comments, 0),
+  };
   const pageKey = getTideTargetKey(tideWordsPageTarget.targetType, tideWordsPageTarget.targetId);
 
   return (
@@ -267,7 +277,6 @@ export function TideCommunitySummary({ community }) {
       <div className="tide-community-summary-copy">
         <span>PIT ACTIVITY / LIVE ARCHIVE</span>
         <h2 id="tide-community-title">坑底正在发生</h2>
-        <p>有人路过，有人心动，也有人留下了一句。</p>
       </div>
       <dl className="tide-community-stats">
         <div>
@@ -302,7 +311,7 @@ function CommunityCommentList({ comments, state }) {
     return <p className="community-comments-state"><SpinnerGap className="is-spinning" aria-hidden="true" /> 正在捞回声</p>;
   }
   if (state === "error") return <p className="community-comments-state">回声暂时没有捞上来。</p>;
-  if (!comments.length) return <p className="community-comments-state">这里还很安静，等第一句回声。</p>;
+  if (!comments.length) return null;
 
   return (
     <ol className="community-comment-list">
@@ -319,7 +328,7 @@ function CommunityCommentList({ comments, state }) {
   );
 }
 
-function CommunityCommentForm({ configured, onSubmit, submitLabel = "留下这句" }) {
+function CommunityCommentForm({ bodyMaxLength = 400, configured, onSubmit, placeholder, submitLabel = "留下这句" }) {
   const [nickname, setNickname] = useState(readSavedNickname);
   const [body, setBody] = useState("");
   const [state, setState] = useState("idle");
@@ -334,7 +343,7 @@ function CommunityCommentForm({ configured, onSubmit, submitLabel = "留下这�
     if (result.ok) {
       setBody("");
       setState("success");
-      setMessage("收到了，已经浮到坑底。 ");
+      setMessage(result.message || "收到了，已经浮到坑底。");
     } else {
       setState("error");
       setMessage(result.message);
@@ -359,10 +368,10 @@ function CommunityCommentForm({ configured, onSubmit, submitLabel = "留下这�
         <textarea
           value={body}
           minLength={2}
-          maxLength={400}
+          maxLength={bodyMaxLength}
           required
           rows={4}
-          placeholder={configured ? "说点什么，接梗也行。" : "互动服务配置完成后开放留言。"}
+          placeholder={configured ? (placeholder || "说点什么，接梗也行。") : "互动服务配置完成后开放留言。"}
           disabled={!configured}
           onChange={(event) => setBody(event.target.value)}
         />
@@ -380,30 +389,31 @@ function CommunityCommentForm({ configured, onSubmit, submitLabel = "留下这�
 
 export function TideGuestbook({ community }) {
   return (
-    <section className="tide-guestbook" aria-labelledby="tide-guestbook-title">
+    <section className="tide-guestbook is-empty" aria-labelledby="tide-guestbook-title">
       <div className="tide-guestbook-heading">
         <span>PUBLIC GUESTBOOK</span>
         <h2 id="tide-guestbook-title">坑底留言板</h2>
-        <p>不一定要有结论，留一句也算来过。</p>
-      </div>
-      <div className="tide-guestbook-comments">
-        <CommunityCommentList comments={community.guestbookComments} state={community.guestbookState} />
       </div>
       <CommunityCommentForm
+        bodyMaxLength={120}
         configured={community.configured}
-        submitLabel="留在坑底"
-        onSubmit={({ nickname, body }) => community.submitComment({
-          targetType: tideWordsPageTarget.targetType,
-          targetId: tideWordsPageTarget.targetId,
-          nickname,
-          body,
-        })}
+        placeholder="写下一句坑底原话。"
+        submitLabel="投到上面"
+        onSubmit={async ({ nickname, body }) => {
+          const result = await community.submitQuote({ nickname, body });
+          if (result.ok) {
+            window.setTimeout(() => {
+              document.querySelector(`[data-evidence-id="${result.quoteId}"]`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+            }, 80);
+          }
+          return result;
+        }}
       />
     </section>
   );
 }
 
-export function QuoteCommentDrawer({ community }) {
+export function QuoteCommentModal({ community }) {
   const closeButtonRef = useRef(null);
   const activeQuote = community.activeQuote;
   const stats = useMemo(() => (
@@ -428,14 +438,15 @@ export function QuoteCommentDrawer({ community }) {
 
   if (!activeQuote) return null;
   const targetKey = getTideTargetKey("quote", activeQuote.id);
+  const quoteLabel = /^q-\d+$/i.test(activeQuote.id) ? activeQuote.id.toUpperCase() : "NEW VOICE";
 
   return createPortal(
     <div className="quote-comment-layer" role="presentation" onMouseDown={(event) => {
       if (event.target === event.currentTarget) community.closeQuote();
     }}>
-      <aside className="quote-comment-drawer" role="dialog" aria-modal="true" aria-labelledby="quote-comment-title">
-        <header className="quote-comment-drawer-header">
-          <span>{activeQuote.id.toUpperCase()} / PIT VOICE</span>
+      <aside className="quote-comment-modal" role="dialog" aria-modal="true" aria-labelledby="quote-comment-title">
+        <header className="quote-comment-modal-header">
+          <span>{quoteLabel} / PIT VOICE</span>
           <button ref={closeButtonRef} type="button" onClick={community.closeQuote} aria-label="关闭评论">
             <X weight="bold" aria-hidden="true" />
           </button>

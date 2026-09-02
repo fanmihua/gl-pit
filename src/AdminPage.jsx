@@ -116,18 +116,20 @@ function QuoteEditor({ busy, onSave, quote }) {
   const [speaker, setSpeaker] = useState(quote.speaker);
   const [status, setStatus] = useState(quote.status);
   const [sortOrder, setSortOrder] = useState(quote.sort_order);
+  const [isPinned, setIsPinned] = useState(Boolean(quote.is_pinned));
 
   useEffect(() => {
     setText(quote.text);
     setSpeaker(quote.speaker);
     setStatus(quote.status);
     setSortOrder(quote.sort_order);
+    setIsPinned(Boolean(quote.is_pinned));
   }, [quote]);
 
   return (
     <form className="community-admin-quote-editor" onSubmit={(event) => {
       event.preventDefault();
-      onSave(quote.id, { text, speaker, status, sort_order: Number(sortOrder) || 0 });
+      onSave(quote.id, { text, speaker, status, sort_order: Number(sortOrder) || 0, is_pinned: isPinned });
     }}>
       <span>{quote.id.toUpperCase()}</span>
       <label>
@@ -145,6 +147,10 @@ function QuoteEditor({ busy, onSave, quote }) {
         </label>
       </div>
       <div className="community-admin-quote-footer">
+        <label className="community-admin-pin-toggle">
+          <input type="checkbox" checked={isPinned} onChange={(event) => setIsPinned(event.target.checked)} />
+          <span>置顶</span>
+        </label>
         <select value={status} aria-label={`${quote.id} 展示状态`} onChange={(event) => setStatus(event.target.value)}>
           {quoteStatusOptions.map((option) => <option value={option.id} key={option.id}>{option.label}</option>)}
         </select>
@@ -174,7 +180,7 @@ function AdminDashboard({ session, onSignOut }) {
         .limit(250),
       supabase
         .from("community_quotes")
-        .select("id,text,speaker,cover_path,sort_order,status,created_at,updated_at")
+        .select("id,text,speaker,cover_path,sort_order,status,is_pinned,created_at,updated_at")
         .order("sort_order", { ascending: true })
         .order("created_at", { ascending: true }),
       loadCommunityStats(),
@@ -228,7 +234,7 @@ function AdminDashboard({ session, onSignOut }) {
       .from("community_quotes")
       .update({ ...patch, updated_at: new Date().toISOString() })
       .eq("id", quoteId)
-      .select("id,text,speaker,cover_path,sort_order,status,created_at,updated_at")
+      .select("id,text,speaker,cover_path,sort_order,status,is_pinned,created_at,updated_at")
       .single();
     if (error) setMessage("卡片没有保存成功，请检查内容长度和管理员权限。 ");
     else {
@@ -247,8 +253,8 @@ function AdminDashboard({ session, onSignOut }) {
     const nextSortOrder = Math.max(0, ...quotes.map((quote) => quote.sort_order || 0)) + 10;
     const { data, error } = await supabase
       .from("community_quotes")
-      .insert({ text, speaker: "匿名坑底人", sort_order: nextSortOrder, status: "draft" })
-      .select("id,text,speaker,cover_path,sort_order,status,created_at,updated_at")
+      .insert({ text, speaker: "匿名坑底人", sort_order: nextSortOrder, status: "draft", is_pinned: false })
+      .select("id,text,speaker,cover_path,sort_order,status,is_pinned,created_at,updated_at")
       .single();
     if (error) setMessage("新卡片没有建好，请检查管理员权限。 ");
     else {

@@ -3,11 +3,12 @@ import {
   CrownSimple,
   DotsSixVertical,
   Heart,
+  PushPin,
   Quotes,
 } from "@phosphor-icons/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  QuoteCommentDrawer,
+  QuoteCommentModal,
   TideCommunitySummary,
   TideGuestbook,
   useTideCommunity,
@@ -32,28 +33,13 @@ const flowPointDelay = (x) => (
   `${Math.max(180, Math.round((((x * 10) + 220) / 1280) * 1050 - 12))}ms`
 );
 
-const evidenceCardLayouts = [
-  { tilt: -1.15, y: 7, cover: "assets/column/rival-lover/overview/01-kqpjbbks9obs.webp" },
-  { tilt: .65, y: -4 },
-  { tilt: -.8, y: 5, cover: "assets/column/us/overview/01-jxntbv0oxoli.webp" },
-  { tilt: .55, y: 0 },
-  { tilt: -1.1, y: 8 },
-  { tilt: .75, y: -5, cover: "assets/column/designing-love/overview/01-ft0abcnezobo.webp" },
-  { tilt: -.55, y: 4 },
-  { tilt: .9, y: 0, cover: "assets/column/poisonous-love/overview/01-uksdb8nmjojx.webp" },
-  { tilt: -1, y: 7 },
-  { tilt: .6, y: -4 },
-  { tilt: -.7, y: 4, cover: "assets/column/my-secret-words/overview/01-suakby2xcohn.webp" },
-  { tilt: 1.05, y: 0 },
-  { tilt: -.6, y: 5 },
-  { tilt: .8, y: -4, cover: "assets/column/affair/overview/01-biwwbh7aeo6p.webp" },
-  { tilt: -.9, y: 4 },
-  { tilt: .5, y: 0 },
-  { tilt: -1, y: 6 },
-  { tilt: .7, y: -3 },
-];
-
 const evidenceOrderStorageKey = "gl-pit:evidence-card-order:v1";
+const sortOptions = [
+  { id: "latest", label: "最新" },
+  { id: "likes", label: "心动" },
+  { id: "comments", label: "回声" },
+  { id: "manual", label: "我的排序" },
+];
 
 function readEvidenceOrder(items) {
   const itemIds = items.map((item) => item.id);
@@ -74,7 +60,6 @@ function EvidenceCard({
   configured,
   dragOffset,
   item,
-  index = 0,
   isDragging,
   liked,
   onKeyDown,
@@ -85,23 +70,24 @@ function EvidenceCard({
   onPointerUp,
   stats,
 }) {
-  const layout = evidenceCardLayouts[index % evidenceCardLayouts.length];
-  const coverPath = item.cover_path || layout.cover;
+  const coverPath = item.cover_path;
   const copyLength = Array.from(item.text).length;
   const copySize = copyLength <= 9 ? "short-copy" : copyLength >= 16 ? "long-copy" : "medium-copy";
 
   return (
     <article
-      className={`words-repo-quote-card ${copySize}${coverPath ? " has-cover" : " no-cover"}${isDragging ? " is-dragging" : ""}`}
+      className={`words-repo-quote-card ${copySize}${coverPath ? " has-cover" : " no-cover"}${item.is_pinned ? " is-pinned" : ""}${isDragging ? " is-dragging" : ""}`}
       style={{
-        "--card-tilt": `${layout.tilt}deg`,
-        "--card-y": `${layout.y}px`,
+        "--card-tilt": "0deg",
+        "--card-y": "0px",
         "--drag-x": `${dragOffset?.x || 0}px`,
         "--drag-y": `${dragOffset?.y || 0}px`,
       }}
       data-evidence-id={item.id}
+      data-evidence-pinned={item.is_pinned ? "true" : "false"}
     >
       <button className="words-repo-card-open" type="button" onClick={onOpen} aria-label={`打开评论：${item.text}`} />
+      {item.is_pinned ? <span className="words-repo-pinned-label"><PushPin weight="fill" aria-hidden="true" />站主置顶</span> : null}
       <div className="words-repo-quote-copy">
         <Quotes aria-hidden="true" weight="fill" />
         <blockquote>{item.text}</blockquote>
@@ -129,25 +115,28 @@ function EvidenceCard({
         <ChatCircleDots weight="bold" aria-hidden="true" />
         {stats.comments}
       </span>
-      <button
-        className="words-repo-drag-handle"
-        type="button"
-        aria-label={`移动卡片：${item.text}`}
-        aria-grabbed={isDragging}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        onPointerCancel={onPointerUp}
-        onKeyDown={onKeyDown}
-      >
-        <DotsSixVertical weight="bold" aria-hidden="true" />
-      </button>
+      {!item.is_pinned ? (
+        <button
+          className="words-repo-drag-handle"
+          type="button"
+          aria-label={`移动卡片：${item.text}`}
+          aria-grabbed={isDragging}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={onPointerUp}
+          onPointerCancel={onPointerUp}
+          onKeyDown={onKeyDown}
+        >
+          <DotsSixVertical weight="bold" aria-hidden="true" />
+        </button>
+      ) : null}
     </article>
   );
 }
 
 function EvidenceCanvas({ community }) {
   const [order, setOrder] = useState(() => readEvidenceOrder(community.quotes));
+  const [sortMode, setSortMode] = useState("latest");
   const [drag, setDrag] = useState(null);
   const canvasRef = useRef(null);
   const dragRef = useRef(null);
@@ -163,15 +152,40 @@ function EvidenceCanvas({ community }) {
   useEffect(() => {
     const currentIds = community.quotes.map((item) => item.id);
     setOrder((current) => [
-      ...current.filter((id) => currentIds.includes(id)),
       ...currentIds.filter((id) => !current.includes(id)),
+      ...current.filter((id) => currentIds.includes(id)),
     ]);
   }, [community.quotes]);
+
+  const displayOrder = useMemo(() => {
+    const pinnedIds = community.quotes.filter((quote) => quote.is_pinned).map((quote) => quote.id);
+    const regularQuotes = community.quotes.filter((quote) => !quote.is_pinned);
+    if (sortMode === "manual") {
+      return [...pinnedIds, ...order.filter((id) => regularQuotes.some((quote) => quote.id === id))];
+    }
+
+    const sorted = [...regularQuotes].sort((left, right) => {
+      if (sortMode === "likes") {
+        const difference = community.getStats("quote", right.id).likes - community.getStats("quote", left.id).likes;
+        if (difference) return difference;
+      }
+      if (sortMode === "comments") {
+        const difference = community.getStats("quote", right.id).comments - community.getStats("quote", left.id).comments;
+        if (difference) return difference;
+      }
+      return new Date(right.created_at || 0).getTime() - new Date(left.created_at || 0).getTime();
+    });
+    return [...pinnedIds, ...sorted.map((quote) => quote.id)];
+  }, [community, order, sortMode]);
 
   const beginDrag = (event, cardId) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
 
     event.preventDefault();
+    if (sortMode !== "manual") {
+      setOrder(displayOrder);
+      setSortMode("manual");
+    }
     event.currentTarget.setPointerCapture(event.pointerId);
     dragRef.current = {
       cardId,
@@ -207,7 +221,7 @@ function EvidenceCanvas({ community }) {
     if (moved && sourceRect) {
       cards.forEach((card) => {
         const candidateId = card.dataset.evidenceId;
-        if (candidateId === active.cardId) return;
+        if (candidateId === active.cardId || card.dataset.evidencePinned === "true") return;
         const rect = card.getBoundingClientRect();
         const distance = Math.hypot(event.clientX - (rect.left + rect.width / 2), event.clientY - (rect.top + rect.height / 2));
         if (distance < nearestDistance && distance < Math.max(rect.width, rect.height) * .72) {
@@ -241,18 +255,40 @@ function EvidenceCanvas({ community }) {
     const columns = width < 520 ? 1 : width < 800 ? 2 : width < 1680 ? 3 : 4;
     const delta = event.key === "ArrowLeft" ? -1 : event.key === "ArrowRight" ? 1 : event.key === "ArrowUp" ? -columns : columns;
     setOrder((current) => {
-      const sourcePosition = current.indexOf(cardId);
-      const targetPosition = Math.max(0, Math.min(current.length - 1, sourcePosition + delta));
+      const next = sortMode === "manual" ? [...current] : [...displayOrder];
+      const sourcePosition = next.indexOf(cardId);
+      const firstMovablePosition = community.quotes.some((quote) => quote.is_pinned) ? 1 : 0;
+      const targetPosition = Math.max(firstMovablePosition, Math.min(next.length - 1, sourcePosition + delta));
       if (sourcePosition === targetPosition) return current;
-      const next = [...current];
       [next[sourcePosition], next[targetPosition]] = [next[targetPosition], next[sourcePosition]];
       return next;
     });
+    setSortMode("manual");
   };
 
   return (
-    <div className="words-snap-canvas" ref={canvasRef} aria-describedby="words-canvas-instructions">
-      {order.map((cardId) => {
+    <>
+      <header className="words-board-toolbar">
+        <div>
+          <span>OPEN VOICE BOARD</span>
+          <p>按你想看的方式排；拖动任意非置顶卡片，就会切到自己的排序。</p>
+        </div>
+        <div className="words-board-sorts" role="group" aria-label="原话排序">
+          {sortOptions.map((option) => (
+            <button
+              className={sortMode === option.id ? "is-active" : ""}
+              type="button"
+              aria-pressed={sortMode === option.id}
+              onClick={() => setSortMode(option.id)}
+              key={option.id}
+            >
+              {option.label}
+            </button>
+          ))}
+        </div>
+      </header>
+      <div className="words-snap-canvas" ref={canvasRef} aria-describedby="words-canvas-instructions">
+      {displayOrder.map((cardId) => {
         const itemIndex = community.quotes.findIndex((quote) => quote.id === cardId);
         const item = community.quotes[itemIndex];
         if (!item) return null;
@@ -262,7 +298,6 @@ function EvidenceCanvas({ community }) {
             busy={community.busyTargets.has(targetKey)}
             configured={community.configured}
             item={item}
-            index={itemIndex}
             isDragging={drag?.cardId === cardId}
             dragOffset={drag?.cardId === cardId ? drag : null}
             key={item.id}
@@ -277,7 +312,8 @@ function EvidenceCanvas({ community }) {
           />
         );
       })}
-    </div>
+      </div>
+    </>
   );
 }
 
@@ -371,14 +407,6 @@ export function WordsTideLab() {
         <FrequencyFlow />
       </section>
 
-      <section className="words-archive-bridge" aria-labelledby="words-archive-bridge-title">
-        <span className="words-archive-bridge-rule" aria-hidden="true" />
-        <div className="words-archive-bridge-copy">
-          <strong id="words-archive-bridge-title">原话开始上岸</strong>
-          <small>{community.quotes.length} VOICES</small>
-        </div>
-      </section>
-
       <TideCommunitySummary community={community} />
 
       <section className="words-archive" id="original-words" aria-label="原话收藏">
@@ -388,7 +416,7 @@ export function WordsTideLab() {
         <EvidenceCanvas community={community} />
       </section>
       <TideGuestbook community={community} />
-      <QuoteCommentDrawer community={community} />
+      <QuoteCommentModal community={community} />
     </main>
   );
 }
