@@ -8,6 +8,7 @@ import {
 } from "@phosphor-icons/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
+  CommunityCommentList,
   QuoteCommentModal,
   TideCommunitySummary,
   TideGuestbook,
@@ -61,7 +62,12 @@ function EvidenceCard({
   dragOffset,
   item,
   isDragging,
+  isExpanded,
   liked,
+  comments,
+  commentsState,
+  onCommentClick,
+  onCompose,
   onKeyDown,
   onLike,
   onOpen,
@@ -76,7 +82,7 @@ function EvidenceCard({
 
   return (
     <article
-      className={`words-repo-quote-card ${copySize}${coverPath ? " has-cover" : " no-cover"}${item.is_pinned ? " is-pinned" : ""}${isDragging ? " is-dragging" : ""}`}
+      className={`words-repo-quote-card ${copySize}${coverPath ? " has-cover" : " no-cover"}${item.is_pinned ? " is-pinned" : ""}${isExpanded ? " is-expanded" : ""}${isDragging ? " is-dragging" : ""}`}
       style={{
         "--card-tilt": "0deg",
         "--card-y": "0px",
@@ -86,7 +92,13 @@ function EvidenceCard({
       data-evidence-id={item.id}
       data-evidence-pinned={item.is_pinned ? "true" : "false"}
     >
-      <button className="words-repo-card-open" type="button" onClick={onOpen} aria-label={`打开评论：${item.text}`} />
+      <button
+        className="words-repo-card-open"
+        type="button"
+        onClick={onOpen}
+        aria-expanded={isExpanded}
+        aria-label={stats.comments > 0 ? `${isExpanded ? "收起" : "展开"}评论：${item.text}` : `评论：${item.text}`}
+      />
       {item.is_pinned ? <span className="words-repo-pinned-label"><PushPin weight="fill" aria-hidden="true" />站主置顶</span> : null}
       <div className="words-repo-quote-copy">
         <Quotes aria-hidden="true" weight="fill" />
@@ -111,10 +123,15 @@ function EvidenceCard({
         <Heart weight={liked ? "fill" : "regular"} aria-hidden="true" />
         <span>{stats.likes}</span>
       </button>
-      <span className="words-repo-card-meta" aria-label={`${stats.comments} 条评论`}>
+      <button
+        className="words-repo-card-meta"
+        type="button"
+        aria-label={stats.comments > 0 ? `${isExpanded ? "收起" : "展开"}${stats.comments} 条评论` : "留下第一条评论"}
+        onClick={onCommentClick}
+      >
         <ChatCircleDots weight="bold" aria-hidden="true" />
         {stats.comments}
-      </span>
+      </button>
       {!item.is_pinned ? (
         <button
           className="words-repo-drag-handle"
@@ -129,6 +146,18 @@ function EvidenceCard({
         >
           <DotsSixVertical weight="bold" aria-hidden="true" />
         </button>
+      ) : null}
+      {isExpanded ? (
+        <section className="words-card-comments" aria-label={`${item.text}的评论`}>
+          <header>
+            <span><ChatCircleDots weight="bold" aria-hidden="true" />{stats.comments} 条回声</span>
+            <button type="button" onClick={onCompose}>留一句</button>
+          </header>
+          <div className="words-card-comments-scroll">
+            <CommunityCommentList comments={comments} state={commentsState} />
+          </div>
+          {stats.comments > comments.length ? <small>先显示最近 {comments.length} 条</small> : null}
+        </section>
       ) : null}
     </article>
   );
@@ -299,11 +328,24 @@ function EvidenceCanvas({ community }) {
             configured={community.configured}
             item={item}
             isDragging={drag?.cardId === cardId}
+            isExpanded={community.activeQuote?.id === item.id}
             dragOffset={drag?.cardId === cardId ? drag : null}
             key={item.id}
             liked={community.isLiked("quote", item.id)}
             stats={community.getStats("quote", item.id)}
-            onOpen={() => community.openQuote(item)}
+            comments={community.activeQuote?.id === item.id ? community.quoteComments : []}
+            commentsState={community.activeQuote?.id === item.id ? community.quoteCommentsState : "idle"}
+            onCompose={() => community.openComposer(item)}
+            onCommentClick={() => {
+              if (community.getStats("quote", item.id).comments === 0) community.openComposer(item);
+              else if (community.activeQuote?.id === item.id) community.closeQuote();
+              else community.openQuote(item);
+            }}
+            onOpen={() => {
+              if (community.getStats("quote", item.id).comments === 0) community.openComposer(item);
+              else if (community.activeQuote?.id === item.id) community.closeQuote();
+              else community.openQuote(item);
+            }}
             onLike={() => community.toggleReaction("quote", item.id)}
             onPointerDown={(event) => beginDrag(event, cardId)}
             onPointerMove={(event) => moveDrag(event, cardId)}
@@ -411,7 +453,7 @@ export function WordsTideLab() {
 
       <section className="words-archive" id="original-words" aria-label="原话收藏">
         <p className="words-canvas-instructions" id="words-canvas-instructions">
-          点卡片看评论；按住右下角六点把手可交换位置，卡片不会互相重叠。
+          点卡片原位展开评论；按住右下角六点把手可交换位置，卡片不会互相重叠。
         </p>
         <EvidenceCanvas community={community} />
       </section>

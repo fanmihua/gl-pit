@@ -115,7 +115,10 @@
 .words-repo-card-open {
   position: absolute;
   z-index: 4;
-  inset: 0;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: var(--card-base-height, 205px);
   padding: 0;
   border: 0;
   background: transparent;
@@ -128,26 +131,31 @@
   position: absolute;
   z-index: 6;
   right: 44px;
-  bottom: 9px;
+  top: calc(var(--card-base-height, 205px) - 33px);
   display: flex;
   height: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
   align-items: center;
   gap: 5px;
   color: rgba(9, 9, 9, .46);
   font-family: var(--headline);
   font-size: 9px;
   letter-spacing: .02em;
-  pointer-events: none;
+  cursor: pointer;
 }
 
 .words-repo-quote-card.has-cover .words-repo-card-meta { right: calc(40% + 43px); }
 .words-repo-card-meta svg { width: 13px; height: 13px; color: var(--tide-pink); }
+.words-repo-card-meta:hover,
+.words-repo-card-meta:focus-visible { color: #090909; outline: 0; }
 
 .words-repo-card-like {
   position: absolute;
   z-index: 7;
   right: 78px;
-  bottom: 9px;
+  top: calc(var(--card-base-height, 205px) - 33px);
   display: inline-flex;
   min-width: 44px;
   height: 24px;
@@ -357,6 +365,11 @@
   grid-template-rows: auto auto auto minmax(0, 1fr) auto;
   box-shadow: 8px 8px 0 var(--tide-pink), 0 24px 70px rgba(9, 9, 9, .18);
   animation: quote-modal-in 240ms cubic-bezier(.2, .75, .18, 1) both;
+}
+
+.quote-comment-modal.is-composer {
+  max-height: min(560px, calc(100svh - 64px));
+  grid-template-rows: auto auto auto;
 }
 
 .quote-comment-modal-header {

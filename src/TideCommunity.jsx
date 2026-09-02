@@ -6,7 +6,7 @@ import {
   SpinnerGap,
   X,
 } from "@phosphor-icons/react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import {
   isCommunityConfigured,
@@ -70,6 +70,7 @@ export function useTideCommunity() {
   const [busyTargets, setBusyTargets] = useState(() => new Set());
   const [connectionState, setConnectionState] = useState(isCommunityConfigured ? "connecting" : "unconfigured");
   const [activeQuote, setActiveQuote] = useState(null);
+  const [composerQuote, setComposerQuote] = useState(null);
   const [quoteComments, setQuoteComments] = useState([]);
   const [quoteCommentsState, setQuoteCommentsState] = useState("idle");
 
@@ -83,7 +84,11 @@ export function useTideCommunity() {
     setStatsByTarget(nextStats);
   }, []);
 
-  const closeQuote = useCallback(() => setActiveQuote(null), []);
+  const closeQuote = useCallback(() => {
+    setActiveQuote(null);
+    setComposerQuote(null);
+  }, []);
+  const closeComposer = useCallback(() => setComposerQuote(null), []);
 
   useEffect(() => {
     if (!isCommunityConfigured) return undefined;
@@ -127,6 +132,51 @@ export function useTideCommunity() {
       alive = false;
     };
   }, []);
+
+  useEffect(() => {
+    if (!isCommunityConfigured) return undefined;
+
+    const refreshVisibleStats = () => {
+      if (document.visibilityState !== "visible") return;
+      refreshStats().catch(() => {
+        // Keep the last confirmed totals when a background refresh fails.
+      });
+    };
+    const interval = window.setInterval(refreshVisibleStats, 30000);
+    window.addEventListener("focus", refreshVisibleStats);
+    document.addEventListener("visibilitychange", refreshVisibleStats);
+
+    return () => {
+      window.clearInterval(interval);
+      window.removeEventListener("focus", refreshVisibleStats);
+      document.removeEventListener("visibilitychange", refreshVisibleStats);
+    };
+  }, [refreshStats]);
+
+  useEffect(() => {
+    if (!isCommunityConfigured || !activeQuote) return undefined;
+
+    const refreshVisibleComments = () => {
+      if (document.visibilityState !== "visible") return;
+      loadPublishedComments("quote", activeQuote.id, 50)
+        .then((comments) => {
+          setQuoteComments(comments);
+          setQuoteCommentsState("ready");
+        })
+        .catch(() => {
+          // Keep the visible comments when a background refresh fails.
+        });
+    };
+    const interval = window.setInterval(refreshVisibleComments, 30000);
+    window.addEventListener("focus", refreshVisibleComments);
+    document.addEventListener("visibilitychange", refreshVisibleComments);
+
+    return () => {
+      window.clearInterval(interval);
+      window.removeEventListener("focus", refreshVisibleComments);
+      document.removeEventListener("visibilitychange", refreshVisibleComments);
+    };
+  }, [activeQuote]);
 
   const toggleReaction = useCallback(async (targetType, targetId) => {
     if (!isCommunityConfigured) return;
@@ -174,13 +224,17 @@ export function useTideCommunity() {
       .catch(() => {});
 
     try {
-      const comments = await loadPublishedComments("quote", quote.id, 30);
+      const comments = await loadPublishedComments("quote", quote.id, 50);
       setQuoteComments(comments);
       setQuoteCommentsState("ready");
     } catch {
       setQuoteCommentsState("error");
     }
     await viewPromise;
+  }, []);
+
+  const openComposer = useCallback((quote) => {
+    setComposerQuote(quote);
   }, []);
 
   const submitComment = useCallback(async ({ targetType, targetId, nickname, body }) => {
@@ -203,7 +257,7 @@ export function useTideCommunity() {
         created_at: result.created_at,
       };
       if (targetType === "quote") {
-        setQuoteComments((current) => [publishedComment, ...current].slice(0, 30));
+        setQuoteComments((current) => [publishedComment, ...current].slice(0, 50));
       }
       setStatsByTarget((current) => {
         const previous = current[getTideTargetKey(targetType, targetId)] ?? emptyStats;
@@ -232,11 +286,14 @@ export function useTideCommunity() {
   return {
     activeQuote,
     busyTargets,
+    closeComposer,
     closeQuote,
+    composerQuote,
     configured: isCommunityConfigured,
     connectionState,
     getStats,
     isLiked: (targetType, targetId) => likedTargets.has(getTideTargetKey(targetType, targetId)),
+    openComposer,
     openQuote,
     quoteComments,
     quoteCommentsState,
@@ -266,10 +323,15 @@ export function CommunityReactionButton({ busy = false, compact = false, disable
 
 export function TideCommunitySummary({ community }) {
   const pageStats = community.getStats(tideWordsPageTarget.targetType, tideWordsPageTarget.targetId);
-  const stats = {
-    ...pageStats,
-    comments: community.quotes.reduce((total, quote) => total + community.getStats("quote", quote.id).comments, 0),
-  };
+  const stats = community.quotes.reduce((totals, quote) => {
+    const quoteStats = community.getStats("quote", quote.id);
+    return {
+      comments: totals.comments + quoteStats.comments,
+      likes: totals.likes + quoteStats.likes,
+      uniqueVisitors: totals.uniqueVisitors + quoteStats.uniqueVisitors,
+      views: totals.views + quoteStats.views,
+    };
+  }, { ...pageStats });
   const pageKey = getTideTargetKey(tideWordsPageTarget.targetType, tideWordsPageTarget.targetId);
 
   return (
@@ -297,7 +359,7 @@ export function TideCommunitySummary({ community }) {
           busy={community.busyTargets.has(pageKey)}
           disabled={!community.configured}
           liked={community.isLiked(tideWordsPageTarget.targetType, tideWordsPageTarget.targetId)}
-          likes={stats.likes}
+          likes={pageStats.likes}
           onClick={() => community.toggleReaction(tideWordsPageTarget.targetType, tideWordsPageTarget.targetId)}
         />
         <small>{community.configured ? "给整个坑底文学送一次心动" : "互动服务等待 Supabase 配置"}</small>
@@ -306,7 +368,7 @@ export function TideCommunitySummary({ community }) {
   );
 }
 
-function CommunityCommentList({ comments, state }) {
+export function CommunityCommentList({ comments, state }) {
   if (state === "loading") {
     return <p className="community-comments-state"><SpinnerGap className="is-spinning" aria-hidden="true" /> 正在捞回声</p>;
   }
@@ -328,7 +390,7 @@ function CommunityCommentList({ comments, state }) {
   );
 }
 
-function CommunityCommentForm({ bodyMaxLength = 400, configured, onSubmit, placeholder, submitLabel = "留下这句" }) {
+function CommunityCommentForm({ autoFocusBody = false, bodyMaxLength = 400, configured, onSubmit, placeholder, submitLabel = "留下这句" }) {
   const [nickname, setNickname] = useState(readSavedNickname);
   const [body, setBody] = useState("");
   const [state, setState] = useState("idle");
@@ -366,6 +428,7 @@ function CommunityCommentForm({ bodyMaxLength = 400, configured, onSubmit, place
       <label>
         <span>留下回声</span>
         <textarea
+          autoFocus={autoFocusBody}
           value={body}
           minLength={2}
           maxLength={bodyMaxLength}
@@ -414,70 +477,54 @@ export function TideGuestbook({ community }) {
 }
 
 export function QuoteCommentModal({ community }) {
-  const closeButtonRef = useRef(null);
-  const activeQuote = community.activeQuote;
-  const stats = useMemo(() => (
-    activeQuote ? community.getStats("quote", activeQuote.id) : emptyStats
-  ), [activeQuote, community]);
+  const composerQuote = community.composerQuote;
 
   useEffect(() => {
-    if (!activeQuote) return undefined;
+    if (!composerQuote) return undefined;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    closeButtonRef.current?.focus();
 
     const onKeyDown = (event) => {
-      if (event.key === "Escape") community.closeQuote();
+      if (event.key === "Escape") community.closeComposer();
     };
     window.addEventListener("keydown", onKeyDown);
     return () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, [activeQuote, community.closeQuote]);
+  }, [composerQuote, community.closeComposer]);
 
-  if (!activeQuote) return null;
-  const targetKey = getTideTargetKey("quote", activeQuote.id);
-  const quoteLabel = /^q-\d+$/i.test(activeQuote.id) ? activeQuote.id.toUpperCase() : "NEW VOICE";
+  if (!composerQuote) return null;
+  const quoteLabel = /^q-\d+$/i.test(composerQuote.id) ? composerQuote.id.toUpperCase() : "NEW VOICE";
 
   return createPortal(
     <div className="quote-comment-layer" role="presentation" onMouseDown={(event) => {
-      if (event.target === event.currentTarget) community.closeQuote();
+      if (event.target === event.currentTarget) community.closeComposer();
     }}>
-      <aside className="quote-comment-modal" role="dialog" aria-modal="true" aria-labelledby="quote-comment-title">
+      <aside className="quote-comment-modal is-composer" role="dialog" aria-modal="true" aria-labelledby="quote-comment-title">
         <header className="quote-comment-modal-header">
-          <span>{quoteLabel} / PIT VOICE</span>
-          <button ref={closeButtonRef} type="button" onClick={community.closeQuote} aria-label="关闭评论">
+          <span>{quoteLabel} / LEAVE A REPLY</span>
+          <button type="button" onClick={community.closeComposer} aria-label="关闭评论">
             <X weight="bold" aria-hidden="true" />
           </button>
         </header>
         <div className="quote-comment-featured">
-          <blockquote id="quote-comment-title">{activeQuote.text}</blockquote>
-          <small>— {activeQuote.speaker}</small>
-        </div>
-        <div className="quote-comment-metrics">
-          <span><Eye aria-hidden="true" />{stats.views} 次翻开</span>
-          <span><ChatCircleDots aria-hidden="true" />{stats.comments} 条回声</span>
-          <CommunityReactionButton
-            compact
-            busy={community.busyTargets.has(targetKey)}
-            disabled={!community.configured}
-            liked={community.isLiked("quote", activeQuote.id)}
-            likes={stats.likes}
-            onClick={() => community.toggleReaction("quote", activeQuote.id)}
-          />
-        </div>
-        <div className="quote-comment-scroll">
-          <CommunityCommentList comments={community.quoteComments} state={community.quoteCommentsState} />
+          <blockquote id="quote-comment-title">{composerQuote.text}</blockquote>
+          <small>— {composerQuote.speaker}</small>
         </div>
         <CommunityCommentForm
+          autoFocusBody
           configured={community.configured}
-          onSubmit={({ nickname, body }) => community.submitComment({
-            targetType: "quote",
-            targetId: activeQuote.id,
-            nickname,
-            body,
-          })}
+          onSubmit={async ({ nickname, body }) => {
+            const result = await community.submitComment({
+              targetType: "quote",
+              targetId: composerQuote.id,
+              nickname,
+              body,
+            });
+            if (result.ok) community.closeComposer();
+            return result;
+          }}
         />
       </aside>
     </div>,
