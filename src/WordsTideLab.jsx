@@ -42,6 +42,14 @@ const sortOptions = [
   { id: "manual", label: "我的排序" },
 ];
 
+function getEvidenceColumnCount() {
+  if (typeof window === "undefined") return 3;
+  if (window.innerWidth <= 520) return 1;
+  if (window.innerWidth <= 800) return 2;
+  if (window.innerWidth >= 1680) return 4;
+  return 3;
+}
+
 function readEvidenceOrder(items) {
   const itemIds = items.map((item) => item.id);
   if (typeof window === "undefined") return itemIds;
@@ -150,7 +158,11 @@ function EvidenceCard({
       {isExpanded ? (
         <section className="words-card-comments" aria-label={`${item.text}的评论`}>
           <header>
-            <span><ChatCircleDots weight="bold" aria-hidden="true" />{stats.comments} 条回声</span>
+            <span>
+              <ChatCircleDots weight="bold" aria-hidden="true" />
+              {stats.comments} 条回声
+              <i>再点原话收起 ↑</i>
+            </span>
             <button type="button" onClick={onCompose}>留一句</button>
           </header>
           <div className="words-card-comments-scroll">
@@ -166,6 +178,7 @@ function EvidenceCard({
 function EvidenceCanvas({ community }) {
   const [order, setOrder] = useState(() => readEvidenceOrder(community.quotes));
   const [sortMode, setSortMode] = useState("latest");
+  const [columnCount, setColumnCount] = useState(getEvidenceColumnCount);
   const [drag, setDrag] = useState(null);
   const canvasRef = useRef(null);
   const dragRef = useRef(null);
@@ -185,6 +198,12 @@ function EvidenceCanvas({ community }) {
       ...current.filter((id) => currentIds.includes(id)),
     ]);
   }, [community.quotes]);
+
+  useEffect(() => {
+    const updateColumnCount = () => setColumnCount(getEvidenceColumnCount());
+    window.addEventListener("resize", updateColumnCount);
+    return () => window.removeEventListener("resize", updateColumnCount);
+  }, []);
 
   const displayOrder = useMemo(() => {
     const pinnedIds = community.quotes.filter((quote) => quote.is_pinned).map((quote) => quote.id);
@@ -206,6 +225,12 @@ function EvidenceCanvas({ community }) {
     });
     return [...pinnedIds, ...sorted.map((quote) => quote.id)];
   }, [community, order, sortMode]);
+
+  const displayColumns = useMemo(() => {
+    const columns = Array.from({ length: columnCount }, () => []);
+    displayOrder.forEach((cardId, index) => columns[index % columnCount].push(cardId));
+    return columns;
+  }, [columnCount, displayOrder]);
 
   const beginDrag = (event, cardId) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
@@ -280,9 +305,7 @@ function EvidenceCanvas({ community }) {
   const moveWithKeyboard = (event, cardId) => {
     if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) return;
     event.preventDefault();
-    const width = canvasRef.current?.clientWidth || 1200;
-    const columns = width < 520 ? 1 : width < 800 ? 2 : width < 1680 ? 3 : 4;
-    const delta = event.key === "ArrowLeft" ? -1 : event.key === "ArrowRight" ? 1 : event.key === "ArrowUp" ? -columns : columns;
+    const delta = event.key === "ArrowLeft" ? -1 : event.key === "ArrowRight" ? 1 : event.key === "ArrowUp" ? -columnCount : columnCount;
     setOrder((current) => {
       const next = sortMode === "manual" ? [...current] : [...displayOrder];
       const sourcePosition = next.indexOf(cardId);
@@ -317,7 +340,9 @@ function EvidenceCanvas({ community }) {
         </div>
       </header>
       <div className="words-snap-canvas" ref={canvasRef} aria-describedby="words-canvas-instructions">
-      {displayOrder.map((cardId) => {
+      {displayColumns.map((cardIds, columnIndex) => (
+        <div className="words-snap-column" key={`column-${columnIndex}`}>
+        {cardIds.map((cardId) => {
         const itemIndex = community.quotes.findIndex((quote) => quote.id === cardId);
         const item = community.quotes[itemIndex];
         if (!item) return null;
@@ -353,7 +378,9 @@ function EvidenceCanvas({ community }) {
             onKeyDown={(event) => moveWithKeyboard(event, cardId)}
           />
         );
-      })}
+        })}
+        </div>
+      ))}
       </div>
     </>
   );

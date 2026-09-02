@@ -994,12 +994,21 @@
 }
 
 .words-snap-canvas {
+  --card-column-gap: 44px;
   display: grid;
   width: 100%;
   min-height: 720px;
   padding: 44px 3.25vw 108px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 44px 34px;
+  align-items: start;
+}
+
+.words-snap-column {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--card-column-gap);
 }
 
 .words-board-toolbar {
@@ -1081,6 +1090,7 @@
 .words-repo-quote-card.is-expanded {
   z-index: 3;
   height: auto;
+  max-height: calc((var(--card-base-height) * 2) + var(--card-column-gap));
   grid-column: auto;
   grid-template-rows: var(--card-base-height) auto;
 }
@@ -1324,6 +1334,7 @@
 }
 
 .words-card-comments > header span svg { width: 14px; height: 14px; color: var(--tide-pink); }
+.words-card-comments > header span i { color: rgba(9, 9, 9, .38); font-size: 9px; font-style: normal; }
 
 .words-card-comments > header button {
   height: 30px;
@@ -1342,7 +1353,7 @@
 
 .words-card-comments-scroll {
   min-height: 0;
-  max-height: 220px;
+  max-height: calc(var(--card-base-height) - 60px);
   overflow: auto;
   padding: 1px 0 1px 1px;
   overscroll-behavior: contain;
@@ -1359,14 +1370,14 @@
 }
 
 @media (min-width: 1680px) {
-  .words-snap-canvas { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 46px 36px; }
+  .words-snap-canvas { --card-column-gap: 46px; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 46px 36px; }
 }
 
 @media (max-width: 800px) {
   .words-board-toolbar { margin: 0 22px; padding-right: 0; padding-left: 0; align-items: flex-start; flex-direction: column; gap: 14px; }
   .words-board-sorts { width: 100%; overflow-x: auto; padding-bottom: 2px; }
   .words-board-sorts button { flex: 0 0 auto; }
-  .words-snap-canvas { padding: 28px 22px 72px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 18px; }
+  .words-snap-canvas { --card-column-gap: 24px; padding: 28px 22px 72px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 18px; }
   .words-repo-quote-card { --card-base-height: 220px; height: var(--card-base-height); grid-template-columns: 1fr; }
   .words-repo-quote-card.is-expanded { height: auto; grid-column: auto; }
   .words-repo-quote-cover { display: none; }
@@ -1379,7 +1390,6 @@
   .words-snap-canvas { grid-template-columns: 1fr; }
   .words-repo-quote-card { --card-base-height: 184px; height: var(--card-base-height); }
   .words-repo-quote-card.is-expanded { height: auto; }
-  .words-card-comments-scroll { max-height: 180px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
