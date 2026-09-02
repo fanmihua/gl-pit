@@ -4,6 +4,7 @@ import {
   ArrowLeft,
   ArrowRight,
   CalendarDots,
+  DownloadSimple,
   DotsNine,
   HeartStraight,
   NotePencil,
@@ -360,6 +361,8 @@ const memeCollection = [
     note: "通常出现在下一次真情实感之前。",
     src: "assets/fan-memes/reaction-no-emotion.webp",
     alt: "圆角聊天气泡写着不会真情实感了，其中真情二字为绿色",
+    downloadable: true,
+    downloadName: "glfans-不会真情实感了.webp",
   },
   {
     id: "003",
@@ -367,6 +370,8 @@ const memeCollection = [
     note: "飞书原版表情包库收录。",
     src: "assets/fan-memes/reaction-light-relaxed.webp",
     alt: "一张模糊的黑白熊猫头表情，嘴角努力保持平静",
+    downloadable: true,
+    downloadName: "glfans-轻松绷住.webp",
   },
   {
     id: "004",
@@ -374,6 +379,8 @@ const memeCollection = [
     note: "飞书原版表情包库收录。",
     src: "assets/fan-memes/reaction-many-lesbians.webp",
     alt: "黑色背景上的文字表情包，写着 less is more 和女同越来越多",
+    downloadable: true,
+    downloadName: "glfans-女同越来越多.webp",
   },
   {
     id: "005",
@@ -381,6 +388,8 @@ const memeCollection = [
     note: "飞书原版表情包库收录。",
     src: "assets/fan-memes/reaction-failed-lesbian.webp",
     alt: "戴着纸袋的猫咪表情，配字我是个失败的拉拉",
+    downloadable: true,
+    downloadName: "glfans-我是个失败的拉拉.webp",
   },
 ];
 
@@ -665,6 +674,16 @@ function MemePickupPage() {
                       <span className="meme-film-image"><img src={withBase(meme.src)} alt="" /></span>
                       <span className="meme-film-number">[{meme.filmId}]</span>
                       <span className="meme-film-card-actions">
+                        {meme.downloadable ? (
+                          <a
+                            href={withBase(meme.src)}
+                            download={meme.downloadName}
+                            aria-label={`下载表情包：${meme.title}`}
+                            title="下载这张"
+                          >
+                            <DownloadSimple aria-hidden="true" />
+                          </a>
+                        ) : null}
                         <button
                           type="button"
                           onClick={startCapture}
