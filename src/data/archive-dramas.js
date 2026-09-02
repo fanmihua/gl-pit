@@ -907,6 +907,29 @@ export const archiveDramas = [
     "sourceUrl": "https://glspotlight.com/series/like-a-palette"
   },
   {
+    "id": "muteluv-hello-is-this-luck",
+    "year": "2025",
+    "title": "爱的魔力转圈圈·号码奇缘",
+    "titleEn": "MuTeLuv: Hello, Is This Luck?",
+    "startDate": "2025-12-15",
+    "endDate": "2026-01-05",
+    "weekday": "周一",
+    "episodes": 4,
+    "status": "已完结",
+    "company": "GMMTV",
+    "platforms": [
+      "GMM25",
+      "TrueVisions NOW",
+      "YouTube"
+    ],
+    "summary": "倒霉的医学生 Na 为追求学长换上幸运号码，却因此遇见幸运艺术家 Leemai；号码改变的不只是运势，也改写了她对爱情的答案。",
+    "image": "assets/archive/posters/muteluv.webp",
+    "width": 600,
+    "height": 900,
+    "focus": "50% 32%",
+    "sourceUrl": "https://glspotlight.com/series/muteluv"
+  },
+  {
     "id": "the-earth",
     "year": "2026",
     "title": "四元素：大地",
