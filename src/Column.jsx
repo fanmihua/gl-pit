@@ -588,10 +588,6 @@ function MemePickupPage() {
             请看镜头，<em>保持嘴硬</em>
             <span className="meme-title-spark" aria-hidden="true"><Sparkle weight="fill" /></span>
           </p>
-          <p className="meme-download-notice">
-            表情包仅供粉丝交流使用，相关素材权利归原权利人。
-            <a href="#/about/rights">权利说明与反馈</a>
-          </p>
         </div>
 
         <div className={`instant-camera-stage is-${phase}`}>
@@ -711,6 +707,9 @@ function MemePickupPage() {
           </div>
         </div>
       </div>
+      <p className="meme-download-notice">
+        表情包仅供粉丝交流使用，相关素材权利归原权利人。
+      </p>
     </section>
   );
 }
