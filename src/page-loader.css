@@ -1,0 +1,101 @@
+.page-loader {
+  display: grid;
+  min-height: 100svh;
+  padding: 76px 24px 24px;
+  place-items: center;
+  overflow: hidden;
+  color: #111011;
+  background: var(--paper);
+}
+
+.route-ready-boundary {
+  min-height: 100svh;
+}
+
+.route-ready-boundary.is-loading {
+  height: 100svh;
+  overflow: hidden;
+}
+
+.route-ready-content {
+  opacity: 1;
+  transition: opacity 220ms ease-out;
+}
+
+.route-ready-boundary.is-loading .route-ready-content {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.page-loader.route-ready-loader {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  min-height: 100svh;
+}
+
+.page-loader-panel {
+  display: grid;
+  width: min(78vw, 320px);
+  justify-items: center;
+  font-family: "Roboto Condensed Variable", "Arial Narrow", sans-serif;
+  text-align: center;
+}
+
+.page-loader-panel > span {
+  color: var(--pink);
+  font-size: 12px;
+  font-weight: var(--text-weight-strong);
+  letter-spacing: 0.28em;
+}
+
+.page-loader-panel > strong {
+  margin-top: 13px;
+  font-size: clamp(19px, 2vw, 26px);
+  font-weight: var(--text-weight-strong);
+  letter-spacing: 0.08em;
+}
+
+.page-loader-track {
+  width: 100%;
+  height: 3px;
+  margin-top: 24px;
+  overflow: hidden;
+  background: rgba(17, 16, 17, 0.12);
+}
+
+.page-loader-track i {
+  display: block;
+  width: var(--load-progress, 38%);
+  height: 100%;
+  background: var(--pink);
+  transition: width 180ms ease-out;
+}
+
+.page-loader-track.is-indeterminate i {
+  animation: page-loader-scan 1s ease-in-out infinite;
+  transform: translateX(-120%);
+}
+
+.page-loader-panel > small {
+  margin-top: 10px;
+  color: rgba(17, 16, 17, 0.45);
+  font-size: 11px;
+  font-weight: var(--text-weight-regular);
+  letter-spacing: 0.12em;
+}
+
+.page-loader.meme-game-loader {
+  height: calc(100dvh - var(--meme-footer-height));
+  min-height: 0;
+}
+
+@keyframes page-loader-scan {
+  0% { transform: translateX(-120%); }
+  55%, 100% { transform: translateX(290%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-loader-track.is-indeterminate i { animation: none; transform: translateX(82%); }
+  .route-ready-content { transition: none; }
+}

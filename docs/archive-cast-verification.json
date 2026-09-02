@@ -1,0 +1,1789 @@
+{
+  "verifiedAt": "2026-09-02T05:43:12.141Z",
+  "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+  "summary": {
+    "total": 74,
+    "verified": 74,
+    "notListed": 0,
+    "errors": 0
+  },
+  "records": [
+    {
+      "id": "gap",
+      "title": "粉红理论",
+      "titleEn": "GAP",
+      "year": "2022",
+      "sourceUrl": "https://glspotlight.com/series/gap",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "e612e3d6-5086-4e1c-b0da-07295cb299bc",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Becky Rebecca Patricia Armstrong",
+          "knownAs": "Becky",
+          "name": "Rebecca Patricia Armstrong"
+        },
+        {
+          "displayName": "Freen Sarocha Chankimha",
+          "knownAs": "Freen",
+          "name": "Sarocha Chankimha"
+        }
+      ]
+    },
+    {
+      "id": "show-me-love",
+      "title": "只想说爱你",
+      "titleEn": "Show Me Love",
+      "year": "2023",
+      "sourceUrl": "https://glspotlight.com/series/show-me-love",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "92a16544-cf71-4e92-824e-0100d94751cb",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Engfa Waraha",
+          "knownAs": "Engfa",
+          "name": "Engfa Waraha"
+        },
+        {
+          "displayName": "Charlotte Austin",
+          "knownAs": "Charlotte",
+          "name": "Charlotte Austin"
+        }
+      ]
+    },
+    {
+      "id": "lucky-my-love",
+      "title": "你是我的小幸运",
+      "titleEn": "Lucky My Love",
+      "year": "2023",
+      "sourceUrl": "https://glspotlight.com/series/lucky-my-love",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "d570b6f5-5c06-4187-be0e-b3cdf67cf350",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Near Inthira Thammajaroen",
+          "knownAs": "Near",
+          "name": "Inthira Thammajaroen"
+        },
+        {
+          "displayName": "B Mine Jiratchaya Komontut",
+          "knownAs": "B Mine",
+          "name": "Jiratchaya Komontut"
+        }
+      ]
+    },
+    {
+      "id": "love-senior",
+      "title": "学姐，可以爱我吗",
+      "titleEn": "Love Senior",
+      "year": "2023",
+      "sourceUrl": "https://glspotlight.com/series/love-senior",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "01bfee1b-23ba-4bb2-9ad6-08ce2c720801",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Anda Anunta Teavirat",
+          "knownAs": "Anda",
+          "name": "Anunta Teavirat"
+        },
+        {
+          "displayName": "Lookkaew Kamollak Sangsubsin",
+          "knownAs": "Lookkaew",
+          "name": "Kamollak Sangsubsin"
+        }
+      ]
+    },
+    {
+      "id": "blank",
+      "title": "爱填满空白",
+      "titleEn": "Blank",
+      "year": "2024",
+      "sourceUrl": "https://glspotlight.com/series/blank",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "5a2c9a43-f4ff-4ffe-931c-f16513978602",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Faye Peraya Malisorn",
+          "knownAs": "Faye",
+          "name": "Peraya Malisorn"
+        },
+        {
+          "displayName": "Yoko Apasra Lertprasert",
+          "knownAs": "Yoko",
+          "name": "Apasra Lertprasert"
+        }
+      ]
+    },
+    {
+      "id": "23-5",
+      "title": "地球倾斜 23.5 度",
+      "titleEn": "23.5",
+      "year": "2024",
+      "sourceUrl": "https://glspotlight.com/series/23-5",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "be796475-cfd6-4700-8b37-54daf9ada2fa",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Milk Pansa Vosbein",
+          "knownAs": "Milk",
+          "name": "Pansa Vosbein"
+        },
+        {
+          "displayName": "Love Pattranite Limpatiyakorn",
+          "knownAs": "Love",
+          "name": "Pattranite Limpatiyakorn"
+        }
+      ]
+    },
+    {
+      "id": "my-marvellous-dream-is-you",
+      "title": "梦中的她",
+      "titleEn": "My Marvellous Dream Is You",
+      "year": "2024",
+      "sourceUrl": "https://glspotlight.com/series/my-marvellous-dream-is-you",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "1707197b-412b-4d33-926a-f893d45f890b",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Fay Kunyaphat Na Nakorn",
+          "knownAs": "Fay",
+          "name": "Kunyaphat Na Nakorn"
+        },
+        {
+          "displayName": "May Yada Watcharamusik",
+          "knownAs": "May",
+          "name": "Yada Watcharamusik"
+        }
+      ]
+    },
+    {
+      "id": "blank-season-2",
+      "title": "爱填满空白 · 第二季",
+      "titleEn": "Blank: Season 2",
+      "year": "2024",
+      "sourceUrl": "https://glspotlight.com/series/blank-season-2",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "95e8f025-978b-4a9b-95ac-be89ede5ab69",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Faye Peraya Malisorn",
+          "knownAs": "Faye",
+          "name": "Peraya Malisorn"
+        },
+        {
+          "displayName": "Yoko Apasra Lertprasert",
+          "knownAs": "Yoko",
+          "name": "Apasra Lertprasert"
+        }
+      ]
+    },
+    {
+      "id": "club-friday-love-bully",
+      "title": "爱情霸凌",
+      "titleEn": "Club Friday Hot Love Issue: Love Bully",
+      "year": "2024",
+      "sourceUrl": "https://glspotlight.com/series/club-friday-love-bully",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "c44ad60b-2d14-4ec8-95d4-641d699f29d1",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Engfa Waraha",
+          "knownAs": "Engfa",
+          "name": "Engfa Waraha"
+        },
+        {
+          "displayName": "Charlotte Austin",
+          "knownAs": "Charlotte",
+          "name": "Charlotte Austin"
+        }
+      ]
+    },
+    {
+      "id": "the-secret-of-us",
+      "title": "我们的秘密",
+      "titleEn": "The Secret of Us",
+      "year": "2024",
+      "sourceUrl": "https://glspotlight.com/series/the-secret-of-us",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "551206b4-bef9-47f6-8626-4acd2a65da8b",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Orm Kornnaphat Sethratanapong",
+          "knownAs": "Orm",
+          "name": "Kornnaphat Sethratanapong"
+        },
+        {
+          "displayName": "Lingling Sirilak Kwong",
+          "knownAs": "Lingling",
+          "name": "Sirilak Kwong"
+        }
+      ]
+    },
+    {
+      "id": "the-loyal-pin",
+      "title": "簪定此生",
+      "titleEn": "The Loyal Pin",
+      "year": "2024",
+      "sourceUrl": "https://glspotlight.com/series/the-loyal-pin",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "91d6c58f-7d3a-4cfc-a9b0-669c88af943b",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Becky Rebecca Patricia Armstrong",
+          "knownAs": "Becky",
+          "name": "Rebecca Patricia Armstrong"
+        },
+        {
+          "displayName": "Freen Sarocha Chankimha",
+          "knownAs": "Freen",
+          "name": "Sarocha Chankimha"
+        }
+      ]
+    },
+    {
+      "id": "affair",
+      "title": "爱情诡计",
+      "titleEn": "Affair",
+      "year": "2024",
+      "sourceUrl": "https://glspotlight.com/series/affair",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "c9f6a6a9-6a1a-4170-a589-6d386661065b",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Sonya Saranphat Pedersen",
+          "knownAs": "Sonya",
+          "name": "Saranphat Pedersen"
+        },
+        {
+          "displayName": "Lookmhee Punyapat Wangpongsathaporn",
+          "knownAs": "Lookmhee",
+          "name": "Punyapat Wangpongsathaporn"
+        }
+      ]
+    },
+    {
+      "id": "reverse-4-you",
+      "title": "逆转时空爱上你",
+      "titleEn": "Reverse 4 You",
+      "year": "2024",
+      "sourceUrl": "https://glspotlight.com/series/reverse-4-you",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "0888893f-a1af-42a1-a321-5335bc122c89",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Mae Methakarn Anektanasuwan",
+          "knownAs": "Mae",
+          "name": "Methakarn Anektanasuwan"
+        },
+        {
+          "displayName": "Christine Gulasatree Michalsky",
+          "knownAs": "Christine",
+          "name": "Gulasatree Michalsky"
+        }
+      ]
+    },
+    {
+      "id": "unlock-your-love",
+      "title": "解锁你的爱",
+      "titleEn": "Unlock Your Love",
+      "year": "2024",
+      "sourceUrl": "https://glspotlight.com/series/unlock-your-love",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "e3f1dbfe-6c2f-4ed2-b170-d8af997ffb62",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Near Inthira Thammajaroen",
+          "knownAs": "Near",
+          "name": "Inthira Thammajaroen"
+        },
+        {
+          "displayName": "B Mine Jiratchaya Komontut",
+          "knownAs": "B Mine",
+          "name": "Jiratchaya Komontut"
+        }
+      ]
+    },
+    {
+      "id": "apple-my-love",
+      "title": "珍爱禁果",
+      "titleEn": "Apple My Love",
+      "year": "2024",
+      "sourceUrl": "https://glspotlight.com/series/apple-my-love",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "8cc1b66a-89c4-43e3-a9a1-3346bcc64c47",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Folk Sutima Korkiatvanich",
+          "knownAs": "Folk",
+          "name": "Sutima Korkiatvanich"
+        },
+        {
+          "displayName": "Ormsin Supitcha Limsommut",
+          "knownAs": "Ormsin",
+          "name": "Supitcha Limsommut"
+        }
+      ]
+    },
+    {
+      "id": "pluto",
+      "title": "冥王星之恋",
+      "titleEn": "Pluto",
+      "year": "2024",
+      "sourceUrl": "https://glspotlight.com/series/pluto",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "c9a3f667-9600-4a95-ad83-4c1a21a68396",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Film Rachanun Mahawan",
+          "knownAs": "Film",
+          "name": "Rachanun Mahawan"
+        },
+        {
+          "displayName": "Namtan Tipnaree Weerawatnodom",
+          "knownAs": "Namtan",
+          "name": "Tipnaree Weerawatnodom"
+        }
+      ]
+    },
+    {
+      "id": "petrichor",
+      "title": "铁锈味的雨滴",
+      "titleEn": "Petrichor",
+      "year": "2024",
+      "sourceUrl": "https://glspotlight.com/series/petrichor",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "1a242877-eb48-4a96-9675-8b9d9a2addd9",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Charlotte Austin",
+          "knownAs": "Charlotte",
+          "name": "Charlotte Austin"
+        },
+        {
+          "displayName": "Engfa Waraha",
+          "knownAs": "Engfa",
+          "name": "Engfa Waraha"
+        }
+      ]
+    },
+    {
+      "id": "mate",
+      "title": "我的青梅是讨厌鬼",
+      "titleEn": "Mate",
+      "year": "2024",
+      "sourceUrl": "https://glspotlight.com/series/mate",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "6b223eb7-6305-463f-be63-243fab558546",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Oaey Ponchanok Theerawan",
+          "knownAs": "Oaey",
+          "name": "Ponchanok Theerawan"
+        },
+        {
+          "displayName": "Grace Budsarin Wonglelanont",
+          "knownAs": "Grace",
+          "name": "Budsarin Wonglelanont"
+        }
+      ]
+    },
+    {
+      "id": "i-am-devil",
+      "title": "我是恶魔",
+      "titleEn": "I Am Devil",
+      "year": "2024",
+      "sourceUrl": "https://glspotlight.com/series/i-am-devil",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "e8e295da-de79-4066-a00e-cd57e51169eb",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Mook Napapach Thitakawin",
+          "knownAs": "Mook",
+          "name": "Napapach Thitakawin"
+        },
+        {
+          "displayName": "Pinky Subhisara Suksathan",
+          "knownAs": "Pinky",
+          "name": "Subhisara Suksathan"
+        }
+      ]
+    },
+    {
+      "id": "us",
+      "title": "我们的爱",
+      "titleEn": "Us",
+      "year": "2025",
+      "sourceUrl": "https://glspotlight.com/series/us",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "3b8d699a-3a8f-4691-a62f-5cf400acf701",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Bonnie Pattraphus Borattasuwan",
+          "knownAs": "Bonnie",
+          "name": "Pattraphus Borattasuwan"
+        },
+        {
+          "displayName": "Emi Thasorn Klinnium",
+          "knownAs": "Emi",
+          "name": "Thasorn Klinnium"
+        }
+      ]
+    },
+    {
+      "id": "reverse-with-me",
+      "title": "逆转宿命",
+      "titleEn": "Reverse With Me",
+      "year": "2025",
+      "sourceUrl": "https://glspotlight.com/series/reverse-with-me",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "886b200f-0c43-4717-a67b-6546aceef432",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Natt Nattamon Chokejindachai",
+          "knownAs": "Natt",
+          "name": "Nattamon Chokejindachai"
+        },
+        {
+          "displayName": "Pitcha Pitchatorn Santinatornkul",
+          "knownAs": "Pitcha",
+          "name": "Pitchatorn Santinatornkul"
+        }
+      ]
+    },
+    {
+      "id": "im-your-moon",
+      "title": "月下重逢",
+      "titleEn": "I'm Your Moon",
+      "year": "2025",
+      "sourceUrl": "https://glspotlight.com/series/im-your-moon",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "5e7f4519-d773-4725-a5cc-21287a0fa2de",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Sprite Itaree Jarupangomon",
+          "knownAs": "Sprite",
+          "name": "Itaree Jarupangomon"
+        },
+        {
+          "displayName": "Piano Pronyanee Pornpishayawasin",
+          "knownAs": "Piano",
+          "name": "Pronyanee Pornpishayawasin"
+        }
+      ]
+    },
+    {
+      "id": "music-story-losing-control",
+      "title": "失控的爱",
+      "titleEn": "Music Story: Losing Control",
+      "year": "2025",
+      "sourceUrl": "https://glspotlight.com/series/music-story-losing-control",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "b90620a4-5cf7-45c1-93bc-9cad3cea34df",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "B Mine Jiratchaya Komontut",
+          "knownAs": "B Mine",
+          "name": "Jiratchaya Komontut"
+        },
+        {
+          "displayName": "Mekkhala Naruthai Chatupharungroj",
+          "knownAs": "Mekkhala",
+          "name": "Naruthai Chatupharungroj"
+        },
+        {
+          "displayName": "Mashii Pornthiphat Lertwuthanon",
+          "knownAs": "Mashii",
+          "name": "Pornthiphat Lertwuthanon"
+        }
+      ]
+    },
+    {
+      "id": "denied-love",
+      "title": "金权玫瑰",
+      "titleEn": "Denied Love",
+      "year": "2025",
+      "sourceUrl": "https://glspotlight.com/series/denied-love",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "df4e707f-af20-4b06-a738-6e628da8a411",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Enjoy Thidarat Puerthong",
+          "knownAs": "Enjoy",
+          "name": "Thidarat Puerthong"
+        },
+        {
+          "displayName": "June Nannirin Varokornwatcharakool",
+          "knownAs": "June",
+          "name": "Nannirin Varokornwatcharakool"
+        }
+      ]
+    },
+    {
+      "id": "whale-store-xoxo",
+      "title": "鲸鱼杂货铺",
+      "titleEn": "Whale Store XOXO",
+      "year": "2025",
+      "sourceUrl": "https://glspotlight.com/series/whale-store-xoxo",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "f01fe7ee-eeaf-43e9-951b-b5bbbab0e509",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Milk Pansa Vosbein",
+          "knownAs": "Milk",
+          "name": "Pansa Vosbein"
+        },
+        {
+          "displayName": "Love Pattranite Limpatiyakorn",
+          "knownAs": "Love",
+          "name": "Pattranite Limpatiyakorn"
+        }
+      ]
+    },
+    {
+      "id": "only-you",
+      "title": "唯有你",
+      "titleEn": "Only You",
+      "year": "2025",
+      "sourceUrl": "https://glspotlight.com/series/only-you",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "bac5dfc1-3835-490c-abe0-aa053c563bfd",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Lingling Sirilak Kwong",
+          "knownAs": "Lingling",
+          "name": "Sirilak Kwong"
+        },
+        {
+          "displayName": "Orm Kornnaphat Sethratanapong",
+          "knownAs": "Orm",
+          "name": "Kornnaphat Sethratanapong"
+        }
+      ]
+    },
+    {
+      "id": "harmony-secret",
+      "title": "和谐密语",
+      "titleEn": "Harmony Secret",
+      "year": "2025",
+      "sourceUrl": "https://glspotlight.com/series/harmony-secret",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "8a064f81-fde9-426a-97bb-72de0784e38e",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Lookmhee Punyapat Wangpongsathaporn",
+          "knownAs": "Lookmhee",
+          "name": "Punyapat Wangpongsathaporn"
+        },
+        {
+          "displayName": "Sonya Saranphat Pedersen",
+          "knownAs": "Sonya",
+          "name": "Saranphat Pedersen"
+        }
+      ]
+    },
+    {
+      "id": "somewhere-somehow",
+      "title": "固执的爱",
+      "titleEn": "Somewhere Somehow",
+      "year": "2025",
+      "sourceUrl": "https://glspotlight.com/series/somewhere-somehow",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "39cef956-8c99-4d3d-831c-af9a0739cce1",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "May Yada Watcharamusik",
+          "knownAs": "May",
+          "name": "Yada Watcharamusik"
+        },
+        {
+          "displayName": "Fay Kunyaphat Na Nakorn",
+          "knownAs": "Fay",
+          "name": "Kunyaphat Na Nakorn"
+        }
+      ]
+    },
+    {
+      "id": "roller-coaster",
+      "title": "过山车",
+      "titleEn": "Roller Coaster",
+      "year": "2025",
+      "sourceUrl": "https://glspotlight.com/series/roller-coaster",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "b696164d-e1c2-4d4a-b6a8-3ab3479c87c0",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Aom Pundao Panyabaramee",
+          "knownAs": "Aom",
+          "name": "Pundao Panyabaramee"
+        },
+        {
+          "displayName": "Shelly Phetsai Chanrueang",
+          "knownAs": "Shelly",
+          "name": "Phetsai Chanrueang"
+        },
+        {
+          "displayName": "Neko Naerunchara Lertprasert",
+          "knownAs": "Neko",
+          "name": "Naerunchara Lertprasert"
+        }
+      ]
+    },
+    {
+      "id": "queendom",
+      "title": "女王互换记",
+      "titleEn": "Queendom",
+      "year": "2025",
+      "sourceUrl": "https://glspotlight.com/series/queendom",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "c8040e6b-14f6-4e74-83e1-e53d976d984b",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Arhoung Nattawadee Pipobpornchai",
+          "knownAs": "Arhoung",
+          "name": "Nattawadee Pipobpornchai"
+        },
+        {
+          "displayName": "P.amp Tarradee Watancharoen",
+          "knownAs": "P.amp",
+          "name": "Tarradee Watancharoen"
+        }
+      ]
+    },
+    {
+      "id": "i-am-devil-season-2",
+      "title": "我是恶魔 · 第二季",
+      "titleEn": "I Am Devil Season 2",
+      "year": "2025",
+      "sourceUrl": "https://glspotlight.com/series/i-am-devil-season-2",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "284d2c87-5d25-4e07-bb16-4b9a9bd74615",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Pinky Subhisara Suksathan",
+          "knownAs": "Pinky",
+          "name": "Subhisara Suksathan"
+        },
+        {
+          "displayName": "Mook Napapach Thitakawin",
+          "knownAs": "Mook",
+          "name": "Napapach Thitakawin"
+        }
+      ]
+    },
+    {
+      "id": "poisonous-love",
+      "title": "爱情毒药",
+      "titleEn": "Poisonous Love",
+      "year": "2025",
+      "sourceUrl": "https://glspotlight.com/series/poisonous-love",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "bb8121d2-8c2e-4da1-a4a3-2503e4ccbae7",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Ginny Natnicha Pratipnatsiri",
+          "knownAs": "Ginny",
+          "name": "Natnicha Pratipnatsiri"
+        },
+        {
+          "displayName": "Jayna Angelina Stevens",
+          "knownAs": "Jayna",
+          "name": "Angelina Stevens"
+        }
+      ]
+    },
+    {
+      "id": "rak-overdose",
+      "title": "过量的爱",
+      "titleEn": "Rak Overdose",
+      "year": "2025",
+      "sourceUrl": "https://glspotlight.com/series/rak-overdose",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "51eeecc7-810a-42ba-ac29-4ada1024688d",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Nana Sawanya Paisarnpayak",
+          "knownAs": "Nana",
+          "name": "Sawanya Paisarnpayak"
+        },
+        {
+          "displayName": "Tina Suppanad Jittaleela",
+          "knownAs": "Tina",
+          "name": "Suppanad Jittaleela"
+        }
+      ]
+    },
+    {
+      "id": "love-design",
+      "title": "爱情设计",
+      "titleEn": "Love Design",
+      "year": "2025",
+      "sourceUrl": "https://glspotlight.com/series/love-design",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "b2a3d65b-cb6e-4ec4-b4c7-df0f8b374ccc",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Kao Supassara Thanachart",
+          "knownAs": "Kao",
+          "name": "Supassara Thanachart"
+        },
+        {
+          "displayName": "Jane Methika Jiranorraphat",
+          "knownAs": "Jane",
+          "name": "Methika Jiranorraphat"
+        }
+      ]
+    },
+    {
+      "id": "player",
+      "title": "无法抗拒的爱",
+      "titleEn": "Player",
+      "year": "2025",
+      "sourceUrl": "https://glspotlight.com/series/player",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "8c216921-3009-480f-92fe-72c0ac2c364c",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Ice Amena Gul",
+          "knownAs": "Ice",
+          "name": "Amena Gul"
+        },
+        {
+          "displayName": "Memi Muanfun Baesakul",
+          "knownAs": "Memi",
+          "name": "Muanfun Baesakul"
+        }
+      ]
+    },
+    {
+      "id": "dangerous-queen",
+      "title": "危险女王",
+      "titleEn": "Dangerous Queen",
+      "year": "2025",
+      "sourceUrl": "https://glspotlight.com/series/dangerous-queen",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "b695609d-1a6c-4a56-9dc4-c58b38c0f925",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Nur Desoraya Techapaibul",
+          "knownAs": "Nur",
+          "name": "Desoraya Techapaibul"
+        },
+        {
+          "displayName": "Tangkwa Phinyanech Aungsuwan",
+          "knownAs": "Tangkwa",
+          "name": "Phinyanech Aungsuwan"
+        }
+      ]
+    },
+    {
+      "id": "unlimited-love",
+      "title": "无限的爱",
+      "titleEn": "Unlimited Love",
+      "year": "2025",
+      "sourceUrl": "https://glspotlight.com/series/unlimited-love",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "38c7a7e0-6044-4a36-8d4c-47fcdd564bad",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Charlotte Austin",
+          "knownAs": "Charlotte",
+          "name": "Charlotte Austin"
+        },
+        {
+          "displayName": "Engfa Waraha",
+          "knownAs": "Engfa",
+          "name": "Engfa Waraha"
+        }
+      ]
+    },
+    {
+      "id": "my-safe-zone",
+      "title": "我的安全区",
+      "titleEn": "My Safe Zone",
+      "year": "2025",
+      "sourceUrl": "https://glspotlight.com/series/my-safe-zone",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "5a24e7a2-824c-4f4d-a24b-303ab69f7b77",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Miu Natsha Taechamongkalapiwat",
+          "knownAs": "Miu",
+          "name": "Natsha Taechamongkalapiwat"
+        },
+        {
+          "displayName": "Lena Lorena Schuett",
+          "knownAs": "Lena",
+          "name": "Lorena Schuett"
+        }
+      ]
+    },
+    {
+      "id": "mission-love-or-lies",
+      "title": "危情谎言",
+      "titleEn": "Mission: Love Or Lies",
+      "year": "2025",
+      "sourceUrl": "https://glspotlight.com/series/mission-love-or-lies",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "e458fe05-c081-44da-8825-c1371e7da8eb",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Punch Naphassanan Kalaphan",
+          "knownAs": "Punch",
+          "name": "Naphassanan Kalaphan"
+        },
+        {
+          "displayName": "Ploy Peerachada Khunrak",
+          "knownAs": "Ploy",
+          "name": "Peerachada Khunrak"
+        },
+        {
+          "displayName": "Tian Atcharee Buakhiao",
+          "knownAs": "Tian",
+          "name": "Atcharee Buakhiao"
+        },
+        {
+          "displayName": "Kitty Nunthaphuk Aranyakasemsuk",
+          "knownAs": "Kitty",
+          "name": "Nunthaphuk Aranyakasemsuk"
+        }
+      ]
+    },
+    {
+      "id": "clairebell",
+      "title": "狱乱情迷",
+      "titleEn": "ClaireBell",
+      "year": "2025",
+      "sourceUrl": "https://glspotlight.com/series/clairebell",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "dfcfca6a-a625-41da-a7c3-072db7721623",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Pangjie Paphavarin Sawasdiwech",
+          "knownAs": "Pangjie",
+          "name": "Paphavarin Sawasdiwech"
+        },
+        {
+          "displayName": "Mable Siriwalee Siriwibool",
+          "knownAs": "Mable",
+          "name": "Siriwalee Siriwibool"
+        }
+      ]
+    },
+    {
+      "id": "runaway",
+      "title": "逃灵噬影",
+      "titleEn": "Runaway",
+      "year": "2025",
+      "sourceUrl": "https://glspotlight.com/series/runaway",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "f53bfa39-0262-4c1d-b905-2bcdff59714b",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Music Praewa Suthamphong",
+          "knownAs": "Music",
+          "name": "Praewa Suthamphong"
+        },
+        {
+          "displayName": "Plaifah Siraacha",
+          "knownAs": "Plaifah",
+          "name": "Plaifah Siraacha"
+        },
+        {
+          "displayName": "Piano Nichapat Numsapanan",
+          "knownAs": "Piano",
+          "name": "Nichapat Numsapanan"
+        }
+      ]
+    },
+    {
+      "id": "like-a-palette",
+      "title": "绘爱校园",
+      "titleEn": "Like A Palette",
+      "year": "2025",
+      "sourceUrl": "https://glspotlight.com/series/like-a-palette",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "b2dc31b6-baf4-48ed-bb24-626cae2f3d55",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Prigkhing Sureeyares Yakares",
+          "knownAs": "Prigkhing",
+          "name": "Sureeyares Yakares"
+        },
+        {
+          "displayName": "Thongfah Alicha Sripratak",
+          "knownAs": "Thongfah",
+          "name": "Alicha Sripratak"
+        }
+      ]
+    },
+    {
+      "id": "the-earth",
+      "title": "四元素：大地",
+      "titleEn": "The Earth 4 Elements",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/the-earth",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "5d799b95-757c-4b84-a5b6-f87c1b5c8a28",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Mim Panthita Jencharoentham",
+          "knownAs": "Mim",
+          "name": "Panthita Jencharoentham"
+        },
+        {
+          "displayName": "Apple Lapisara Intarasut",
+          "knownAs": "Apple",
+          "name": "Lapisara Intarasut"
+        }
+      ]
+    },
+    {
+      "id": "be-my-angel",
+      "title": "做我的天使",
+      "titleEn": "Be My Angel",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/be-my-angel",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "47da39d5-3425-4789-b8f8-0592d0eef52a",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "BamBam Niwirin Limkangwalmongkol",
+          "knownAs": "BamBam",
+          "name": "Niwirin Limkangwalmongkol"
+        },
+        {
+          "displayName": "Baipor Thitiya Jirapornsilp",
+          "knownAs": "Baipor",
+          "name": "Thitiya Jirapornsilp"
+        }
+      ]
+    },
+    {
+      "id": "i-wanna-be-suptar",
+      "title": "我要成为超级巨星",
+      "titleEn": "I Wanna Be Sup'tar",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/i-wanna-be-suptar",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "d8f1a79f-5ca3-4f8e-9a33-8721f7c370c4",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Lilly Ladapa Thongkham",
+          "knownAs": "Lilly",
+          "name": "Ladapa Thongkham"
+        },
+        {
+          "displayName": "Belle Jiratchaya Kittavornsakul",
+          "knownAs": "Belle",
+          "name": "Jiratchaya Kittavornsakul"
+        }
+      ]
+    },
+    {
+      "id": "heart-code",
+      "title": "心动代码",
+      "titleEn": "Heart Code",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/heart-code",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "88dd2b9a-5961-4d42-89b1-a8672f5c926d",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Jessie Natsiya Prommart",
+          "knownAs": "Jessie",
+          "name": "Natsiya Prommart"
+        },
+        {
+          "displayName": "Tungpang Pattarawadee Laosa",
+          "knownAs": "Tungpang",
+          "name": "Pattarawadee Laosa"
+        }
+      ]
+    },
+    {
+      "id": "frozen-valentine",
+      "title": "冰冻情人节",
+      "titleEn": "Frozen Valentine",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/frozen-valentine",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "c7328f91-c5b5-4168-84ed-1aa0f6bd1e7d",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Natty Natthamon Jantraviphart",
+          "knownAs": "Natty",
+          "name": "Natthamon Jantraviphart"
+        },
+        {
+          "displayName": "Yeepun Purichaya Saranark",
+          "knownAs": "Yeepun",
+          "name": "Purichaya Saranark"
+        }
+      ]
+    },
+    {
+      "id": "play-park",
+      "title": "游乐园",
+      "titleEn": "Play Park",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/play-park",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "aacffd71-39aa-4f4b-99a7-01af61e3186e",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Yada Narilya Gulmongkolpech",
+          "knownAs": "Yada",
+          "name": "Narilya Gulmongkolpech"
+        },
+        {
+          "displayName": "Tan Duangkaew Piyaoui",
+          "knownAs": "Tan",
+          "name": "Duangkaew Piyaoui"
+        }
+      ]
+    },
+    {
+      "id": "my-only-sunshine",
+      "title": "我的唯一阳光",
+      "titleEn": "My Only Sunshine",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/my-only-sunshine",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "010aa8d8-32e2-45db-8a6b-1cc6d1c7aa1f",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Mersedes Siripath Sarakune",
+          "knownAs": "Mersedes",
+          "name": "Siripath Sarakune"
+        },
+        {
+          "displayName": "Atom Aphichaya Kamnoetsirikun",
+          "knownAs": "Atom",
+          "name": "Aphichaya Kamnoetsirikun"
+        }
+      ]
+    },
+    {
+      "id": "girl-rules",
+      "title": "女孩规则",
+      "titleEn": "Girl Rules",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/girl-rules",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "5faa9fe4-b1da-42a4-99f2-c12f488c533a",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Film Rachanun Mahawan",
+          "knownAs": "Film",
+          "name": "Rachanun Mahawan"
+        },
+        {
+          "displayName": "Love Pattranite Limpatiyakorn",
+          "knownAs": "Love",
+          "name": "Pattranite Limpatiyakorn"
+        },
+        {
+          "displayName": "View Benyapa Jeenprasom",
+          "knownAs": "View",
+          "name": "Benyapa Jeenprasom"
+        },
+        {
+          "displayName": "Mim Rattanawadee Wongthong",
+          "knownAs": "Mim",
+          "name": "Rattanawadee Wongthong"
+        },
+        {
+          "displayName": "Milk Pansa Vosbein",
+          "knownAs": "Milk",
+          "name": "Pansa Vosbein"
+        },
+        {
+          "displayName": "Namtan Tipnaree Weerawatnodom",
+          "knownAs": "Namtan",
+          "name": "Tipnaree Weerawatnodom"
+        }
+      ]
+    },
+    {
+      "id": "the-water",
+      "title": "四元素：水之魅影",
+      "titleEn": "The Water 4 Elements",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/the-water",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "fe4382cb-1736-4d3d-bb1f-e88114f8fa74",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Charlotte Austin",
+          "knownAs": "Charlotte",
+          "name": "Charlotte Austin"
+        },
+        {
+          "displayName": "Engfa Waraha",
+          "knownAs": "Engfa",
+          "name": "Engfa Waraha"
+        }
+      ]
+    },
+    {
+      "id": "shadow-of-love",
+      "title": "爱的影子",
+      "titleEn": "Shadow Of Love",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/shadow-of-love",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "bb9f5fc6-a280-478f-9380-8e2df130744d",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Bebell Patthanarat Ketkaew",
+          "knownAs": "Bebell",
+          "name": "Patthanarat Ketkaew"
+        },
+        {
+          "displayName": "Praifah Penpat Kairapee",
+          "knownAs": "Praifah",
+          "name": "Penpat Kairapee"
+        }
+      ]
+    },
+    {
+      "id": "broken-of-love",
+      "title": "破碎的爱",
+      "titleEn": "Broken Of Love",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/broken-of-love",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "12cc641f-70c4-45bf-bba0-fa924ac95e47",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Atom Pariya Piyapanopas",
+          "knownAs": "Atom",
+          "name": "Pariya Piyapanopas"
+        },
+        {
+          "displayName": "Faye Peraya Malisorn",
+          "knownAs": "Faye",
+          "name": "Peraya Malisorn"
+        }
+      ]
+    },
+    {
+      "id": "hometown-romance",
+      "title": "乡村罗曼史",
+      "titleEn": "Hometown Romance",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/hometown-romance",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "d00322b6-eadc-4c25-9496-52155e32c948",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Lookmhee Punyapat Wangpongsathaporn",
+          "knownAs": "Lookmhee",
+          "name": "Punyapat Wangpongsathaporn"
+        },
+        {
+          "displayName": "Sonya Saranphat Pedersen",
+          "knownAs": "Sonya",
+          "name": "Saranphat Pedersen"
+        }
+      ]
+    },
+    {
+      "id": "shades",
+      "title": "女校风云",
+      "titleEn": "Shades",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/shades",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "27986f36-4a02-4067-b68a-9ead2bedbe10",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Mint Benjanee Watcharavasoontara",
+          "knownAs": "Mint",
+          "name": "Benjanee Watcharavasoontara"
+        },
+        {
+          "displayName": "Puyfai Tharathip Baisaeng",
+          "knownAs": "Puyfai",
+          "name": "Tharathip Baisaeng"
+        },
+        {
+          "displayName": "Mook Worranit Thawornwong",
+          "knownAs": "Mook",
+          "name": "Worranit Thawornwong"
+        },
+        {
+          "displayName": "Ploy Jhutamas Pakonworrawong",
+          "knownAs": "Ploy",
+          "name": "Jhutamas Pakonworrawong"
+        },
+        {
+          "displayName": "Niky Warinrat Yolprasong",
+          "knownAs": "Niky",
+          "name": "Warinrat Yolprasong"
+        },
+        {
+          "displayName": "Opal Kulwipa Ngamsukkasemsri",
+          "knownAs": "Opal",
+          "name": "Kulwipa Ngamsukkasemsri"
+        },
+        {
+          "displayName": "Shu Nunnicha Saehuang",
+          "knownAs": "Shu",
+          "name": "Nunnicha Saehuang"
+        },
+        {
+          "displayName": "England Ladamanee Rattanapornvareesakul",
+          "knownAs": "England",
+          "name": "Ladamanee Rattanapornvareesakul"
+        }
+      ]
+    },
+    {
+      "id": "fulfill",
+      "title": "填满彼此",
+      "titleEn": "Fulfill",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/fulfill",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "7bcd68ce-59ac-4166-9b83-961b96e2a2cb",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Oom Eisaya Hosuwan",
+          "knownAs": "Oom",
+          "name": "Eisaya Hosuwan"
+        },
+        {
+          "displayName": "Bam Saralee Prasitdumrong",
+          "knownAs": "Bam",
+          "name": "Saralee Prasitdumrong"
+        }
+      ]
+    },
+    {
+      "id": "enemies-with-benefits",
+      "title": "宿敌恋人",
+      "titleEn": "Enemies With Benefits",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/enemies-with-benefits",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "6aec3b34-2c63-44ab-816f-3c3367ae06d4",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "JingJing Prariyapit Yu",
+          "knownAs": "JingJing",
+          "name": "Prariyapit Yu"
+        },
+        {
+          "displayName": "Jan Ployshompoo Supasap",
+          "knownAs": "Jan",
+          "name": "Ployshompoo Supasap"
+        }
+      ]
+    },
+    {
+      "id": "love-beyond-dreams",
+      "title": "再次为你",
+      "titleEn": "Love Beyond Dreams",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/love-beyond-dreams",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "e210dc6a-1e9d-4a99-a74a-6be0dfde2026",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Mie Phattaranan Padpai",
+          "knownAs": "Mie",
+          "name": "Phattaranan Padpai"
+        },
+        {
+          "displayName": "Aya Orapan Phongmaykin",
+          "knownAs": "Aya",
+          "name": "Orapan Phongmaykin"
+        }
+      ]
+    },
+    {
+      "id": "the-air",
+      "title": "四元素：风之恋歌",
+      "titleEn": "The Air 4 Elements",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/the-air",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "baadf6f3-c38e-4bc2-9906-5f96ea16f825",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Becky Rebecca Patricia Armstrong",
+          "knownAs": "Becky",
+          "name": "Rebecca Patricia Armstrong"
+        },
+        {
+          "displayName": "Freen Sarocha Chankimha",
+          "knownAs": "Freen",
+          "name": "Sarocha Chankimha"
+        }
+      ]
+    },
+    {
+      "id": "falling-for-my-hater",
+      "title": "爱上我的黑粉",
+      "titleEn": "Falling for My Hater",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/falling-for-my-hater",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "f9880ee3-85d5-4c3a-bda8-1452142d89ea",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Ice Papichaya Pattaralikitsakul",
+          "knownAs": "Ice",
+          "name": "Papichaya Pattaralikitsakul"
+        },
+        {
+          "displayName": "Marissa Lloyd",
+          "knownAs": "Marissa",
+          "name": "Marissa Lloyd"
+        }
+      ]
+    },
+    {
+      "id": "chasing-love",
+      "title": "追逐爱情",
+      "titleEn": "Chasing Love",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/chasing-love",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "1140b3de-7aef-4d4e-9211-d2b32d28212f",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Nile Chanidapa Sommitthanakul",
+          "knownAs": "Nile",
+          "name": "Chanidapa Sommitthanakul"
+        },
+        {
+          "displayName": "Namwan Natchaya Vongbut",
+          "knownAs": "Namwan",
+          "name": "Natchaya Vongbut"
+        }
+      ]
+    },
+    {
+      "id": "in-love-forever",
+      "title": "绘梦婚礼",
+      "titleEn": "In Love Forever",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/in-love-forever",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "1b26112c-2cbd-4a39-8f9b-0346f22ad1a6",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Orm Kornnaphat Sethratanapong",
+          "knownAs": "Orm",
+          "name": "Kornnaphat Sethratanapong"
+        },
+        {
+          "displayName": "Lingling Sirilak Kwong",
+          "knownAs": "Lingling",
+          "name": "Sirilak Kwong"
+        }
+      ]
+    },
+    {
+      "id": "my-lady-s-bodyguard",
+      "title": "顽皮小姐的贴身侍卫",
+      "titleEn": "My Lady's Bodyguard",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/my-lady-s-bodyguard",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "9aaaf28c-8e91-4079-80b7-e4e10950e5c0",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Folk Sutima Korkiatvanich",
+          "knownAs": "Folk",
+          "name": "Sutima Korkiatvanich"
+        },
+        {
+          "displayName": "Ormsin Supitcha Limsommut",
+          "knownAs": "Ormsin",
+          "name": "Supitcha Limsommut"
+        }
+      ]
+    },
+    {
+      "id": "ai-girl",
+      "title": "机器女孩",
+      "titleEn": "AI Girl",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/ai-girl",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "ca1abe20-9ba6-4449-ac27-4ef9431e9e1f",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Myyu Khawisara Singplod",
+          "knownAs": "Myyu",
+          "name": "Khawisara Singplod"
+        },
+        {
+          "displayName": "Chanya Amarit Duval",
+          "knownAs": "Chanya",
+          "name": "Amarit Duval"
+        }
+      ]
+    },
+    {
+      "id": "the-fire",
+      "title": "四元素：火之焰",
+      "titleEn": "The Fire 4 Elements",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/the-fire",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "2509537c-7244-4d8e-beca-bbbda62c84a0",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Namneung Milin Watinthanakit",
+          "knownAs": "Namneung",
+          "name": "Milin Watinthanakit"
+        },
+        {
+          "displayName": "Noey Kanteera Wadcharathadsanakul",
+          "knownAs": "Noey",
+          "name": "Kanteera Wadcharathadsanakul"
+        }
+      ]
+    },
+    {
+      "id": "moonshadow",
+      "title": "月影",
+      "titleEn": "Moonshadow",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/moonshadow",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "645d2dfd-6061-4ccc-9c28-63f591f92b27",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Bonnie Pattraphus Borattasuwan",
+          "knownAs": "Bonnie",
+          "name": "Pattraphus Borattasuwan"
+        },
+        {
+          "displayName": "Emi Thasorn Klinnium",
+          "knownAs": "Emi",
+          "name": "Thasorn Klinnium"
+        }
+      ]
+    },
+    {
+      "id": "juliet-and-juliet",
+      "title": "朱丽叶与朱丽叶",
+      "titleEn": "Juliet & Juliet",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/juliet-and-juliet",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "c597d766-af80-46b7-b283-308f65c1bb3c",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "MingMing Kanyakorn Namboonruang",
+          "knownAs": "MingMing",
+          "name": "Kanyakorn Namboonruang"
+        },
+        {
+          "displayName": "Nepjune Nutkitta Poonsukwattana",
+          "knownAs": "Nepjune",
+          "name": "Nutkitta Poonsukwattana"
+        }
+      ]
+    },
+    {
+      "id": "fairway-of-love",
+      "title": "爱在球道上",
+      "titleEn": "Fairway of Love",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/fairway-of-love",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "2fe4e4d3-c427-4383-855c-752788ee52cd",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Cartoon Kittaya Lemnopmanee",
+          "knownAs": "Cartoon",
+          "name": "Kittaya Lemnopmanee"
+        },
+        {
+          "displayName": "Ing Tanatcha Devahastin",
+          "knownAs": "Ing",
+          "name": "Tanatcha Devahastin"
+        }
+      ]
+    },
+    {
+      "id": "khom-khlang",
+      "title": "女警与萨满",
+      "titleEn": "Khom Khlang",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/khom-khlang",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "ff27c7ee-c50f-4951-aaaa-e3e633c52bf0",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Bint Sireethorn Leearamwat",
+          "knownAs": "Bint",
+          "name": "Sireethorn Leearamwat"
+        },
+        {
+          "displayName": "Puinoon Warangsiri Tanajarusworaphat",
+          "knownAs": "Puinoon",
+          "name": "Warangsiri Tanajarusworaphat"
+        }
+      ]
+    },
+    {
+      "id": "pls-love",
+      "title": "PLS Love",
+      "titleEn": "Pls Love",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/pls-love",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "fa489cea-9fbc-4a87-8c79-7c10c59c9e3a",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Miu Natsha Taechamongkalapiwat",
+          "knownAs": "Miu",
+          "name": "Natsha Taechamongkalapiwat"
+        },
+        {
+          "displayName": "Lena Lorena Schuett",
+          "knownAs": "Lena",
+          "name": "Lorena Schuett"
+        }
+      ]
+    },
+    {
+      "id": "third-person",
+      "title": "第三者",
+      "titleEn": "Third Person",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/third-person",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "2ae4f50f-b171-4d61-a30a-d3b7b3956228",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Mimie Bhapat Ahchariyasripong",
+          "knownAs": "Mimie",
+          "name": "Bhapat Ahchariyasripong"
+        },
+        {
+          "displayName": "Garn Nuttacha Ratchayangkanont",
+          "knownAs": "Garn",
+          "name": "Nuttacha Ratchayangkanont"
+        }
+      ]
+    },
+    {
+      "id": "under-her-rules",
+      "title": "她的规则",
+      "titleEn": "Under Her Rules",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/under-her-rules",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "edcfba87-2da2-4957-ad3b-e1aeb6d0e009",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Aoom Thaweeporn Phingchamrat",
+          "knownAs": "Aoom",
+          "name": "Thaweeporn Phingchamrat"
+        },
+        {
+          "displayName": "Meena Rina Chatamonchai",
+          "knownAs": "Meena",
+          "name": "Rina Chatamonchai"
+        }
+      ]
+    },
+    {
+      "id": "buy-my-boss",
+      "title": "爱情买卖",
+      "titleEn": "Buy My Boss",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/buy-my-boss",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "a7d264f5-c901-4e98-828e-7fab08cdc4bc",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Aom Punyawee Jungcharoen",
+          "knownAs": "Aom",
+          "name": "Punyawee Jungcharoen"
+        },
+        {
+          "displayName": "Ying Anada Prakobkit",
+          "knownAs": "Ying",
+          "name": "Anada Prakobkit"
+        }
+      ]
+    },
+    {
+      "id": "my-boss-i-love-you",
+      "title": "我爱上司",
+      "titleEn": "My Boss, I Love You",
+      "year": "2026",
+      "sourceUrl": "https://glspotlight.com/series/my-boss-i-love-you",
+      "sourceApi": "https://gl-spotlight-production.fly.dev/graphql",
+      "sourceSeriesId": "fd47aad3-27d6-4d25-bd47-b9029f26e936",
+      "verifiedAt": "2026-09-02T05:43:12.141Z",
+      "castStatus": "verified",
+      "mainCast": [
+        {
+          "displayName": "Yoshi Rinrada Thurapan",
+          "knownAs": "Yoshi",
+          "name": "Rinrada Thurapan"
+        },
+        {
+          "displayName": "Diana Flipo",
+          "knownAs": "Diana",
+          "name": "Diana Flipo"
+        }
+      ]
+    }
+  ]
+}

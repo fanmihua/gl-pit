@@ -1,0 +1,1248 @@
+{
+  "policyVersion": "2026-09-02",
+  "generatedAt": "2026-09-02T07:10:47.155Z",
+  "feedbackUrl": "https://github.com/fanmihua/glfans/issues/new?template=rights-feedback.yml",
+  "statusDefinitions": {
+    "source-audit-required": "公开前仍需核对原始来源、权利主体与使用边界；默认关闭下载。",
+    "external-stream-only": "仅调用平台提供的外部音频地址并保留歌曲页面入口；不得下载、转存或自行托管。"
+  },
+  "summary": {
+    "total": 86,
+    "home": 7,
+    "articleImages": 62,
+    "memes": 5,
+    "radioTracks": 12
+  },
+  "assets": [
+    {
+      "id": "home:freenbecky",
+      "path": "assets/home/freenbecky-card-v1.webp",
+      "category": "celebrity-collage",
+      "context": {
+        "kind": "home",
+        "slug": "freenbecky"
+      },
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-collage",
+      "publicDownload": false
+    },
+    {
+      "id": "home:lingorm",
+      "path": "assets/home/lingorm-card-v1.webp",
+      "category": "celebrity-collage",
+      "context": {
+        "kind": "home",
+        "slug": "lingorm"
+      },
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-collage",
+      "publicDownload": false
+    },
+    {
+      "id": "home:emibonnie",
+      "path": "assets/home/emibonnie-card-v1.webp",
+      "category": "celebrity-collage",
+      "context": {
+        "kind": "home",
+        "slug": "emibonnie"
+      },
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-collage",
+      "publicDownload": false
+    },
+    {
+      "id": "home:janjingjing",
+      "path": "assets/home/janjingjing-card-v1.webp",
+      "category": "celebrity-collage",
+      "context": {
+        "kind": "home",
+        "slug": "janjingjing"
+      },
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-collage",
+      "publicDownload": false
+    },
+    {
+      "id": "home:namtanfilm",
+      "path": "assets/home/namtanfilm-card-v1.webp",
+      "category": "celebrity-collage",
+      "context": {
+        "kind": "home",
+        "slug": "namtanfilm"
+      },
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-collage",
+      "publicDownload": false
+    },
+    {
+      "id": "home:janekao",
+      "path": "assets/home/janekao-card-v1.webp",
+      "category": "celebrity-collage",
+      "context": {
+        "kind": "home",
+        "slug": "janekao"
+      },
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-collage",
+      "publicDownload": false
+    },
+    {
+      "id": "home:ginjay",
+      "path": "assets/home/ginjay-card-v1.webp",
+      "category": "celebrity-collage",
+      "context": {
+        "kind": "home",
+        "slug": "ginjay"
+      },
+      "rightsStatus": "source-audit-required",
+      "useBasis": "editorial-collage",
+      "publicDownload": false
+    },
+    {
+      "id": "collection:rival-lover:assets/column/rival-lover/overview/01-kqpjbbks9obs.webp",
+      "path": "assets/column/rival-lover/overview/01-kqpjbbks9obs.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "collection",
+        "slug": "rival-lover",
+        "title": "宿敌恋人"
+      },
+      "sourceName": "image.png",
+      "sourceAssetId": "KQpjbBKs9obsBbxhlX1cKEvsnId",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:rival-lover/wine-ep06-07:assets/column/rival-lover/wine-ep06-07/01-bstybtemkoml.webp",
+      "path": "assets/column/rival-lover/wine-ep06-07/01-bstybtemkoml.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "rival-lover/wine-ep06-07",
+        "title": "宿敌恋人-爱是向你伸出的手"
+      },
+      "sourceName": "HIktJDxbkAAYqlB.jpeg",
+      "sourceAssetId": "BStybTeMKomlaFxtTYXcQ4P4nEg",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:rival-lover/wine-ep06-07:assets/column/rival-lover/wine-ep06-07/02-lud8btmgfog2.webp",
+      "path": "assets/column/rival-lover/wine-ep06-07/02-lud8btmgfog2.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "rival-lover/wine-ep06-07",
+        "title": "宿敌恋人-爱是向你伸出的手"
+      },
+      "sourceName": "HK3QtwxagAAdOvg.jpeg",
+      "sourceAssetId": "LuD8btMgFog2wfx8UTocvJZNnEe",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:rival-lover/wine-ep06-07:assets/column/rival-lover/wine-ep06-07/03-e9rmbeguxoir.webp",
+      "path": "assets/column/rival-lover/wine-ep06-07/03-e9rmbeguxoir.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "rival-lover/wine-ep06-07",
+        "title": "宿敌恋人-爱是向你伸出的手"
+      },
+      "sourceName": "HK3QtrUaQAA5Vjy.jpeg",
+      "sourceAssetId": "E9RMbEgUxoiRXEx2rDicr8rbnHd",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:rival-lover/wine-ep06-07:assets/column/rival-lover/wine-ep06-07/04-yqz5bjv5kopf.webp",
+      "path": "assets/column/rival-lover/wine-ep06-07/04-yqz5bjv5kopf.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "rival-lover/wine-ep06-07",
+        "title": "宿敌恋人-爱是向你伸出的手"
+      },
+      "sourceName": "HKN6UM8bYAAirgw.jpeg",
+      "sourceAssetId": "Yqz5bjV5kopfJpxE2dtcHLNanjb",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:rival-lover/wine-ep06-07:assets/column/rival-lover/wine-ep06-07/05-uoaybu4bbogj.webp",
+      "path": "assets/column/rival-lover/wine-ep06-07/05-uoaybu4bbogj.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "rival-lover/wine-ep06-07",
+        "title": "宿敌恋人-爱是向你伸出的手"
+      },
+      "sourceName": "HKN8xpda8AAoilB.jpeg",
+      "sourceAssetId": "UoaYbU4BBogJvNxHFD6cjOWgnth",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:rival-lover/wine-ep06-07:assets/column/rival-lover/wine-ep06-07/06-ksr2bgna9onz.webp",
+      "path": "assets/column/rival-lover/wine-ep06-07/06-ksr2bgna9onz.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "rival-lover/wine-ep06-07",
+        "title": "宿敌恋人-爱是向你伸出的手"
+      },
+      "sourceName": "HKyaPfgWEAACj89.jpeg",
+      "sourceAssetId": "KSR2bGnA9onZmSx4jlrcQjpEnbd",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:rival-lover/wine-ep06-07:assets/column/rival-lover/wine-ep06-07/07-xvvzbh2ovoje.webp",
+      "path": "assets/column/rival-lover/wine-ep06-07/07-xvvzbh2ovoje.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "rival-lover/wine-ep06-07",
+        "title": "宿敌恋人-爱是向你伸出的手"
+      },
+      "sourceName": "HKyl5J0XEAA7qXn.jpeg",
+      "sourceAssetId": "XvvZbh2ovoJEdwxFGP1cVL7Knlh",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:rival-lover/wine-ep06-07:assets/column/rival-lover/wine-ep06-07/08-etknbzw4nohq.webp",
+      "path": "assets/column/rival-lover/wine-ep06-07/08-etknbzw4nohq.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "rival-lover/wine-ep06-07",
+        "title": "宿敌恋人-爱是向你伸出的手"
+      },
+      "sourceName": "HKyCKZRbkAEW9qS.jpeg",
+      "sourceAssetId": "EtKNbZW4NohQnMxe3tbclvWynJb",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:rival-lover/wine-ep06-07:assets/column/rival-lover/wine-ep06-07/09-ozzabx4nqoqt.webp",
+      "path": "assets/column/rival-lover/wine-ep06-07/09-ozzabx4nqoqt.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "rival-lover/wine-ep06-07",
+        "title": "宿敌恋人-爱是向你伸出的手"
+      },
+      "sourceName": "HKy6LjvWgAAK2IQ.jpeg",
+      "sourceAssetId": "OZZAbX4NqoQtMwxRsAscxbYcnTd",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:rival-lover/wine-ep06-07:assets/column/rival-lover/wine-ep06-07/10-fknib7f15ol6.webp",
+      "path": "assets/column/rival-lover/wine-ep06-07/10-fknib7f15ol6.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "rival-lover/wine-ep06-07",
+        "title": "宿敌恋人-爱是向你伸出的手"
+      },
+      "sourceName": "HKyClPybIAAjjVt.jpeg",
+      "sourceAssetId": "FkNIb7F15ol6mkxypS8c3EzknXe",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "collection:us:assets/column/us/overview/01-jxntbv0oxoli.webp",
+      "path": "assets/column/us/overview/01-jxntbv0oxoli.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "collection",
+        "slug": "us",
+        "title": "我们的爱"
+      },
+      "sourceName": "image.png",
+      "sourceAssetId": "JXntbV0OXoliGBxBvmBcPRXZnGf",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:us/unsaid-fragments-ep01:assets/column/us/unsaid-fragments-ep01/01-vtmkb7rywogm.webp",
+      "path": "assets/column/us/unsaid-fragments-ep01/01-vtmkb7rywogm.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "us/unsaid-fragments-ep01",
+        "title": "我们的爱US-未说的碎片ep01"
+      },
+      "sourceName": "1.png",
+      "sourceAssetId": "VTmkb7RyWoGm4oxxrRvctVewnD7",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:us/unsaid-fragments-ep01:assets/column/us/unsaid-fragments-ep01/02-tfy7bu9vuo2g.webp",
+      "path": "assets/column/us/unsaid-fragments-ep01/02-tfy7bu9vuo2g.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "us/unsaid-fragments-ep01",
+        "title": "我们的爱US-未说的碎片ep01"
+      },
+      "sourceName": "3.png",
+      "sourceAssetId": "Tfy7bu9Vuo2gIRxqGprcT4CDnUd",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:us/unsaid-fragments-ep01:assets/column/us/unsaid-fragments-ep01/03-vi2gb0svgod1.webp",
+      "path": "assets/column/us/unsaid-fragments-ep01/03-vi2gb0svgod1.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "us/unsaid-fragments-ep01",
+        "title": "我们的爱US-未说的碎片ep01"
+      },
+      "sourceName": "5.png",
+      "sourceAssetId": "VI2gb0Svgod1spxZj6ac4sn3nNf",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:us/unsaid-fragments-ep01:assets/column/us/unsaid-fragments-ep01/04-s98ubamegoay.webp",
+      "path": "assets/column/us/unsaid-fragments-ep01/04-s98ubamegoay.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "us/unsaid-fragments-ep01",
+        "title": "我们的爱US-未说的碎片ep01"
+      },
+      "sourceName": "8.png",
+      "sourceAssetId": "S98ubaMegoaY2hxUajWck4VCnyh",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:us/unsaid-fragments-ep01:assets/column/us/unsaid-fragments-ep01/05-wv8nbfnkwogl.webp",
+      "path": "assets/column/us/unsaid-fragments-ep01/05-wv8nbfnkwogl.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "us/unsaid-fragments-ep01",
+        "title": "我们的爱US-未说的碎片ep01"
+      },
+      "sourceName": "10.png",
+      "sourceAssetId": "Wv8NbfNkwoGLTmxCdXNcgMe7nBc",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:us/unsaid-fragments-ep01:assets/column/us/unsaid-fragments-ep01/06-knbsbvdenoac.webp",
+      "path": "assets/column/us/unsaid-fragments-ep01/06-knbsbvdenoac.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "us/unsaid-fragments-ep01",
+        "title": "我们的爱US-未说的碎片ep01"
+      },
+      "sourceName": "12.png",
+      "sourceAssetId": "KNbSbVdenoAcTtxHMRvcxQ9anxf",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:us/unsaid-fragments-ep02:assets/column/us/unsaid-fragments-ep02/01-dhg8b7iguoht.webp",
+      "path": "assets/column/us/unsaid-fragments-ep02/01-dhg8b7iguoht.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "us/unsaid-fragments-ep02",
+        "title": "我们的爱US-未说的碎片ep02"
+      },
+      "sourceName": "2-01.png",
+      "sourceAssetId": "DhG8b7iguohtLDxEZOFcUNsqn4g",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:us/unsaid-fragments-ep02:assets/column/us/unsaid-fragments-ep02/02-kt3dbpzyuoh0.webp",
+      "path": "assets/column/us/unsaid-fragments-ep02/02-kt3dbpzyuoh0.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "us/unsaid-fragments-ep02",
+        "title": "我们的爱US-未说的碎片ep02"
+      },
+      "sourceName": "2-04.png",
+      "sourceAssetId": "Kt3dbPZYUoh0paxCatEcNgRtn7g",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:us/unsaid-fragments-ep02:assets/column/us/unsaid-fragments-ep02/03-qdpkbekroop6.webp",
+      "path": "assets/column/us/unsaid-fragments-ep02/03-qdpkbekroop6.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "us/unsaid-fragments-ep02",
+        "title": "我们的爱US-未说的碎片ep02"
+      },
+      "sourceName": "2-06.png",
+      "sourceAssetId": "QdPKbeKrOop6TaxEYClciuYanSg",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:us/unsaid-fragments-ep02:assets/column/us/unsaid-fragments-ep02/04-wofqbva17oga.webp",
+      "path": "assets/column/us/unsaid-fragments-ep02/04-wofqbva17oga.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "us/unsaid-fragments-ep02",
+        "title": "我们的爱US-未说的碎片ep02"
+      },
+      "sourceName": "2-07.png",
+      "sourceAssetId": "WOFQbva17ogahgxQTErcg0eBnRb",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:us/unsaid-fragments-ep02:assets/column/us/unsaid-fragments-ep02/05-mhr0bcivuoyk.webp",
+      "path": "assets/column/us/unsaid-fragments-ep02/05-mhr0bcivuoyk.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "us/unsaid-fragments-ep02",
+        "title": "我们的爱US-未说的碎片ep02"
+      },
+      "sourceName": "2-10.png",
+      "sourceAssetId": "MhR0bciVuoYK3rxt9k7cwK60n3d",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:us/unsaid-fragments-ep02:assets/column/us/unsaid-fragments-ep02/06-vdgvbp4fko9x.webp",
+      "path": "assets/column/us/unsaid-fragments-ep02/06-vdgvbp4fko9x.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "us/unsaid-fragments-ep02",
+        "title": "我们的爱US-未说的碎片ep02"
+      },
+      "sourceName": "2-13.png",
+      "sourceAssetId": "VdgVbP4fko9X61xF0cJcmcsjnkb",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:us/unsaid-fragments-ep02:assets/column/us/unsaid-fragments-ep02/07-gpjcb4t1woa0.webp",
+      "path": "assets/column/us/unsaid-fragments-ep02/07-gpjcb4t1woa0.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "us/unsaid-fragments-ep02",
+        "title": "我们的爱US-未说的碎片ep02"
+      },
+      "sourceName": "2-14.png",
+      "sourceAssetId": "GPjCb4t1Woa0E5xfHEwchjjNnXb",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:us/unsaid-fragments-ep02:assets/column/us/unsaid-fragments-ep02/08-r8enbpmoaouu.webp",
+      "path": "assets/column/us/unsaid-fragments-ep02/08-r8enbpmoaouu.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "us/unsaid-fragments-ep02",
+        "title": "我们的爱US-未说的碎片ep02"
+      },
+      "sourceName": "Group 1321315304.png",
+      "sourceAssetId": "R8eNbPMOaoUue7xDzqqc9sponcg",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "collection:designing-love:assets/column/designing-love/overview/01-ft0abcnezobo.webp",
+      "path": "assets/column/designing-love/overview/01-ft0abcnezobo.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "collection",
+        "slug": "designing-love",
+        "title": "设计爱情"
+      },
+      "sourceName": "image.png",
+      "sourceAssetId": "FT0abcnEZoboApxerAfcqW8DnYe",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:designing-love/monologue-01:assets/column/designing-love/monologue-01/01-zgvebcceio4p.webp",
+      "path": "assets/column/designing-love/monologue-01/01-zgvebcceio4p.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "designing-love/monologue-01",
+        "title": "设计爱情独白片段01"
+      },
+      "sourceName": "截屏2025-12-12 20.03.38.png",
+      "sourceAssetId": "ZGVEbccEIo4Payxdl5Ecek60nxg",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:designing-love/monologue-01:assets/column/designing-love/monologue-01/02-zdonbnlpbocz.webp",
+      "path": "assets/column/designing-love/monologue-01/02-zdonbnlpbocz.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "designing-love/monologue-01",
+        "title": "设计爱情独白片段01"
+      },
+      "sourceName": "截屏2025-12-14 19.00.06.png",
+      "sourceAssetId": "ZdONbnLpboCzslxHJJFcmxemnfg",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:designing-love/monologue-01:assets/column/designing-love/monologue-01/03-u4kmbvcqdodt.webp",
+      "path": "assets/column/designing-love/monologue-01/03-u4kmbvcqdodt.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "designing-love/monologue-01",
+        "title": "设计爱情独白片段01"
+      },
+      "sourceName": "截屏2025-12-27 20.09.02.png",
+      "sourceAssetId": "U4KmbVCQDodTo9xKcHbcGzSlnsQ",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:designing-love/monologue-01:assets/column/designing-love/monologue-01/04-usnkbluewolr.webp",
+      "path": "assets/column/designing-love/monologue-01/04-usnkbluewolr.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "designing-love/monologue-01",
+        "title": "设计爱情独白片段01"
+      },
+      "sourceName": "截屏2025-12-28 20.11.52.png",
+      "sourceAssetId": "UsNKbLueWoLrS7xSHzVcXkaYned",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:designing-love/monologue-01:assets/column/designing-love/monologue-01/05-w8hebbikeonl.webp",
+      "path": "assets/column/designing-love/monologue-01/05-w8hebbikeonl.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "designing-love/monologue-01",
+        "title": "设计爱情独白片段01"
+      },
+      "sourceName": "G3w2-VMXwAAhgQ8.jpeg",
+      "sourceAssetId": "W8HebBIKeonLPNxbH6ZcmesKnQc",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:designing-love/monologue-01:assets/column/designing-love/monologue-01/06-xlsvb6ideoxk.webp",
+      "path": "assets/column/designing-love/monologue-01/06-xlsvb6ideoxk.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "designing-love/monologue-01",
+        "title": "设计爱情独白片段01"
+      },
+      "sourceName": "截屏2025-12-29 19.24.06.png",
+      "sourceAssetId": "XLSVb6IdEoxkALxrbpicbH2rnfc",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:designing-love/monologue-01:assets/column/designing-love/monologue-01/07-yn70bpewfodu.webp",
+      "path": "assets/column/designing-love/monologue-01/07-yn70bpewfodu.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "designing-love/monologue-01",
+        "title": "设计爱情独白片段01"
+      },
+      "sourceName": "G3SVSnoawAAcYKt.jpeg",
+      "sourceAssetId": "Yn70bPEWFoDuoIx3qu1cHwEjndh",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:designing-love/monologue-01:assets/column/designing-love/monologue-01/08-v53bbzuhroik.webp",
+      "path": "assets/column/designing-love/monologue-01/08-v53bbzuhroik.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "designing-love/monologue-01",
+        "title": "设计爱情独白片段01"
+      },
+      "sourceName": "截屏2025-12-28 19.58.01.png",
+      "sourceAssetId": "V53bbZUHRoiK1gxyMSRcIGTInLt",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:designing-love/monologue-02:assets/column/designing-love/monologue-02/01-nji9budwfoxi.webp",
+      "path": "assets/column/designing-love/monologue-02/01-nji9budwfoxi.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "designing-love/monologue-02",
+        "title": "设计爱情独白片段02"
+      },
+      "sourceName": "G39La0jWwAAAJOG.jpeg",
+      "sourceAssetId": "Nji9bUdwfoXItzx6RqicUZ05n6f",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:designing-love/monologue-02:assets/column/designing-love/monologue-02/02-mdlwbklojorx.webp",
+      "path": "assets/column/designing-love/monologue-02/02-mdlwbklojorx.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "designing-love/monologue-02",
+        "title": "设计爱情独白片段02"
+      },
+      "sourceName": "截屏2026-04-10 20.14.02.png",
+      "sourceAssetId": "MdLWbklojorx0ixia8acL7Wwnye",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:designing-love/monologue-02:assets/column/designing-love/monologue-02/03-qzecb7mboobf.webp",
+      "path": "assets/column/designing-love/monologue-02/03-qzecb7mboobf.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "designing-love/monologue-02",
+        "title": "设计爱情独白片段02"
+      },
+      "sourceName": "03.png",
+      "sourceAssetId": "QZeCb7MBOobFQPxlRc3cEatMnQd",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:designing-love/monologue-02:assets/column/designing-love/monologue-02/04-s27nbbbucouc.webp",
+      "path": "assets/column/designing-love/monologue-02/04-s27nbbbucouc.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "designing-love/monologue-02",
+        "title": "设计爱情独白片段02"
+      },
+      "sourceName": "04.png",
+      "sourceAssetId": "S27NbBBUcouCeexLPd6ciP92nKd",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:designing-love/monologue-02:assets/column/designing-love/monologue-02/05-bfqbbx6zioi1.webp",
+      "path": "assets/column/designing-love/monologue-02/05-bfqbbx6zioi1.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "designing-love/monologue-02",
+        "title": "设计爱情独白片段02"
+      },
+      "sourceName": "06.png",
+      "sourceAssetId": "BfQbbx6zIoi1F7xA6IVcaBRQnIc",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:designing-love/monologue-02:assets/column/designing-love/monologue-02/06-uoq8ba2uros7.webp",
+      "path": "assets/column/designing-love/monologue-02/06-uoq8ba2uros7.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "designing-love/monologue-02",
+        "title": "设计爱情独白片段02"
+      },
+      "sourceName": "07.png",
+      "sourceAssetId": "UOq8ba2uroS7a1xwOqucNQr4n2g",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:designing-love/monologue-02:assets/column/designing-love/monologue-02/07-mpzabncsgoeh.webp",
+      "path": "assets/column/designing-love/monologue-02/07-mpzabncsgoeh.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "designing-love/monologue-02",
+        "title": "设计爱情独白片段02"
+      },
+      "sourceName": "08.png",
+      "sourceAssetId": "MpzAbNcsGoeh9exgwWpcdoitnyc",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:designing-love/monologue-02:assets/column/designing-love/monologue-02/08-nurnbbaaroey.webp",
+      "path": "assets/column/designing-love/monologue-02/08-nurnbbaaroey.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "designing-love/monologue-02",
+        "title": "设计爱情独白片段02"
+      },
+      "sourceName": "G39etbxXwAAptyP.jpeg",
+      "sourceAssetId": "NUrNbBAARoeYh9xgtBocxudwnjg",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "collection:poisonous-love:assets/column/poisonous-love/overview/01-uksdb8nmjojx.webp",
+      "path": "assets/column/poisonous-love/overview/01-uksdb8nmjojx.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "collection",
+        "slug": "poisonous-love",
+        "title": "爱情毒药"
+      },
+      "sourceName": "image.png",
+      "sourceAssetId": "UKSdb8NMJojX6ZxXao2c1EJEn3e",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:poisonous-love/repo:assets/column/poisonous-love/repo/01-beawb9bkmokc.webp",
+      "path": "assets/column/poisonous-love/repo/01-beawb9bkmokc.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "poisonous-love/repo",
+        "title": "爱情毒药看完版repo"
+      },
+      "sourceName": "G66aT5abkAEagaE.jpeg",
+      "sourceAssetId": "BEAWb9BkMoKCUQxFSO8c07Cqnph",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:poisonous-love/repo:assets/column/poisonous-love/repo/02-wzkkbzakboqr.webp",
+      "path": "assets/column/poisonous-love/repo/02-wzkkbzakboqr.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "poisonous-love/repo",
+        "title": "爱情毒药看完版repo"
+      },
+      "sourceName": "G64I1tcbkAUwjAL.jpeg",
+      "sourceAssetId": "WzKkbZAkBoQRpZxPeH9c80awn1b",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:poisonous-love/repo:assets/column/poisonous-love/repo/03-ca31boyuto4g.webp",
+      "path": "assets/column/poisonous-love/repo/03-ca31boyuto4g.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "poisonous-love/repo",
+        "title": "爱情毒药看完版repo"
+      },
+      "sourceName": "G64I12YaEAA0GlQ.jpeg",
+      "sourceAssetId": "CA31bOYUTo4GaGxct4LcwhNSnvT",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:poisonous-love/repo:assets/column/poisonous-love/repo/04-gf9rb8b3joek.webp",
+      "path": "assets/column/poisonous-love/repo/04-gf9rb8b3joek.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "poisonous-love/repo",
+        "title": "爱情毒药看完版repo"
+      },
+      "sourceName": "IMG_5280.JPG",
+      "sourceAssetId": "GF9Rb8b3joEkMbxPUHkcYQxrn4g",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "collection:my-secret-words:assets/column/my-secret-words/overview/01-suakby2xcohn.webp",
+      "path": "assets/column/my-secret-words/overview/01-suakby2xcohn.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "collection",
+        "slug": "my-secret-words",
+        "title": "和谐密语"
+      },
+      "sourceName": "image.png",
+      "sourceAssetId": "SUakby2XCoHN2QxelUpcLaNknCg",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:my-secret-words/my-secret-words:assets/column/my-secret-words/my-secret-words/01-ltcgbsrbqolc.webp",
+      "path": "assets/column/my-secret-words/my-secret-words/01-ltcgbsrbqolc.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "my-secret-words/my-secret-words",
+        "title": "和谐密语-My secret words"
+      },
+      "sourceName": "IMG_4435.png",
+      "sourceAssetId": "LTCgbSrbQolcYoxRryWceOEqnie",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:my-secret-words/my-secret-words:assets/column/my-secret-words/my-secret-words/02-eeh0bjfq7oqo.webp",
+      "path": "assets/column/my-secret-words/my-secret-words/02-eeh0bjfq7oqo.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "my-secret-words/my-secret-words",
+        "title": "和谐密语-My secret words"
+      },
+      "sourceName": "WX20250825-191154@2x 1.png",
+      "sourceAssetId": "EEh0bjFQ7oQo8nxkRCuc1stunkd",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:my-secret-words/my-secret-words:assets/column/my-secret-words/my-secret-words/03-tynmbrds2ogx.webp",
+      "path": "assets/column/my-secret-words/my-secret-words/03-tynmbrds2ogx.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "my-secret-words/my-secret-words",
+        "title": "和谐密语-My secret words"
+      },
+      "sourceName": "IMG_4436.png",
+      "sourceAssetId": "TynMbRDS2ogxo3xc1PEcbr5LnxS",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:my-secret-words/my-secret-words:assets/column/my-secret-words/my-secret-words/04-wyh3bgregovy.webp",
+      "path": "assets/column/my-secret-words/my-secret-words/04-wyh3bgregovy.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "my-secret-words/my-secret-words",
+        "title": "和谐密语-My secret words"
+      },
+      "sourceName": "IMG_4438 1.png",
+      "sourceAssetId": "WyH3bgRegoVYNPxcVz6ckEDynbd",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "collection:affair:assets/column/affair/overview/01-biwwbh7aeo6p.webp",
+      "path": "assets/column/affair/overview/01-biwwbh7aeo6p.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "collection",
+        "slug": "affair",
+        "title": "爱情诡计"
+      },
+      "sourceName": "image.png",
+      "sourceAssetId": "BiwwbH7AEo6p5gxKvrncptXenkd",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:affair/repo-01-04:assets/column/affair/repo-01-04/01-kguyb72hrosd.webp",
+      "path": "assets/column/affair/repo-01-04/01-kguyb72hrosd.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "affair/repo-01-04",
+        "title": "爱情诡计repo 01-04"
+      },
+      "sourceName": "image.png",
+      "sourceAssetId": "KGUYb72hroSDgWxMXo8cuuqCnEf",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:affair/repo-01-04:assets/column/affair/repo-01-04/02-y5rhb1fvvohs.webp",
+      "path": "assets/column/affair/repo-01-04/02-y5rhb1fvvohs.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "affair/repo-01-04",
+        "title": "爱情诡计repo 01-04"
+      },
+      "sourceName": "image.png",
+      "sourceAssetId": "Y5rhb1fvVohS3uxjrn0caOnenBd",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:affair/repo-05-06:assets/column/affair/repo-05-06/01-zidgbflnsobh.webp",
+      "path": "assets/column/affair/repo-05-06/01-zidgbflnsobh.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "affair/repo-05-06",
+        "title": "爱情诡计repo 05-06"
+      },
+      "sourceName": "image.png",
+      "sourceAssetId": "ZiDgbFlNSoBhWlxGqlvcgLvBnVh",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:affair/repo-05-06:assets/column/affair/repo-05-06/02-jm58brh9hoj1.webp",
+      "path": "assets/column/affair/repo-05-06/02-jm58brh9hoj1.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "affair/repo-05-06",
+        "title": "爱情诡计repo 05-06"
+      },
+      "sourceName": "image.png",
+      "sourceAssetId": "JM58brh9HoJ1ogx0XgLcJ8bOnR9",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:affair/repo-07:assets/column/affair/repo-07/01-xacabndskotb.webp",
+      "path": "assets/column/affair/repo-07/01-xacabndskotb.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "affair/repo-07",
+        "title": "爱情诡计repo 07（吐槽向）"
+      },
+      "sourceName": "image.png",
+      "sourceAssetId": "XACabNdSkotbhJxgbmacPNlcnQc",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:affair/repo-07:assets/column/affair/repo-07/02-fa0tbhpjvopa.webp",
+      "path": "assets/column/affair/repo-07/02-fa0tbhpjvopa.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "affair/repo-07",
+        "title": "爱情诡计repo 07（吐槽向）"
+      },
+      "sourceName": "image.png",
+      "sourceAssetId": "FA0TbhpJVopaXexxLKlcqzVXnRb",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:affair/repo-08:assets/column/affair/repo-08/01-prrybwysuohh.webp",
+      "path": "assets/column/affair/repo-08/01-prrybwysuohh.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "affair/repo-08",
+        "title": "爱情诡计repo 08"
+      },
+      "sourceName": "image.png",
+      "sourceAssetId": "PrRYbWysuohHxzxZEsocG9A0nld",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "article:affair/repo-08:assets/column/affair/repo-08/02-oyc1bmfldobm.webp",
+      "path": "assets/column/affair/repo-08/02-oyc1bmfldobm.webp",
+      "category": "article-reference-image",
+      "context": {
+        "kind": "article",
+        "slug": "affair/repo-08",
+        "title": "爱情诡计repo 08"
+      },
+      "sourceName": "image.png",
+      "sourceAssetId": "Oyc1bmfLdobM0IxWD6BcueIGnuh",
+      "rightsStatus": "source-audit-required",
+      "useBasis": "commentary-and-reference",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:reaction-no-serious",
+      "path": "assets/fan-memes/reaction-no-serious.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "feishu-original"
+      },
+      "sourceCollection": "飞书原版表情包库",
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:reaction-no-emotion",
+      "path": "assets/fan-memes/reaction-no-emotion.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "feishu-original"
+      },
+      "sourceCollection": "飞书原版表情包库",
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:reaction-light-relaxed",
+      "path": "assets/fan-memes/reaction-light-relaxed.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "feishu-original"
+      },
+      "sourceCollection": "飞书原版表情包库",
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:reaction-many-lesbians",
+      "path": "assets/fan-memes/reaction-many-lesbians.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "feishu-original"
+      },
+      "sourceCollection": "飞书原版表情包库",
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "meme:reaction-failed-lesbian",
+      "path": "assets/fan-memes/reaction-failed-lesbian.webp",
+      "category": "third-party-meme",
+      "context": {
+        "kind": "meme-pool",
+        "slug": "feishu-original"
+      },
+      "sourceCollection": "飞书原版表情包库",
+      "rightsStatus": "source-audit-required",
+      "publicDownload": false
+    },
+    {
+      "id": "radio:netease:3428877102",
+      "category": "external-audio-stream",
+      "context": {
+        "kind": "radio",
+        "slug": "janjingjing",
+        "title": "L.O.V.E (feat. Jan)"
+      },
+      "sourcePlatform": "网易云音乐",
+      "sourceUrl": "https://music.163.com/song?id=3428877102",
+      "rightsStatus": "external-stream-only",
+      "publicDownload": false
+    },
+    {
+      "id": "radio:netease:3422700412",
+      "category": "external-audio-stream",
+      "context": {
+        "kind": "radio",
+        "slug": "janjingjing",
+        "title": "More Than Words (feat. JanJingjing)"
+      },
+      "sourcePlatform": "网易云音乐",
+      "sourceUrl": "https://music.163.com/song?id=3422700412",
+      "rightsStatus": "external-stream-only",
+      "publicDownload": false
+    },
+    {
+      "id": "radio:netease:3395111358",
+      "category": "external-audio-stream",
+      "context": {
+        "kind": "radio",
+        "slug": "janjingjing",
+        "title": "TOUCH (feat. JanJingjing)"
+      },
+      "sourcePlatform": "网易云音乐",
+      "sourceUrl": "https://music.163.com/song?id=3395111358",
+      "rightsStatus": "external-stream-only",
+      "publicDownload": false
+    },
+    {
+      "id": "radio:netease:3395113930",
+      "category": "external-audio-stream",
+      "context": {
+        "kind": "radio",
+        "slug": "emibonnie",
+        "title": "แค่คนโทรผิด (只是一个打错电话的人) (BBFF 2026)"
+      },
+      "sourcePlatform": "网易云音乐",
+      "sourceUrl": "https://music.163.com/song?id=3395113930",
+      "rightsStatus": "external-stream-only",
+      "publicDownload": false
+    },
+    {
+      "id": "radio:netease:3403307851",
+      "category": "external-audio-stream",
+      "context": {
+        "kind": "radio",
+        "slug": "janjingjing",
+        "title": "แรงอีกนิด (SADISTIC) (EWB)"
+      },
+      "sourcePlatform": "网易云音乐",
+      "sourceUrl": "https://music.163.com/song?id=3403307851",
+      "rightsStatus": "external-stream-only",
+      "publicDownload": false
+    },
+    {
+      "id": "radio:netease:3403327523",
+      "category": "external-audio-stream",
+      "context": {
+        "kind": "radio",
+        "slug": "janjingjing",
+        "title": "ยิ่งชิดยิ่งคิด (Fall For You) (feat. Jan)"
+      },
+      "sourcePlatform": "网易云音乐",
+      "sourceUrl": "https://music.163.com/song?id=3403327523",
+      "rightsStatus": "external-stream-only",
+      "publicDownload": false
+    },
+    {
+      "id": "radio:netease:3394747021",
+      "category": "external-audio-stream",
+      "context": {
+        "kind": "radio",
+        "slug": "janjingjing",
+        "title": "รางวัลคนเก่ง (My Only Champion) (feat. JingJingYu)"
+      },
+      "sourcePlatform": "网易云音乐",
+      "sourceUrl": "https://music.163.com/song?id=3394747021",
+      "rightsStatus": "external-stream-only",
+      "publicDownload": false
+    },
+    {
+      "id": "radio:netease:3394977576",
+      "category": "external-audio-stream",
+      "context": {
+        "kind": "radio",
+        "slug": "janjingjing",
+        "title": "Ded (酷) (BBFF 2026)"
+      },
+      "sourcePlatform": "网易云音乐",
+      "sourceUrl": "https://music.163.com/song?id=3394977576",
+      "rightsStatus": "external-stream-only",
+      "publicDownload": false
+    },
+    {
+      "id": "radio:netease:2726857707",
+      "category": "external-audio-stream",
+      "context": {
+        "kind": "radio",
+        "slug": "emibonnie",
+        "title": "เอาไรว่ามา (Anything You Want) (feat. EmiBonnie)"
+      },
+      "sourcePlatform": "网易云音乐",
+      "sourceUrl": "https://music.163.com/song?id=2726857707",
+      "rightsStatus": "external-stream-only",
+      "publicDownload": false
+    },
+    {
+      "id": "radio:netease:3323198130",
+      "category": "external-audio-stream",
+      "context": {
+        "kind": "radio",
+        "slug": "emibonnie",
+        "title": "แอบรักไม่ทำให้ใครตาย (NO WORRIES) (feat. Emi/Mook)"
+      },
+      "sourcePlatform": "网易云音乐",
+      "sourceUrl": "https://music.163.com/song?id=3323198130",
+      "rightsStatus": "external-stream-only",
+      "publicDownload": false
+    },
+    {
+      "id": "radio:netease:3346766979",
+      "category": "external-audio-stream",
+      "context": {
+        "kind": "radio",
+        "slug": "janekao",
+        "title": "Love Through the Frame"
+      },
+      "sourcePlatform": "网易云音乐",
+      "sourceUrl": "https://music.163.com/song?id=3346766979",
+      "rightsStatus": "external-stream-only",
+      "publicDownload": false
+    },
+    {
+      "id": "radio:netease:2757267299",
+      "category": "external-audio-stream",
+      "context": {
+        "kind": "radio",
+        "slug": "ginjay",
+        "title": "เธอคือคำตอบ (The World Of Us) (From \"พิษรัก Poisonous Love\")"
+      },
+      "sourcePlatform": "网易云音乐",
+      "sourceUrl": "https://music.163.com/song?id=2757267299",
+      "rightsStatus": "external-stream-only",
+      "publicDownload": false
+    }
+  ]
+}

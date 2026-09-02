@@ -1,0 +1,48 @@
+name: 权利反馈
+description: 反馈具体页面中的版权、肖像、署名或来源问题
+title: "[权利反馈] "
+labels:
+  - rights-feedback
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢告知。请只提交核验所需的页面和素材信息，不要在公开 Issue 中上传身份证件、联系方式或其他敏感材料。
+  - type: input
+    id: page
+    attributes:
+      label: 涉及页面
+      description: 请提供 glfans 的具体页面地址。
+      placeholder: https://fanmihua.github.io/glfans/#/...
+    validations:
+      required: true
+  - type: textarea
+    id: material
+    attributes:
+      label: 涉及内容
+      description: 请描述具体图片、文字、音视频或署名位置。
+    validations:
+      required: true
+  - type: dropdown
+    id: request
+    attributes:
+      label: 希望如何处理
+      options:
+        - 补充来源或署名
+        - 更正说明
+        - 下架或断开链接
+        - 其他
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: 补充说明（可选）
+      description: 请勿填写身份证件、私人联系方式或其他敏感信息。
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: 公开反馈确认
+      options:
+        - label: 我确认没有在此公开 Issue 中提交敏感个人信息。
+          required: true

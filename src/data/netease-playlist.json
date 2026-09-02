@@ -1,0 +1,764 @@
+{
+  "playlistId": "17374864309",
+  "name": "泰百磕学家｜OST+Cover系列",
+  "syncedAt": "2026-09-02T06:08:37.823Z",
+  "trackCount": 43,
+  "playableCount": 12,
+  "tracks": [
+    {
+      "id": "3428877102",
+      "position": 1,
+      "name": "L.O.V.E (feat. Jan)",
+      "artists": [
+        "Jan Ployshompoo",
+        "iracha"
+      ],
+      "album": "JanJingjing",
+      "cover": "https://p2.music.126.net/FevZ7IDev-Vm6dytGFsgFQ==/109951173406144686.jpg",
+      "duration": 192679,
+      "playable": true,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=3428877102.mp3",
+      "officialUrl": "https://music.163.com/song?id=3428877102",
+      "cpId": "janjingjing",
+      "cpName": "JanJingJing",
+      "cpArtwork": "assets/home/janjingjing-card-v1.webp"
+    },
+    {
+      "id": "1928215060",
+      "position": 2,
+      "name": "Look at You Differently",
+      "artists": [
+        "Snake City"
+      ],
+      "album": "My Exes",
+      "cover": "https://p2.music.126.net/9poRK1ebykn_CInUizp7kQ==/109951167149952422.jpg",
+      "duration": 196014,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=1928215060.mp3",
+      "officialUrl": "https://music.163.com/song?id=1928215060",
+      "cpId": "janjingjing",
+      "cpName": "JanJingJing",
+      "cpArtwork": "assets/home/janjingjing-card-v1.webp"
+    },
+    {
+      "id": "3422700412",
+      "position": 3,
+      "name": "More Than Words (feat. JanJingjing)",
+      "artists": [
+        "JanJingjing",
+        "iracha"
+      ],
+      "album": "JanJingjing",
+      "cover": "https://p2.music.126.net/FevZ7IDev-Vm6dytGFsgFQ==/109951173406144686.jpg",
+      "duration": 247083,
+      "playable": true,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=3422700412.mp3",
+      "officialUrl": "https://music.163.com/song?id=3422700412",
+      "cpId": "janjingjing",
+      "cpName": "JanJingJing",
+      "cpArtwork": "assets/home/janjingjing-card-v1.webp"
+    },
+    {
+      "id": "3376176519",
+      "position": 4,
+      "name": "งั้นรักละ (Don’t wanna, But I Do) [เพลงประกอบซีรีส์ \"ลัลล์ไม่ชอบไวน์ Enemies With Benefits\"]",
+      "artists": [
+        "Jan Ployshompoo",
+        "JingJing Yu"
+      ],
+      "album": "งั้นรักละ (Don’t wanna, But I Do) [เพลงประกอบซีรีส์ \"ลัลล์ไม่ชอบไวน์ Enemies With Benefits\"]",
+      "cover": "https://p2.music.126.net/UhCoAxsxcN8-4eK-LL3ziQ==/109951173141912094.jpg",
+      "duration": 175433,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=3376176519.mp3",
+      "officialUrl": "https://music.163.com/song?id=3376176519",
+      "cpId": "janjingjing",
+      "cpName": "JanJingJing",
+      "cpArtwork": "assets/home/janjingjing-card-v1.webp"
+    },
+    {
+      "id": "3395111358",
+      "position": 5,
+      "name": "TOUCH (feat. JanJingjing)",
+      "artists": [
+        "JanJingjing",
+        "iracha"
+      ],
+      "album": "BBFF 2026",
+      "cover": "https://p2.music.126.net/ST4ArOvDJYrDkGokKv3BtA==/109951173411119081.jpg",
+      "duration": 200411,
+      "playable": true,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=3395111358.mp3",
+      "officialUrl": "https://music.163.com/song?id=3395111358",
+      "cpId": "janjingjing",
+      "cpName": "JanJingJing",
+      "cpArtwork": "assets/home/janjingjing-card-v1.webp"
+    },
+    {
+      "id": "3418006727",
+      "position": 6,
+      "name": "Red Kiss",
+      "artists": [
+        "Emi Thasorn",
+        "Bonnie Pattraphus"
+      ],
+      "album": "Red Kiss",
+      "cover": "https://p2.music.126.net/PNcUe8KktTo0Plpu_c2dXA==/109951173712930244.jpg",
+      "duration": 225889,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=3418006727.mp3",
+      "officialUrl": "https://music.163.com/song?id=3418006727",
+      "cpId": "emibonnie",
+      "cpName": "EmiBonnie",
+      "cpArtwork": "assets/home/emibonnie-card-v1.webp"
+    },
+    {
+      "id": "2022403347",
+      "position": 7,
+      "name": "I Want You",
+      "artists": [
+        "Loving Caliber"
+      ],
+      "album": "From The Vaults: Loving Caliber and Friends",
+      "cover": "https://p2.music.126.net/pAWMBcGbLKP7kVIWY_KQ2w==/109951168309412706.jpg",
+      "duration": 210500,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=2022403347.mp3",
+      "officialUrl": "https://music.163.com/song?id=2022403347",
+      "cpId": "emibonnie",
+      "cpName": "EmiBonnie",
+      "cpArtwork": "assets/home/emibonnie-card-v1.webp"
+    },
+    {
+      "id": "3395113930",
+      "position": 8,
+      "name": "แค่คนโทรผิด (只是一个打错电话的人) (BBFF 2026)",
+      "artists": [
+        "EmiBonnie",
+        "iracha"
+      ],
+      "album": "BBFF 2026",
+      "cover": "https://p2.music.126.net/ST4ArOvDJYrDkGokKv3BtA==/109951173411119081.jpg",
+      "duration": 259204,
+      "playable": true,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=3395113930.mp3",
+      "officialUrl": "https://music.163.com/song?id=3395113930",
+      "cpId": "emibonnie",
+      "cpName": "EmiBonnie",
+      "cpArtwork": "assets/home/emibonnie-card-v1.webp"
+    },
+    {
+      "id": "3403307851",
+      "position": 9,
+      "name": "แรงอีกนิด (SADISTIC) (EWB)",
+      "artists": [
+        "JanJingjing",
+        "KapookCiize",
+        "iracha"
+      ],
+      "album": "JanJingjing",
+      "cover": "https://p2.music.126.net/FevZ7IDev-Vm6dytGFsgFQ==/109951173406144686.jpg",
+      "duration": 181254,
+      "playable": true,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=3403307851.mp3",
+      "officialUrl": "https://music.163.com/song?id=3403307851",
+      "cpId": "janjingjing",
+      "cpName": "JanJingJing",
+      "cpArtwork": "assets/home/janjingjing-card-v1.webp"
+    },
+    {
+      "id": "3403327523",
+      "position": 10,
+      "name": "ยิ่งชิดยิ่งคิด (Fall For You) (feat. Jan)",
+      "artists": [
+        "Jan Ployshompoo",
+        "iracha"
+      ],
+      "album": "JanJingjing",
+      "cover": "https://p2.music.126.net/FevZ7IDev-Vm6dytGFsgFQ==/109951173406144686.jpg",
+      "duration": 182415,
+      "playable": true,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=3403327523.mp3",
+      "officialUrl": "https://music.163.com/song?id=3403327523",
+      "cpId": "janjingjing",
+      "cpName": "JanJingJing",
+      "cpArtwork": "assets/home/janjingjing-card-v1.webp"
+    },
+    {
+      "id": "3394747021",
+      "position": 11,
+      "name": "รางวัลคนเก่ง (My Only Champion) (feat. JingJingYu)",
+      "artists": [
+        "JingJing Yu",
+        "iracha"
+      ],
+      "album": "JanJingjing",
+      "cover": "https://p2.music.126.net/FevZ7IDev-Vm6dytGFsgFQ==/109951173406144686.jpg",
+      "duration": 227067,
+      "playable": true,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=3394747021.mp3",
+      "officialUrl": "https://music.163.com/song?id=3394747021",
+      "cpId": "janjingjing",
+      "cpName": "JanJingJing",
+      "cpArtwork": "assets/home/janjingjing-card-v1.webp"
+    },
+    {
+      "id": "3319818739",
+      "position": 12,
+      "name": "Fantasize",
+      "artists": [
+        "I'MIN"
+      ],
+      "album": "Velvet",
+      "cover": "https://p2.music.126.net/FMSaJYNerE-NQL9496RiUw==/109951172314480938.jpg",
+      "duration": 160574,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=3319818739.mp3",
+      "officialUrl": "https://music.163.com/song?id=3319818739",
+      "cpId": "janjingjing",
+      "cpName": "JanJingJing",
+      "cpArtwork": "assets/home/janjingjing-card-v1.webp"
+    },
+    {
+      "id": "2027044018",
+      "position": 13,
+      "name": "เถียงเก่ง (feat. URBOYTJ)",
+      "artists": [
+        "ALALA",
+        "UrboyTJ"
+      ],
+      "album": "เถียงเก่ง (feat. URBOYTJ)",
+      "cover": "https://p2.music.126.net/QNg-O7khhZuLviOyyI7pOQ==/109951170860104859.jpg",
+      "duration": 217016,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=2027044018.mp3",
+      "officialUrl": "https://music.163.com/song?id=2027044018",
+      "cpId": "janjingjing",
+      "cpName": "JanJingJing",
+      "cpArtwork": "assets/home/janjingjing-card-v1.webp"
+    },
+    {
+      "id": "1857178108",
+      "position": 14,
+      "name": "ห้ามใจ (Unstoppable)",
+      "artists": [
+        "SIZZY"
+      ],
+      "album": "ห้ามใจ (Unstoppable)",
+      "cover": "https://p2.music.126.net/2dkDz1v8BiKgCU5cOYCtIw==/109951171941935901.jpg",
+      "duration": 200594,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=1857178108.mp3",
+      "officialUrl": "https://music.163.com/song?id=1857178108",
+      "cpId": "janjingjing",
+      "cpName": "JanJingJing",
+      "cpArtwork": "assets/home/janjingjing-card-v1.webp"
+    },
+    {
+      "id": "3394977576",
+      "position": 15,
+      "name": "Ded (酷) (BBFF 2026)",
+      "artists": [
+        "JanJingjing",
+        "KapookCiize",
+        "PahnFond",
+        "iracha"
+      ],
+      "album": "BBFF 2026",
+      "cover": "https://p2.music.126.net/ST4ArOvDJYrDkGokKv3BtA==/109951173411119081.jpg",
+      "duration": 185341,
+      "playable": true,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=3394977576.mp3",
+      "officialUrl": "https://music.163.com/song?id=3394977576",
+      "cpId": "janjingjing",
+      "cpName": "JanJingJing",
+      "cpArtwork": "assets/home/janjingjing-card-v1.webp"
+    },
+    {
+      "id": "2615458473",
+      "position": 16,
+      "name": "รักแรก (First Love)",
+      "artists": [
+        "Sarah Sayapond",
+        "Jan Ployshompoo"
+      ],
+      "album": "รักแรก (First Love)",
+      "cover": "https://p2.music.126.net/CW__V1yapxTrliBBOk1jrQ==/109951169870838914.jpg",
+      "duration": 262176,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=2615458473.mp3",
+      "officialUrl": "https://music.163.com/song?id=2615458473",
+      "cpId": "janjingjing",
+      "cpName": "JanJingJing",
+      "cpArtwork": "assets/home/janjingjing-card-v1.webp"
+    },
+    {
+      "id": "3364058320",
+      "position": 17,
+      "name": "Favorite Toxic (เพลงประกอบซีรีส์ \" Girl Rules กฎหลัก...ห้ามรักเธอ \")",
+      "artists": [
+        "Namtan Tipnaree",
+        "Film Rachanun"
+      ],
+      "album": "Favorite Toxic (เพลงประกอบซีรีส์ \" Girl Rules กฎหลัก...ห้ามรักเธอ \")",
+      "cover": "https://p2.music.126.net/W-Pky-heCqymx73c5a1eHw==/109951172954701619.jpg",
+      "duration": 184999,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=3364058320.mp3",
+      "officialUrl": "https://music.163.com/song?id=3364058320",
+      "cpId": "namtanfilm",
+      "cpName": "NamtanFilm",
+      "cpArtwork": "assets/home/namtanfilm-card-v1.webp"
+    },
+    {
+      "id": "3379707724",
+      "position": 18,
+      "name": "Forever Yours (เพลงประกอบซีรีส์ \" Girl Rules กฎหลัก...ห้ามรักเธอ \")",
+      "artists": [
+        "Emi Thasorn"
+      ],
+      "album": "Forever Yours (เพลงประกอบซีรีส์ \" Girl Rules กฎหลัก...ห้ามรักเธอ \")",
+      "cover": "https://p2.music.126.net/7ojgSdpfNg4J7reJr9-Fsw==/109951173190667185.jpg",
+      "duration": 208122,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=3379707724.mp3",
+      "officialUrl": "https://music.163.com/song?id=3379707724",
+      "cpId": "emibonnie",
+      "cpName": "EmiBonnie",
+      "cpArtwork": "assets/home/emibonnie-card-v1.webp"
+    },
+    {
+      "id": "3384993690",
+      "position": 19,
+      "name": "ระยะใกล้รัก (Afraid) [เพลงประกอบซีรีส์ \"ลัลล์ไม่ชอบไวน์ Enemies With Benefits\"]",
+      "artists": [
+        "JingJing Yu"
+      ],
+      "album": "ระยะใกล้รัก (Afraid) [เพลงประกอบซีรีส์ \"ลัลล์ไม่ชอบไวน์ Enemies With Benefits\"]",
+      "cover": "https://p2.music.126.net/wAA1Fa-5xN9-UE-75J0izA==/109951173527481591.jpg",
+      "duration": 210609,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=3384993690.mp3",
+      "officialUrl": "https://music.163.com/song?id=3384993690",
+      "cpId": "janjingjing",
+      "cpName": "JanJingJing",
+      "cpArtwork": "assets/home/janjingjing-card-v1.webp"
+    },
+    {
+      "id": "3384813781",
+      "position": 20,
+      "name": "ฉันผิดเองที่รักเธอ (It’s all my fault) [เพลงประกอบซีรีส์ \"ลัลล์ไม่ชอบไวน์ Enemies With Benefits\"]",
+      "artists": [
+        "Jan Ployshompoo"
+      ],
+      "album": "ฉันผิดเองที่รักเธอ (It’s all my fault) [เพลงประกอบซีรีส์ \"ลัลล์ไม่ชอบไวน์ Enemies With Benefits\"]",
+      "cover": "https://p2.music.126.net/hQumL_IEVnsoWaOlj-s8Mg==/109951173527483558.jpg",
+      "duration": 258333,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=3384813781.mp3",
+      "officialUrl": "https://music.163.com/song?id=3384813781",
+      "cpId": "janjingjing",
+      "cpName": "JanJingJing",
+      "cpArtwork": "assets/home/janjingjing-card-v1.webp"
+    },
+    {
+      "id": "3383427685",
+      "position": 21,
+      "name": "Wine I hate you ? (เพลงประกอบซีรีส์ \"ลัลล์ไม่ชอบไวน์ Enemies With Benefits\")",
+      "artists": [
+        "Jan Ployshompoo",
+        "JingJing Yu"
+      ],
+      "album": "Wine I hate you ? (เพลงประกอบซีรีส์ \"ลัลล์ไม่ชอบไวน์ Enemies With Benefits\")",
+      "cover": "https://p2.music.126.net/ibVYjsbLB14tyUfAYhiNFA==/109951173527474494.jpg",
+      "duration": 175714,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=3383427685.mp3",
+      "officialUrl": "https://music.163.com/song?id=3383427685",
+      "cpId": "janjingjing",
+      "cpName": "JanJingJing",
+      "cpArtwork": "assets/home/janjingjing-card-v1.webp"
+    },
+    {
+      "id": "2754121769",
+      "position": 22,
+      "name": "Starlight (From \"ClaireBell\")",
+      "artists": [
+        "Violette Wautier"
+      ],
+      "album": "Starlight (From \"ClaireBell\")",
+      "cover": "https://p2.music.126.net/0Xq_swLUCwrEUPEu2-yeoA==/109951172132195370.jpg",
+      "duration": 205217,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=2754121769.mp3",
+      "officialUrl": "https://music.163.com/song?id=2754121769",
+      "cpId": "pangjiemable",
+      "cpName": "PangjieMable",
+      "cpArtwork": "assets/archive/posters/clairebell.webp"
+    },
+    {
+      "id": "2722356133",
+      "position": 23,
+      "name": "Warm",
+      "artists": [
+        "Valentina Ploy"
+      ],
+      "album": "Warm (Part I)",
+      "cover": "https://p2.music.126.net/hgOq9RO4RdbyY6DR_6j41g==/109951171401348104.jpg",
+      "duration": 220666,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=2722356133.mp3",
+      "officialUrl": "https://music.163.com/song?id=2722356133",
+      "cpId": "pangjiemable",
+      "cpName": "PangjieMable",
+      "cpArtwork": "assets/archive/posters/clairebell.webp"
+    },
+    {
+      "id": "2726857707",
+      "position": 24,
+      "name": "เอาไรว่ามา (Anything You Want) (feat. EmiBonnie)",
+      "artists": [
+        "iracha"
+      ],
+      "album": "EmiBonnie",
+      "cover": "https://p2.music.126.net/ngi9fpOl5Rzj5XA1DvLWZg==/109951171458595452.jpg",
+      "duration": 197730,
+      "playable": true,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=2726857707.mp3",
+      "officialUrl": "https://music.163.com/song?id=2726857707",
+      "cpId": "emibonnie",
+      "cpName": "EmiBonnie",
+      "cpArtwork": "assets/home/emibonnie-card-v1.webp"
+    },
+    {
+      "id": "3323198130",
+      "position": 25,
+      "name": "แอบรักไม่ทำให้ใครตาย (NO WORRIES) (feat. Emi/Mook)",
+      "artists": [
+        "iracha"
+      ],
+      "album": "EmiBonnie",
+      "cover": "https://p2.music.126.net/ngi9fpOl5Rzj5XA1DvLWZg==/109951171458595452.jpg",
+      "duration": 153520,
+      "playable": true,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=3323198130.mp3",
+      "officialUrl": "https://music.163.com/song?id=3323198130",
+      "cpId": "emibonnie",
+      "cpName": "EmiBonnie",
+      "cpArtwork": "assets/home/emibonnie-card-v1.webp"
+    },
+    {
+      "id": "2685704128",
+      "position": 26,
+      "name": "มากกว่าที่รัก (More Than Words) [เพลงประกอบซีรีส์ Us รักของเรา]",
+      "artists": [
+        "Emi Thasorn"
+      ],
+      "album": "มากกว่าที่รัก (More Than Words) [เพลงประกอบซีรีส์ Us รักของเรา]",
+      "cover": "https://p2.music.126.net/jhFcwhfQSIQIy0Dh_tjhng==/109951170623154278.jpg",
+      "duration": 257391,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=2685704128.mp3",
+      "officialUrl": "https://music.163.com/song?id=2685704128",
+      "cpId": "emibonnie",
+      "cpName": "EmiBonnie",
+      "cpArtwork": "assets/home/emibonnie-card-v1.webp"
+    },
+    {
+      "id": "2682562992",
+      "position": 27,
+      "name": "Between Us (เพลงประกอบซีรีส์ Us รักของเรา)",
+      "artists": [
+        "Bonnie Pattraphus"
+      ],
+      "album": "Between Us (เพลงประกอบซีรีส์ Us รักของเรา)",
+      "cover": "https://p2.music.126.net/__jTBnp6PYni7mmP8hDVyw==/109951170581441829.jpg",
+      "duration": 194000,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=2682562992.mp3",
+      "officialUrl": "https://music.163.com/song?id=2682562992",
+      "cpId": "emibonnie",
+      "cpName": "EmiBonnie",
+      "cpArtwork": "assets/home/emibonnie-card-v1.webp"
+    },
+    {
+      "id": "3352027801",
+      "position": 28,
+      "name": "ยิ่งชิดยิ่งคิด (Fall For You)",
+      "artists": [
+        "Emi Thasorn",
+        "Bonnie Pattraphus"
+      ],
+      "album": "ยิ่งชิดยิ่งคิด (Fall For You)",
+      "cover": "https://p1.music.126.net/rJNpOC_q8iCCmt7l4hdhjg==/109951172778952824.jpg",
+      "duration": 205450,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=3352027801.mp3",
+      "officialUrl": "https://music.163.com/song?id=3352027801",
+      "cpId": "emibonnie",
+      "cpName": "EmiBonnie",
+      "cpArtwork": "assets/home/emibonnie-card-v1.webp"
+    },
+    {
+      "id": "2638987344",
+      "position": 29,
+      "name": "Like a Bird",
+      "artists": [
+        "Letra"
+      ],
+      "album": "Like a Bird",
+      "cover": "https://p1.music.126.net/L3mcgmixbqMfb-gK4DhPIg==/109951170064936530.jpg",
+      "duration": 243750,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=2638987344.mp3",
+      "officialUrl": "https://music.163.com/song?id=2638987344",
+      "cpId": "emibonnie",
+      "cpName": "EmiBonnie",
+      "cpArtwork": "assets/home/emibonnie-card-v1.webp"
+    },
+    {
+      "id": "3375627017",
+      "position": 30,
+      "name": "Break My Rules",
+      "artists": [
+        "Kao Supassara"
+      ],
+      "album": "Break My Rules",
+      "cover": "https://p1.music.126.net/NwNZHdGT63CAj-AAcj4VFg==/109951173136405316.jpg",
+      "duration": 170400,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=3375627017.mp3",
+      "officialUrl": "https://music.163.com/song?id=3375627017",
+      "cpId": "janekao",
+      "cpName": "JaneKao",
+      "cpArtwork": "assets/home/janekao-card-v1.webp"
+    },
+    {
+      "id": "3346766979",
+      "position": 31,
+      "name": "Love Through the Frame",
+      "artists": [
+        "iracha"
+      ],
+      "album": "Love Design 设计爱情",
+      "cover": "https://p1.music.126.net/qvyaAWK0mFfW0IXf-funMA==/109951172329796676.jpg",
+      "duration": 320319,
+      "playable": true,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=3346766979.mp3",
+      "officialUrl": "https://music.163.com/song?id=3346766979",
+      "cpId": "janekao",
+      "cpName": "JaneKao",
+      "cpArtwork": "assets/home/janekao-card-v1.webp"
+    },
+    {
+      "id": "2758272881",
+      "position": 32,
+      "name": "ช่วยทำให้มันจบ (Let it end) (From รับรักออกแบบ)",
+      "artists": [
+        "Kao Supassra"
+      ],
+      "album": "ช่วยทำให้มันจบ (Let it end) (From รับรักออกแบบ)",
+      "cover": "https://p1.music.126.net/eHAycgIycrG7PNeSltv3BQ==/109951172185949600.jpg",
+      "duration": 221470,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=2758272881.mp3",
+      "officialUrl": "https://music.163.com/song?id=2758272881",
+      "cpId": "janekao",
+      "cpName": "JaneKao",
+      "cpArtwork": "assets/home/janekao-card-v1.webp"
+    },
+    {
+      "id": "2601004614",
+      "position": 33,
+      "name": "อย่าเล่นกับระบบ",
+      "artists": [
+        "Linglingkwong",
+        "Orm kornnaphat"
+      ],
+      "album": "อย่าเล่นกับระบบ",
+      "cover": "https://p1.music.126.net/8PagRefQUdbgbjzcecXb4A==/109951169710118111.jpg",
+      "duration": 234734,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=2601004614.mp3",
+      "officialUrl": "https://music.163.com/song?id=2601004614",
+      "cpId": "lingorm",
+      "cpName": "LingOrm",
+      "cpArtwork": "assets/home/lingorm-card-v1.webp"
+    },
+    {
+      "id": "2757267299",
+      "position": 34,
+      "name": "เธอคือคำตอบ (The World Of Us) (From \"พิษรัก Poisonous Love\")",
+      "artists": [
+        "GINNY"
+      ],
+      "album": "เธอคือคำตอบ (The World Of Us) (From \"พิษรัก Poisonous Love\")",
+      "cover": "https://p1.music.126.net/YOU05kgANLoCyM4HqFfOQw==/109951172175199743.jpg",
+      "duration": 192000,
+      "playable": true,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=2757267299.mp3",
+      "officialUrl": "https://music.163.com/song?id=2757267299",
+      "cpId": "ginjay",
+      "cpName": "GinJay",
+      "cpArtwork": "assets/home/ginjay-card-v1.webp"
+    },
+    {
+      "id": "2740523632",
+      "position": 35,
+      "name": "Only I (From \"พิษรัก Poisonous Love\")",
+      "artists": [
+        "JAYNA"
+      ],
+      "album": "Only I (From \"พิษรัก Poisonous Love\")",
+      "cover": "https://p1.music.126.net/D61bpADUrE5z8Z2rl3zlDA==/109951171937980675.jpg",
+      "duration": 180625,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=2740523632.mp3",
+      "officialUrl": "https://music.163.com/song?id=2740523632",
+      "cpId": "ginjay",
+      "cpName": "GinJay",
+      "cpArtwork": "assets/home/ginjay-card-v1.webp"
+    },
+    {
+      "id": "2739812787",
+      "position": 36,
+      "name": "พิษรัก (From \"พิษรัก Poisonous Love\")",
+      "artists": [
+        "BOWKYLION"
+      ],
+      "album": "พิษรัก (From \"พิษรัก Poisonous Love\")",
+      "cover": "https://p1.music.126.net/D_J7OOqjaP8oim76qhx1qA==/109951171928151408.jpg",
+      "duration": 242686,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=2739812787.mp3",
+      "officialUrl": "https://music.163.com/song?id=2739812787",
+      "cpId": "ginjay",
+      "cpName": "GinJay",
+      "cpArtwork": "assets/home/ginjay-card-v1.webp"
+    },
+    {
+      "id": "2740531334",
+      "position": 37,
+      "name": "So This Is Love (From \"พิษรัก Poisonous Love\")",
+      "artists": [
+        "GINNY",
+        "JAYNA"
+      ],
+      "album": "So This Is Love (From \"พิษรัก Poisonous Love\")",
+      "cover": "https://p1.music.126.net/eq5lMEy6qLM36zkDlzumdQ==/109951171938107324.jpg",
+      "duration": 260000,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=2740531334.mp3",
+      "officialUrl": "https://music.163.com/song?id=2740531334",
+      "cpId": "ginjay",
+      "cpName": "GinJay",
+      "cpArtwork": "assets/home/ginjay-card-v1.webp"
+    },
+    {
+      "id": "2740524242",
+      "position": 38,
+      "name": "รักแค่ไหนก็ต้องปล่อยมือ (Heart Breaking) (From \"พิษรัก Poisonous Love\")",
+      "artists": [
+        "GINNY",
+        "JAYNA"
+      ],
+      "album": "รักแค่ไหนก็ต้องปล่อยมือ (Heart Breaking) (From \"พิษรัก Poisonous Love\")",
+      "cover": "https://p1.music.126.net/SXOo7P3hjqfCRCPdOB09IQ==/109951171937981579.jpg",
+      "duration": 233142,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=2740524242.mp3",
+      "officialUrl": "https://music.163.com/song?id=2740524242",
+      "cpId": "ginjay",
+      "cpName": "GinJay",
+      "cpArtwork": "assets/home/ginjay-card-v1.webp"
+    },
+    {
+      "id": "2720116551",
+      "position": 39,
+      "name": "Divine",
+      "artists": [
+        "Torii Wolf",
+        "Nyck Caution"
+      ],
+      "album": "Divine",
+      "cover": "https://p1.music.126.net/LYgNMn5d86iIrNFsA2nNXw==/109951171367627838.jpg",
+      "duration": 154053,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=2720116551.mp3",
+      "officialUrl": "https://music.163.com/song?id=2720116551",
+      "cpId": "ginjay",
+      "cpName": "GinJay",
+      "cpArtwork": "assets/home/ginjay-card-v1.webp"
+    },
+    {
+      "id": "2724592859",
+      "position": 40,
+      "name": "SECRET DEAL (FROM \"HARMONY SECRET ดีลลับฉบับเล่นเล่ห์\")",
+      "artists": [
+        "Lookmhee Punyapat",
+        "Sonya Saranphat"
+      ],
+      "album": "SECRET DEAL (FROM \"HARMONY SECRET ดีลลับฉบับเล่นเล่ห์\")",
+      "cover": "https://p1.music.126.net/QstfV5Zsf2KzU3DhvRQGEQ==/109951171442674036.jpg",
+      "duration": 171000,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=2724592859.mp3",
+      "officialUrl": "https://music.163.com/song?id=2724592859",
+      "cpId": "lookmheesonya",
+      "cpName": "LookmheeSonya",
+      "cpArtwork": "assets/archive/posters/harmony-secret.webp"
+    },
+    {
+      "id": "2726778047",
+      "position": 41,
+      "name": "ONLY WE KNOW (FROM \"HARMONY SECRET ดีลลับฉบับเล่นเล่ห์ \")",
+      "artists": [
+        "Lookmhee Punyapat",
+        "Sonya Saranphat"
+      ],
+      "album": "ONLY WE KNOW (FROM \"HARMONY SECRET ดีลลับฉบับเล่นเล่ห์ \")",
+      "cover": "https://p1.music.126.net/2eFvDDOCdNXKYQf3NCRQGQ==/109951171476099747.jpg",
+      "duration": 174736,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=2726778047.mp3",
+      "officialUrl": "https://music.163.com/song?id=2726778047",
+      "cpId": "lookmheesonya",
+      "cpName": "LookmheeSonya",
+      "cpArtwork": "assets/archive/posters/harmony-secret.webp"
+    },
+    {
+      "id": "2670217802",
+      "position": 42,
+      "name": "ทฤษฎีไหน (THE THEORY OF LOVE) [FROM CLUB FRIDAY THE SERIES \"THEORY OF LOVE\" ORIGINAL SOUND TRACK]",
+      "artists": [
+        "Sonya Saranphat"
+      ],
+      "album": "ทฤษฎีไหน (THE THEORY OF LOVE) [FROM CLUB FRIDAY THE SERIES \"THEORY OF LOVE\" ORIGINAL SOUND TRACK]",
+      "cover": "https://p1.music.126.net/_u6cQQ3OuLFAf5thvWIInw==/109951170433263037.jpg",
+      "duration": 260597,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=2670217802.mp3",
+      "officialUrl": "https://music.163.com/song?id=2670217802",
+      "cpId": "lookmheesonya",
+      "cpName": "LookmheeSonya",
+      "cpArtwork": "assets/archive/posters/harmony-secret.webp"
+    },
+    {
+      "id": "2130089150",
+      "position": 43,
+      "name": "A Revolution",
+      "artists": [
+        "Solaras"
+      ],
+      "album": "Revolution",
+      "cover": "https://p1.music.126.net/LDftd4i1Pva-gBfciEL2jg==/109951169368211260.jpg",
+      "duration": 205000,
+      "playable": false,
+      "outerUrl": "https://music.163.com/song/media/outer/url?id=2130089150.mp3",
+      "officialUrl": "https://music.163.com/song?id=2130089150",
+      "cpId": "lookmheesonya",
+      "cpName": "LookmheeSonya",
+      "cpArtwork": "assets/archive/posters/harmony-secret.webp"
+    }
+  ]
+}

@@ -1,0 +1,1089 @@
+.pit-radio-shell {
+  min-height: 100vh;
+  color: var(--plum);
+  background: var(--paper);
+}
+
+.pit-radio-shell .column-header-nav a[aria-current="page"] {
+  color: var(--pink);
+}
+
+.pit-radio-stage {
+  position: relative;
+  min-height: 880px;
+  overflow: hidden;
+  padding: 96px 3.25vw 54px;
+  isolation: isolate;
+}
+
+.pit-radio-stage::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    radial-gradient(circle at 31% 34%, rgba(239, 79, 131, 0.05), transparent 24%),
+    linear-gradient(rgba(9, 9, 9, 0.025) 1px, transparent 1px);
+  background-size: auto, 100% 54px;
+  content: "";
+  opacity: 0.42;
+  pointer-events: none;
+}
+
+.pit-radio-copy {
+  position: absolute;
+  z-index: 8;
+  top: 122px;
+  left: 3.25vw;
+  width: min(44vw, 720px);
+}
+
+.pit-radio-copy h1 {
+  display: flex;
+  margin: 0;
+  flex-direction: column;
+  font-family: var(--hero-black);
+  font-weight: 900;
+  line-height: 0.78;
+}
+
+.pit-radio-cn-title {
+  display: block;
+  width: max-content;
+  max-width: none;
+  font-size: clamp(82px, 8.35vw, 140px);
+  letter-spacing: -0.11em;
+  line-height: 0.9;
+  white-space: nowrap;
+  transform: rotate(-2.6deg);
+  transform-origin: left bottom;
+}
+
+.pit-radio-en-title {
+  display: flex;
+  width: max-content;
+  margin: 18px 0 0 7.6vw;
+  align-items: flex-end;
+  gap: clamp(20px, 2.1vw, 36px);
+  font-size: clamp(124px, 10.8vw, 180px);
+  letter-spacing: -0.08em;
+  line-height: 0.78;
+  white-space: nowrap;
+  transform: rotate(-2.2deg);
+  transform-origin: left top;
+}
+
+.pit-radio-en-title b {
+  display: block;
+  font: inherit;
+}
+
+.pit-radio-en-title b:first-child {
+  color: var(--pink);
+  transform: rotate(1deg) scaleY(1.04);
+  transform-origin: left bottom;
+}
+
+.pit-radio-en-title b:last-child {
+  color: #090909;
+  transform: rotate(-1.4deg) scaleY(0.96);
+  transform-origin: left bottom;
+}
+
+.pit-radio-manifesto {
+  display: inline-flex;
+  margin: 22px 0 0 9.5vw;
+  padding: 8px 15px 9px;
+  color: white;
+  background: #090909;
+  box-shadow: 8px 7px 0 var(--pink);
+  font-size: clamp(13px, 1.1vw, 18px);
+  font-weight: 800;
+  line-height: 1;
+  transform: rotate(-5.2deg);
+}
+
+.pit-radio-manifesto em {
+  margin-left: 5px;
+  color: var(--pink);
+  font-style: normal;
+}
+
+.pit-radio-side-note {
+  position: absolute;
+  top: 156px;
+  left: 0;
+  margin: 0;
+  color: var(--pink);
+  font-family: "Bradley Hand", "Comic Sans MS", cursive;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.035em;
+  line-height: 1.35;
+  transform: rotate(-4deg);
+}
+
+.pit-radio-console {
+  position: absolute;
+  z-index: 4;
+  top: 76px;
+  right: -2.8vw;
+  width: min(75vw, 1250px);
+  height: 805px;
+}
+
+.pit-radio-machine-stack {
+  position: absolute;
+  z-index: 2;
+  top: 120px;
+  left: 3%;
+  width: 87%;
+  aspect-ratio: 1535 / 1024;
+}
+
+.pit-radio-broadcast-card {
+  position: absolute;
+  z-index: 0;
+  top: -18%;
+  left: 17%;
+  width: 43%;
+  height: auto;
+  transform: rotate(4.5deg);
+  filter: none;
+}
+
+.pit-radio-turntable {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  width: 100%;
+  aspect-ratio: 1535 / 1024;
+  transform: rotate(-0.8deg) scaleY(0.82);
+  transform-origin: center;
+}
+
+.pit-radio-chassis {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  filter: none;
+}
+
+.pit-radio-record-plane {
+  position: absolute;
+  z-index: 4;
+  top: 5.957031%;
+  left: 30.358306%;
+  width: 41.237785%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 50%;
+  background: transparent;
+  transform: scaleY(0.78831);
+  transform-origin: center;
+  isolation: isolate;
+}
+
+.pit-radio-record-spin {
+  position: absolute;
+  inset: 0;
+  animation: pit-vinyl-spin 8s linear infinite;
+  animation-play-state: paused;
+  will-change: transform;
+}
+
+.pit-radio-turntable.is-playing .pit-radio-record-spin {
+  animation-play-state: running;
+}
+
+.pit-radio-vinyl {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 255, 255, 0.03) 0,
+      rgba(255, 255, 255, 0.03) 0.8px,
+      transparent 1.25px,
+      transparent 3.4px
+    );
+  mix-blend-mode: screen;
+}
+
+.pit-radio-vinyl::before,
+.pit-radio-vinyl::after,
+.pit-radio-vinyl-texture {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  content: "";
+  pointer-events: none;
+}
+
+.pit-radio-vinyl::before {
+  background:
+    conic-gradient(
+      from 7deg,
+      transparent 0 7%,
+      rgba(255, 255, 255, 0.055) 9%,
+      transparent 12% 31%,
+      rgba(255, 255, 255, 0.03) 34%,
+      transparent 37% 64%,
+      rgba(255, 79, 147, 0.055) 68%,
+      transparent 73% 100%
+    );
+  mix-blend-mode: screen;
+  opacity: 0.32;
+}
+
+.pit-radio-vinyl::after {
+  inset: 4.5%;
+  background:
+    repeating-conic-gradient(
+      from 22deg,
+      rgba(255, 255, 255, 0.026) 0deg 0.08deg,
+      transparent 0.08deg 1.9deg
+    );
+  -webkit-mask: radial-gradient(circle, transparent 0 19%, #000 20% 89%, transparent 94%);
+  mask: radial-gradient(circle, transparent 0 19%, #000 20% 89%, transparent 94%);
+  opacity: 0.38;
+}
+
+.pit-radio-vinyl-texture {
+  inset: 2%;
+  background:
+    repeating-radial-gradient(
+      ellipse at 48% 52%,
+      transparent 0 4px,
+      rgba(255, 255, 255, 0.022) 4.2px 4.8px,
+      transparent 5px 8px
+    );
+  mix-blend-mode: screen;
+  opacity: 0.42;
+}
+
+.pit-radio-platter-rim {
+  position: absolute;
+  z-index: 5;
+  top: 5.957031%;
+  left: 30.358306%;
+  width: 41.237785%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 clamp(6px, 0.72vw, 11px) #09090a,
+    0 0 0 clamp(8px, 0.9vw, 14px) rgba(20, 20, 22, 0.84),
+    inset 0 0 0 1px rgba(255, 79, 147, 0.12);
+  pointer-events: none;
+  transform: scaleY(0.78831);
+  transform-origin: center;
+}
+
+.pit-radio-center-sticker {
+  position: absolute;
+  z-index: 4;
+  top: 50%;
+  left: 50%;
+  width: 37%;
+  max-height: 52%;
+  object-fit: contain;
+  transform: translate(-50%, -50%) rotate(-3deg);
+  transform-origin: center;
+  filter: none;
+  animation: pit-sticker-land 0.48s cubic-bezier(0.18, 0.82, 0.22, 1);
+}
+
+.pit-radio-player-slot {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  color: white;
+  border: 0;
+  border-radius: 3px;
+  background: #090909;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+.pit-radio-global-audio {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pit-radio-floating-record {
+  position: fixed;
+  z-index: 120;
+  right: 24px;
+  bottom: 24px;
+  display: grid;
+  width: 84px;
+  aspect-ratio: 1;
+  padding: 0;
+  color: white;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  filter: drop-shadow(4px 7px 0 var(--pink)) drop-shadow(0 13px 15px rgba(0, 0, 0, 0.2));
+  place-items: center;
+  animation: pit-radio-float-in 320ms cubic-bezier(0.2, 0.78, 0.22, 1) both;
+}
+
+.pit-radio-floating-record:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+.pit-radio-floating-disc {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  overflow: hidden;
+  background:
+    repeating-radial-gradient(circle, transparent 0 4px, rgba(255, 255, 255, 0.075) 4.5px 5px),
+    radial-gradient(circle at 35% 28%, #505050 0, #171717 24%, #030303 65%, #252525 100%);
+  border: 3px solid #343434;
+  border-radius: 50%;
+  place-items: center;
+}
+
+.pit-radio-floating-record.is-playing .pit-radio-floating-disc {
+  animation: pit-radio-dock-spin 4.2s linear infinite;
+}
+
+.pit-radio-floating-disc::after {
+  position: absolute;
+  width: 9px;
+  aspect-ratio: 1;
+  background: #090909;
+  border-radius: 50%;
+  content: "";
+}
+
+.pit-radio-floating-disc img {
+  display: block;
+  width: 48%;
+  max-height: 48%;
+  object-fit: contain;
+  transform: rotate(-3deg);
+}
+
+.pit-radio-floating-action {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: 32px;
+  aspect-ratio: 1;
+  color: #090909;
+  background: var(--pink);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.82);
+  transition: opacity 160ms ease, transform 180ms ease;
+  place-items: center;
+}
+
+.pit-radio-floating-action svg {
+  width: 15px;
+  height: 15px;
+}
+
+.pit-radio-floating-record:hover .pit-radio-floating-action,
+.pit-radio-floating-record:focus-visible .pit-radio-floating-action,
+.pit-radio-floating-record:not(.is-playing) .pit-radio-floating-action {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.pit-radio-player-guide {
+  position: absolute;
+  z-index: 3;
+  top: 8%;
+  right: 4%;
+  display: flex;
+  padding: clamp(3px, 0.38vw, 6px) clamp(5px, 0.6vw, 9px);
+  align-items: center;
+  gap: clamp(3px, 0.4vw, 6px);
+  color: #090909;
+  background: var(--pink);
+  font-family: var(--headline);
+  font-size: clamp(6px, 0.62vw, 9px);
+  font-weight: 800;
+  line-height: 1;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px) rotate(1deg);
+  transition: opacity 180ms ease, transform 220ms ease;
+}
+
+.pit-radio-player-guide.is-visible {
+  opacity: 1;
+  transform: translateY(0) rotate(1deg);
+}
+
+.pit-radio-player-guide b {
+  display: grid;
+  width: 1.9em;
+  aspect-ratio: 1;
+  color: white;
+  background: #090909;
+  border-radius: 50%;
+  font-family: "Roboto Condensed Variable", sans-serif;
+  font-size: 0.86em;
+  place-items: center;
+}
+
+.pit-radio-tonearm {
+  position: absolute;
+  z-index: 6;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  transform: rotate(var(--tonearm-rest-angle, -20deg));
+  transform-origin: 80.782% 22.266%;
+  transition: transform 620ms cubic-bezier(0.22, 0.72, 0.2, 1);
+}
+
+.pit-radio-turntable.has-needle-down .pit-radio-tonearm { transform: rotate(var(--tonearm-play-angle, 0deg)); }
+.pit-radio-turntable.is-dragging-tonearm .pit-radio-tonearm {
+  transform: rotate(var(--tonearm-angle));
+  transition: none;
+}
+
+.pit-radio-tonearm-control {
+  position: absolute;
+  z-index: 8;
+  top: 13%;
+  left: 62%;
+  width: 27%;
+  height: 56%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  clip-path: polygon(48% 0, 100% 0, 88% 55%, 62% 100%, 18% 91%, 0 72%, 33% 52%);
+  cursor: grab;
+  touch-action: none;
+}
+
+.pit-radio-tonearm-control:active { cursor: grabbing; }
+.pit-radio-tonearm-control:disabled { cursor: default; }
+
+.pit-radio-needle-guide {
+  position: absolute;
+  z-index: 9;
+  top: 29%;
+  right: 22%;
+  display: block;
+  width: 23%;
+  aspect-ratio: 1.15;
+  color: var(--pink);
+  font-family: var(--headline);
+  font-size: clamp(8px, 0.8vw, 12px);
+  font-weight: 780;
+  line-height: 1.06;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-3px) rotate(2deg);
+  transition: opacity 180ms ease, transform 220ms ease;
+}
+
+.pit-radio-needle-guide.is-visible {
+  opacity: 1;
+  transform: translateY(0) rotate(2deg);
+  animation: pit-needle-guide-pulse 1.8s ease-in-out infinite;
+}
+
+.pit-radio-needle-guide p {
+  position: absolute;
+  top: 45%;
+  left: 12%;
+  width: max-content;
+  margin: 0;
+  padding: 5px 7px 4px;
+  color: #090909;
+  background: var(--pink);
+  box-shadow: 3px 3px 0 #090909;
+  text-align: right;
+}
+
+.pit-radio-needle-guide p > b,
+.pit-radio-drop-label p > b {
+  display: inline-grid;
+  width: 1.8em;
+  margin-right: 0.42em;
+  aspect-ratio: 1;
+  color: white;
+  background: #090909;
+  border-radius: 50%;
+  font-family: "Roboto Condensed Variable", sans-serif;
+  font-size: 0.72em;
+  font-style: normal;
+  place-items: center;
+  vertical-align: 0.12em;
+}
+.pit-radio-needle-guide span {
+  font-family: "Bradley Hand", "Comic Sans MS", cursive;
+  font-size: 0.78em;
+  letter-spacing: 0.04em;
+}
+
+.pit-radio-needle-guide svg {
+  position: absolute;
+  right: 35%;
+  bottom: 0;
+  left: auto;
+  width: clamp(48px, 5.6vw, 86px);
+  height: auto;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 4;
+}
+
+.pit-radio-player-pending {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  height: 100%;
+  padding: clamp(9px, 1vw, 15px) clamp(12px, 1.2vw, 18px);
+  grid-template-columns: 19% minmax(0, 47%) 34%;
+  align-items: center;
+  gap: clamp(8px, 1vw, 15px);
+  transform: none;
+}
+
+.pit-radio-track-cover {
+  width: 100%;
+  aspect-ratio: 1.12;
+  overflow: hidden;
+  background: #171717;
+}
+
+.pit-radio-track-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.08);
+  transform: scale(1.02);
+}
+
+.pit-radio-track-copy {
+  display: grid;
+  min-width: 0;
+  align-content: center;
+  gap: 4px;
+}
+
+.pit-radio-track-copy > span {
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.88);
+  font-family: "Roboto Condensed Variable", sans-serif;
+  font-size: clamp(6px, 0.7vw, 10px);
+  font-weight: 780;
+  letter-spacing: 0.08em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pit-radio-track-copy strong {
+  overflow: hidden;
+  color: #fff;
+  font-family: var(--display);
+  font-size: clamp(11px, 1.05vw, 17px);
+  line-height: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pit-radio-track-copy small {
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.48);
+  font-family: "Roboto Condensed Variable", sans-serif;
+  font-size: clamp(6px, 0.62vw, 9px);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pit-radio-track-copy i {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 2px;
+  margin-top: 4px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.05));
+}
+
+.pit-radio-controls {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  justify-items: center;
+  gap: clamp(5px, 0.8vw, 11px);
+  color: white;
+}
+
+.pit-radio-controls > button {
+  display: grid;
+  padding: 0;
+  color: inherit;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  place-items: center;
+}
+
+.pit-radio-controls > button:not(.pit-radio-play) svg {
+  width: clamp(13px, 1.3vw, 21px);
+  height: clamp(13px, 1.3vw, 21px);
+}
+
+.pit-radio-play {
+  display: grid;
+  width: clamp(30px, 3.5vw, 52px);
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--pink);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.pit-radio-play:hover:not(:disabled) { transform: scale(1.06); }
+.pit-radio-play:disabled { opacity: 0.52; cursor: default; }
+
+.pit-radio-play svg {
+  width: 46%;
+  height: 46%;
+  margin-left: 0;
+}
+
+.pit-radio-play[aria-label="播放音乐"] svg {
+  margin-left: 7%;
+}
+
+.pit-radio-drop-label {
+  position: absolute;
+  z-index: 7;
+  top: 380px;
+  left: 2.2%;
+  color: var(--pink);
+  font-family: var(--headline);
+  font-size: 14px;
+  font-weight: 760;
+  line-height: 1.2;
+  opacity: 0;
+  pointer-events: none;
+  text-align: right;
+  transform: translateY(4px) rotate(-8deg);
+  transition: opacity 180ms ease, transform 220ms ease;
+}
+
+.pit-radio-drop-label.is-visible {
+  opacity: 1;
+  transform: translateY(0) rotate(-8deg);
+}
+
+.pit-radio-drop-label p {
+  margin: 0;
+}
+
+.pit-radio-drop-arrow {
+  display: block;
+  width: 92px;
+  height: auto;
+  margin: 2px -9px 0 auto;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform: rotate(7deg);
+}
+
+.pit-radio-drop-arrow-ghost {
+  opacity: 0.24;
+  stroke-width: 1.8;
+}
+
+.pit-radio-drop-label span {
+  font-family: "Bradley Hand", "Comic Sans MS", cursive;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.pit-radio-stations {
+  position: absolute;
+  z-index: 7;
+  inset: 0;
+  pointer-events: none;
+}
+
+.pit-radio-station {
+  position: absolute;
+  width: var(--station-width, 21%);
+  padding: 0;
+  border: 0;
+  color: var(--plum);
+  background: transparent;
+  cursor: grab;
+  pointer-events: auto;
+  touch-action: none;
+  user-select: none;
+  transition: filter 180ms ease, transform 240ms ease, opacity 180ms ease;
+}
+
+.pit-radio-station img {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  filter: grayscale(0.88) contrast(1.05);
+  transition: filter 220ms ease;
+}
+
+.pit-radio-station span {
+  position: absolute;
+  right: 8%;
+  bottom: 4%;
+  padding: 4px 7px;
+  color: white;
+  background: #090909;
+  font-family: "Roboto Condensed Variable", sans-serif;
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.pit-radio-station:hover,
+.pit-radio-station:focus-visible {
+  z-index: 3;
+  filter: none;
+}
+
+.pit-radio-station:hover img,
+.pit-radio-station:focus-visible img { filter: grayscale(0) contrast(1.03); }
+
+.pit-radio-station:hover span,
+.pit-radio-station:focus-visible span {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pit-radio-station.is-selected {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pit-radio-station.is-dragging {
+  z-index: 12;
+  cursor: grabbing;
+  transform: translate(var(--drag-x), var(--drag-y)) scale(1.06) rotate(0deg) !important;
+  transition: none;
+}
+
+.station-north { top: -16%; left: 47%; --station-width: 19.5%; transform: rotate(4deg); }
+.station-east-north { top: -17%; left: 66%; --station-width: 20.5%; transform: rotate(6deg); }
+.station-east-middle { top: 0; right: 3%; --station-width: 19.5%; transform: rotate(5deg); }
+.station-east-south {
+  z-index: 8;
+  top: 45%;
+  right: 3%;
+  --station-width: 20%;
+  clip-path: none;
+  transform: rotate(4deg);
+}
+.station-west-south { bottom: 14%; left: -10%; --station-width: 19.5%; transform: rotate(-6deg); }
+
+.pit-radio-howto {
+  position: absolute;
+  z-index: 7;
+  bottom: 8px;
+  left: 5.5vw;
+  width: clamp(230px, 19vw, 300px);
+  aspect-ratio: 4 / 5;
+  transform: rotate(-4deg);
+}
+
+.pit-radio-howto img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: none;
+}
+
+.pit-radio-howto ol {
+  position: absolute;
+  top: 0;
+  right: 9%;
+  bottom: 0;
+  left: 28%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pit-radio-howto li {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pit-radio-howto li:nth-child(1) { top: 27.8%; }
+.pit-radio-howto li:nth-child(2) { top: 50.1%; }
+.pit-radio-howto li:nth-child(3) { top: 72.8%; }
+
+.pit-radio-howto strong {
+  font-family: var(--headline);
+  font-size: clamp(10px, 0.95vw, 15px);
+  line-height: 1.15;
+}
+
+.pit-radio-howto span {
+  font-size: clamp(8px, 0.72vw, 11px);
+  font-weight: 640;
+  line-height: 1.35;
+}
+
+.pit-radio-source-note {
+  position: absolute;
+  z-index: 8;
+  right: 3.25vw;
+  bottom: 23px;
+  display: flex;
+  margin: 0;
+  align-items: center;
+  gap: 14px;
+  font-size: 10px;
+  font-weight: 720;
+  letter-spacing: 0.04em;
+}
+
+.pit-radio-source-note a {
+  display: inline-flex;
+  height: 34px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  align-items: center;
+  gap: 6px;
+  color: #090909;
+  background: rgba(9, 9, 9, 0.06);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 160ms ease, background-color 160ms ease;
+}
+
+.pit-radio-source-note > span {
+  color: rgba(17, 16, 17, 0.55);
+  font-size: 9px;
+  font-weight: var(--text-weight-regular);
+  white-space: nowrap;
+}
+
+.pit-radio-source-note a:hover,
+.pit-radio-source-note a:focus-visible {
+  color: white;
+  background: #090909;
+}
+
+.pit-radio-source-note a svg {
+  width: 13px;
+  height: 13px;
+  color: var(--pink);
+}
+
+@keyframes pit-vinyl-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pit-sticker-land {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(1.45) rotate(-13deg); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(-3deg); }
+}
+
+@keyframes pit-sticker-spin {
+  from { transform: translate(-50%, -50%) rotate(-3deg); }
+  to { transform: translate(-50%, -50%) rotate(357deg); }
+}
+
+@keyframes pit-needle-guide-pulse {
+  0%, 100% { opacity: 0.76; }
+  50% { opacity: 1; }
+}
+
+@keyframes pit-radio-float-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.86) rotate(7deg); }
+  to { opacity: 1; transform: translateY(0) scale(1) rotate(0); }
+}
+
+@keyframes pit-radio-dock-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 1180px) {
+  .pit-radio-stage { min-height: 800px; }
+  .pit-radio-copy { top: 110px; width: 37vw; }
+  .pit-radio-console { top: 76px; right: -7vw; width: 78vw; height: 690px; }
+  .pit-radio-howto { bottom: 20px; left: 3.25vw; width: 255px; }
+  .pit-radio-source-note { max-width: 320px; justify-content: flex-end; text-align: right; }
+}
+
+@media (min-width: 1025px) and (max-width: 1180px) {
+  .pit-radio-copy { left: 4.5vw; width: 40vw; }
+  .pit-radio-cn-title { font-size: clamp(76px, 7.7vw, 92px); }
+  .pit-radio-en-title {
+    margin-left: 6vw;
+    gap: 18px;
+    font-size: clamp(102px, 9.4vw, 118px);
+  }
+  .pit-radio-manifesto { margin-left: 7vw; }
+}
+
+@media (max-width: 1024px) {
+  .pit-radio-stage {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    min-height: auto;
+    padding: 108px 22px 44px;
+  }
+
+  .pit-radio-copy,
+  .pit-radio-console,
+  .pit-radio-howto,
+  .pit-radio-source-note {
+    position: relative;
+    inset: auto;
+  }
+
+  .pit-radio-copy {
+    grid-row: 1;
+    grid-column: 1;
+    width: 100%;
+  }
+  .pit-radio-copy h1 { line-height: 0.76; }
+  .pit-radio-cn-title { font-size: clamp(64px, 20.5vw, 96px); }
+  .pit-radio-en-title {
+    margin: 17px 0 0 18vw;
+    gap: 18px;
+    font-size: clamp(78px, 23vw, 108px);
+  }
+  .pit-radio-manifesto { margin: 22px 0 0 20vw; }
+  .pit-radio-side-note { display: none; }
+
+  .pit-radio-console {
+    grid-row: 2;
+    grid-column: 1;
+    justify-self: end;
+    width: min(118vw, 760px);
+    height: clamp(510px, 86vw, 670px);
+    margin: 120px -9vw 0 0;
+  }
+
+  .pit-radio-machine-stack { top: 17%; left: 4%; width: 85%; }
+  .pit-radio-broadcast-card { top: -24%; left: 21%; width: 68%; }
+  .pit-radio-drop-label { top: 42%; left: 0; font-size: 11px; }
+
+  .pit-radio-howto {
+    grid-row: 2;
+    grid-column: 1;
+    align-self: start;
+    justify-self: start;
+    width: min(34vw, 260px);
+    margin: 28px 0 0 15vw;
+  }
+
+  .pit-radio-source-note {
+    grid-row: 3;
+    grid-column: 1;
+    display: flex;
+    margin: 24px auto 0;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .pit-radio-source-note a { width: max-content; margin: 0; }
+}
+
+@media (max-width: 560px) {
+  .pit-radio-stage { padding-top: 96px; }
+  .pit-radio-kicker { margin-bottom: 15px; font-size: 8px; }
+  .pit-radio-console {
+    width: 116vw;
+    height: 116vw;
+    margin-top: 170px;
+    margin-right: -8vw;
+    margin-left: -8vw;
+  }
+  .pit-radio-howto {
+    width: min(58vw, 220px);
+    margin: 24px 0 0;
+  }
+  .pit-radio-cn-title { font-size: 20.5vw; }
+  .pit-radio-en-title { font-size: 23vw; }
+  .pit-radio-manifesto { font-size: 11px; box-shadow: 5px 5px 0 var(--pink); }
+  .pit-radio-player-slot { border-radius: 5px; }
+  .pit-radio-player-pending { gap: 3px; }
+  .pit-radio-player-pending small { display: none; }
+  .pit-radio-drop-label {
+    top: 40%;
+    left: 10%;
+    display: block;
+    font-size: 9px;
+  }
+  .pit-radio-drop-arrow { width: 64px; }
+  .station-west-south { left: 15%; }
+
+  .pit-radio-floating-record {
+    right: 14px;
+    bottom: max(14px, env(safe-area-inset-bottom));
+    width: 68px;
+    filter: drop-shadow(3px 5px 0 var(--pink)) drop-shadow(0 10px 12px rgba(0, 0, 0, 0.18));
+  }
+
+  .pit-radio-floating-action {
+    width: 28px;
+    opacity: 0.92;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pit-radio-record-spin,
+  .pit-radio-center-sticker { animation: none; }
+  .pit-radio-tonearm { transition: none; }
+  .pit-radio-needle-guide.is-visible { animation: none; }
+  .pit-radio-drop-label,
+  .pit-radio-player-guide { transition: none; }
+  .pit-radio-station { transition: none; }
+  .pit-radio-floating-record { animation: none; }
+  .pit-radio-floating-record.is-playing .pit-radio-floating-disc { animation: none; }
+}

@@ -1,0 +1,25 @@
+.DS_Store
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+qa/
+design-qa.md
+design-qa*.png
+
+# Local design and browser QA evidence
+.playwright-cli/
+output/
+docs/**/*.png
+docs/*-audit/
+docs/*-design/
+docs/design-qa/
+docs/responsive-audit/
+
+# Internal working notes and source-import tooling
+AGENTS.md
+docs/DEVELOPMENT_BRIEF.md
+docs/STANDARDS_ROADMAP.md
+docs/assets/
+scripts/import-feishu-column.mjs
