@@ -354,6 +354,7 @@ const memeCollection = [
     note: "每一次郑重退坑的标准表情。",
     src: "assets/fan-memes/reaction-no-serious.webp",
     alt: "聊天气泡写着我决定不认真了，下方是一位穿红衣服的女性无奈地拨头发",
+    downloadName: "glfans-我决定不认真了.webp",
   },
   {
     id: "002",
@@ -361,7 +362,6 @@ const memeCollection = [
     note: "通常出现在下一次真情实感之前。",
     src: "assets/fan-memes/reaction-no-emotion.webp",
     alt: "圆角聊天气泡写着不会真情实感了，其中真情二字为绿色",
-    downloadable: true,
     downloadName: "glfans-不会真情实感了.webp",
   },
   {
@@ -370,7 +370,6 @@ const memeCollection = [
     note: "飞书原版表情包库收录。",
     src: "assets/fan-memes/reaction-light-relaxed.webp",
     alt: "一张模糊的黑白熊猫头表情，嘴角努力保持平静",
-    downloadable: true,
     downloadName: "glfans-轻松绷住.webp",
   },
   {
@@ -379,7 +378,6 @@ const memeCollection = [
     note: "飞书原版表情包库收录。",
     src: "assets/fan-memes/reaction-many-lesbians.webp",
     alt: "黑色背景上的文字表情包，写着 less is more 和女同越来越多",
-    downloadable: true,
     downloadName: "glfans-女同越来越多.webp",
   },
   {
@@ -388,7 +386,6 @@ const memeCollection = [
     note: "飞书原版表情包库收录。",
     src: "assets/fan-memes/reaction-failed-lesbian.webp",
     alt: "戴着纸袋的猫咪表情，配字我是个失败的拉拉",
-    downloadable: true,
     downloadName: "glfans-我是个失败的拉拉.webp",
   },
 ];
@@ -591,6 +588,10 @@ function MemePickupPage() {
             请看镜头，<em>保持嘴硬</em>
             <span className="meme-title-spark" aria-hidden="true"><Sparkle weight="fill" /></span>
           </p>
+          <p className="meme-download-notice">
+            表情包仅供粉丝交流使用，相关素材权利归原权利人。
+            <a href="#/about/rights">权利说明与反馈</a>
+          </p>
         </div>
 
         <div className={`instant-camera-stage is-${phase}`}>
@@ -674,16 +675,14 @@ function MemePickupPage() {
                       <span className="meme-film-image"><img src={withBase(meme.src)} alt="" /></span>
                       <span className="meme-film-number">[{meme.filmId}]</span>
                       <span className="meme-film-card-actions">
-                        {meme.downloadable ? (
-                          <a
-                            href={withBase(meme.src)}
-                            download={meme.downloadName}
-                            aria-label={`下载表情包：${meme.title}`}
-                            title="下载这张"
-                          >
-                            <DownloadSimple aria-hidden="true" />
-                          </a>
-                        ) : null}
+                        <a
+                          href={withBase(meme.src)}
+                          download={meme.downloadName}
+                          aria-label={`下载表情包：${meme.title}`}
+                          title="下载这张"
+                        >
+                          <DownloadSimple aria-hidden="true" />
+                        </a>
                         <button
                           type="button"
                           onClick={startCapture}

@@ -148,6 +148,26 @@ body.meme-game-active .column-shell {
   white-space: nowrap;
 }
 
+.meme-download-notice {
+  max-width: 360px;
+  margin: 15px 0 0 1.1vw;
+  color: rgba(17, 16, 17, 0.52);
+  font-size: 9px;
+  letter-spacing: 0.035em;
+  line-height: 1.6;
+}
+
+.meme-download-notice a {
+  margin-left: 7px;
+  color: var(--pink);
+  font-weight: 700;
+  white-space: nowrap;
+  text-underline-offset: 3px;
+}
+
+.meme-download-notice a:hover,
+.meme-download-notice a:focus-visible { text-decoration: underline; }
+
 .instant-camera-stage {
   position: relative;
   display: grid;
@@ -683,6 +703,13 @@ body.meme-game-active .column-shell {
   .meme-game-tagline {
     margin: 18px 0 0;
     font-size: clamp(17px, 4.3vw, 22px);
+  }
+
+  .meme-download-notice {
+    max-width: none;
+    margin: 8px 0 0;
+    font-size: 8px;
+    line-height: 1.45;
   }
 
   .instant-camera-stage {
