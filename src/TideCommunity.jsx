@@ -191,11 +191,29 @@ export function useTideCommunity() {
     const cleanedNickname = nickname.trim() || "匿名坑底人";
     const cleanedBody = body.trim();
     try {
-      await submitCommunityComment({
+      const result = await submitCommunityComment({
         targetType,
         targetId,
         nickname: cleanedNickname,
         body: cleanedBody,
+      });
+      const publishedComment = {
+        id: result.id,
+        target_type: targetType,
+        target_id: targetId,
+        nickname: cleanedNickname,
+        body: cleanedBody,
+        status: result.status,
+        created_at: result.created_at,
+      };
+      if (targetType === "page") {
+        setGuestbookComments((current) => [publishedComment, ...current].slice(0, 12));
+      } else if (targetType === "quote") {
+        setQuoteComments((current) => [publishedComment, ...current].slice(0, 30));
+      }
+      setStatsByTarget((current) => {
+        const previous = current[getTideTargetKey(targetType, targetId)] ?? emptyStats;
+        return mergeTargetStats(current, targetType, targetId, { comments: previous.comments + 1 });
       });
       saveNickname(cleanedNickname === "匿名坑底人" ? "" : cleanedNickname);
       return { ok: true };
@@ -316,7 +334,7 @@ function CommunityCommentForm({ configured, onSubmit, submitLabel = "留下这�
     if (result.ok) {
       setBody("");
       setState("success");
-      setMessage("收到了。审核通过后，它会浮到坑底。 ");
+      setMessage("收到了，已经浮到坑底。 ");
     } else {
       setState("error");
       setMessage(result.message);

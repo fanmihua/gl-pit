@@ -61,7 +61,7 @@ npm run test:sites
 
 互动功能使用 Supabase 托管数据库与身份服务，静态站不保存数据库密钥，也不需要常驻 Node 服务。复制 `.env.example` 为 `.env.local`，配置项目 URL 和 `publishable key` 后即可连接。
 
-数据库表、RLS 权限和 RPC 位于 `supabase/migrations/`；完整的接入、管理员创建、安全与备份检查见 [坑底文学互动与后台计划](docs/tide-words-community-plan.md)。管理员入口为 `#/admin`，不出现在公开导航中。
+数据库表、RLS 权限和 RPC 位于 `supabase/migrations/`；留言提交后立即公开，管理员可在后台事后隐藏或恢复。完整的接入、安全与备份检查见 [坑底文学互动与后台计划](docs/tide-words-community-plan.md)。管理员入口为 `#/admin`，不出现在公开导航中。
 
 ## 坑底公约
 

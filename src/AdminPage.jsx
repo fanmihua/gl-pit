@@ -14,7 +14,6 @@ import { resetCommunitySessionPromise, supabase } from "./lib/supabase.js";
 import "./admin-page.css";
 
 const statusOptions = [
-  { id: "pending", label: "待审核" },
   { id: "published", label: "已公开" },
   { id: "hidden", label: "已隐藏" },
 ];
@@ -76,7 +75,7 @@ function AdminLogin({ onAuthenticated }) {
     <section className="community-admin-login" aria-labelledby="community-admin-login-title">
       <span>PRIVATE ENTRY</span>
       <h1 id="community-admin-login-title">坑底编辑台</h1>
-      <p>这里不靠隐藏地址保护。只有写入管理员名单的 Supabase 账号能够审核内容。</p>
+      <p>这里不靠隐藏地址保护。只有写入管理员名单的 Supabase 账号能够管理内容。</p>
       <form onSubmit={handleSubmit}>
         <label>
           <span>管理员邮箱</span>
@@ -159,7 +158,7 @@ function AdminDashboard({ session, onSignOut }) {
   const [comments, setComments] = useState([]);
   const [quotes, setQuotes] = useState([]);
   const [stats, setStats] = useState({});
-  const [filter, setFilter] = useState("pending");
+  const [filter, setFilter] = useState("published");
   const [state, setState] = useState("loading");
   const [busyId, setBusyId] = useState(null);
   const [message, setMessage] = useState("");
@@ -300,8 +299,8 @@ function AdminDashboard({ session, onSignOut }) {
         <section className="community-admin-review" aria-labelledby="community-admin-review-title">
           <header>
             <div>
-              <span><Funnel weight="bold" aria-hidden="true" />MODERATION QUEUE</span>
-              <h2 id="community-admin-review-title">回声审核</h2>
+              <span><Funnel weight="bold" aria-hidden="true" />RESPONSE MANAGER</span>
+              <h2 id="community-admin-review-title">回声管理</h2>
             </div>
             <div className="community-admin-filters" aria-label="按状态筛选">
               {statusOptions.map((option) => (

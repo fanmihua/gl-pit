@@ -49,7 +49,7 @@ create table if not exists public.community_comments (
   user_id uuid not null references auth.users(id) on delete cascade,
   nickname text not null default '匿名坑底人',
   body text not null,
-  status text not null default 'pending',
+  status text not null default 'published',
   created_at timestamptz not null default now(),
   moderated_at timestamptz,
   moderated_by uuid references auth.users(id) on delete set null,
@@ -503,14 +503,14 @@ begin
   returning community_comments.id, community_comments.created_at
   into v_comment_id, v_created_at;
 
-  return query select v_comment_id, 'pending'::text, v_created_at;
+  return query select v_comment_id, 'published'::text, v_created_at;
 end;
 $$;
 
 revoke all on function public.submit_community_comment(text, text, text, text) from public;
 grant execute on function public.submit_community_comment(text, text, text, text) to authenticated;
 
-comment on table public.community_comments is 'glfans 坑底文学的页面留言与卡片评论；公开前必须经过审核。';
+comment on table public.community_comments is 'glfans 坑底文学的页面留言与卡片评论；提交后公开，管理员可事后隐藏。';
 comment on table public.community_quotes is '坑底文学原话卡片；管理员可编辑、排序或隐藏。';
 comment on table public.community_reactions is '匿名身份对页面或原话卡片的唯一心动记录。';
 comment on table public.community_views is '按匿名身份与目标聚合的浏览记录；30 分钟内重复打开不增加浏览量。';
