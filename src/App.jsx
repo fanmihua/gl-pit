@@ -5,17 +5,19 @@ import { PageLoader } from "./PageLoader.jsx";
 import { RouteReadyBoundary } from "./RouteReadyBoundary.jsx";
 
 const HomePage = lazy(() => import("./HomePage.jsx").then((module) => ({ default: module.HomePage })));
+const AdminPage = lazy(() => import("./AdminPage.jsx").then((module) => ({ default: module.AdminPage })));
 const AboutPage = lazy(() => import("./AboutPage.jsx").then((module) => ({ default: module.AboutPage })));
 const ArchivePage = lazy(() => import("./ArchivePage.jsx").then((module) => ({ default: module.ArchivePage })));
 const ColumnExperience = lazy(() => import("./Column.jsx").then((module) => ({ default: module.ColumnExperience })));
 const PitRadioPage = lazy(() => import("./PitRadioPage.jsx").then((module) => ({ default: module.PitRadioPage })));
 const WordsTideLab = lazy(() => import("./WordsTideLab.jsx").then((module) => ({ default: module.WordsTideLab })));
 
-const ROOT_ROUTES = ["about", "archive", "column", "memes", "radio", "tide-words"];
+const ROOT_ROUTES = ["about", "admin", "archive", "column", "memes", "radio", "tide-words"];
 
 const ROUTE_LOADING_COPY = {
   home: { kicker: "ENTER THE PIT", label: "正在展开入坑现场" },
   about: { kicker: "ABOUT GLFANS", label: "正在展开坑底说明" },
+  admin: { kicker: "COMMUNITY DESK", label: "正在核对管理员身份" },
   archive: { kicker: "PIT ARCHIVE", label: "正在放映年度胶卷" },
   column: { kicker: "REPO", label: "正在整理心动证据" },
   memes: { kicker: "MEME PIT", label: "正在装填表情包" },
@@ -79,6 +81,8 @@ export function App() {
 
   if (rootRoute === "home") {
     page = <HomePage />;
+  } else if (rootRoute === "admin") {
+    page = <AdminPage />;
   } else if (rootRoute === "about") {
     page = <AboutPage key={routeKey} defaultRightsOpen={routeKey.startsWith("#/about/rights")} />;
   } else if (rootRoute === "tide-words") {
@@ -100,10 +104,10 @@ export function App() {
           label={loadingCopy.label}
         >
           {page}
-          {rootRoute !== "home" && rootRoute !== "about" && <GlobalFooter />}
+          {rootRoute !== "home" && rootRoute !== "about" && rootRoute !== "admin" && <GlobalFooter />}
         </RouteReadyBoundary>
       </Suspense>
-      <GlobalRadioDock hidden={rootRoute === "radio"} />
+      <GlobalRadioDock hidden={rootRoute === "radio" || rootRoute === "admin"} />
     </div>
   );
 }

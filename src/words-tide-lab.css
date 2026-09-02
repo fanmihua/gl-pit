@@ -1085,10 +1085,10 @@
   border: 1px solid rgba(9, 9, 9, .58);
   color: #090909;
   background: var(--tide-paper);
-  cursor: grab;
+  cursor: pointer;
   grid-template-columns: minmax(0, 1fr) 40%;
   isolation: isolate;
-  touch-action: none;
+  touch-action: auto;
   transform: translate(var(--drag-x), calc(var(--card-y) + var(--drag-y))) rotate(var(--card-tilt));
   transition: transform 260ms cubic-bezier(.2, .75, .18, 1), box-shadow 180ms ease;
   user-select: none;
@@ -1198,13 +1198,17 @@
   display: grid;
   width: 28px;
   height: 28px;
+  padding: 0;
+  border: 0;
   border-radius: 50%;
   color: var(--tide-pink);
   background: var(--tide-paper);
   box-shadow: 0 0 0 1px rgba(9, 9, 9, .22);
   opacity: 0;
-  pointer-events: none;
+  pointer-events: auto;
   place-items: center;
+  cursor: grab;
+  touch-action: none;
   transform: translateY(4px) rotate(90deg);
   transition: opacity 160ms ease, transform 220ms ease;
 }
@@ -1212,27 +1216,27 @@
 .words-repo-quote-card.has-cover .words-repo-drag-handle { right: calc(40% + 8px); }
 
 .words-repo-quote-card:hover:not(.is-dragging),
-.words-repo-quote-card:focus-visible:not(.is-dragging) {
+.words-repo-quote-card:focus-within:not(.is-dragging) {
   z-index: 3;
   box-shadow: 0 6px 10px rgba(9, 9, 9, .05);
   outline: 0;
   transform: translate(0, calc(var(--card-y) - 3px)) rotate(calc(var(--card-tilt) * .45));
 }
 .words-repo-quote-card:hover:not(.is-dragging)::before,
-.words-repo-quote-card:focus-visible:not(.is-dragging)::before { opacity: .72; transform: translate(8px, 8px); }
+.words-repo-quote-card:focus-within:not(.is-dragging)::before { opacity: .72; transform: translate(8px, 8px); }
 .words-repo-quote-card:hover:not(.is-dragging) blockquote,
-.words-repo-quote-card:focus-visible:not(.is-dragging) blockquote { color: var(--tide-pink); transform: translateX(4px); }
+.words-repo-quote-card:focus-within:not(.is-dragging) blockquote { color: var(--tide-pink); transform: translateX(4px); }
 .words-repo-quote-card:hover:not(.is-dragging) .words-repo-quote-copy > svg,
-.words-repo-quote-card:focus-visible:not(.is-dragging) .words-repo-quote-copy > svg,
+.words-repo-quote-card:focus-within:not(.is-dragging) .words-repo-quote-copy > svg,
 .words-repo-quote-card.is-dragging .words-repo-quote-copy > svg,
 .words-repo-quote-card:hover:not(.is-dragging) .words-repo-card-heart,
-.words-repo-quote-card:focus-visible:not(.is-dragging) .words-repo-card-heart,
+.words-repo-quote-card:focus-within:not(.is-dragging) .words-repo-card-heart,
 .words-repo-quote-card.is-dragging .words-repo-card-heart { color: var(--tide-pink); transform: rotate(0deg) scale(1.06); }
 .words-repo-quote-card:hover:not(.is-dragging) .words-repo-drag-handle,
-.words-repo-quote-card:focus-visible:not(.is-dragging) .words-repo-drag-handle,
+.words-repo-quote-card:focus-within:not(.is-dragging) .words-repo-drag-handle,
 .words-repo-quote-card.is-dragging .words-repo-drag-handle { opacity: 1; transform: translateY(0) rotate(90deg); }
 .words-repo-quote-card:hover:not(.is-dragging) .words-repo-quote-cover img,
-.words-repo-quote-card:focus-visible:not(.is-dragging) .words-repo-quote-cover img {
+.words-repo-quote-card:focus-within:not(.is-dragging) .words-repo-quote-cover img {
   filter: grayscale(.15) contrast(1.03);
   transform: scale(1.04);
 }
@@ -1260,6 +1264,7 @@
   .words-repo-quote-cover { display: none; }
   .words-repo-quote-card.has-cover .words-repo-card-heart { right: 12px; }
   .words-repo-quote-card.has-cover .words-repo-drag-handle { right: 8px; }
+  .words-repo-drag-handle { opacity: .78; transform: translateY(0) rotate(90deg); }
 }
 
 @media (max-width: 520px) {

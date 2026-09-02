@@ -1,33 +1,20 @@
 import {
+  ChatCircleDots,
   CrownSimple,
   DotsSixVertical,
   Heart,
   Quotes,
 } from "@phosphor-icons/react";
 import { useEffect, useRef, useState } from "react";
+import {
+  QuoteCommentDrawer,
+  TideCommunitySummary,
+  TideGuestbook,
+  useTideCommunity,
+} from "./TideCommunity.jsx";
+import { getTideTargetKey } from "./data/tide-words.js";
 import { SiteHeader } from "./SiteHeader.jsx";
 import "./words-tide-lab.css";
-
-const collectedQuotes = [
-  { id: "q-01", text: "这次真的不一样。", speaker: "匿名坑底人" },
-  { id: "q-02", text: "两眼一睁就是磕。", speaker: "匿名坑底人" },
-  { id: "q-03", text: "正主虚情热演，粉丝假意上头。", speaker: "匿名坑底人" },
-  { id: "q-04", text: "卖得专业就打赏，惹怒粉丝就换推。", speaker: "匿名坑底人" },
-  { id: "q-05", text: "只是售后，入坑三月都懂。", speaker: "匿名坑底人" },
-  { id: "q-06", text: "可以嗑，但不要嗑得那么执着。", speaker: "匿名坑底人" },
-  { id: "q-07", text: "每对 CP 在自己 CP 粉眼中都是真情侣。", speaker: "匿名坑底人" },
-  { id: "q-08", text: "在别家 CP 粉眼里都一眼假。", speaker: "匿名坑底人" },
-  { id: "q-09", text: "路过的狗都得说一句好配。", speaker: "匿名坑底人" },
-  { id: "q-10", text: "谁家 CP 这么好磕？哦，原来是我家的。", speaker: "匿名坑底人" },
-  { id: "q-11", text: "般配，已经说累了。", speaker: "匿名坑底人" },
-  { id: "q-12", text: "剧外也是一种浪漫。", speaker: "匿名坑底人" },
-  { id: "q-13", text: "我不入蛊谁入蛊？", speaker: "匿名坑底人" },
-  { id: "q-14", text: "滞后磕 CP 就是爽。", speaker: "匿名坑底人" },
-  { id: "q-15", text: "早期的糖也是糖。", speaker: "匿名坑底人" },
-  { id: "q-16", text: "只是同事？只是姐妹？谈了两年了？", speaker: "匿名坑底人" },
-  { id: "q-17", text: "谁嗑谁上头。", speaker: "匿名坑底人" },
-  { id: "q-18", text: "现实比剧本会写。", speaker: "匿名坑底人" },
-];
 
 const frequencyWords = [
   { name: "我懂", value: 118, x: 8, y: 54, tone: "hot", tilt: -0.6 },
@@ -67,42 +54,54 @@ const evidenceCardLayouts = [
 ];
 
 const evidenceOrderStorageKey = "gl-pit:evidence-card-order:v1";
-const initialEvidenceOrder = collectedQuotes.map((_, index) => index);
 
-function readEvidenceOrder() {
-  if (typeof window === "undefined") return initialEvidenceOrder;
+function readEvidenceOrder(items) {
+  const itemIds = items.map((item) => item.id);
+  if (typeof window === "undefined") return itemIds;
 
   try {
     const saved = JSON.parse(window.sessionStorage.getItem(evidenceOrderStorageKey));
-    return Array.isArray(saved) && saved.length === initialEvidenceOrder.length ? saved : initialEvidenceOrder;
+    if (!Array.isArray(saved)) return itemIds;
+    const validSavedIds = saved.filter((id) => typeof id === "string" && itemIds.includes(id));
+    return [...validSavedIds, ...itemIds.filter((id) => !validSavedIds.includes(id))];
   } catch {
-    return initialEvidenceOrder;
+    return itemIds;
   }
 }
 
-function EvidenceCard({ item, index = 0, isDragging, dragOffset, onPointerDown, onPointerMove, onPointerUp, onKeyDown }) {
-  const layout = evidenceCardLayouts[index];
+function EvidenceCard({
+  busy,
+  configured,
+  dragOffset,
+  item,
+  index = 0,
+  isDragging,
+  liked,
+  onKeyDown,
+  onLike,
+  onOpen,
+  onPointerDown,
+  onPointerMove,
+  onPointerUp,
+  stats,
+}) {
+  const layout = evidenceCardLayouts[index % evidenceCardLayouts.length];
+  const coverPath = item.cover_path || layout.cover;
   const copyLength = Array.from(item.text).length;
   const copySize = copyLength <= 9 ? "short-copy" : copyLength >= 16 ? "long-copy" : "medium-copy";
 
   return (
     <article
-      className={`words-repo-quote-card ${copySize}${layout.cover ? " has-cover" : " no-cover"}${isDragging ? " is-dragging" : ""}`}
+      className={`words-repo-quote-card ${copySize}${coverPath ? " has-cover" : " no-cover"}${isDragging ? " is-dragging" : ""}`}
       style={{
         "--card-tilt": `${layout.tilt}deg`,
         "--card-y": `${layout.y}px`,
         "--drag-x": `${dragOffset?.x || 0}px`,
         "--drag-y": `${dragOffset?.y || 0}px`,
       }}
-      data-evidence-index={index}
-      tabIndex={0}
-      aria-grabbed={isDragging}
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp}
-      onPointerCancel={onPointerUp}
-      onKeyDown={onKeyDown}
+      data-evidence-id={item.id}
     >
+      <button className="words-repo-card-open" type="button" onClick={onOpen} aria-label={`打开评论：${item.text}`} />
       <div className="words-repo-quote-copy">
         <Quotes aria-hidden="true" weight="fill" />
         <blockquote>{item.text}</blockquote>
@@ -110,19 +109,45 @@ function EvidenceCard({ item, index = 0, isDragging, dragOffset, onPointerDown, 
           <strong>— {item.speaker}</strong>
         </footer>
       </div>
-      {layout.cover ? (
+      {coverPath ? (
         <div className="words-repo-quote-cover">
-          <img src={layout.cover} alt="" loading="lazy" decoding="async" draggable="false" />
+          <img src={coverPath} alt="" loading="lazy" decoding="async" draggable="false" />
         </div>
       ) : null}
-      <span className="words-repo-drag-handle" aria-hidden="true"><DotsSixVertical weight="bold" /></span>
-      {index % 6 === 0 ? <Heart className="words-repo-card-heart" weight="regular" aria-hidden="true" /> : null}
+      <button
+        className={`words-repo-card-like${liked ? " is-liked" : ""}`}
+        type="button"
+        aria-label={liked ? `取消心动，当前 ${stats.likes} 次` : `送出心动，当前 ${stats.likes} 次`}
+        aria-pressed={liked}
+        disabled={!configured || busy}
+        onClick={onLike}
+      >
+        <Heart weight={liked ? "fill" : "regular"} aria-hidden="true" />
+        <span>{stats.likes}</span>
+      </button>
+      <span className="words-repo-card-meta" aria-label={`${stats.comments} 条评论`}>
+        <ChatCircleDots weight="bold" aria-hidden="true" />
+        {stats.comments}
+      </span>
+      <button
+        className="words-repo-drag-handle"
+        type="button"
+        aria-label={`移动卡片：${item.text}`}
+        aria-grabbed={isDragging}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerUp}
+        onKeyDown={onKeyDown}
+      >
+        <DotsSixVertical weight="bold" aria-hidden="true" />
+      </button>
     </article>
   );
 }
 
-function EvidenceCanvas() {
-  const [order, setOrder] = useState(readEvidenceOrder);
+function EvidenceCanvas({ community }) {
+  const [order, setOrder] = useState(() => readEvidenceOrder(community.quotes));
   const [drag, setDrag] = useState(null);
   const canvasRef = useRef(null);
   const dragRef = useRef(null);
@@ -135,26 +160,34 @@ function EvidenceCanvas() {
     }
   }, [order]);
 
-  const beginDrag = (event, cardIndex) => {
+  useEffect(() => {
+    const currentIds = community.quotes.map((item) => item.id);
+    setOrder((current) => [
+      ...current.filter((id) => currentIds.includes(id)),
+      ...currentIds.filter((id) => !current.includes(id)),
+    ]);
+  }, [community.quotes]);
+
+  const beginDrag = (event, cardId) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
 
     event.preventDefault();
     event.currentTarget.setPointerCapture(event.pointerId);
     dragRef.current = {
-      cardIndex,
+      cardId,
       pointerId: event.pointerId,
       startX: event.clientX,
       startY: event.clientY,
     };
-    setDrag({ cardIndex, x: 0, y: 0 });
+    setDrag({ cardId, x: 0, y: 0 });
   };
 
-  const moveDrag = (event, cardIndex) => {
+  const moveDrag = (event, cardId) => {
     const active = dragRef.current;
-    if (!active || active.cardIndex !== cardIndex || active.pointerId !== event.pointerId) return;
+    if (!active || active.cardId !== cardId || active.pointerId !== event.pointerId) return;
 
     setDrag({
-      cardIndex,
+      cardId,
       x: event.clientX - active.startX,
       y: event.clientY - active.startY,
     });
@@ -166,29 +199,29 @@ function EvidenceCanvas() {
 
     const moved = Math.hypot(event.clientX - active.startX, event.clientY - active.startY) > 24;
     const cards = Array.from(canvasRef.current?.querySelectorAll(".words-repo-quote-card") || []);
-    const source = cards.find((card) => Number(card.dataset.evidenceIndex) === active.cardIndex);
+    const source = cards.find((card) => card.dataset.evidenceId === active.cardId);
     const sourceRect = source?.getBoundingClientRect();
-    let targetIndex = null;
+    let targetId = null;
     let nearestDistance = Infinity;
 
     if (moved && sourceRect) {
       cards.forEach((card) => {
-        const candidateIndex = Number(card.dataset.evidenceIndex);
-        if (candidateIndex === active.cardIndex) return;
+        const candidateId = card.dataset.evidenceId;
+        if (candidateId === active.cardId) return;
         const rect = card.getBoundingClientRect();
         const distance = Math.hypot(event.clientX - (rect.left + rect.width / 2), event.clientY - (rect.top + rect.height / 2));
         if (distance < nearestDistance && distance < Math.max(rect.width, rect.height) * .72) {
           nearestDistance = distance;
-          targetIndex = candidateIndex;
+          targetId = candidateId;
         }
       });
     }
 
-    if (targetIndex !== null) {
+    if (targetId !== null) {
       setOrder((current) => {
         const next = [...current];
-        const sourcePosition = next.indexOf(active.cardIndex);
-        const targetPosition = next.indexOf(targetIndex);
+        const sourcePosition = next.indexOf(active.cardId);
+        const targetPosition = next.indexOf(targetId);
         [next[sourcePosition], next[targetPosition]] = [next[targetPosition], next[sourcePosition]];
         return next;
       });
@@ -201,14 +234,14 @@ function EvidenceCanvas() {
     setDrag(null);
   };
 
-  const moveWithKeyboard = (event, cardIndex) => {
+  const moveWithKeyboard = (event, cardId) => {
     if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) return;
     event.preventDefault();
     const width = canvasRef.current?.clientWidth || 1200;
     const columns = width < 520 ? 1 : width < 800 ? 2 : width < 1680 ? 3 : 4;
     const delta = event.key === "ArrowLeft" ? -1 : event.key === "ArrowRight" ? 1 : event.key === "ArrowUp" ? -columns : columns;
     setOrder((current) => {
-      const sourcePosition = current.indexOf(cardIndex);
+      const sourcePosition = current.indexOf(cardId);
       const targetPosition = Math.max(0, Math.min(current.length - 1, sourcePosition + delta));
       if (sourcePosition === targetPosition) return current;
       const next = [...current];
@@ -219,19 +252,31 @@ function EvidenceCanvas() {
 
   return (
     <div className="words-snap-canvas" ref={canvasRef} aria-describedby="words-canvas-instructions">
-      {order.map((cardIndex) => (
-        <EvidenceCard
-          item={collectedQuotes[cardIndex]}
-          index={cardIndex}
-          isDragging={drag?.cardIndex === cardIndex}
-          dragOffset={drag?.cardIndex === cardIndex ? drag : null}
-          key={collectedQuotes[cardIndex].id}
-          onPointerDown={(event) => beginDrag(event, cardIndex)}
-          onPointerMove={(event) => moveDrag(event, cardIndex)}
-          onPointerUp={finishDrag}
-          onKeyDown={(event) => moveWithKeyboard(event, cardIndex)}
-        />
-      ))}
+      {order.map((cardId) => {
+        const itemIndex = community.quotes.findIndex((quote) => quote.id === cardId);
+        const item = community.quotes[itemIndex];
+        if (!item) return null;
+        const targetKey = getTideTargetKey("quote", item.id);
+        return (
+          <EvidenceCard
+            busy={community.busyTargets.has(targetKey)}
+            configured={community.configured}
+            item={item}
+            index={itemIndex}
+            isDragging={drag?.cardId === cardId}
+            dragOffset={drag?.cardId === cardId ? drag : null}
+            key={item.id}
+            liked={community.isLiked("quote", item.id)}
+            stats={community.getStats("quote", item.id)}
+            onOpen={() => community.openQuote(item)}
+            onLike={() => community.toggleReaction("quote", item.id)}
+            onPointerDown={(event) => beginDrag(event, cardId)}
+            onPointerMove={(event) => moveDrag(event, cardId)}
+            onPointerUp={finishDrag}
+            onKeyDown={(event) => moveWithKeyboard(event, cardId)}
+          />
+        );
+      })}
     </div>
   );
 }
@@ -300,6 +345,8 @@ function FrequencyFlow() {
 }
 
 export function WordsTideLab() {
+  const community = useTideCommunity();
+
   return (
     <main className="words-tide-lab">
       <SiteHeader activePath="tide-words" />
@@ -328,16 +375,20 @@ export function WordsTideLab() {
         <span className="words-archive-bridge-rule" aria-hidden="true" />
         <div className="words-archive-bridge-copy">
           <strong id="words-archive-bridge-title">原话开始上岸</strong>
-          <small>{collectedQuotes.length} VOICES</small>
+          <small>{community.quotes.length} VOICES</small>
         </div>
       </section>
 
+      <TideCommunitySummary community={community} />
+
       <section className="words-archive" id="original-words" aria-label="原话收藏">
         <p className="words-canvas-instructions" id="words-canvas-instructions">
-          拖动卡片到另一张卡片的位置，释放后会吸附并交换位置；卡片不会互相重叠。
+          点卡片看评论；按住右下角六点把手可交换位置，卡片不会互相重叠。
         </p>
-        <EvidenceCanvas />
+        <EvidenceCanvas community={community} />
       </section>
+      <TideGuestbook community={community} />
+      <QuoteCommentDrawer community={community} />
     </main>
   );
 }
