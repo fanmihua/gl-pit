@@ -1173,7 +1173,6 @@
   font-size: clamp(21px, 1.8vw, 30px);
 }
 .words-repo-quote-card.short-copy blockquote { font-size: clamp(22px, 1.7vw, 29px); }
-.words-repo-quote-card.has-cover.short-copy blockquote { font-size: clamp(20px, 1.45vw, 24px); }
 .words-repo-quote-card.medium-copy blockquote { font-size: clamp(19px, 1.5vw, 25px); }
 .words-repo-quote-card.long-copy blockquote { font-size: clamp(17px, 1.25vw, 22px); line-height: 1.38; }
 
@@ -1195,39 +1194,6 @@
   letter-spacing: .04em;
   line-height: 1;
 }
-.words-repo-quote-cover {
-  position: relative;
-  z-index: 1;
-  min-width: 0;
-  overflow: hidden;
-  border-left: 1px solid rgba(9, 9, 9, .5);
-  border-bottom: 1px solid rgba(9, 9, 9, .58);
-  background: #d8d6d1;
-  grid-row: 1;
-}
-.words-repo-quote-cover img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(1) contrast(1.08);
-  pointer-events: none;
-  transition: filter 260ms ease, transform 420ms cubic-bezier(.2, .75, .18, 1);
-}
-.words-repo-card-heart {
-  position: absolute;
-  z-index: 3;
-  right: 12px;
-  bottom: 10px;
-  width: 27px;
-  height: 27px;
-  color: rgba(9, 9, 9, .28);
-  pointer-events: none;
-  transform: rotate(-12deg);
-  transition: color 180ms ease, transform 220ms ease;
-}
-.words-repo-quote-card.has-cover .words-repo-card-heart { right: calc(40% + 8px); }
-
 .words-repo-drag-handle {
   position: absolute;
   z-index: 5;
@@ -1251,8 +1217,6 @@
   transition: opacity 160ms ease, transform 220ms ease;
 }
 .words-repo-drag-handle svg { width: 18px; height: 18px; }
-.words-repo-quote-card.has-cover .words-repo-drag-handle { right: calc(40% + 8px); }
-
 .words-repo-quote-card:hover:not(.is-dragging),
 .words-repo-quote-card:focus-within:not(.is-dragging) {
   z-index: 3;
@@ -1266,19 +1230,10 @@
 .words-repo-quote-card:focus-within:not(.is-dragging) blockquote { color: var(--tide-pink); transform: translateX(4px); }
 .words-repo-quote-card:hover:not(.is-dragging) .words-repo-quote-copy > svg,
 .words-repo-quote-card:focus-within:not(.is-dragging) .words-repo-quote-copy > svg,
-.words-repo-quote-card.is-dragging .words-repo-quote-copy > svg,
-.words-repo-quote-card:hover:not(.is-dragging) .words-repo-card-heart,
-.words-repo-quote-card:focus-within:not(.is-dragging) .words-repo-card-heart,
-.words-repo-quote-card.is-dragging .words-repo-card-heart { color: var(--tide-pink); transform: rotate(0deg) scale(1.06); }
+.words-repo-quote-card.is-dragging .words-repo-quote-copy > svg { color: var(--tide-pink); transform: rotate(0deg) scale(1.06); }
 .words-repo-quote-card:hover:not(.is-dragging) .words-repo-drag-handle,
 .words-repo-quote-card:focus-within:not(.is-dragging) .words-repo-drag-handle,
 .words-repo-quote-card.is-dragging .words-repo-drag-handle { opacity: 1; transform: translateY(0) rotate(90deg); }
-.words-repo-quote-card:hover:not(.is-dragging) .words-repo-quote-cover img,
-.words-repo-quote-card:focus-within:not(.is-dragging) .words-repo-quote-cover img {
-  filter: grayscale(.15) contrast(1.03);
-  transform: scale(1.04);
-}
-
 .words-repo-quote-card.is-expanded:hover,
 .words-repo-quote-card.is-expanded:focus-within {
   box-shadow: none;
@@ -1288,9 +1243,6 @@
 .words-repo-quote-card.is-expanded:focus-within::before { opacity: 0; transform: none; }
 .words-repo-quote-card.is-expanded:hover blockquote,
 .words-repo-quote-card.is-expanded:focus-within blockquote { color: #090909; transform: none; }
-.words-repo-quote-card.is-expanded:hover .words-repo-quote-cover img,
-.words-repo-quote-card.is-expanded:focus-within .words-repo-quote-cover img { filter: grayscale(1) contrast(1.08); transform: none; }
-
 .words-repo-quote-card.is-dragging {
   z-index: 30;
   box-shadow: 0 9px 15px rgba(9, 9, 9, .09);
@@ -1380,9 +1332,6 @@
   .words-snap-canvas { --card-column-gap: 24px; padding: 28px 22px 72px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 18px; }
   .words-repo-quote-card { --card-base-height: 220px; height: var(--card-base-height); grid-template-columns: 1fr; }
   .words-repo-quote-card.is-expanded { height: auto; grid-column: auto; }
-  .words-repo-quote-cover { display: none; }
-  .words-repo-quote-card.has-cover .words-repo-card-heart { right: 12px; }
-  .words-repo-quote-card.has-cover .words-repo-drag-handle { right: 8px; }
   .words-repo-drag-handle { opacity: .78; transform: translateY(0) rotate(90deg); }
 }
 
@@ -1394,6 +1343,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .words-repo-quote-card,
-  .words-repo-quote-card::before,
-  .words-repo-quote-cover img { transition: none; }
+  .words-repo-quote-card::before { transition: none; }
 }

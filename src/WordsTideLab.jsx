@@ -84,13 +84,12 @@ function EvidenceCard({
   onPointerUp,
   stats,
 }) {
-  const coverPath = item.cover_path;
   const copyLength = Array.from(item.text).length;
   const copySize = copyLength <= 9 ? "short-copy" : copyLength >= 16 ? "long-copy" : "medium-copy";
 
   return (
     <article
-      className={`words-repo-quote-card ${copySize}${coverPath ? " has-cover" : " no-cover"}${item.is_pinned ? " is-pinned" : ""}${isExpanded ? " is-expanded" : ""}${isDragging ? " is-dragging" : ""}`}
+      className={`words-repo-quote-card ${copySize} no-cover${item.is_pinned ? " is-pinned" : ""}${isExpanded ? " is-expanded" : ""}${isDragging ? " is-dragging" : ""}`}
       style={{
         "--card-tilt": "0deg",
         "--card-y": "0px",
@@ -115,11 +114,6 @@ function EvidenceCard({
           <strong>— {item.speaker}</strong>
         </footer>
       </div>
-      {coverPath ? (
-        <div className="words-repo-quote-cover">
-          <img src={coverPath} alt="" loading="lazy" decoding="async" draggable="false" />
-        </div>
-      ) : null}
       <button
         className={`words-repo-card-like${liked ? " is-liked" : ""}`}
         type="button"

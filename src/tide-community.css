@@ -146,7 +146,6 @@
   cursor: pointer;
 }
 
-.words-repo-quote-card.has-cover .words-repo-card-meta { right: calc(40% + 43px); }
 .words-repo-card-meta svg { width: 13px; height: 13px; color: var(--tide-pink); }
 .words-repo-card-meta:hover,
 .words-repo-card-meta:focus-visible { color: #090909; outline: 0; }
@@ -170,8 +169,6 @@
   font-family: var(--headline);
   font-size: 9px;
 }
-
-.words-repo-quote-card.has-cover .words-repo-card-like { right: calc(40% + 78px); }
 
 .words-repo-card-like svg { width: 15px; height: 15px; color: rgba(9, 9, 9, .3); }
 .words-repo-card-like:hover:not(:disabled) svg,
@@ -480,8 +477,6 @@
 
 @media (max-width: 800px) {
   .words-repo-card-open { grid-template-columns: 1fr; }
-  .words-repo-quote-card.has-cover .words-repo-card-meta { right: 44px; }
-  .words-repo-quote-card.has-cover .words-repo-card-like { right: 78px; }
   .tide-community-summary { margin-right: 22px; margin-left: 22px; }
 }
 
