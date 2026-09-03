@@ -57,7 +57,7 @@ export function MobileRadioHelp() {
         <div className="pit-radio-help-panel">
           <div className="pit-radio-howto">
             <RadioHowToContent />
-            <button className="pit-radio-help-close" type="button" aria-label="关闭玩法说明" onClick={() => setOpen(false)}><X size={20} /></button>
+            <button className="pit-radio-help-close dialog-close-button" type="button" aria-label="关闭玩法说明" onClick={() => setOpen(false)}><X size={20} /></button>
           </div>
         </div>
       </dialog>,

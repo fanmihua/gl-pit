@@ -6,7 +6,7 @@ import {
   SpinnerGap,
   X,
 } from "@phosphor-icons/react";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { createPortal } from "react-dom";
 import { getTideTargetKey, tideWordsPageTarget } from "./data/tide-words.js";
 import { readSavedNickname } from "./features/community/community-state.js";
@@ -14,18 +14,18 @@ import "./tide-community.css";
 
 export { useTideCommunity } from "./features/community/useTideCommunity.js";
 
-export function CommunityReactionButton({ busy = false, compact = false, disabled = false, liked = false, likes = 0, onClick }) {
+export function CommunityReactionButton({ busy = false, compact = false, disabled = false, liked = false, likes = null, onClick }) {
   return (
     <button
       className={`community-reaction${liked ? " is-liked" : ""}${compact ? " is-compact" : ""}`}
       type="button"
-      aria-label={liked ? `取消心动，当前 ${likes} 次` : `送出心动，当前 ${likes} 次`}
+      aria-label={`${liked ? "取消心动" : "送出心动"}${likes == null ? "，统计加载中" : `，当前 ${likes} 次`}`}
       aria-pressed={liked}
       disabled={disabled || busy}
       onClick={onClick}
     >
       <Heart weight={liked ? "fill" : "regular"} aria-hidden="true" />
-      <span>{likes}</span>
+      <span>{likes ?? "—"}</span>
     </button>
   );
 }
@@ -44,10 +44,10 @@ export function TideCommunitySummary({ community, compact = false }) {
   const pageKey = getTideTargetKey(tideWordsPageTarget.targetType, tideWordsPageTarget.targetId);
 
   const numbers = (
-    <dl className="tide-community-stats">
-      <div><dt><Eye aria-hidden="true" />路过</dt><dd>{stats.views}</dd></div>
-      <div><dt><Heart aria-hidden="true" />心动</dt><dd>{stats.likes}</dd></div>
-      <div><dt><ChatCircleDots aria-hidden="true" />回声</dt><dd>{stats.comments}</dd></div>
+    <dl className="tide-community-stats" aria-busy={!community.totalsLoaded}>
+      <div><dt><Eye aria-hidden="true" />路过</dt><dd>{community.totalsLoaded ? stats.views : "—"}</dd></div>
+      <div><dt><Heart aria-hidden="true" />心动</dt><dd>{community.totalsLoaded ? stats.likes : "—"}</dd></div>
+      <div><dt><ChatCircleDots aria-hidden="true" />回声</dt><dd>{community.totalsLoaded ? stats.comments : "—"}</dd></div>
     </dl>
   );
 
@@ -96,7 +96,8 @@ export function CommunityCommentList({ comments, state }) {
   );
 }
 
-export function CommunityCommentForm({ autoFocusBody = false, bodyMaxLength = 400, configured, onSubmit, placeholder, submitLabel = "留下这句" }) {
+export function CommunityCommentForm({ autoFocusBody = false, bodyMaxLength = 400, configured, footerTarget = null, onSubmit, placeholder, submitLabel = "留下这句" }) {
+  const formId = useId();
   const [nickname, setNickname] = useState(readSavedNickname);
   const [body, setBody] = useState("");
   const [state, setState] = useState("idle");
@@ -118,8 +119,18 @@ export function CommunityCommentForm({ autoFocusBody = false, bodyMaxLength = 40
     }
   };
 
+  const footer = (
+    <div className="community-comment-form-footer">
+      <span aria-live="polite">{message}</span>
+      <button type="submit" form={formId} disabled={!configured || state === "submitting" || body.trim().length < 2}>
+        {state === "submitting" ? <SpinnerGap className="is-spinning" aria-hidden="true" /> : <PaperPlaneTilt weight="bold" aria-hidden="true" />}
+        {state === "submitting" ? "正在送出" : submitLabel}
+      </button>
+    </div>
+  );
+
   return (
-    <form className="community-comment-form" onSubmit={handleSubmit}>
+    <form id={formId} className="community-comment-form" onSubmit={handleSubmit}>
       <label>
         <span>怎么称呼你</span>
         <input
@@ -145,13 +156,7 @@ export function CommunityCommentForm({ autoFocusBody = false, bodyMaxLength = 40
           onChange={(event) => setBody(event.target.value)}
         />
       </label>
-      <div className="community-comment-form-footer">
-        <span aria-live="polite">{message}</span>
-        <button type="submit" disabled={!configured || state === "submitting" || body.trim().length < 2}>
-          {state === "submitting" ? <SpinnerGap className="is-spinning" aria-hidden="true" /> : <PaperPlaneTilt weight="bold" aria-hidden="true" />}
-          {state === "submitting" ? "正在送出" : submitLabel}
-        </button>
-      </div>
+      {footerTarget ? createPortal(footer, footerTarget) : footer}
     </form>
   );
 }
@@ -210,7 +215,7 @@ export function QuoteCommentModal({ community }) {
       <aside className="quote-comment-modal is-composer" role="dialog" aria-modal="true" aria-labelledby="quote-comment-title">
         <header className="quote-comment-modal-header">
           <span>{quoteLabel} / LEAVE A REPLY</span>
-          <button type="button" onClick={community.closeComposer} aria-label="关闭评论">
+          <button className="dialog-close-button" type="button" onClick={community.closeComposer} aria-label="关闭评论">
             <X weight="bold" aria-hidden="true" />
           </button>
         </header>

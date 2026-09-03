@@ -455,7 +455,7 @@ export function PitRadioPage() {
               <span>播放列表 · {stationTracks.length} 首</span>
               <h2 id="pit-radio-playlist-title">{selectedStation.name}</h2>
             </div>
-            <button ref={playlistCloseRef} type="button" aria-label="关闭播放列表" onClick={() => setPlaylistOpen(false)}>
+            <button className="dialog-close-button" ref={playlistCloseRef} type="button" aria-label="关闭播放列表" onClick={() => setPlaylistOpen(false)}>
               <X size={22} weight="bold" />
             </button>
           </header>

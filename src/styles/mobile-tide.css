@@ -196,8 +196,8 @@
   animation: mobile-tide-sheet-in 240ms ease-out;
 }
 /* Size to the visible view; only long content reaches the viewport limit. */
-.mobile-tide-sheet.is-quote { overflow: clip; }
-.mobile-tide-sheet.is-quote .mobile-tide-sheet-panel {
+.mobile-tide-sheet { overflow: clip; }
+.mobile-tide-sheet .mobile-tide-sheet-panel {
   display: flex;
   flex-direction: column;
   max-height: calc(var(--sheet-height-limit) - 4px);
@@ -230,7 +230,7 @@
 .mobile-tide-sheet-panel > header button { display: grid; width: 44px; height: 44px; padding: 0; place-items: center; border: 0; background: transparent; color: #090909; }
 .mobile-tide-sheet.is-quote .mobile-tide-sheet-panel > header button svg { width: 18px; height: 18px; }
 .mobile-tide-sheet-scroll { padding: 18px 18px 0; }
-.mobile-tide-sheet.is-quote .mobile-tide-sheet-scroll {
+.mobile-tide-sheet .mobile-tide-sheet-scroll {
   min-height: 0;
   padding-top: 8px;
   overflow: auto;
@@ -238,6 +238,10 @@
   overflow-anchor: none;
 }
 .mobile-tide-sheet.is-writing .mobile-tide-sheet-scroll { padding-bottom: max(18px, env(safe-area-inset-bottom)); }
+.mobile-tide-sheet.is-writing blockquote { margin-bottom: 12px; padding: 10px; font-size: 16px; }
+.mobile-tide-sheet.is-writing cite { margin-top: 6px; }
+.mobile-tide-sheet-form-actions { flex-shrink: 0; padding: 10px 18px max(12px, env(safe-area-inset-bottom)); background: var(--paper); }
+.mobile-tide-sheet-form-actions[hidden] { display: none; }
 .mobile-tide-sheet blockquote { margin: 0 0 20px; font-size: 23px; font-weight: 750; line-height: 1.4; overflow-wrap: anywhere; }
 .mobile-tide-sheet.is-quote blockquote { padding: 14px; background: #eeeee9; }
 .mobile-tide-sheet cite { display: block; margin-top: 12px; color: #666; font-size: 11px; font-weight: 400; font-style: normal; }
@@ -265,16 +269,18 @@
 .mobile-tide-sheet-reader-actions button:disabled { opacity: .38; cursor: not-allowed; }
 .mobile-tide-sheet .community-comment-list { margin-bottom: 0; gap: 10px; }
 .mobile-tide-sheet .community-comment-list li { padding: 12px; transform: none; }
-.mobile-tide-sheet .community-comment-form { margin-top: 12px; padding: 0; border: 0; box-shadow: none; background: transparent; gap: 14px; }
+.mobile-tide-sheet .community-comment-form { margin-top: 8px; padding: 0; border: 0; box-shadow: none; background: transparent; gap: 10px; }
 .mobile-tide-sheet .community-comment-form::before { display: none; }
 .mobile-tide-sheet .community-comment-form label > span { font-size: 12px; letter-spacing: 0; }
 .mobile-tide-sheet .community-comment-form input,
 .mobile-tide-sheet .community-comment-form textarea { font-size: 16px; }
 .mobile-tide-sheet .community-comment-form input { min-height: 44px; }
-.mobile-tide-sheet .community-comment-form textarea { min-height: 112px; height: 112px; }
-.mobile-tide-sheet .community-comment-form-footer { flex-wrap: wrap; gap: 10px; }
+.mobile-tide-sheet .community-comment-form textarea { min-height: 72px; height: 72px; padding: 6px 2px; resize: none; }
+.mobile-tide-sheet .community-comment-form-footer { flex-wrap: nowrap; gap: 10px; }
+.mobile-tide-sheet .community-comment-form-footer > span:empty { display: none; }
+.mobile-tide-sheet .community-comment-form-footer button { margin-left: auto; flex-shrink: 0; }
 .mobile-tide-sheet .community-comment-form-footer button { min-height: 44px; font-size: 14px; }
-.mobile-tide-sheet.is-quote .community-comment-form-footer button { box-shadow: none; }
+.mobile-tide-sheet .community-comment-form-footer button { box-shadow: none; }
 .mobile-tide-sheet .community-comment-form-footer > span { font-size: 12px; }
 .mobile-tide-sheet.is-quote .community-comment-form-footer > span { min-height: 1.45em; }
 @keyframes mobile-tide-heart { 45% { transform: scale(1.35) rotate(-8deg); } }

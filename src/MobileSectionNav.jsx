@@ -67,7 +67,7 @@ export function MobileSectionNav({ activePath }) {
       >
         <header>
           <span>坑底电台</span>
-          <button type="button" popoverTarget={radioPanelId} popoverTargetAction="hide" aria-label="关闭电台快捷控制"><X size={20} /></button>
+          <button className="dialog-close-button" type="button" popoverTarget={radioPanelId} popoverTargetAction="hide" aria-label="关闭电台快捷控制"><X size={20} /></button>
         </header>
         <p className="mobile-radio-track">{selectedTrack?.trackTitle}</p>
         <p className="mobile-radio-state" aria-live="polite">{selectedTrack?.cpName} · {controls.status}</p>

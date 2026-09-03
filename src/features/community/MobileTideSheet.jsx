@@ -11,6 +11,7 @@ export function MobileTideSheet({ community, guestbook = false, onClose, onPubli
   const readScrollRef = useRef(0);
   const [writingRequested, setWritingRequested] = useState(false);
   const [notice, setNotice] = useState("");
+  const [formFooter, setFormFooter] = useState(null);
   const quote = community.activeQuote;
   const showComments = !guestbook && (community.quoteCommentsMode !== "empty" || community.quoteComments.length > 0);
   const isWriting = !guestbook && (writingRequested || !showComments);
@@ -35,9 +36,20 @@ export function MobileTideSheet({ community, guestbook = false, onClose, onPubli
     const previousFocus = document.activeElement;
     const previousOverflow = document.body.style.overflow;
     const viewport = window.visualViewport;
+    let viewportFrame = 0;
     const updateViewport = () => {
       dialog.style.setProperty("--sheet-viewport-height", `${viewport?.height ?? window.innerHeight}px`);
       dialog.style.setProperty("--sheet-viewport-bottom", `${(viewport?.offsetTop ?? 0) + (viewport?.height ?? window.innerHeight)}px`);
+      window.cancelAnimationFrame(viewportFrame);
+      viewportFrame = window.requestAnimationFrame(() => {
+        const field = document.activeElement;
+        const scroll = scrollRef.current;
+        if (!scroll?.contains(field) || !field.matches("input, textarea")) return;
+        const bounds = scroll.getBoundingClientRect();
+        const input = field.getBoundingClientRect();
+        if (input.bottom > bounds.bottom) scroll.scrollTop += input.bottom - bounds.bottom + 8;
+        else if (input.top < bounds.top) scroll.scrollTop -= bounds.top - input.top + 8;
+      });
     };
     updateViewport();
     viewport?.addEventListener("resize", updateViewport);
@@ -48,6 +60,7 @@ export function MobileTideSheet({ community, guestbook = false, onClose, onPubli
     return () => {
       viewport?.removeEventListener("resize", updateViewport);
       viewport?.removeEventListener("scroll", updateViewport);
+      window.cancelAnimationFrame(viewportFrame);
       dialog.close();
       document.body.style.overflow = previousOverflow;
       if (previousFocus?.isConnected) previousFocus.focus({ preventScroll: true });
@@ -68,7 +81,7 @@ export function MobileTideSheet({ community, guestbook = false, onClose, onPubli
             {isWriting && showComments && <button type="button" onClick={() => setWritingRequested(false)} aria-label="返回评论"><ArrowLeft size={18} /></button>}
             <h2 id="mobile-tide-sheet-title">{guestbook ? "留一句坑底原话" : isWriting ? "写评论" : "这句的回声"}</h2>
           </div>
-          <button type="button" onClick={onClose} aria-label={guestbook ? "关闭留言" : "关闭回声"}><X size={22} /></button>
+          <button className="dialog-close-button" type="button" onClick={onClose} aria-label={guestbook ? "关闭留言" : "关闭回声"}><X size={22} /></button>
         </header>
         <div className="mobile-tide-sheet-scroll" ref={scrollRef} tabIndex={!guestbook && !isWriting ? 0 : undefined}>
           {!guestbook && quote && (
@@ -89,6 +102,7 @@ export function MobileTideSheet({ community, guestbook = false, onClose, onPubli
             <CommunityCommentForm
               bodyMaxLength={guestbook ? 120 : 400}
               configured={community.configured}
+              footerTarget={formFooter}
               placeholder={guestbook ? "写下一句坑底原话。" : "说点什么，接梗也行。"}
               submitLabel={guestbook ? "发布原话" : "留下回声"}
               onSubmit={async ({ nickname, body }) => {
@@ -106,6 +120,7 @@ export function MobileTideSheet({ community, guestbook = false, onClose, onPubli
             />
           </div>
         </div>
+        <footer className="mobile-tide-sheet-form-actions" ref={setFormFooter} hidden={!guestbook && !isWriting} />
         {!guestbook && !isWriting && <footer className="mobile-tide-sheet-reader-actions">
           {notice && <p role="status">{notice}</p>}
           <button ref={writeButtonRef} type="button" onClick={startWriting} disabled={!community.configured}>

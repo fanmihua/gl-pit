@@ -32,6 +32,8 @@ a:focus-visible {
   outline-offset: 4px;
 }
 
+:root button.dialog-close-button:focus-visible { outline: none; box-shadow: none; }
+
 .site-header {
   position: fixed;
   z-index: 50;

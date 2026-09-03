@@ -1,6 +1,7 @@
 import { getTideTargetKey } from "../../data/tide-words.js";
 
 export const emptyStats = Object.freeze({ comments: 0, likes: 0, uniqueVisitors: 0, views: 0 });
+export const unknownStats = Object.freeze({ comments: null, likes: null, uniqueVisitors: null, views: null });
 
 export function getQuoteCommentsMode({ skipKnownEmpty = false, statsLoaded, commentCount }) {
   return skipKnownEmpty && statsLoaded && commentCount === 0 ? "empty" : "list";

@@ -130,22 +130,22 @@ function EvidenceCard({
         <button
           className={`words-repo-card-like${liked ? " is-liked" : ""}`}
           type="button"
-          aria-label={liked ? `取消心动，当前 ${stats.likes} 次` : `送出心动，当前 ${stats.likes} 次`}
+          aria-label={`${liked ? "取消心动" : "送出心动"}${stats.likes == null ? "，统计加载中" : `，当前 ${stats.likes} 次`}`}
           aria-pressed={liked}
           disabled={!configured || busy}
           onClick={onLike}
         >
           <Heart weight={liked ? "fill" : "regular"} aria-hidden="true" />
-          <span>{stats.likes}</span>
+          <span>{stats.likes ?? "—"}</span>
         </button>
         <button
           className="words-repo-card-meta"
           type="button"
-          aria-label={stats.comments > 0 ? `${isExpanded ? "收起" : "展开"}${stats.comments} 条评论` : "留下第一条评论"}
+          aria-label={stats.comments == null ? "查看评论，统计加载中" : stats.comments > 0 ? `${isExpanded ? "收起" : "展开"}${stats.comments} 条评论` : "留下第一条评论"}
           onClick={onCommentClick}
         >
           <ChatCircleDots weight="bold" aria-hidden="true" />
-          {stats.comments}
+          {stats.comments ?? "—"}
         </button>
       </div>
       {!item.is_pinned ? (
@@ -168,7 +168,7 @@ function EvidenceCard({
           <header>
             <span>
               <ChatCircleDots weight="bold" aria-hidden="true" />
-              {stats.comments} 条回声
+              {stats.comments == null ? "回声" : `${stats.comments} 条回声`}
               <i>再点原话收起 ↑</i>
             </span>
             <button type="button" onClick={onCompose}>留一句</button>

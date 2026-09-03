@@ -11,12 +11,14 @@ import {
   toggleCommunityReaction,
 } from "../../community-api.js";
 import { collectedQuotes, getTideTargetKey, tideWordsPageTarget } from "../../data/tide-words.js";
-import { emptyStats, saveNickname, formatCommunityError, getQuoteCommentsMode, mergeTargetStats } from "./community-state.js";
+import { emptyStats, unknownStats, saveNickname, formatCommunityError, getQuoteCommentsMode, mergeTargetStats } from "./community-state.js";
+import { readCommunitySnapshot, rememberCommunitySnapshot } from "./community-snapshot.js";
 
 export function useTideCommunity() {
-  const [statsByTarget, setStatsByTarget] = useState({});
-  const [statsLoaded, setStatsLoaded] = useState(false);
-  const [quotes, setQuotes] = useState(collectedQuotes);
+  const [statsByTarget, setStatsByTarget] = useState(() => readCommunitySnapshot("stats") ?? {});
+  const [statsLoaded, setStatsLoaded] = useState(() => Boolean(readCommunitySnapshot("stats")));
+  const [quotes, setQuotes] = useState(() => readCommunitySnapshot("quotes") ?? collectedQuotes);
+  const [quotesLoaded, setQuotesLoaded] = useState(() => Boolean(readCommunitySnapshot("quotes")));
   const [likedTargets, setLikedTargets] = useState(() => new Set());
   const [busyTargets, setBusyTargets] = useState(() => new Set());
   const [connectionState, setConnectionState] = useState(isCommunityConfigured ? "connecting" : "unconfigured");
@@ -26,14 +28,23 @@ export function useTideCommunity() {
   const [quoteCommentsState, setQuoteCommentsState] = useState("idle");
   const [quoteCommentsMode, setQuoteCommentsMode] = useState("list");
   const quoteRequestRef = useRef(0);
+  const statsFreshRef = useRef(false);
 
   const getStats = useCallback((targetType, targetId) => (
-    statsByTarget[getTideTargetKey(targetType, targetId)] ?? emptyStats
-  ), [statsByTarget]);
+    statsLoaded ? statsByTarget[getTideTargetKey(targetType, targetId)] ?? emptyStats : unknownStats
+  ), [statsByTarget, statsLoaded]);
+
+  useEffect(() => {
+    if (statsLoaded) rememberCommunitySnapshot("stats", statsByTarget);
+  }, [statsByTarget, statsLoaded]);
+  useEffect(() => {
+    if (quotesLoaded) rememberCommunitySnapshot("quotes", quotes);
+  }, [quotes, quotesLoaded]);
 
   const refreshStats = useCallback(async () => {
     if (!isCommunityConfigured) return;
     const nextStats = await loadCommunityStats();
+    statsFreshRef.current = true;
     setStatsByTarget(nextStats);
     setStatsLoaded(true);
   }, []);
@@ -49,23 +60,26 @@ export function useTideCommunity() {
     if (!isCommunityConfigured) return undefined;
     let alive = true;
 
-    Promise.all([
-      loadCommunityStats(),
-      loadCommunityReactionState(),
-      loadPublishedCommunityQuotes(),
-    ])
-      .then(([nextStats, nextLikedTargets, nextQuotes]) => {
-        if (!alive) return;
-        setStatsByTarget(nextStats);
-        setStatsLoaded(true);
-        setLikedTargets(new Set(nextLikedTargets));
-        setQuotes(nextQuotes);
-        setConnectionState("ready");
-      })
-      .catch(() => {
-        if (!alive) return;
-        setConnectionState("error");
-      });
+    // Public totals render as soon as they arrive; anonymous sign-in must not
+    // delay them, and a failed identity request must not discard valid reads.
+    const statsRequest = loadCommunityStats().then((nextStats) => {
+      if (!alive) return;
+      statsFreshRef.current = true;
+      setStatsByTarget(nextStats);
+      setStatsLoaded(true);
+    });
+    const reactionsRequest = loadCommunityReactionState().then((nextLikedTargets) => {
+      if (!alive) return;
+      setLikedTargets(new Set(nextLikedTargets));
+    });
+    const quotesRequest = loadPublishedCommunityQuotes().then((nextQuotes) => {
+      if (!alive) return;
+      setQuotes(nextQuotes);
+      setQuotesLoaded(true);
+    });
+    Promise.allSettled([statsRequest, reactionsRequest, quotesRequest]).then((results) => {
+      if (alive) setConnectionState(results.some((result) => result.status === "rejected") ? "error" : "ready");
+    });
 
     recordCommunityView(tideWordsPageTarget.targetType, tideWordsPageTarget.targetId)
       .then((row) => {
@@ -165,7 +179,7 @@ export function useTideCommunity() {
 
   const openQuote = useCallback(async (quote, { skipKnownEmpty = false } = {}) => {
     const request = ++quoteRequestRef.current;
-    const mode = getQuoteCommentsMode({ skipKnownEmpty, statsLoaded, commentCount: getStats("quote", quote.id).comments });
+    const mode = getQuoteCommentsMode({ skipKnownEmpty, statsLoaded: statsFreshRef.current, commentCount: getStats("quote", quote.id).comments });
     setActiveQuote(quote);
     setQuoteComments([]);
     setQuoteCommentsMode(mode);
@@ -264,6 +278,8 @@ export function useTideCommunity() {
     composerQuote,
     configured: isCommunityConfigured,
     connectionState,
+    statsLoaded,
+    totalsLoaded: statsLoaded && quotesLoaded,
     getStats,
     isLiked: (targetType, targetId) => likedTargets.has(getTideTargetKey(targetType, targetId)),
     openComposer,
