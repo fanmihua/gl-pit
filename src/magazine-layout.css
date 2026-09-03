@@ -1,0 +1,5 @@
+/* Keep the shared base and its mobile overrides in one ordered CSS entry.
+   Lazy routes must not append the base after the responsive rules. */
+@import "./magazine.css";
+@import "./styles/mobile-column.css";
+@import "./styles/mobile-article.css";

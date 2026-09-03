@@ -1,6 +1,6 @@
 import { SiteHeader } from "./SiteHeader.jsx";
 import { MemePickupPage } from "./features/memes/MemePickupPage.jsx";
-import "./magazine.css";
+import "./magazine-layout.css";
 import "./meme-game.css";
 
 export function MemesPage() {

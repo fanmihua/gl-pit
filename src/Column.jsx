@@ -3,9 +3,7 @@ import { SiteHeader } from "./SiteHeader.jsx";
 import { useHashRoute } from "./hooks/useHashRoute.js";
 import { ColumnIndex, CollectionView } from "./features/column/CollectionViews.jsx";
 import { ArticleView } from "./features/column/ArticleView.jsx";
-import "./magazine.css";
-import "./styles/mobile-column.css";
-import "./styles/mobile-article.css";
+import "./magazine-layout.css";
 
 export { ArticleDocument } from "./features/column/ArticleDocument.jsx";
 
