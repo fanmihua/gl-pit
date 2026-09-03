@@ -6,304 +6,13 @@ import {
   SpinnerGap,
   X,
 } from "@phosphor-icons/react";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import {
-  isCommunityConfigured,
-  loadCommunityReactionState,
-  loadCommunityStats,
-  loadPublishedCommunityQuotes,
-  loadPublishedComments,
-  recordCommunityView,
-  submitCommunityComment,
-  submitCommunityQuote,
-  toggleCommunityReaction,
-} from "./community-api.js";
-import { collectedQuotes, getTideTargetKey, tideWordsPageTarget } from "./data/tide-words.js";
+import { getTideTargetKey, tideWordsPageTarget } from "./data/tide-words.js";
+import { readSavedNickname } from "./features/community/community-state.js";
 import "./tide-community.css";
 
-const emptyStats = Object.freeze({ comments: 0, likes: 0, uniqueVisitors: 0, views: 0 });
-const nicknameStorageKey = "glfans:community-nickname:v1";
-
-function readSavedNickname() {
-  if (typeof window === "undefined") return "";
-  try {
-    return window.localStorage.getItem(nicknameStorageKey) || "";
-  } catch {
-    return "";
-  }
-}
-
-function saveNickname(nickname) {
-  try {
-    window.localStorage.setItem(nicknameStorageKey, nickname);
-  } catch {
-    // The form still works when local storage is unavailable.
-  }
-}
-
-function formatCommunityError(error) {
-  const message = error?.message || "互动服务暂时没有回应，请稍后再试。";
-  if (message.includes("rate_limit")) return "留言有点密集，先歇十分钟再来。";
-  if (message.includes("quote_text")) return "原话需要 2—120 个字。";
-  if (message.includes("comment_body")) return "留言需要 2—400 个字。";
-  if (message.includes("nickname")) return "昵称请控制在 24 个字以内。";
-  if (message.includes("JWT") || message.includes("session")) return "匿名身份没有接通，请刷新后再试。";
-  return message;
-}
-
-function mergeTargetStats(current, targetType, targetId, nextStats) {
-  const key = getTideTargetKey(targetType, targetId);
-  return {
-    ...current,
-    [key]: {
-      ...(current[key] ?? emptyStats),
-      ...nextStats,
-    },
-  };
-}
-
-export function useTideCommunity() {
-  const [statsByTarget, setStatsByTarget] = useState({});
-  const [quotes, setQuotes] = useState(collectedQuotes);
-  const [likedTargets, setLikedTargets] = useState(() => new Set());
-  const [busyTargets, setBusyTargets] = useState(() => new Set());
-  const [connectionState, setConnectionState] = useState(isCommunityConfigured ? "connecting" : "unconfigured");
-  const [activeQuote, setActiveQuote] = useState(null);
-  const [composerQuote, setComposerQuote] = useState(null);
-  const [quoteComments, setQuoteComments] = useState([]);
-  const [quoteCommentsState, setQuoteCommentsState] = useState("idle");
-
-  const getStats = useCallback((targetType, targetId) => (
-    statsByTarget[getTideTargetKey(targetType, targetId)] ?? emptyStats
-  ), [statsByTarget]);
-
-  const refreshStats = useCallback(async () => {
-    if (!isCommunityConfigured) return;
-    const nextStats = await loadCommunityStats();
-    setStatsByTarget(nextStats);
-  }, []);
-
-  const closeQuote = useCallback(() => {
-    setActiveQuote(null);
-    setComposerQuote(null);
-  }, []);
-  const closeComposer = useCallback(() => setComposerQuote(null), []);
-
-  useEffect(() => {
-    if (!isCommunityConfigured) return undefined;
-    let alive = true;
-
-    Promise.all([
-      loadCommunityStats(),
-      loadCommunityReactionState(),
-      loadPublishedCommunityQuotes(),
-    ])
-      .then(([nextStats, nextLikedTargets, nextQuotes]) => {
-        if (!alive) return;
-        setStatsByTarget(nextStats);
-        setLikedTargets(new Set(nextLikedTargets));
-        setQuotes(nextQuotes);
-        setConnectionState("ready");
-      })
-      .catch(() => {
-        if (!alive) return;
-        setConnectionState("error");
-      });
-
-    recordCommunityView(tideWordsPageTarget.targetType, tideWordsPageTarget.targetId)
-      .then((row) => {
-        if (!alive || !row) return;
-        setStatsByTarget((current) => mergeTargetStats(
-          current,
-          tideWordsPageTarget.targetType,
-          tideWordsPageTarget.targetId,
-          {
-            uniqueVisitors: Number(row.unique_visitor_count ?? 0),
-            views: Number(row.view_count ?? 0),
-          },
-        ));
-      })
-      .catch(() => {
-        // Reading the page remains available when analytics cannot be recorded.
-      });
-
-    return () => {
-      alive = false;
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!isCommunityConfigured) return undefined;
-
-    const refreshVisibleStats = () => {
-      if (document.visibilityState !== "visible") return;
-      refreshStats().catch(() => {
-        // Keep the last confirmed totals when a background refresh fails.
-      });
-    };
-    const interval = window.setInterval(refreshVisibleStats, 30000);
-    window.addEventListener("focus", refreshVisibleStats);
-    document.addEventListener("visibilitychange", refreshVisibleStats);
-
-    return () => {
-      window.clearInterval(interval);
-      window.removeEventListener("focus", refreshVisibleStats);
-      document.removeEventListener("visibilitychange", refreshVisibleStats);
-    };
-  }, [refreshStats]);
-
-  useEffect(() => {
-    if (!isCommunityConfigured || !activeQuote) return undefined;
-
-    const refreshVisibleComments = () => {
-      if (document.visibilityState !== "visible") return;
-      loadPublishedComments("quote", activeQuote.id, 50)
-        .then((comments) => {
-          setQuoteComments(comments);
-          setQuoteCommentsState("ready");
-        })
-        .catch(() => {
-          // Keep the visible comments when a background refresh fails.
-        });
-    };
-    const interval = window.setInterval(refreshVisibleComments, 30000);
-    window.addEventListener("focus", refreshVisibleComments);
-    document.addEventListener("visibilitychange", refreshVisibleComments);
-
-    return () => {
-      window.clearInterval(interval);
-      window.removeEventListener("focus", refreshVisibleComments);
-      document.removeEventListener("visibilitychange", refreshVisibleComments);
-    };
-  }, [activeQuote]);
-
-  const toggleReaction = useCallback(async (targetType, targetId) => {
-    if (!isCommunityConfigured) return;
-    const key = getTideTargetKey(targetType, targetId);
-    if (busyTargets.has(key)) return;
-
-    setBusyTargets((current) => new Set(current).add(key));
-    try {
-      const result = await toggleCommunityReaction(targetType, targetId);
-      setLikedTargets((current) => {
-        const next = new Set(current);
-        if (result.liked) next.add(key);
-        else next.delete(key);
-        return next;
-      });
-      setStatsByTarget((current) => mergeTargetStats(current, targetType, targetId, { likes: result.likes }));
-    } catch {
-      setConnectionState("error");
-    } finally {
-      setBusyTargets((current) => {
-        const next = new Set(current);
-        next.delete(key);
-        return next;
-      });
-    }
-  }, [busyTargets]);
-
-  const openQuote = useCallback(async (quote) => {
-    setActiveQuote(quote);
-    setQuoteComments([]);
-    if (!isCommunityConfigured) {
-      setQuoteCommentsState("idle");
-      return;
-    }
-
-    setQuoteCommentsState("loading");
-    const viewPromise = recordCommunityView("quote", quote.id)
-      .then((row) => {
-        if (!row) return;
-        setStatsByTarget((current) => mergeTargetStats(current, "quote", quote.id, {
-          uniqueVisitors: Number(row.unique_visitor_count ?? 0),
-          views: Number(row.view_count ?? 0),
-        }));
-      })
-      .catch(() => {});
-
-    try {
-      const comments = await loadPublishedComments("quote", quote.id, 50);
-      setQuoteComments(comments);
-      setQuoteCommentsState("ready");
-    } catch {
-      setQuoteCommentsState("error");
-    }
-    await viewPromise;
-  }, []);
-
-  const openComposer = useCallback((quote) => {
-    setComposerQuote(quote);
-  }, []);
-
-  const submitComment = useCallback(async ({ targetType, targetId, nickname, body }) => {
-    const cleanedNickname = nickname.trim() || "匿名坑底人";
-    const cleanedBody = body.trim();
-    try {
-      const result = await submitCommunityComment({
-        targetType,
-        targetId,
-        nickname: cleanedNickname,
-        body: cleanedBody,
-      });
-      const publishedComment = {
-        id: result.id,
-        target_type: targetType,
-        target_id: targetId,
-        nickname: cleanedNickname,
-        body: cleanedBody,
-        status: result.status,
-        created_at: result.created_at,
-      };
-      if (targetType === "quote") {
-        setQuoteComments((current) => [publishedComment, ...current].slice(0, 50));
-      }
-      setStatsByTarget((current) => {
-        const previous = current[getTideTargetKey(targetType, targetId)] ?? emptyStats;
-        return mergeTargetStats(current, targetType, targetId, { comments: previous.comments + 1 });
-      });
-      saveNickname(cleanedNickname === "匿名坑底人" ? "" : cleanedNickname);
-      return { ok: true };
-    } catch (error) {
-      return { ok: false, message: formatCommunityError(error) };
-    }
-  }, []);
-
-  const submitQuote = useCallback(async ({ nickname, body }) => {
-    const cleanedSpeaker = nickname.trim() || "匿名坑底人";
-    const cleanedText = body.trim();
-    try {
-      const quote = await submitCommunityQuote({ speaker: cleanedSpeaker, text: cleanedText });
-      setQuotes((current) => [quote, ...current.filter((item) => item.id !== quote.id)]);
-      saveNickname(cleanedSpeaker === "匿名坑底人" ? "" : cleanedSpeaker);
-      return { ok: true, quoteId: quote.id, message: "已经上岸，在上面的原话卡片里。" };
-    } catch (error) {
-      return { ok: false, message: formatCommunityError(error) };
-    }
-  }, []);
-
-  return {
-    activeQuote,
-    busyTargets,
-    closeComposer,
-    closeQuote,
-    composerQuote,
-    configured: isCommunityConfigured,
-    connectionState,
-    getStats,
-    isLiked: (targetType, targetId) => likedTargets.has(getTideTargetKey(targetType, targetId)),
-    openComposer,
-    openQuote,
-    quoteComments,
-    quoteCommentsState,
-    quotes,
-    refreshStats,
-    submitComment,
-    submitQuote,
-    toggleReaction,
-  };
-}
+export { useTideCommunity } from "./features/community/useTideCommunity.js";
 
 export function CommunityReactionButton({ busy = false, compact = false, disabled = false, liked = false, likes = 0, onClick }) {
   return (
@@ -321,7 +30,7 @@ export function CommunityReactionButton({ busy = false, compact = false, disable
   );
 }
 
-export function TideCommunitySummary({ community }) {
+export function TideCommunitySummary({ community, compact = false }) {
   const pageStats = community.getStats(tideWordsPageTarget.targetType, tideWordsPageTarget.targetId);
   const stats = community.quotes.reduce((totals, quote) => {
     const quoteStats = community.getStats("quote", quote.id);
@@ -334,26 +43,23 @@ export function TideCommunitySummary({ community }) {
   }, { ...pageStats });
   const pageKey = getTideTargetKey(tideWordsPageTarget.targetType, tideWordsPageTarget.targetId);
 
+  const numbers = (
+    <dl className="tide-community-stats">
+      <div><dt><Eye aria-hidden="true" />路过</dt><dd>{stats.views}</dd></div>
+      <div><dt><Heart aria-hidden="true" />心动</dt><dd>{stats.likes}</dd></div>
+      <div><dt><ChatCircleDots aria-hidden="true" />回声</dt><dd>{stats.comments}</dd></div>
+    </dl>
+  );
+
+  if (compact) return <section className="mobile-tide-stats" aria-label="坑底互动统计">{numbers}</section>;
+
   return (
     <section className="tide-community-summary" aria-labelledby="tide-community-title">
       <div className="tide-community-summary-copy">
         <span>PIT ACTIVITY / LIVE ARCHIVE</span>
         <h2 id="tide-community-title">坑底正在发生</h2>
       </div>
-      <dl className="tide-community-stats">
-        <div>
-          <dt><Eye aria-hidden="true" />路过</dt>
-          <dd>{stats.views}</dd>
-        </div>
-        <div>
-          <dt><Heart aria-hidden="true" />心动</dt>
-          <dd>{stats.likes}</dd>
-        </div>
-        <div>
-          <dt><ChatCircleDots aria-hidden="true" />回声</dt>
-          <dd>{stats.comments}</dd>
-        </div>
-      </dl>
+      {numbers}
       <div className="tide-community-summary-action">
         <CommunityReactionButton
           busy={community.busyTargets.has(pageKey)}
@@ -390,7 +96,7 @@ export function CommunityCommentList({ comments, state }) {
   );
 }
 
-function CommunityCommentForm({ autoFocusBody = false, bodyMaxLength = 400, configured, onSubmit, placeholder, submitLabel = "留下这句" }) {
+export function CommunityCommentForm({ autoFocusBody = false, bodyMaxLength = 400, configured, onSubmit, placeholder, submitLabel = "留下这句" }) {
   const [nickname, setNickname] = useState(readSavedNickname);
   const [body, setBody] = useState("");
   const [state, setState] = useState("idle");

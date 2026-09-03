@@ -1,52 +1,31 @@
-import { useEffect, useRef, useState } from "react";
+import { withBase } from "./lib/assets.js";
+import { useEffect, useRef } from "react";
+import { useMobileLayout } from "./hooks/useMobileLayout.js";
 import { SiteHeader } from "./SiteHeader.jsx";
-import { archiveDramasByYear, archiveYearList } from "./data/archive-dramas.js";
+import { archiveYearList } from "./data/archive-dramas.js";
+import { useArchiveSelection } from "./features/archive/useArchiveSelection.js";
+import { formatArchiveDate, formatArchiveRange } from "./features/archive/archive-format.js";
 import "./archive-year-page.css";
 
-const withBase = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
 const withArchivePoster = (path) => `${withBase(path)}?v=20260902-hd`;
 
-function formatArchiveDate(date) {
-  if (!date) return "待公布";
-  return date.replaceAll("-", ".");
-}
-
-function formatArchiveRange(event) {
-  if (!event.endDate) return `${formatArchiveDate(event.startDate)} 起`;
-  return `${formatArchiveDate(event.startDate)} — ${formatArchiveDate(event.endDate)}`;
-}
-
-function updateArchiveUrl(year, eventId) {
-  const nextHash = eventId ? `#/archive/${year}/${eventId}` : `#/archive/${year}`;
-  window.history.replaceState(null, "", nextHash);
-}
-
 export function ArchiveYearPage({ year, eventId }) {
-  const yearEvents = archiveDramasByYear[year] || [];
-  const hasArchiveEvents = yearEvents.length > 0;
-  const initialEvent = yearEvents.find((event) => event.id === eventId) || yearEvents[0] || null;
-  const [selectedId, setSelectedId] = useState(initialEvent?.id || "");
+  const { yearEvents, hasArchiveEvents, selectedEvent, selectedIndex, selectEvent } = useArchiveSelection(year, eventId);
+  const isMobile = useMobileLayout();
   const filmRef = useRef(null);
-  const filmDragRef = useRef({ active: false, startX: 0, startScroll: 0, moved: false });
-
-  useEffect(() => {
-    if (!hasArchiveEvents) return;
-    const next = yearEvents.find((event) => event.id === eventId) || yearEvents[0];
-    setSelectedId(next.id);
-  }, [eventId, hasArchiveEvents, year]);
-
-  const selectedEvent = yearEvents.find((event) => event.id === selectedId) || initialEvent;
-  const selectedIndex = Math.max(0, yearEvents.findIndex((event) => event.id === selectedEvent?.id));
-
-  const selectEvent = (event) => {
-    setSelectedId(event.id);
-    updateArchiveUrl(year, event.id);
-  };
+  const lastScrollAtRef = useRef(-Infinity);
+  const filmDragRef = useRef({ active: false, startX: 0, startY: 0, startScroll: 0, moved: false, nativeTouch: false });
 
   const startFilmDrag = (event) => {
     const track = filmRef.current;
-    if (!track) return;
-    filmDragRef.current = { active: true, startX: event.clientX, startScroll: track.scrollLeft, moved: false };
+    if (!track || !event.isPrimary || event.button !== 0) return;
+    const nativeTouch = isMobile && event.pointerType !== "mouse";
+    filmDragRef.current = {
+      active: true, startX: event.clientX, startY: event.clientY,
+      startScroll: track.scrollLeft, nativeTouch,
+      moved: nativeTouch && performance.now() - lastScrollAtRef.current < 140,
+    };
+    if (nativeTouch) return;
     track.setPointerCapture(event.pointerId);
     track.classList.add("is-dragging");
   };
@@ -55,7 +34,8 @@ export function ArchiveYearPage({ year, eventId }) {
     const track = filmRef.current;
     if (!track || !filmDragRef.current.active) return;
     const delta = event.clientX - filmDragRef.current.startX;
-    if (Math.abs(delta) > 6) filmDragRef.current.moved = true;
+    if (Math.hypot(delta, event.clientY - filmDragRef.current.startY) > 6) filmDragRef.current.moved = true;
+    if (filmDragRef.current.nativeTouch) return;
     track.scrollLeft = filmDragRef.current.startScroll - delta;
   };
 
@@ -64,6 +44,7 @@ export function ArchiveYearPage({ year, eventId }) {
     if (!track || !filmDragRef.current.active) return;
     const wasMoved = filmDragRef.current.moved;
     filmDragRef.current.active = false;
+    if (filmDragRef.current.nativeTouch) return;
     if (track.hasPointerCapture(event.pointerId)) track.releasePointerCapture(event.pointerId);
     track.classList.remove("is-dragging");
 
@@ -73,6 +54,77 @@ export function ArchiveYearPage({ year, eventId }) {
       if (next) selectEvent(next);
     }
   };
+
+  const cancelFilmDrag = (event) => {
+    filmDragRef.current.active = false;
+    filmDragRef.current.moved = true;
+    const track = filmRef.current;
+    if (track?.hasPointerCapture(event.pointerId)) track.releasePointerCapture(event.pointerId);
+    track?.classList.remove("is-dragging");
+  };
+
+  // A selected deep link or year change should reveal its card without moving the page.
+  useEffect(() => {
+    if (!isMobile) return;
+    const track = filmRef.current;
+    const card = track?.querySelector(".archive-event-card.is-active");
+    if (!track || !card) return;
+    const frame = requestAnimationFrame(() => {
+      track.scrollTo({
+        left: track.scrollLeft + card.getBoundingClientRect().left - track.getBoundingClientRect().left - 16,
+        behavior: "instant",
+      });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [isMobile, year, selectedEvent?.id]);
+
+  const preview = hasArchiveEvents && (
+    <figure
+      className="archive-year-preview"
+      style={{
+        "--archive-media-ratio": selectedEvent.width / selectedEvent.height,
+        "--archive-event-focus": selectedEvent.focus,
+      }}
+    >
+      <div className="archive-year-preview-frame">
+        <img
+          className="archive-year-preview-art"
+          src={withArchivePoster(selectedEvent.image)}
+          width={selectedEvent.width}
+          height={selectedEvent.height}
+          alt={`${selectedEvent.title}《${selectedEvent.titleEn}》剧集封面`}
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
+          data-page-critical="true"
+        />
+      </div>
+      <figcaption>
+        <span>FRAME {String(selectedIndex + 1).padStart(2, "0")} / {year}</span>
+        <b>{selectedEvent.titleEn}</b>
+      </figcaption>
+      <span className="archive-year-preview-edge" aria-hidden="true">GL / ARCHIVE</span>
+    </figure>
+  );
+  const summary = hasArchiveEvents && (
+    <aside className="archive-year-summary" aria-live="polite">
+      <time dateTime={selectedEvent.startDate}>{formatArchiveRange(selectedEvent)}</time>
+      <h2>{selectedEvent.title}</h2>
+      <small className="archive-year-original-title">{selectedEvent.titleEn}</small>
+      <dl className="archive-year-facts">
+        <div><dt>播出</dt><dd>{selectedEvent.weekday} · {selectedEvent.status}</dd></div>
+        <div><dt>集数</dt><dd>{selectedEvent.episodes ? `${selectedEvent.episodes} 集` : "待公布"}</dd></div>
+        <div><dt>平台</dt><dd>{selectedEvent.platforms.join(" / ") || selectedEvent.company || "待公布"}</dd></div>
+      </dl>
+      <div className="archive-year-cast">
+        <span>主演</span>
+        <p>{selectedEvent.cast?.join(" / ") || "演员资料整理中"}</p>
+      </div>
+      <span className="archive-year-summary-brush" aria-hidden="true" />
+      <p>{selectedEvent.summary}</p>
+      <img src={withBase("assets/repo-handdrawn-heart-pink.webp")} alt="" aria-hidden="true" data-page-critical="true" />
+    </aside>
+  );
 
   return (
     <main className="archive-year-page">
@@ -103,55 +155,12 @@ export function ArchiveYearPage({ year, eventId }) {
               <strong>YEAR ARCHIVE</strong>
             </h1>
             <p className="archive-year-tag">拖动剧集胶卷，看看这年<span>播了什么</span>。</p>
-
           </header>
 
-          {hasArchiveEvents ? (
+          {hasArchiveEvents ? !isMobile && (
             <>
-              <figure
-                className="archive-year-preview"
-                style={{
-                  "--archive-media-ratio": selectedEvent.width / selectedEvent.height,
-                  "--archive-event-focus": selectedEvent.focus,
-                }}
-              >
-                <div className="archive-year-preview-frame">
-                  <img
-                    className="archive-year-preview-art"
-                    src={withArchivePoster(selectedEvent.image)}
-                    width={selectedEvent.width}
-                    height={selectedEvent.height}
-                    alt={`${selectedEvent.title}《${selectedEvent.titleEn}》剧集封面`}
-                    loading="eager"
-                    decoding="async"
-                    fetchPriority="high"
-                    data-page-critical="true"
-                  />
-                </div>
-                <figcaption>
-                  <span>FRAME {String(selectedIndex + 1).padStart(2, "0")} / {year}</span>
-                  <b>{selectedEvent.titleEn}</b>
-                </figcaption>
-                <span className="archive-year-preview-edge" aria-hidden="true">GL / ARCHIVE</span>
-              </figure>
-
-              <aside className="archive-year-summary" aria-live="polite">
-                <time dateTime={selectedEvent.startDate}>{formatArchiveRange(selectedEvent)}</time>
-                <h2>{selectedEvent.title}</h2>
-                <small className="archive-year-original-title">{selectedEvent.titleEn}</small>
-                <dl className="archive-year-facts">
-                  <div><dt>播出</dt><dd>{selectedEvent.weekday} · {selectedEvent.status}</dd></div>
-                  <div><dt>集数</dt><dd>{selectedEvent.episodes ? `${selectedEvent.episodes} 集` : "待公布"}</dd></div>
-                  <div><dt>平台</dt><dd>{selectedEvent.platforms.join(" / ") || selectedEvent.company || "待公布"}</dd></div>
-                </dl>
-                <div className="archive-year-cast">
-                  <span>主演</span>
-                  <p>{selectedEvent.cast?.join(" / ") || "演员资料整理中"}</p>
-                </div>
-                <span className="archive-year-summary-brush" aria-hidden="true" />
-                <p>{selectedEvent.summary}</p>
-                <img src={withBase("assets/repo-handdrawn-heart-pink.webp")} alt="" aria-hidden="true" data-page-critical="true" />
-              </aside>
+              {preview}
+              {summary}
             </>
           ) : (
             <section className="archive-year-empty">
@@ -195,13 +204,17 @@ export function ArchiveYearPage({ year, eventId }) {
               onPointerDown={startFilmDrag}
               onPointerMove={dragFilm}
               onPointerUp={endFilmDrag}
-              onPointerCancel={endFilmDrag}
+              onPointerCancel={cancelFilmDrag}
+              onScroll={() => { lastScrollAtRef.current = performance.now(); }}
             >
               {yearEvents.map((event) => (
                 <button
                   className={`archive-event-card${selectedEvent.id === event.id ? " is-active" : ""}`}
                   type="button"
-                  onClick={() => selectEvent(event)}
+                  onClick={(clickEvent) => {
+                    if (clickEvent.detail === 0 || !filmDragRef.current.moved) selectEvent(event);
+                    filmDragRef.current.moved = false;
+                  }}
                   aria-pressed={selectedEvent.id === event.id}
                   data-event-id={event.id}
                   key={event.id}
@@ -224,6 +237,11 @@ export function ArchiveYearPage({ year, eventId }) {
                 </button>
               ))}
             </div>
+          </section>
+        )}
+        {isMobile && hasArchiveEvents && (
+          <section className="archive-year-details" aria-label="所选剧集详情">
+            {summary}
           </section>
         )}
       </div>

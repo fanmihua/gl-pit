@@ -1,32 +1,23 @@
 import { lazy, Suspense, useEffect, useLayoutEffect, useState } from "react";
 import { GlobalFooter } from "./GlobalFooter.jsx";
 import { GlobalRadioDock } from "./GlobalRadioDock.jsx";
+import { MobileSectionNav } from "./MobileSectionNav.jsx";
+import { hasMobileNavigation } from "./app/mobile-navigation.js";
 import { PageLoader } from "./PageLoader.jsx";
 import { RouteReadyBoundary } from "./RouteReadyBoundary.jsx";
+import { ROOT_ROUTES, ROUTE_LOADING_COPY, parseHashRoute } from "./app/routes.js";
 
 const HomePage = lazy(() => import("./HomePage.jsx").then((module) => ({ default: module.HomePage })));
 const AdminPage = lazy(() => import("./AdminPage.jsx").then((module) => ({ default: module.AdminPage })));
 const AboutPage = lazy(() => import("./AboutPage.jsx").then((module) => ({ default: module.AboutPage })));
 const ArchivePage = lazy(() => import("./ArchivePage.jsx").then((module) => ({ default: module.ArchivePage })));
 const ColumnExperience = lazy(() => import("./Column.jsx").then((module) => ({ default: module.ColumnExperience })));
+const MemesPage = lazy(() => import("./MemesPage.jsx").then((module) => ({ default: module.MemesPage })));
 const PitRadioPage = lazy(() => import("./PitRadioPage.jsx").then((module) => ({ default: module.PitRadioPage })));
 const WordsTideLab = lazy(() => import("./WordsTideLab.jsx").then((module) => ({ default: module.WordsTideLab })));
 
-const ROOT_ROUTES = ["about", "admin", "archive", "column", "memes", "radio", "tide-words"];
-
-const ROUTE_LOADING_COPY = {
-  home: { kicker: "ENTER THE PIT", label: "正在展开入坑现场" },
-  about: { kicker: "ABOUT GLFANS", label: "正在展开坑底说明" },
-  admin: { kicker: "COMMUNITY DESK", label: "正在核对管理员身份" },
-  archive: { kicker: "PIT ARCHIVE", label: "正在放映年度胶卷" },
-  column: { kicker: "REPO", label: "正在整理心动证据" },
-  memes: { kicker: "MEME PIT", label: "正在装填表情包" },
-  radio: { kicker: "PIT FM", label: "正在接通坑底频率" },
-  "tide-words": { kicker: "VOICES FROM THE PIT", label: "正在捞起坑底原话" },
-};
-
 function readRootRoute() {
-  const rootRoute = window.location.hash.replace(/^#\/?/, "").split("/").filter(Boolean)[0];
+  const rootRoute = parseHashRoute(window.location.hash)[0];
   if (!rootRoute) return "home";
   return ROOT_ROUTES.includes(rootRoute) ? rootRoute : "home";
 }
@@ -39,6 +30,7 @@ export function App() {
   const [rootRoute, setRootRoute] = useState(readRootRoute);
   const [routeKey, setRouteKey] = useState(readRouteKey);
   const loadingCopy = ROUTE_LOADING_COPY[rootRoute] ?? ROUTE_LOADING_COPY.home;
+  const showMobileNavigation = hasMobileNavigation(rootRoute);
 
   useEffect(() => {
     const update = () => {
@@ -71,7 +63,7 @@ export function App() {
   }, [routeKey]);
 
   useEffect(() => {
-    const currentRoot = window.location.hash.replace(/^#\/?/, "").split("/").filter(Boolean)[0];
+    const currentRoot = parseHashRoute(window.location.hash)[0];
     if (currentRoot && !ROOT_ROUTES.includes(currentRoot)) {
       window.history.replaceState(null, "", "#/");
     }
@@ -91,12 +83,14 @@ export function App() {
     page = <ArchivePage />;
   } else if (rootRoute === "radio") {
     page = <PitRadioPage />;
+  } else if (rootRoute === "memes") {
+    page = <MemesPage />;
   } else {
     page = <ColumnExperience />;
   }
 
   return (
-    <div className={`app-shell${rootRoute === "archive" ? " app-shell--archive" : ""}`}>
+    <div className={`app-shell${rootRoute === "archive" ? " app-shell--archive" : ""}${showMobileNavigation ? " has-mobile-navigation" : ""}`}>
       <Suspense fallback={<PageLoader kicker={loadingCopy.kicker} label={loadingCopy.label} />}>
         <RouteReadyBoundary
           routeKey={routeKey}
@@ -107,6 +101,7 @@ export function App() {
           {rootRoute !== "home" && rootRoute !== "about" && rootRoute !== "admin" && <GlobalFooter />}
         </RouteReadyBoundary>
       </Suspense>
+      {showMobileNavigation && <MobileSectionNav activePath={rootRoute} />}
       <GlobalRadioDock hidden={rootRoute === "radio" || rootRoute === "admin"} />
     </div>
   );

@@ -1,0 +1,267 @@
+/* Mobile Repo index and collection heroes; desktop styles stay intact. */
+@media (max-width: 760px) {
+  .column-index-hero {
+    min-height: 0;
+    padding: 88px 22px 24px;
+    grid-template-columns: 1fr;
+    align-content: start;
+    gap: 0;
+  }
+
+  .column-index-hero .hero-ghost-word { top: 44px; }
+
+  .column-index-hero .hero-reading-note,
+  .column-index-hero .hero-note-label { display: none; }
+
+  .collection-index {
+    display: grid;
+    width: 100%;
+    min-height: 0;
+    margin: 0;
+    padding: 28px 22px 34px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
+    gap: 28px 16px;
+    overflow: visible;
+  }
+
+  .collection-index .collection-card:nth-child(n) {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    min-height: 0;
+    margin: 0;
+    grid-column: auto;
+    grid-template-rows: auto 102px;
+    transform: translateY(var(--card-mobile-offset, 0px)) rotate(var(--card-rotate));
+  }
+
+  .collection-index .collection-card-1 { --card-rotate: -2deg; }
+  .collection-index .collection-card-2 { --card-rotate: 1.5deg; --card-mobile-offset: 8px; }
+  .collection-index .collection-card-3 { --card-rotate: -1.8deg; --card-mobile-offset: 2px; }
+  .collection-index .collection-card-4 { --card-rotate: 1deg; --card-mobile-offset: 6px; }
+  .collection-index .collection-card-5 { --card-rotate: -2deg; }
+  .collection-index .collection-card-6 { --card-rotate: 2deg; --card-mobile-offset: 10px; }
+  .collection-index .collection-cover { aspect-ratio: 4 / 3; }
+  .collection-index .collection-cover > span {
+    top: 10px;
+    left: 10px;
+    width: 28px;
+    height: 28px;
+  }
+  .collection-index .collection-card-copy { padding: 12px 10px; }
+  .collection-index .collection-card-copy > span { font-size: 8px; letter-spacing: .12em; }
+  .collection-index .collection-card-copy h2 {
+    margin: auto 0 12px;
+    font-size: clamp(18px, 5vw, 21px);
+    line-height: 1.1;
+  }
+  .collection-index .collection-card-copy > p {
+    padding-right: 22px;
+    font-size: 9px;
+    letter-spacing: .02em;
+  }
+  .collection-index .collection-card-copy > svg {
+    right: 10px;
+    bottom: 10px;
+    width: 14px;
+    height: 14px;
+    padding: 4px;
+  }
+  .collection-index .card-paperclip { top: -20px; left: 12px; width: 24px; height: 50px; }
+  .collection-index .card-heart-doodle,
+  .collection-index .card-evidence-stamp { display: none; }
+  .collection-index .card-pink-tape { top: -12px; right: -4px; width: 65px; height: 24px; }
+  .collection-index .collection-card:focus-visible { outline: 2px solid var(--pink); outline-offset: 5px; }
+
+  .repo-index-note {
+    width: calc(100% - 44px);
+    margin-bottom: 30px;
+    padding: 18px 0 24px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+    text-align: left;
+  }
+  .repo-index-note-heading > span { margin-bottom: 10px; }
+  .repo-index-note .repo-index-note-heading h2 {
+    max-width: 20em;
+    font-size: 22px;
+    line-height: 1.3;
+  }
+  .repo-index-note-title-line { display: block; }
+  .repo-index-note-title-total { white-space: nowrap; }
+  .repo-index-note .repo-pending-copy {
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-self: start;
+    gap: 14px 18px;
+    text-align: left;
+  }
+  .repo-index-note .repo-pending-copy > span { grid-column: 1 / -1; font-size: 10px; }
+  .repo-index-note .repo-pending-copy p { padding: 0; gap: 6px; }
+  .repo-index-note .repo-pending-copy p::before { content: none; }
+  .repo-index-note .repo-pending-copy strong { font-size: 15px; }
+  .repo-index-note .repo-pending-copy strong::after {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    margin: 0 0 3px 8px;
+    background: var(--pink);
+    content: "";
+    transform: rotate(12deg);
+  }
+
+  .collection-collage {
+    min-height: 0;
+    padding: calc(var(--mobile-header-height, 46px) + 12px) 0 8px;
+  }
+  .collection-collage-hero {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    padding: 12px 22px 8px;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "badge" "title" "photo" "facts" "label";
+    gap: 16px;
+  }
+  .collection-collage .collection-ghost-repo { top: 8px; width: 54%; }
+  .collection-collage .collection-issue-badge {
+    grid-area: badge;
+    margin-left: 0;
+    min-height: 44px;
+  }
+  .collection-collage .collection-issue-badge span {
+    min-width: 66px;
+    padding: 6px 8px 5px;
+    font-size: 8px;
+  }
+  .collection-collage .collection-issue-badge strong {
+    min-width: 66px;
+    padding: 5px 8px 6px;
+    font-size: 21px;
+  }
+  .collection-collage .collection-title-paper {
+    grid-area: title;
+    min-height: 108px;
+    padding: 8px 0 16px;
+  }
+  .collection-collage .collection-title-paper h1 {
+    font-size: clamp(42px, 13.2vw, 58px);
+  }
+  .collection-collage .collection-title-paper p {
+    margin-top: 14px;
+    font-size: 10px;
+    letter-spacing: .12em;
+  }
+  .collection-collage .collection-title-paper > img { bottom: 0; height: 26px; }
+  .collection-collage .collection-hero-photo {
+    grid-area: photo;
+    width: clamp(200px, 62vw, 260px);
+    height: auto;
+    justify-self: center;
+    margin: 0;
+  }
+  .collection-collage .collection-title-caption {
+    position: relative;
+    inset: auto;
+    grid-area: photo;
+    align-self: start;
+    justify-self: end;
+    margin-top: 12px;
+    gap: 4px;
+  }
+  .collection-collage .collection-title-caption span { padding: 5px 8px 4px; font-size: 8px; }
+  .collection-collage .collection-hero-photo > svg { top: -6px; width: 28px; height: 28px; }
+  .collection-collage .collection-hero-photo .collection-photo-heart-top { top: 14%; width: 24px; height: 24px; }
+  .collection-collage .collection-hero-photo .collection-photo-heart-side { top: 36%; width: 18px; height: 18px; }
+  .collection-collage .collection-dossier {
+    grid-area: facts;
+    min-height: 0;
+    padding: 0 2px;
+  }
+  .collection-collage .collection-fact-row {
+    min-height: 0;
+    padding: 8px 0;
+    grid-template-columns: 20px minmax(0, 1fr);
+    gap: 7px;
+  }
+  .collection-collage .collection-fact-row > svg { width: 16px; height: 16px; }
+  .collection-collage .collection-fact-copy {
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: 6px;
+    font-size: 12px;
+    line-height: 1.55;
+  }
+  .collection-collage .collection-fact-copy dt { font-size: 11px; }
+  .collection-collage .collection-fact-copy dd { overflow-wrap: anywhere; }
+  .collection-collage .collection-dossier-repo {
+    position: relative;
+    inset: auto;
+    grid-area: label;
+    justify-self: center;
+    /* Tighten only the final grid gap; the photo and facts keep their spacing. */
+    margin-top: -12px;
+    padding: 7px 10px 6px;
+    font-size: 7px;
+    transform: none;
+    /* Cross the divider without pushing the next section down. */
+    translate: 0 calc(50% + 16px);
+  }
+  .collection-collage .collection-hero-dots { bottom: 0; width: 22px; height: 22px; }
+
+  .collection-collage + .article-index {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "heading" "cards";
+    min-height: 0;
+    padding-top: 40px;
+  }
+  .collection-collage + .article-index .article-index-heading {
+    grid-area: heading;
+    min-height: 0;
+    margin-bottom: 0;
+    padding-top: 8px;
+    padding-bottom: 0;
+  }
+  .collection-collage + .article-index .article-index-heading > span { display: none; }
+  .collection-collage + .article-index .article-index-heading h2 { margin-top: 0; }
+  .collection-collage + .article-index .article-grid {
+    grid-area: cards;
+    padding-top: 10px;
+    padding-bottom: 20px;
+  }
+  /* The paper belongs to the card row, not to an absolute page offset. */
+  .collection-collage + .article-index::before {
+    grid-area: cards;
+    inset: 42% 0 12px;
+    height: auto;
+    translate: 0 -12px;
+    background-size: 100% 100%;
+  }
+  .collection-collage + .article-index .collection-detail-end { display: none; }
+  .collection-collage + .article-index .article-card {
+    /* Scale the material, copy and arrow together, including their layout footprint. */
+    zoom: .9;
+  }
+  .collection-collage + .article-index .article-grid-count-1 { justify-content: center; }
+  .collection-collage + .article-index .article-card > div:last-child { min-height: 0; }
+  .collection-collage + .article-index .article-card > div:last-child > svg {
+    right: 0;
+    bottom: 18px;
+    width: 18px;
+    height: 18px;
+    padding: 8px;
+  }
+  @media (max-width: 360px) {
+    .collection-collage + .article-index .article-card h3 { font-size: 20px; }
+  }
+
+  @media (hover: none) {
+    .collection-index .collection-card:hover::before { transform: none; }
+    .collection-index .collection-card:hover .collection-card-copy h2,
+    .collection-index .collection-card:hover .collection-card-copy > svg { transform: none; }
+    .collection-collage .collection-hero-photo:hover { transform: rotate(-2.2deg); }
+  }
+}

@@ -1188,6 +1188,7 @@
   animation: pit-playlist-enter 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 @keyframes pit-playlist-enter { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes pit-playlist-enter-sheet { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: translateY(0); } }
 .pit-radio-playlist-header {
   display: flex;
   flex-shrink: 0;
@@ -1242,6 +1243,79 @@
   .pit-radio-howto strong { font-size: 12px; }
   .pit-radio-howto span { font-size: 10px; }
   .pit-radio-needle-guide p { left: -16%; }
+}
+
+.pit-radio-help-dialog {
+  position: fixed; inset: 0; width: 100%; max-width: none; height: 100dvh; max-height: none;
+  margin: 0; padding: 24px; border: 0; background: transparent; color: #090909; overflow: hidden;
+}
+.pit-radio-help-dialog[open] { display: grid; place-items: center; }
+.pit-radio-help-dialog::backdrop { background: rgb(9 9 9 / 35%); }
+.pit-radio-help-panel { position: relative; max-height: calc(100dvh - 48px); padding: 16px; overflow-y: auto; }
+.pit-radio-help-dialog .pit-radio-howto { position: relative; inset: auto; width: min(320px, calc(100vw - 80px)); margin: 0; transform: rotate(-2deg); }
+.pit-radio-help-dialog .pit-radio-howto strong { font-size: 15px; }
+.pit-radio-help-dialog .pit-radio-howto span { font-size: 12px; }
+.pit-radio-help-close { position: absolute; z-index: 5; top: 14px; right: 24px; display: grid; width: 44px; height: 44px; padding: 0; place-items: center; border: 0; color: #090909; background: transparent; cursor: pointer; }
+.pit-radio-help-close svg { transform: rotate(-12deg); }
+.pit-radio-help-close:focus-visible { outline: 2px solid var(--pink); outline-offset: -3px; }
+
+@media (max-width: 760px) {
+  .pit-radio-playlist-dialog { padding: 0; }
+  .pit-radio-playlist-dialog[open] { align-items: flex-end; justify-content: center; }
+  .pit-radio-playlist-dialog::backdrop { background: rgb(9 9 9 / 50%); backdrop-filter: blur(3px); }
+  .pit-radio-playlist-drawer { width: 100%; height: auto; max-height: min(68svh, calc(100dvh - 12px)); border: 0; border-top: 4px solid var(--pink); border-radius: 0; box-shadow: none; }
+  .pit-radio-playlist-dialog[open] .pit-radio-playlist-drawer { animation: pit-playlist-enter-sheet 240ms ease-out both; }
+  .pit-radio-playlist-header { gap: 12px; min-height: 62px; padding: 8px calc(18px - (44px - 11.25px) / 2) 8px 18px; border-bottom: 0; }
+  .pit-radio-playlist-sticker { width: 48px; height: 56px; }
+  .pit-radio-playlist-header span { font-size: 11px; }
+  .pit-radio-playlist-header h2 { margin-top: 5px; font-size: 16px; }
+  .pit-radio-playlist-header button { padding: 0; }
+  .pit-radio-playlist-header button svg { width: 18px; height: 18px; }
+  .pit-radio-tracklist { flex: 0 1 auto; padding: 8px 18px max(18px, env(safe-area-inset-bottom)); }
+  .pit-radio-tracklist li button { min-height: 60px; padding: 8px 6px; grid-template-columns: 18px minmax(0, 1fr); gap: 8px; font-size: 13px; }
+  .pit-radio-tracklist li button small { margin-top: 3px; font-size: 11px; }
+  .pit-radio-stage { padding-top: 70px; }
+  .pit-radio-copy { transform: translateY(16px); }
+  .pit-radio-cn-title { font-size: clamp(54px, 16vw, 86px); }
+  .pit-radio-en-title { margin-top: 12px; margin-left: 20vw; font-size: clamp(62px, 18vw, 98px); gap: 14px; }
+  .pit-radio-manifesto { display: none; }
+  .pit-radio-help-toggle { position: absolute; z-index: 9; left: -4px; top: calc(clamp(54px, 16vw, 86px) * .9 + 18px); display: grid; min-height: 44px; padding: 0; place-items: center; border: 0; background: transparent; color: #090909; cursor: pointer; transform: rotate(-7deg); }
+  .pit-radio-help-toggle > span { display: inline-flex; min-height: 28px; padding: 0 7px; align-items: center; gap: 4px; border: 1px solid #d5d1cf; border-radius: 999px; background: var(--paper); font-size: 11px; font-weight: 650; }
+  .pit-radio-console { display: flex; flex-direction: column; justify-self: center; width: calc(100% + 32px); max-width: 560px; height: auto; margin: 20px -16px 0; }
+  .pit-radio-machine-stack { position: relative; top: auto; left: 0; width: 100%; margin-top: 16.74%; }
+  .pit-radio-station { width: 24.2%; }
+  .station-east-south { top: 60%; bottom: auto; right: 7%; width: 22%; transform: rotate(4deg); }
+  .station-east-north { top: -26%; left: auto; right: 3%; transform: rotate(6deg); }
+  .station-east-middle { top: -4%; right: 1%; width: 28%; }
+  .station-north { top: -10%; left: 10%; transform: rotate(-5deg); }
+  .station-west-south { top: 62%; bottom: auto; left: 0.5%; width: 22%; transform: rotate(-6deg); }
+  .pit-radio-station.is-selected { visibility: visible; opacity: 1; pointer-events: auto; }
+  .pit-radio-station.is-selected img { filter: grayscale(0) drop-shadow(0 2px 0 var(--pink)); }
+  .pit-radio-station-count { display: block; left: 2%; right: auto; bottom: 2%; padding: 2px 4px; font-size: 10px; line-height: 1.2; opacity: 1; transform: none; }
+  .pit-radio-station.is-selected .pit-radio-station-count { background: var(--pink); color: #090909; }
+  .pit-radio-broadcast-card { top: -23%; left: 32%; width: 50%; transform: rotate(22deg) scale(0.82); }
+  .pit-radio-drop-label { top: 12px; left: 29%; font-size: 9px; }
+  .pit-radio-drop-label p { padding: 6px 7px; }
+  .pit-radio-drop-label span { font-size: 9px; }
+  .pit-radio-drop-arrow { width: 50px; margin: 4px auto 0 -16px; transform: scaleX(-1) rotate(65deg); }
+  .pit-radio-drop-label.is-visible .pit-radio-drop-arrow { animation: none; }
+  .pit-radio-needle-guide p span, .pit-radio-needle-guide p br { display: none; }
+  .pit-radio-needle-guide svg { bottom: -12px; }
+  .pit-radio-track-cover, .pit-radio-track-copy > .pit-radio-switch-hint { display: none; }
+  .pit-radio-player-slot { background: transparent; border-radius: 0; }
+  .pit-radio-player-pending { grid-template-columns: minmax(0, 1fr); padding: 4px 14px 4px 30px; gap: 8px; }
+  .pit-radio-track-copy { gap: 5px; }
+  .pit-radio-mobile-controls { position: relative; z-index: 9; align-self: center; width: max-content; margin-top: 4px; padding: 6px 10px; border: 1px solid #292929; border-radius: 8px; background: #090909; color: white; }
+  .pit-radio-mobile-controls .pit-radio-player-actions { display: flex; align-items: center; gap: 10px; }
+  .pit-radio-mobile-controls .pit-radio-controls,
+  .pit-radio-mobile-controls .pit-radio-player-options { display: flex; align-items: center; gap: 4px; }
+  .pit-radio-mobile-controls button { flex: 0 0 44px; width: 44px; min-width: 44px; height: 44px; min-height: 44px; padding: 0; border-radius: 0; touch-action: manipulation; }
+  .pit-radio-mobile-controls .pit-radio-play:hover { transform: none; }
+  .pit-radio-mobile-controls button svg { width: 20px; height: 20px; margin: 0; }
+  .pit-radio-source-note { flex-direction: column; flex-wrap: nowrap; gap: 12px; margin-top: 12px; }
+  .pit-radio-source-note > span { order: 1; }
+  .pit-radio-source-note a { position: relative; height: 32px; min-height: 32px; }
+  .pit-radio-source-note a::before { position: absolute; inset: -6px 0; content: ""; }
 }
 
 @media (prefers-reduced-motion: reduce) {

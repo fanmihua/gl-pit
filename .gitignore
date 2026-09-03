@@ -23,3 +23,8 @@ docs/DEVELOPMENT_BRIEF.md
 docs/STANDARDS_ROADMAP.md
 docs/assets/
 scripts/import-feishu-column.mjs
+docs/mobile-app/
+docs/tide-words-community-plan.md
+docs/archive-cast-verification.json
+tests/fixtures/
+scripts/package-brand-favicon.mjs

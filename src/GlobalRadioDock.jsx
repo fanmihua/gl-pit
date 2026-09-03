@@ -1,7 +1,7 @@
+import { withBase } from "./lib/assets.js";
 import { Pause, Play } from "@phosphor-icons/react";
 import { usePitRadio } from "./PitRadioContext.jsx";
 
-const withBase = (path) => /^https?:\/\//.test(path) ? path : `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
 
 export function GlobalRadioDock({ hidden = false }) {
   const {

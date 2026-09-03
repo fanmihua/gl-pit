@@ -1,0 +1,242 @@
+/* This navigation is a mobile-only layer. The desktop header stays untouched. */
+.mobile-section-nav,
+.mobile-header-actions,
+.mobile-radio-controls { display: none; }
+
+@media (max-width: 760px) {
+  .app-shell.has-mobile-navigation {
+    --mobile-header-height: 46px;
+    --mobile-nav-space: calc(90px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: var(--mobile-nav-space);
+  }
+
+  .has-mobile-navigation .route-ready-boundary,
+  .has-mobile-navigation .page-loader {
+    min-height: calc(100svh - var(--mobile-nav-space));
+  }
+  .has-mobile-navigation .route-ready-boundary.is-loading {
+    height: calc(100svh - var(--mobile-nav-space));
+  }
+  .has-mobile-navigation .page-loader.route-ready-loader {
+    bottom: var(--mobile-nav-space);
+    min-height: 0;
+  }
+
+  .has-mobile-navigation .column-header .column-header-nav { display: none; }
+  .has-mobile-navigation .column-header {
+    height: var(--mobile-header-height);
+    min-height: var(--mobile-header-height);
+    border-bottom-color: #090909;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 8px;
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+  .has-mobile-navigation .column-header .brand {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+  }
+
+  .has-mobile-navigation .mobile-header-actions {
+    display: flex;
+    justify-self: end;
+    align-items: center;
+    gap: 12px;
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+
+  /* On phones credits and legal copy live in About, not in repeated page footers. */
+  .app-shell .global-footer,
+  .app-shell .site-rights-notice,
+  .app-shell .meme-download-notice { display: none; }
+  body.meme-game-active .has-mobile-navigation { --meme-footer-height: 0px; }
+
+  .mobile-header-actions a,
+  .mobile-header-actions button {
+    display: inline-flex;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 4px;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: 0;
+    color: var(--plum);
+    background: transparent;
+    font: 700 12px var(--headline);
+    text-decoration: none;
+  }
+  .mobile-header-actions a[aria-current="page"] { color: var(--pink); }
+  .mobile-header-actions a:active { transform: scale(.94); }
+
+  .mobile-section-nav {
+    position: fixed;
+    z-index: 110;
+    inset: auto 0 0;
+    display: block;
+    height: var(--mobile-nav-space);
+    padding: 6px max(12px, env(safe-area-inset-right)) calc(10px + env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+    isolation: isolate;
+  }
+
+  .mobile-section-nav::before {
+    position: absolute;
+    z-index: -1;
+    inset: 12px 0 0;
+    /* Reuse the real torn-paper asset; its upper edge stays visible behind the tabs. */
+    background: url("/assets/repo-collection-black-torn-v2.webp") center top / 100% calc(180px + env(safe-area-inset-bottom, 0px)) no-repeat;
+    pointer-events: none;
+    content: "";
+  }
+
+  .mobile-section-tabs {
+    display: grid;
+    height: 74px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: clamp(5px, 2vw, 10px);
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  .mobile-section-tab {
+    --tab-tilt: -2deg;
+    position: relative;
+    display: block;
+    min-width: 0;
+    height: 74px;
+    color: #090909;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  .mobile-section-tab:nth-child(2) { --tab-tilt: 1.6deg; }
+  .mobile-section-tab:nth-child(3) { --tab-tilt: -1deg; }
+  .mobile-section-tab:nth-child(4) { --tab-tilt: 2deg; }
+  .mobile-section-tab:nth-child(5) { --tab-tilt: -1.4deg; }
+
+  /* Only the paper moves: the grid and its finger-sized link targets never do. */
+  .mobile-tab-paper {
+    position: absolute;
+    inset: 8px 0 2px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 3px;
+    border: 0;
+    background: transparent;
+    isolation: isolate;
+    transform: rotate(var(--tab-tilt));
+    transform-origin: 50% 100%;
+    transition: transform 280ms cubic-bezier(.2,.8,.25,1), color 160ms;
+    pointer-events: none;
+  }
+
+  /* A single real paper surface, with no offset backing or stacked shadow. */
+  .mobile-tab-paper::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: url("/assets/mobile-nav-paper.webp") center / 100% 100% no-repeat;
+    content: "";
+  }
+
+  .mobile-tab-icon { display: flex; height: 24px; }
+  .mobile-tab-label { font: 750 13px/1.1 var(--headline); letter-spacing: .03em; }
+
+  .mobile-section-tab[aria-current="page"] { z-index: 1; }
+  .mobile-section-tab[aria-current="page"] .mobile-tab-paper {
+    color: white;
+    transform: translateY(-8px) rotate(-2deg);
+  }
+  .mobile-section-tab[aria-current="page"] .mobile-tab-paper::before {
+    /* Recolor only the paper, so the live label and icon stay white. */
+    filter: invert(1) grayscale(1) brightness(.8);
+  }
+  .mobile-section-tab[aria-current="page"] .mobile-tab-paper::after {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: var(--pink);
+    mask: url("/assets/mobile-nav-paper.webp") center / 100% 100% no-repeat;
+    clip-path: inset(calc(100% - 6px) 0 0);
+    content: "";
+  }
+  .mobile-section-tab:active .mobile-tab-paper { transform: translateY(-3px) rotate(0deg) scale(.96); }
+  .mobile-section-tab:focus-visible { outline: none; }
+  .mobile-section-tab:focus-visible .mobile-tab-paper { outline: 2px solid var(--pink); outline-offset: 4px; }
+
+  .mobile-section-tab--tide-words .is-tapped { animation: mobile-tab-quote 380ms ease-out; }
+  .mobile-section-tab--archive .is-tapped { animation: mobile-tab-frame 340ms ease-out; }
+  .mobile-section-tab--column .is-tapped { animation: mobile-tab-page 420ms ease-out; }
+  .mobile-section-tab--memes .is-tapped { animation: mobile-tab-photo 380ms ease-out; }
+  .mobile-section-tab--radio .is-tapped { animation: mobile-tab-turn 460ms ease-out; }
+  .mobile-section-tab.is-playing .mobile-tab-icon svg { animation: mobile-tab-spin 4.2s linear infinite; }
+  .mobile-tab-playing {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--pink);
+  }
+
+  .has-mobile-navigation .pit-radio-floating-record { display: none; }
+
+  /* Open only by explicit tap: no permanent player overlays the reading area. */
+  .mobile-radio-controls:popover-open {
+    position: fixed;
+    inset: auto 16px calc(var(--mobile-nav-space) + 8px) auto;
+    display: block;
+    width: min(340px, calc(100vw - 32px));
+    margin: 0;
+    padding: 10px 16px 16px;
+    border: 1px solid #090909;
+    background: var(--paper);
+    color: #090909;
+    font-family: var(--headline);
+  }
+  .mobile-radio-controls header { display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 750; }
+  .mobile-radio-controls header button { display: grid; place-items: center; width: 44px; height: 44px; margin-right: -8px; border: 0; background: transparent; color: inherit; }
+  .mobile-radio-track { margin: 0 0 6px; font-size: 18px; font-weight: 750; overflow-wrap: anywhere; }
+  .mobile-radio-state { margin: 0 0 14px; font-size: 12px; color: #666; }
+  .mobile-radio-actions { display: flex; align-items: center; gap: 12px; }
+  .mobile-radio-actions button,
+  .mobile-radio-actions a { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 0 12px; border: 0; font: 700 13px var(--headline); text-decoration: none; }
+  .mobile-radio-actions button { background: #090909; color: white; }
+  .mobile-radio-actions button svg { color: var(--pink); }
+  .mobile-radio-actions button:disabled { opacity: .45; }
+  .mobile-radio-actions a { margin-left: auto; background: transparent; color: #090909; }
+
+  /* The meme game is a one-screen layout: reserve space inside its viewport too. */
+  body.meme-game-active .has-mobile-navigation .column-shell {
+    min-height: calc(100dvh - var(--meme-footer-height) - var(--mobile-nav-space));
+  }
+  .has-mobile-navigation .meme-game,
+  .has-mobile-navigation .page-loader.meme-game-loader {
+    height: calc(100dvh - var(--meme-footer-height) - var(--mobile-nav-space));
+  }
+}
+
+@keyframes mobile-tab-quote { 45% { transform: scaleX(1.2) rotate(-8deg); } }
+@keyframes mobile-tab-frame { 40% { transform: translateY(-4px); } 70% { transform: translateY(1px); } }
+@keyframes mobile-tab-page { 45% { transform: perspective(80px) rotateY(-35deg); } }
+@keyframes mobile-tab-photo { 45% { transform: translateY(-5px) rotate(9deg); } }
+@keyframes mobile-tab-turn { from { transform: rotate(-90deg); } to { transform: rotate(0); } }
+@keyframes mobile-tab-spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-section-nav .mobile-tab-paper { transition: none; }
+  .mobile-section-nav .mobile-tab-icon,
+  .mobile-section-nav .mobile-tab-icon svg { animation: none; }
+}

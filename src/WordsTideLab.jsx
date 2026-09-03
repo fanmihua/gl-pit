@@ -5,6 +5,7 @@ import {
   Heart,
   PushPin,
   Quotes,
+  PencilSimpleLine,
 } from "@phosphor-icons/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -12,11 +13,16 @@ import {
   QuoteCommentModal,
   TideCommunitySummary,
   TideGuestbook,
-  useTideCommunity,
 } from "./TideCommunity.jsx";
+import { useTideCommunity } from "./features/community/useTideCommunity.js";
 import { getTideTargetKey } from "./data/tide-words.js";
 import { SiteHeader } from "./SiteHeader.jsx";
+import { useMobileLayout } from "./hooks/useMobileLayout.js";
+import { MobileTideSheet } from "./features/community/MobileTideSheet.jsx";
+import { buildEvidenceLayout } from "./features/community/evidence-layout.js";
+import { buildFrequencyCurve } from "./features/community/frequency-curve.js";
 import "./words-tide-lab.css";
+import "./styles/mobile-tide.css";
 
 const frequencyWords = [
   { name: "我懂", value: 118, x: 8, y: 54, tone: "hot", tilt: -0.6 },
@@ -31,6 +37,11 @@ const frequencyWords = [
 ];
 
 const frequencyCurvePath = "M-220 332 C-95 334 20 325 80 216 C120 144 205 116 250 120 C318 124 370 72 435 72 C492 72 527 150 580 160 C631 170 664 209 705 212 C742 215 760 255 790 258 C824 262 836 295 865 296 C900 298 912 343 940 344 C972 345 990 365 1015 368 C1032 370 1048 372 1060 373";
+const mobileFrequencyCurve = buildFrequencyCurve([
+  { x: 0, y: 282 },
+  ...frequencyWords.map((word) => ({ x: word.x * 10, y: word.y * 4 })),
+  { x: 1060, y: 373 },
+]);
 
 const flowPointDelay = (x) => (
   `${Math.max(180, Math.round((((x * 10) + 220) / 1280) * 1050 - 12))}ms`
@@ -46,7 +57,6 @@ const sortOptions = [
 
 function getEvidenceColumnCount() {
   if (typeof window === "undefined") return 3;
-  if (window.innerWidth <= 520) return 1;
   if (window.innerWidth <= 800) return 2;
   if (window.innerWidth >= 1680) return 4;
   return 3;
@@ -173,13 +183,15 @@ function EvidenceCard({
   );
 }
 
-function EvidenceCanvas({ community }) {
+function EvidenceCanvas({ community, isMobile, newQuoteId, onCompose }) {
   const [order, setOrder] = useState(() => readEvidenceOrder(community.quotes));
   const [sortMode, setSortMode] = useState("latest");
   const [columnCount, setColumnCount] = useState(getEvidenceColumnCount);
   const [drag, setDrag] = useState(null);
   const canvasRef = useRef(null);
   const dragRef = useRef(null);
+
+  useEffect(() => { if (newQuoteId) setSortMode("latest"); }, [newQuoteId]);
 
   useEffect(() => {
     try {
@@ -225,10 +237,8 @@ function EvidenceCanvas({ community }) {
   }, [community, order, sortMode]);
 
   const displayColumns = useMemo(() => {
-    const columns = Array.from({ length: columnCount }, () => []);
-    displayOrder.forEach((cardId, index) => columns[index % columnCount].push(cardId));
-    return columns;
-  }, [columnCount, displayOrder]);
+    return buildEvidenceLayout(displayOrder, community.quotes.filter((item) => item.is_pinned).map((item) => item.id), columnCount, isMobile);
+  }, [columnCount, displayOrder, community.quotes, isMobile]);
 
   const beginDrag = (event, cardId) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
@@ -319,12 +329,12 @@ function EvidenceCanvas({ community }) {
   return (
     <>
       <header className="words-board-toolbar">
-        <div>
+        <div className="words-board-description">
           <span>OPEN VOICE BOARD</span>
           <p>按你想看的方式排；拖动任意非置顶卡片，就会切到自己的排序。</p>
         </div>
         <div className="words-board-sorts" role="group" aria-label="原话排序">
-          {sortOptions.map((option) => (
+          {sortOptions.filter((option) => !isMobile || option.id !== "manual").map((option) => (
             <button
               className={sortMode === option.id ? "is-active" : ""}
               type="button"
@@ -336,10 +346,15 @@ function EvidenceCanvas({ community }) {
             </button>
           ))}
         </div>
+        {isMobile && (
+          <button className="mobile-tide-compose" type="button" onClick={onCompose}>
+            <PencilSimpleLine size={16} weight="bold" aria-hidden="true" />留一句
+          </button>
+        )}
       </header>
-      <div className="words-snap-canvas" ref={canvasRef} aria-describedby="words-canvas-instructions">
-      {displayColumns.map((cardIds, columnIndex) => (
-        <div className="words-snap-column" key={`column-${columnIndex}`}>
+      <div className="words-snap-canvas" ref={canvasRef} aria-describedby={isMobile ? undefined : "words-canvas-instructions"}>
+      {displayColumns.map(({ cardIds, pinned }, columnIndex) => (
+        <div className={`words-snap-column${pinned ? " mobile-pinned-row" : ""}`} key={pinned ? "pinned" : `column-${columnIndex}`}>
         {cardIds.map((cardId) => {
         const itemIndex = community.quotes.findIndex((quote) => quote.id === cardId);
         const item = community.quotes[itemIndex];
@@ -351,7 +366,7 @@ function EvidenceCanvas({ community }) {
             configured={community.configured}
             item={item}
             isDragging={drag?.cardId === cardId}
-            isExpanded={community.activeQuote?.id === item.id}
+            isExpanded={!isMobile && community.activeQuote?.id === item.id}
             dragOffset={drag?.cardId === cardId ? drag : null}
             key={item.id}
             liked={community.isLiked("quote", item.id)}
@@ -360,12 +375,14 @@ function EvidenceCanvas({ community }) {
             commentsState={community.activeQuote?.id === item.id ? community.quoteCommentsState : "idle"}
             onCompose={() => community.openComposer(item)}
             onCommentClick={() => {
-              if (community.getStats("quote", item.id).comments === 0) community.openComposer(item);
+              if (isMobile) community.openQuote(item, { skipKnownEmpty: true });
+              else if (community.getStats("quote", item.id).comments === 0) community.openComposer(item);
               else if (community.activeQuote?.id === item.id) community.closeQuote();
               else community.openQuote(item);
             }}
             onOpen={() => {
-              if (community.getStats("quote", item.id).comments === 0) community.openComposer(item);
+              if (isMobile) community.openQuote(item, { skipKnownEmpty: true });
+              else if (community.getStats("quote", item.id).comments === 0) community.openComposer(item);
               else if (community.activeQuote?.id === item.id) community.closeQuote();
               else community.openQuote(item);
             }}
@@ -384,15 +401,17 @@ function EvidenceCanvas({ community }) {
   );
 }
 
-function FrequencyFlow() {
+function FrequencyFlow({ isMobile }) {
+  const curvePath = isMobile ? mobileFrequencyCurve.path : frequencyCurvePath;
+  const plotX = (x) => `${isMobile ? x / 1.06 : x}%`;
   return (
     <div className="words-frequency-flow" aria-label="词频实时演化图">
       <div className="words-flow-chart">
-        <svg className="words-flow-lines" viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true">
+        <svg className="words-flow-lines" viewBox={`0 0 ${isMobile ? 1060 : 1000} 400`} preserveAspectRatio="none" aria-hidden="true">
           <defs>
-            <linearGradient id="flow-pink-gradient" x1="0" x2="1">
+            <linearGradient id="flow-pink-gradient" gradientUnits={isMobile ? "userSpaceOnUse" : undefined} x1="0" y1="0" x2={isMobile ? 1060 : 1} y2="0">
               <stop offset="0%" stopColor="#ff5ca8" />
-              <stop offset="30%" stopColor="#090909" />
+              <stop offset={isMobile ? `${250 / 1060 * 100}%` : "30%"} stopColor="#090909" />
               <stop offset="100%" stopColor="#090909" />
             </linearGradient>
             <linearGradient id="flow-area-gradient" gradientUnits="userSpaceOnUse" x1="0" y1="72" x2="0" y2="240">
@@ -406,10 +425,10 @@ function FrequencyFlow() {
               <feDisplacementMap in="SourceGraphic" in2="noise" scale=".7" xChannelSelector="R" yChannelSelector="G" />
             </filter>
           </defs>
-          <path className="flow-area" d={`${frequencyCurvePath} L1060 400 L-220 400 Z`} />
+          <path className="flow-area" d={`${curvePath} L1060 400 L${isMobile ? 0 : -220} 400 Z`} />
           <path
             className="flow-line flow-line-hot"
-            d={frequencyCurvePath}
+            d={curvePath}
           />
         </svg>
 
@@ -417,7 +436,7 @@ function FrequencyFlow() {
           <span
             className="words-flow-guide"
             style={{
-              "--guide-x": `${word.x}%`,
+              "--guide-x": plotX(word.x),
               "--guide-y": `${word.y}%`,
               "--point-delay": flowPointDelay(word.x),
             }}
@@ -429,8 +448,9 @@ function FrequencyFlow() {
         {frequencyWords.map((word) => (
           <div
             className={`words-flow-point is-${word.tone}${word.labelBelow ? " is-label-below" : ""}${word.slug ? ` word-${word.slug}` : ""}`}
+            data-word={word.name}
             style={{
-              "--point-x": `${word.x}%`,
+              "--point-x": plotX(word.x),
               "--point-y": `${word.y}%`,
               "--point-tilt": `${word.tilt}deg`,
               "--point-label-shift": `${word.labelShift || 0}px`,
@@ -456,6 +476,11 @@ function FrequencyFlow() {
 
 export function WordsTideLab() {
   const community = useTideCommunity();
+  const isMobile = useMobileLayout();
+  const [guestbookOpen, setGuestbookOpen] = useState(false);
+  const [newQuoteId, setNewQuoteId] = useState(null);
+
+  useEffect(() => { setGuestbookOpen(false); community.closeQuote(); }, [isMobile, community.closeQuote]);
 
   return (
     <main className="words-tide-lab">
@@ -478,19 +503,34 @@ export function WordsTideLab() {
           <img className="words-keyword-underline" src="assets/repo-handdrawn-underline-pink.webp" alt="" aria-hidden="true" data-page-critical="true" />
           <span className="words-tide-label">WORDS / FREQUENCY / TIDE</span>
         </div>
-        <FrequencyFlow />
+        <FrequencyFlow isMobile={isMobile} />
       </section>
 
-      <TideCommunitySummary community={community} />
+      <TideCommunitySummary community={community} compact={isMobile} />
 
       <section className="words-archive" id="original-words" aria-label="原话收藏">
         <p className="words-canvas-instructions" id="words-canvas-instructions">
           点卡片原位展开评论；按住右上角六点把手可交换位置，卡片不会互相重叠。
         </p>
-        <EvidenceCanvas community={community} />
+        <EvidenceCanvas community={community} isMobile={isMobile} newQuoteId={newQuoteId} onCompose={() => setGuestbookOpen(true)} />
       </section>
-      <TideGuestbook community={community} />
-      <QuoteCommentModal community={community} />
+      {isMobile ? (
+        <>
+          {(guestbookOpen || community.activeQuote) && (
+            <MobileTideSheet
+              key={guestbookOpen ? "guestbook" : community.activeQuote.id}
+              community={community}
+              guestbook={guestbookOpen}
+              onClose={() => { setGuestbookOpen(false); community.closeQuote(); }}
+              onPublished={(id) => {
+                setNewQuoteId(id);
+                setGuestbookOpen(false);
+                requestAnimationFrame(() => document.getElementById("original-words")?.scrollIntoView({ block: "start", behavior: "auto" }));
+              }}
+            />
+          )}
+        </>
+      ) : <><TideGuestbook community={community} /><QuoteCommentModal community={community} /></>}
     </main>
   );
 }

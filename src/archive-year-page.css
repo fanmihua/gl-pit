@@ -628,33 +628,51 @@
   .archive-year-summary > img { display: none; }
 }
 
-@media (max-width: 700px) {
-  .archive-year-main { padding: 82px 0 0; }
-  .archive-year-back { margin: 12px 0 0 22px; }
-  .archive-year-back span { min-width: 86px; font-size: 9px; }
-  .archive-year-back strong { min-width: 86px; font-size: 28px; }
-  .archive-year-hero { display: flex; margin-top: 8px; flex-direction: column; }
-  .archive-year-masthead { display: block; height: auto; min-height: 0; padding: 26px 22px 30px; }
-  .archive-year-masthead .archive-year-cn-title { margin-top: 13px; font-size: 20vw; }
-  .archive-year-masthead h1 strong { margin: 16px 0 0 2px; font-size: 9vw; }
-  .archive-year-tag { margin-top: 24px; font-size: 10px; }
-  .archive-year-switcher-row { width: calc(100% - 44px); min-height: 34px; margin-top: 4px; }
-  .archive-year-switcher { gap: 18px; overflow-x: auto; }
-  .archive-year-count { gap: 3px; font-size: 8px; }
+@media (max-width: 760px) {
+  .archive-year-main { padding: calc(var(--mobile-header-height, 46px) + 12px) 0 0; }
+  .archive-year-back { display: flex; min-height: 44px; margin: 0 0 0 22px; align-items: center; transform: rotate(-2deg); }
+  .archive-year-back span { display: grid; min-width: 0; height: 28px; padding: 0 8px; place-items: center; font-size: 9px; white-space: nowrap; }
+  .archive-year-back strong { display: grid; min-width: 0; height: 28px; padding: 0 9px; place-items: center; font-size: 18px; }
+  .archive-year-hero { display: flex; margin-top: 0; flex-direction: column; }
+  .archive-year-masthead { display: block; height: auto; min-height: 0; padding: 20px 22px 18px; }
+  .archive-year-masthead .archive-year-cn-title { margin-top: 0; font-size: clamp(50px, 16vw, 72px); line-height: 0.9; }
+  .archive-year-masthead h1 strong { margin: 16px 0 0 2px; font-size: clamp(23px, 7vw, 32px); }
+  .archive-year-tag { margin-top: 22px; padding-block: 6px; font-size: 10px; }
+  .archive-year-switcher-row { width: calc(100% - 32px); min-height: 44px; margin-top: 0; gap: 10px; }
+  .archive-year-switcher { min-width: 0; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+  .archive-year-switcher a { display: grid; min-width: 42px; min-height: 44px; place-items: center; }
+  .archive-year-switcher a::after { bottom: 5px; }
+  .archive-year-count { flex-shrink: 0; gap: 3px; font-size: 9px; }
   .archive-year-count span:first-child { display: none; }
   .archive-year-count strong { font-size: 16px; }
-  .archive-year-preview { width: min(78vw, 300px); height: auto; min-height: 0; align-self: center; order: 2; }
-  .archive-year-summary { display: flex; width: 100%; height: auto; min-height: 300px; padding: 34px 24px 30px; order: 3; }
-  .archive-year-summary h2 { margin-top: 12px; font-size: 34px; }
-  .archive-year-original-title { align-self: flex-start; }
+  .archive-year-details { display: flex; padding-bottom: 24px; flex-direction: column; }
+  .archive-year-summary { display: flex; width: 100%; height: auto; min-height: 0; padding: 24px 24px 50px; }
+  .archive-year-summary h2 { margin-top: 8px; font-size: 28px; white-space: normal; overflow-wrap: anywhere; }
+  .archive-year-original-title { align-self: flex-start; white-space: normal; }
   .archive-year-facts { flex-wrap: wrap; }
+  .archive-year-facts div { max-width: 100%; white-space: normal; }
+  .archive-year-facts dd { overflow: visible; }
   .archive-year-summary-brush { display: block; }
   .archive-year-summary > p { grid-column: auto; grid-row: auto; align-self: flex-start; }
   .archive-year-summary > img { display: block; }
   .archive-year-empty { min-height: 340px; padding: 28px 22px; }
-  .archive-event-browser { margin-top: 16px; padding-top: 22px; }
-  .archive-event-film-track { padding: 0 16px; grid-auto-columns: 72vw; }
-  .archive-event-card { height: 225px; }
+  .archive-event-browser { margin-top: 4px; padding-top: 22px; }
+  .archive-event-film-track {
+    --event-card-width: clamp(160px, 44vw, 200px);
+    padding: 0 16px;
+    scroll-padding-inline: 16px;
+    grid-auto-columns: var(--event-card-width);
+    touch-action: pan-x pan-y pinch-zoom;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .archive-event-card { height: auto; grid-template-rows: auto 1fr; border-width: 3px; scroll-snap-align: start; }
+  .archive-event-card img { height: auto; aspect-ratio: 3 / 4; }
+  .archive-event-card > span { min-height: 48px; }
+  .archive-event-card time { font-size: 9px; }
+  .archive-event-card:hover img,
+  .archive-event-card:focus-visible img,
+  .archive-event-card.is-active img { transform: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,10 +1,20 @@
+import { withBase } from "./lib/assets.js";
 import { useState } from "react";
 import { RepoFilmStrip } from "./RepoFilmStrip.jsx";
 import { SiteHeader } from "./SiteHeader.jsx";
+import { RightsNotice } from "./RightsNotice.jsx";
 import { RIGHTS_FEEDBACK_URL, RIGHTS_SHORT_NOTICE } from "./rights.js";
 import "./about-page.css";
 
-const withBase = (assetPath) => `${import.meta.env.BASE_URL}${assetPath.replace(/^\//, "")}`;
+
+function ParticipationCopy() {
+  return (
+    <>
+      <span className="about-welcome-sentence">如果你也想分享你的文字、图文、表情包或<span className="about-welcome-phrase">宝藏资源，</span></span><br />
+      <span className="about-welcome-sentence"><span className="about-welcome-phrase">欢迎联系我们，</span>一起把这份热爱攒得更大、<span className="about-welcome-phrase">更久一点。</span></span>
+    </>
+  );
+}
 
 function HanddrawnHeart({ className = "" }) {
   return (
@@ -67,6 +77,7 @@ export function AboutPage({ defaultRightsOpen = false }) {
               也时刻提醒自己保留一点“良好心态”——
               <strong>【不磕 RPS】【都是侄女，放心磕】</strong>。
             </p>
+            <p className="about-participation"><ParticipationCopy /></p>
           </div>
           <p className="about-top-note">we pit, we write,<br />we love.</p>
           <HanddrawnHeart className="about-heart about-heart-top" />
@@ -103,8 +114,7 @@ export function AboutPage({ defaultRightsOpen = false }) {
           <strong>欢迎入坑，磕得<span>开心</span>最重要！</strong>
           <i aria-hidden="true" />
           <p>
-            如果你也想分享你的文字、图文、表情包或宝藏资源，<br />
-            欢迎联系我们，一起把这份热爱攒得更大、更久一点。
+            <ParticipationCopy />
           </p>
           <HanddrawnHeart className="about-heart about-heart-welcome" />
         </aside>
@@ -160,6 +170,7 @@ export function AboutPage({ defaultRightsOpen = false }) {
       </section>
 
       <RepoFilmStrip />
+      <RightsNotice className="about-mobile-rights" />
     </main>
   );
 }

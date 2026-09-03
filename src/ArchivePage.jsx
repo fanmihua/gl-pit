@@ -1,10 +1,11 @@
+import { withBase } from "./lib/assets.js";
 import { useEffect, useRef, useState } from "react";
+import { useMobileLayout } from "./hooks/useMobileLayout.js";
 import { ArchiveYearPage } from "./ArchiveYearPage.jsx";
 import { SiteHeader } from "./SiteHeader.jsx";
 import { archiveDramasByYear, archiveRepresentativeIds, archiveYearList } from "./data/archive-dramas.js";
 import "./archive-page.css";
 
-const withBase = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
 const withArchivePoster = (path) => `${withBase(path)}?v=20260902-hd`;
 
 const archiveYears = archiveYearList.map((year) => {
@@ -26,19 +27,24 @@ export function ArchivePage() {
 }
 
 function ArchiveOverview() {
+  const isMobile = useMobileLayout();
   const [activeIndex, setActiveIndex] = useState(2);
+  const activeIndexRef = useRef(2);
   const trackRef = useRef(null);
-  const dragRef = useRef({ active: false, startX: 0, startScroll: 0, moved: false });
+  const dragRef = useRef({ active: false, startX: 0, startY: 0, startScroll: 0, moved: false, nativeTouch: false });
+  const scrollFrameRef = useRef(0);
+  const lastScrollAtRef = useRef(-Infinity);
 
   const selectRoll = (index, shouldScroll = true) => {
     const nextIndex = Math.max(0, Math.min(archiveYears.length - 1, index));
+    activeIndexRef.current = nextIndex;
     setActiveIndex(nextIndex);
     if (shouldScroll) {
       const track = trackRef.current;
       const target = track?.querySelector(`[data-roll-index="${nextIndex}"]`);
       if (track && target) {
         track.scrollTo({
-          left: Math.max(0, target.offsetLeft - (track.clientWidth - target.clientWidth) / 2),
+          left: track.scrollLeft + target.getBoundingClientRect().left + target.clientWidth / 2 - track.getBoundingClientRect().left - track.clientWidth / 2,
           behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
         });
       }
@@ -46,20 +52,79 @@ function ArchiveOverview() {
   };
 
   useEffect(() => {
-    const frame = window.requestAnimationFrame(() => {
-      const track = trackRef.current;
-      const target = track?.querySelector(`[data-roll-index="${activeIndex}"]`);
-      if (track && target) {
-        track.scrollLeft = Math.max(0, target.offsetLeft - (track.clientWidth - target.clientWidth) / 2);
+    const track = trackRef.current;
+    if (!track) return;
+    let layoutFrame = 0;
+    let lastWidth = -1;
+    const centerCurrentRoll = () => {
+      window.cancelAnimationFrame(layoutFrame);
+      layoutFrame = window.requestAnimationFrame(() => {
+        const target = track.querySelector(`[data-roll-index="${activeIndexRef.current}"]`);
+        if (!target) return;
+        const targetRect = target.getBoundingClientRect();
+        const trackRect = track.getBoundingClientRect();
+        track.scrollTo({
+          left: track.scrollLeft + targetRect.left + targetRect.width / 2 - trackRect.left - trackRect.width / 2,
+          behavior: "instant",
+        });
+      });
+    };
+    // Keep the same year centered when rotating a phone or resizing the preview.
+    const observer = new ResizeObserver(([entry]) => {
+      if (entry.contentRect.width !== lastWidth) {
+        lastWidth = entry.contentRect.width;
+        centerCurrentRoll();
       }
     });
-    return () => window.cancelAnimationFrame(frame);
-  }, []);
+    observer.observe(track);
+    centerCurrentRoll();
+    return () => {
+      observer.disconnect();
+      window.cancelAnimationFrame(layoutFrame);
+      window.cancelAnimationFrame(scrollFrameRef.current);
+      scrollFrameRef.current = 0;
+    };
+  }, [isMobile]);
+
+  const syncVisibleRoll = () => {
+    if (!isMobile) return;
+    lastScrollAtRef.current = performance.now();
+    if (scrollFrameRef.current) return;
+    scrollFrameRef.current = window.requestAnimationFrame(() => {
+      scrollFrameRef.current = 0;
+      const track = trackRef.current;
+      if (!track) return;
+      const trackRect = track.getBoundingClientRect();
+      const center = trackRect.left + trackRect.width / 2;
+      let nearestIndex = 0;
+      let nearestDistance = Infinity;
+      for (const frame of track.querySelectorAll(".archive-film-frame")) {
+        const rect = frame.getBoundingClientRect();
+        const distance = Math.abs(rect.left + rect.width / 2 - center);
+        if (distance < nearestDistance) {
+          nearestDistance = distance;
+          nearestIndex = Number(frame.dataset.rollIndex);
+        }
+      }
+      activeIndexRef.current = nearestIndex;
+      setActiveIndex(nearestIndex);
+    });
+  };
 
   const startDrag = (event) => {
     const track = trackRef.current;
-    if (!track) return;
-    dragRef.current = { active: true, startX: event.clientX, startScroll: track.scrollLeft, moved: false };
+    if (!track || !event.isPrimary || event.button !== 0) return;
+    const nativeTouch = isMobile && event.pointerType !== "mouse";
+    dragRef.current = {
+      active: true,
+      startX: event.clientX,
+      startY: event.clientY,
+      startScroll: track.scrollLeft,
+      // A tap during a fling stops it without accidentally opening a year.
+      moved: nativeTouch && performance.now() - lastScrollAtRef.current < 140,
+      nativeTouch,
+    };
+    if (nativeTouch) return;
     track.setPointerCapture(event.pointerId);
     track.classList.add("is-dragging");
   };
@@ -68,7 +133,8 @@ function ArchiveOverview() {
     const track = trackRef.current;
     if (!track || !dragRef.current.active) return;
     const delta = event.clientX - dragRef.current.startX;
-    if (Math.abs(delta) > 6) dragRef.current.moved = true;
+    if (Math.hypot(delta, event.clientY - dragRef.current.startY) > 6) dragRef.current.moved = true;
+    if (dragRef.current.nativeTouch) return;
     track.scrollLeft = dragRef.current.startScroll - delta;
   };
 
@@ -77,6 +143,7 @@ function ArchiveOverview() {
     if (!track || !dragRef.current.active) return;
     const wasMoved = dragRef.current.moved;
     dragRef.current.active = false;
+    if (dragRef.current.nativeTouch) return;
     if (track.hasPointerCapture(event.pointerId)) track.releasePointerCapture(event.pointerId);
     track.classList.remove("is-dragging");
 
@@ -91,6 +158,15 @@ function ArchiveOverview() {
         window.location.hash = `#/archive/${archiveYears[index].year}`;
       }
     }
+  };
+
+  const cancelDrag = (event) => {
+    // Native touch scrolling cancels the pointer stream; cancellation is never a tap.
+    dragRef.current.active = false;
+    dragRef.current.moved = true;
+    const track = trackRef.current;
+    if (track?.hasPointerCapture(event.pointerId)) track.releasePointerCapture(event.pointerId);
+    track?.classList.remove("is-dragging");
   };
 
   return (
@@ -146,7 +222,8 @@ function ArchiveOverview() {
             onPointerDown={startDrag}
             onPointerMove={dragRoll}
             onPointerUp={endDrag}
-            onPointerCancel={endDrag}
+            onPointerCancel={cancelDrag}
+            onScroll={syncVisibleRoll}
             aria-label="泰百剧集年度胶卷"
           >
             {archiveYears.map((roll, index) => (
@@ -155,8 +232,8 @@ function ArchiveOverview() {
                 type="button"
                 data-roll-index={index}
                 aria-pressed={activeIndex === index}
-                onClick={() => {
-                  if (!dragRef.current.moved) {
+                onClick={(event) => {
+                  if (event.detail === 0 || !dragRef.current.moved) {
                     selectRoll(index, false);
                     window.location.hash = `#/archive/${roll.year}`;
                   }

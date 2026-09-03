@@ -1,0 +1,29 @@
+@font-face {
+  font-family: "Repo Hero Heavy";
+  src: url("/assets/alibaba-puhuiti-heavy-subset.woff2") format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 900;
+}
+
+:root {
+  color: #090909;
+  background: var(--paper);
+  font-family: "Manrope Variable", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-synthesis: none;
+  --paper: #f7f7f4;
+  --paper-deep: #e9e9e6;
+  --plum: #090909;
+  --plum-soft: #626262;
+  --pink: #ff5ca8;
+  --pink-soft: #ffc5df;
+  --orchid: #ff89bd;
+  --ink-inverse: #ffffff;
+  --line: rgba(9, 9, 9, 0.3);
+  --display: "Manrope Variable", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --headline: "Roboto Condensed Variable", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --hero-black: "Repo Hero Heavy", "Arial Black", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --text-weight-regular: 500;
+  --text-weight-strong: 700;
+  --text-weight-hero: 900;
+}

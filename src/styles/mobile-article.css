@@ -1,0 +1,102 @@
+/* A continuous reading column on phones; desktop keeps its editorial collage. */
+@media (max-width: 760px) {
+  .article-view.article-magazine {
+    padding-top: var(--mobile-header-height, 46px);
+  }
+  .article-magazine .article-toolbar {
+    top: var(--mobile-header-height, 46px);
+    height: 44px;
+    min-height: 44px;
+    padding: 0 16px 0 8px;
+    grid-template-columns: 44px minmax(0, 1fr) auto;
+    gap: 8px;
+    background: var(--paper);
+  }
+  .article-magazine .article-toolbar-back {
+    width: 44px;
+    min-height: 44px;
+    padding: 0;
+    justify-content: center;
+    border-right: 0;
+  }
+  .article-magazine .article-toolbar-back span,
+  .article-magazine .article-toolbar-title small { display: none; }
+  .article-magazine .article-toolbar > .article-toolbar-title { display: flex; }
+  .article-magazine .article-toolbar-title { overflow: hidden; }
+  .article-magazine .article-toolbar-title strong { font-size: 11px; letter-spacing: .04em; }
+  .article-magazine .article-toolbar > .article-toolbar-percent { display: block; font-size: 9px; letter-spacing: .04em; }
+  .article-magazine .article-toolbar > .article-toolbar-track { display: block; }
+
+  .article-magazine .article-masthead {
+    width: min(640px, calc(100% - 40px));
+    min-height: 0;
+    padding: 24px 0 20px;
+    border-bottom: 0;
+  }
+  .article-magazine .article-masthead-copy { width: 100%; margin: 0; padding: 0; }
+  /* The first document image is the mobile lead image, not a duplicate title backdrop. */
+  .article-magazine .article-masthead-still,
+  .article-magazine .article-masthead-note { display: none; }
+  .article-magazine .article-masthead-kicker { display: inline-block; padding: 6px 8px; font-size: 8px; }
+  .article-magazine .article-masthead h1 { margin-top: 14px; gap: 8px; letter-spacing: -.025em; line-height: 1.2; }
+  .article-magazine .article-masthead h1 > span { font-size: 22px; }
+  .article-magazine .article-masthead h1 > strong {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: clamp(28px, 7.5vw, 36px);
+    line-height: 1.22;
+    overflow-wrap: anywhere;
+    text-wrap: balance;
+  }
+  .article-magazine .article-masthead-underline {
+    position: static;
+    display: block;
+    width: 100%;
+    height: 12px;
+    margin-top: 10px;
+    animation: none;
+  }
+
+  .article-magazine .article-document { padding: 0 0 28px; }
+  .article-magazine .fs-fragment > .fs-grid,
+  .article-magazine .article-document > .fs-grid {
+    width: min(640px, calc(100% - 40px));
+    margin-bottom: 32px;
+    padding-top: 22px;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 18px;
+  }
+  .article-magazine .fs-grid::before { top: 0; left: 0; padding: 0; writing-mode: horizontal-tb; }
+  .article-magazine .fs-grid > .fs-column { grid-column: 1; grid-row: auto; }
+  .article-magazine .fs-grid > .fs-column.is-copy { padding-top: 0; }
+  .article-magazine .fs-grid > .fs-column.is-media { position: static; margin: 0; transform: none; }
+  .article-magazine .fs-figure { margin-bottom: 12px; }
+  .article-magazine .article-layout-media-heavy > .fs-column.is-media > .fs-figure { width: 100%; margin: 0 0 12px; }
+  .article-magazine .fs-column > .fs-figure:last-child,
+  .article-magazine .fs-column > .fs-paragraph:last-child { margin-bottom: 0; }
+  .article-magazine .article-flow { width: min(640px, calc(100% - 40px)); margin-bottom: 32px; }
+  .article-magazine .article-document > :last-child { margin-bottom: 0; }
+  .article-magazine .fs-spacer { height: 8px; }
+  .article-magazine .fs-column > .fs-spacer:first-child,
+  .article-magazine .fs-column > .fs-spacer:last-child { display: none; }
+  .article-magazine .fs-paragraph { max-width: none; margin-bottom: 1em; font-size: 16px; line-height: 1.85; text-align: left; }
+  .article-magazine .fs-paragraph.is-speaker { margin-bottom: 12px; padding: 6px 8px; font-size: 13px; line-height: 1.3; }
+  .article-magazine .fs-heading { margin: 0 0 16px; font-size: 22px; line-height: 1.4; }
+  .article-magazine .fs-heading-three { font-size: 19px; }
+  .article-magazine .fs-rule { margin: 24px 0; }
+  .article-magazine .fs-quote { margin: 24px 0; padding: 4px 0 4px 16px; border-left-width: 3px; }
+  .article-magazine .fs-callout { margin: 20px 0; padding: 14px; gap: 10px; }
+  .article-magazine .fs-list { font-size: 16px; line-height: 1.85; }
+  .article-magazine .article-next-nav { width: min(640px, calc(100% - 40px)); min-height: 0; padding: 20px 0; grid-template-columns: 1fr; gap: 10px; }
+  .article-magazine .article-next-nav a { min-height: 44px; }
+
+  /* Long sections must never stay invisible because they exceed the reveal threshold. */
+  .article-magazine .article-reveal { opacity: 1; translate: none; }
+  .article-magazine .article-reveal > .fs-column.is-media,
+  .article-magazine .article-layout-media-left.article-reveal:not(.is-visible) > .fs-column.is-media,
+  .article-magazine .article-layout-media-right.article-reveal:not(.is-visible) > .fs-column.is-media {
+    transform: none;
+    transition: none;
+  }
+}

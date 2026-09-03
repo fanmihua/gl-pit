@@ -781,6 +781,69 @@ body.meme-game-active .column-shell {
   .meme-film-card-actions svg { width: 10px; height: 10px; }
 }
 
+@media (max-width: 760px) {
+  body.meme-game-active { height: auto; min-height: 100dvh; overflow-x: hidden; overflow-y: auto; }
+
+  .has-mobile-navigation .meme-game {
+    height: auto;
+    min-height: calc(100svh - var(--mobile-nav-space, 90px));
+    padding-top: calc(var(--mobile-header-height, 46px) + 34px);
+    grid-template-rows: minmax(350px, 1fr) auto;
+  }
+
+  .meme-game-hero { gap: 16px; padding: 8px 18px 0; }
+  .meme-game-intro { width: max-content; max-width: 100%; padding: 0; justify-self: center; text-align: center; }
+  .meme-game-heading { margin-inline: auto; font-size: clamp(48px, 14.4vw, 64px); transform-origin: center; }
+  .meme-title-heart { left: -14px; top: -8px; width: 46px; }
+  .meme-game-tagline { margin: 24px 0 0; font-size: clamp(18px, 4.8vw, 23px); transform-origin: center; }
+
+  .instant-camera-stage { place-items: center; }
+  .instant-camera-visual { width: min(72vw, 330px); margin: 0; }
+  .instant-camera-shutter { min-width: 44px; min-height: 44px; }
+  .instant-camera-focus-label { pointer-events: none; }
+  .instant-print figcaption { display: none; }
+
+  .meme-filmstrip-shell { padding: 8px 0 26px; transform: translateY(-12px); }
+  .meme-filmstrip { --meme-slot-width: clamp(190px, 52vw, 225px); overflow-x: auto; overflow-y: hidden; scroll-snap-type: x proximity; touch-action: pan-x pan-y pinch-zoom; }
+  .meme-filmstrip-track {
+    display: grid;
+    width: max-content;
+    max-width: none;
+    min-width: 100%;
+    min-height: 0;
+    margin: 0;
+    padding: 20px max(22px, calc((100% - var(--meme-slot-width)) / 2)) 30px;
+    grid-template-columns: none;
+    grid-template-rows: auto;
+    grid-auto-columns: var(--meme-slot-width);
+    grid-auto-flow: column;
+    gap: 28px 26px;
+  }
+  .meme-film-slot { width: 100%; min-width: 0; scroll-snap-align: center; }
+  .meme-film-card { padding: 7px 7px 34px; scroll-snap-align: none; }
+  .meme-film-placeholder { padding: 7px 7px 34px; }
+  .meme-film-number { display: none; }
+  .meme-film-time { bottom: 10px; left: 9px; right: auto; font-size: 11px; line-height: 1; }
+  .meme-film-card-actions { right: 3px; bottom: -6px; left: auto; gap: 2px; transform: none; }
+  .meme-film-card-actions a,
+  .meme-film-card-actions button { display: grid; width: 44px; height: 44px; place-items: center; border-radius: 3px; color: #090909; }
+  .meme-film-card-actions svg { width: 16px; height: 16px; }
+  .meme-film-card-actions :is(a, button):hover,
+  .meme-film-card-actions :is(a, button):focus-visible,
+  .meme-film-card-actions :is(a, button):active { color: var(--pink); background: transparent; }
+  .meme-film-card-actions :is(a, button):focus-visible { outline: 2px solid var(--pink); outline-offset: -2px; }
+  .meme-film-card:hover,
+  .meme-film-card:focus-visible,
+  .meme-film-card.is-active { transform: none; }
+  .instant-camera-stage.is-archiving .instant-print { animation-name: instant-print-archive-mobile; }
+  .meme-download-notice { bottom: 5px; font-size: 9px; }
+}
+
+@keyframes instant-print-archive-mobile {
+  from { transform: perspective(800px) translate3d(0, 18%, 0) skewX(-6deg) skewY(-1.5deg) rotateZ(4deg) scale(0.96); }
+  to { transform: perspective(800px) translate3d(var(--archive-x, 0px), var(--archive-y, 0px), 0) skewX(-6deg) skewY(-1.5deg) rotateZ(4deg) scale(var(--archive-scale, 1)); }
+}
+
 @media (max-height: 700px) and (min-width: 821px) {
   .meme-game {
     grid-template-rows: minmax(0, 1fr) 260px;

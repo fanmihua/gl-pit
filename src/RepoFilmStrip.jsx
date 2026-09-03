@@ -1,7 +1,7 @@
+import { withBase } from "./lib/assets.js";
 import { Plus } from "@phosphor-icons/react";
 import "./repo-film-strip.css";
 
-const withBase = (assetPath) => `${import.meta.env.BASE_URL}${assetPath.replace(/^\//, "")}`;
 
 const filmCollections = [
   { slug: "rival-lover", cover: "assets/column/rival-lover/overview/01-kqpjbbks9obs.webp", focus: "50% 18%" },

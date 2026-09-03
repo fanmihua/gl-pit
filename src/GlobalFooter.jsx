@@ -1,5 +1,5 @@
 import { HeartStraight } from "@phosphor-icons/react";
-import { RIGHTS_SHORT_NOTICE } from "./rights.js";
+import { RightsNotice } from "./RightsNotice.jsx";
 import "./global-footer.css";
 
 export function GlobalFooter() {
@@ -14,10 +14,7 @@ export function GlobalFooter() {
         <i>love is love</i>
         <HeartStraight weight="fill" aria-hidden="true" />
       </span>
-      <p className="global-footer-rights">
-        <span>{RIGHTS_SHORT_NOTICE}</span>
-        <a href="#/about/rights">权利说明与反馈</a>
-      </p>
+      <RightsNotice className="global-footer-rights" linkLabel="权利说明与反馈" />
     </footer>
   );
 }

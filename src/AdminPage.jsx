@@ -1,3 +1,5 @@
+import { withBase } from "./lib/assets.js";
+import { SITE_LOGO } from "./app/brand.js";
 import {
   ArrowLeft,
   Check,
@@ -23,9 +25,6 @@ const quoteStatusOptions = [
   { id: "hidden", label: "隐藏" },
 ];
 
-function withBase(assetPath) {
-  return `${import.meta.env.BASE_URL}${assetPath.replace(/^\//, "")}`;
-}
 
 function formatTarget(comment, quoteById) {
   if (comment.target_type === "page") return "坑底留言板";
@@ -37,7 +36,7 @@ function AdminHeader({ onSignOut, signedIn }) {
   return (
     <header className="community-admin-header">
       <a className="community-admin-brand" href="#/">
-        <img src={withBase("assets/gl-pit-logo.webp")} width="369" height="258" alt="glfans" />
+        <img className="brand-logo" src={withBase(SITE_LOGO.src)} width={SITE_LOGO.width} height={SITE_LOGO.height} alt={SITE_LOGO.alt} />
         <span>COMMUNITY DESK</span>
       </a>
       <div>
