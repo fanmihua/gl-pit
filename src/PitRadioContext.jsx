@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
 import neteasePlaylist from "./data/netease-playlist.json";
+import { nextSequentialTrack, nextStationTrack, tracksForStation, trackSwitchMode } from "./data/pit-radio-playback.js";
 
 const stationPositions = {
   janjingjing: "station-east-south",
@@ -60,29 +61,31 @@ export const pitRadioStations = Array.from(
   }, new Map()).values(),
 );
 
-const defaultTrack = pitRadioTrackCatalog[0];
 const PitRadioContext = createContext(null);
 
 export function PitRadioProvider({ children }) {
   const [radioActivated, setRadioActivated] = useState(() => window.location.hash.startsWith("#/radio"));
-  const [selectedTrackId, setSelectedTrackId] = useState(defaultTrack.id);
+  const [selectedTrackId, setSelectedTrackId] = useState(null);
   const [playbackPhase, setPlaybackPhase] = useState("idle");
   const [playerError, setPlayerError] = useState(false);
   const [needleDown, setNeedleDown] = useState(false);
+  const [repeatOne, setRepeatOne] = useState(false);
   const [guideStep, setGuideStep] = useState(1);
   const audioRef = useRef(null);
-  const selectedTrackRef = useRef(defaultTrack);
+  const selectedTrackRef = useRef(null);
   const guideTimerRef = useRef(null);
 
   const selectedTrack = useMemo(
-    () => pitRadioTrackCatalog.find((track) => track.id === selectedTrackId) ?? defaultTrack,
+    () => pitRadioTrackCatalog.find((track) => track.id === selectedTrackId) ?? null,
     [selectedTrackId],
   );
   const selectedStation = useMemo(
-    () => pitRadioStations.find((station) => station.id === selectedTrack.cpId) ?? pitRadioStations[0],
+    () => pitRadioStations.find((station) => station.id === selectedTrack?.cpId) ?? null,
     [selectedTrack],
   );
-  const selectedId = selectedTrack.cpId;
+  const selectedId = selectedTrack?.cpId;
+  const stationTracks = tracksForStation(pitRadioTrackCatalog, selectedId);
+  const stationTrackPosition = stationTracks.findIndex((track) => track.id === selectedTrackId) + 1;
   const playerReady = radioActivated;
 
   useEffect(() => {
@@ -114,7 +117,7 @@ export function PitRadioProvider({ children }) {
     const playPromise = audio.play();
     playPromise?.catch((error) => {
       if (error?.name === "AbortError") return;
-      if (selectedTrackRef.current.id !== track.id) return;
+      if (selectedTrackRef.current?.id !== track.id) return;
       setPlayerError(true);
       setNeedleDown(false);
       setGuideStep(2);
@@ -122,36 +125,44 @@ export function PitRadioProvider({ children }) {
     });
   };
 
-  const chooseTrack = (trackId) => {
+  const chooseTrack = (trackId, { autoPlay = false } = {}) => {
     const track = pitRadioTrackCatalog.find((item) => item.id === trackId);
     if (!track) return;
+    if (track.id === selectedTrackRef.current?.id) return;
+
+    const { keepNeedle, resume } = trackSwitchMode(
+      selectedTrackRef.current, track, needleDown, audioRef.current?.paused ?? true,
+    );
+    const shouldPlay = resume || (autoPlay && keepNeedle);
 
     window.clearTimeout(guideTimerRef.current);
     audioRef.current?.pause();
     selectedTrackRef.current = track;
     setSelectedTrackId(trackId);
     setPlayerError(false);
-    setNeedleDown(false);
-    setGuideStep(2);
-    setPlaybackPhase("idle");
+    setNeedleDown(keepNeedle);
+    setGuideStep(keepNeedle ? 0 : 2);
+    setPlaybackPhase(shouldPlay ? "cueing" : "idle");
     prepareAudio(track);
+    if (shouldPlay) playAudio(track);
   };
 
   const chooseStation = (stationId) => {
     const station = pitRadioStations.find((item) => item.id === stationId);
     if (!station) return;
+    if (station.id === selectedTrackRef.current?.cpId) return;
     chooseTrack(station.firstTrackId);
   };
 
   const stepStation = (offset) => {
-    const currentIndex = pitRadioTrackCatalog.findIndex((track) => track.id === selectedTrackRef.current.id);
-    const nextIndex = (currentIndex + offset + pitRadioTrackCatalog.length) % pitRadioTrackCatalog.length;
-    chooseTrack(pitRadioTrackCatalog[nextIndex].id);
+    const next = nextStationTrack(pitRadioTrackCatalog, selectedTrackRef.current, offset);
+    if (next) chooseTrack(next.id);
   };
 
   const lowerNeedle = () => {
     const track = selectedTrackRef.current;
-    if (!playerReady || playerError || needleDown || guideStep === 1) return;
+    if (!track || !playerReady || needleDown) return;
+    setPlayerError(false);
     setNeedleDown(true);
     setPlaybackPhase("cueing");
     setGuideStep(3);
@@ -161,7 +172,11 @@ export function PitRadioProvider({ children }) {
   };
 
   const togglePlayback = () => {
-    if (!playerReady || !needleDown) return;
+    if (!playerReady || !selectedTrackRef.current) return;
+    if (!needleDown) {
+      lowerNeedle();
+      return;
+    }
     const audio = audioRef.current;
     if (audio && !audio.paused) audio.pause();
     else playAudio(selectedTrackRef.current);
@@ -174,6 +189,13 @@ export function PitRadioProvider({ children }) {
 
   const handleAudioPause = () => {
     if (audioRef.current?.paused) setPlaybackPhase("idle");
+  };
+
+  const handleAudioEnded = () => {
+    if (repeatOne) return;
+    const next = nextSequentialTrack(pitRadioTrackCatalog, selectedTrackRef.current);
+    if (next && needleDown) chooseTrack(next.id, { autoPlay: true });
+    else setPlaybackPhase("idle");
   };
 
   const handleAudioError = () => {
@@ -189,6 +211,8 @@ export function PitRadioProvider({ children }) {
     selectedId,
     selectedStation,
     selectedTrack,
+    stationTracks,
+    stationTrackPosition,
     playlistMeta: {
       id: neteasePlaylist.playlistId,
       name: neteasePlaylist.name,
@@ -200,8 +224,11 @@ export function PitRadioProvider({ children }) {
     playerReady,
     playerError,
     needleDown,
+    repeatOne,
+    toggleRepeatOne: () => setRepeatOne((enabled) => !enabled),
     guideStep,
     chooseStation,
+    chooseTrack,
     stepStation,
     lowerNeedle,
     togglePlayback,
@@ -214,14 +241,15 @@ export function PitRadioProvider({ children }) {
           className="pit-radio-global-audio"
           ref={audioRef}
           preload="metadata"
-          onPlay={handleAudioPlaying}
+          loop={repeatOne}
+          onPlay={() => setPlaybackPhase("cueing")}
           onPlaying={handleAudioPlaying}
           onCanPlay={() => {
             if (needleDown && !audioRef.current?.paused) setPlaybackPhase("playing");
           }}
           onWaiting={() => setPlaybackPhase("cueing")}
           onPause={handleAudioPause}
-          onEnded={handleAudioPause}
+          onEnded={handleAudioEnded}
           onError={handleAudioError}
         />
       )}

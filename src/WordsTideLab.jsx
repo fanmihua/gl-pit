@@ -30,6 +30,8 @@ const frequencyWords = [
   { name: "喜欢", value: 44, x: 101.5, y: 92, tone: "hot", tilt: 0.3, labelShift: -36, labelBelow: true },
 ];
 
+const frequencyCurvePath = "M-220 332 C-95 334 20 325 80 216 C120 144 205 116 250 120 C318 124 370 72 435 72 C492 72 527 150 580 160 C631 170 664 209 705 212 C742 215 760 255 790 258 C824 262 836 295 865 296 C900 298 912 343 940 344 C972 345 990 365 1015 368 C1032 370 1048 372 1060 373";
+
 const flowPointDelay = (x) => (
   `${Math.max(180, Math.round((((x * 10) + 220) / 1280) * 1050 - 12))}ms`
 );
@@ -114,26 +116,28 @@ function EvidenceCard({
           <strong>— {item.speaker}</strong>
         </footer>
       </div>
-      <button
-        className={`words-repo-card-like${liked ? " is-liked" : ""}`}
-        type="button"
-        aria-label={liked ? `取消心动，当前 ${stats.likes} 次` : `送出心动，当前 ${stats.likes} 次`}
-        aria-pressed={liked}
-        disabled={!configured || busy}
-        onClick={onLike}
-      >
-        <Heart weight={liked ? "fill" : "regular"} aria-hidden="true" />
-        <span>{stats.likes}</span>
-      </button>
-      <button
-        className="words-repo-card-meta"
-        type="button"
-        aria-label={stats.comments > 0 ? `${isExpanded ? "收起" : "展开"}${stats.comments} 条评论` : "留下第一条评论"}
-        onClick={onCommentClick}
-      >
-        <ChatCircleDots weight="bold" aria-hidden="true" />
-        {stats.comments}
-      </button>
+      <div className="words-repo-card-actions">
+        <button
+          className={`words-repo-card-like${liked ? " is-liked" : ""}`}
+          type="button"
+          aria-label={liked ? `取消心动，当前 ${stats.likes} 次` : `送出心动，当前 ${stats.likes} 次`}
+          aria-pressed={liked}
+          disabled={!configured || busy}
+          onClick={onLike}
+        >
+          <Heart weight={liked ? "fill" : "regular"} aria-hidden="true" />
+          <span>{stats.likes}</span>
+        </button>
+        <button
+          className="words-repo-card-meta"
+          type="button"
+          aria-label={stats.comments > 0 ? `${isExpanded ? "收起" : "展开"}${stats.comments} 条评论` : "留下第一条评论"}
+          onClick={onCommentClick}
+        >
+          <ChatCircleDots weight="bold" aria-hidden="true" />
+          {stats.comments}
+        </button>
+      </div>
       {!item.is_pinned ? (
         <button
           className="words-repo-drag-handle"
@@ -391,14 +395,21 @@ function FrequencyFlow() {
               <stop offset="30%" stopColor="#090909" />
               <stop offset="100%" stopColor="#090909" />
             </linearGradient>
+            <linearGradient id="flow-area-gradient" gradientUnits="userSpaceOnUse" x1="0" y1="72" x2="0" y2="240">
+              <stop offset="0%" stopColor="#ff5ca8" stopOpacity=".26" />
+              <stop offset="35%" stopColor="#ff5ca8" stopOpacity=".13" />
+              <stop offset="70%" stopColor="#ff5ca8" stopOpacity=".035" />
+              <stop offset="100%" stopColor="#ff5ca8" stopOpacity="0" />
+            </linearGradient>
             <filter id="flow-rough" x="-3%" y="-8%" width="106%" height="116%">
               <feTurbulence type="fractalNoise" baseFrequency=".012 .055" numOctaves="1" seed="7" result="noise" />
               <feDisplacementMap in="SourceGraphic" in2="noise" scale=".7" xChannelSelector="R" yChannelSelector="G" />
             </filter>
           </defs>
+          <path className="flow-area" d={`${frequencyCurvePath} L1060 400 L-220 400 Z`} />
           <path
             className="flow-line flow-line-hot"
-            d="M-220 332 C-95 334 20 325 80 216 C120 144 205 116 250 120 C318 124 370 72 435 72 C492 72 527 150 580 160 C631 170 664 209 705 212 C742 215 760 255 790 258 C824 262 836 295 865 296 C900 298 912 343 940 344 C972 345 990 365 1015 368 C1032 370 1048 372 1060 373"
+            d={frequencyCurvePath}
           />
         </svg>
 
@@ -474,7 +485,7 @@ export function WordsTideLab() {
 
       <section className="words-archive" id="original-words" aria-label="原话收藏">
         <p className="words-canvas-instructions" id="words-canvas-instructions">
-          点卡片原位展开评论；按住右下角六点把手可交换位置，卡片不会互相重叠。
+          点卡片原位展开评论；按住右上角六点把手可交换位置，卡片不会互相重叠。
         </p>
         <EvidenceCanvas community={community} />
       </section>

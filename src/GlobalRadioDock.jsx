@@ -35,7 +35,7 @@ export function GlobalRadioDock({ hidden = false }) {
       aria-label={!needleDown ? "返回坑底电台放下唱针" : playbackActive ? "暂停音乐" : "继续播放音乐"}
     >
       <span className="pit-radio-floating-disc" aria-hidden="true">
-        <img src={withBase(selectedTrack.cpArtwork)} alt="" />
+        {selectedTrack && <img src={withBase(selectedTrack.cpArtwork)} alt="" />}
       </span>
       <span className="pit-radio-floating-action" aria-hidden="true">
         {playbackActive ? <Pause weight="fill" /> : <Play weight="fill" />}

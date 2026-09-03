@@ -1,10 +1,14 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import {
   ArrowSquareOut,
+  ListNumbers,
   Pause,
   Play,
+  Playlist,
+  RepeatOnce,
   SkipBack,
   SkipForward,
+  X,
 } from "@phosphor-icons/react";
 import { usePitRadio } from "./PitRadioContext.jsx";
 import { SiteHeader } from "./SiteHeader.jsx";
@@ -110,25 +114,82 @@ function useProjectedPlayer(turntableRef) {
 export function PitRadioPage() {
   const [drag, setDrag] = useState(null);
   const [tonearmDrag, setTonearmDrag] = useState(null);
+  const [playlistOpen, setPlaylistOpen] = useState(false);
+  const playlistRef = useRef(null);
+  const playlistToggleRef = useRef(null);
+  const playlistCloseRef = useRef(null);
   const turntableRef = useRef(null);
   const platterRef = useRef(null);
   const tonearmDragRef = useRef(null);
+  const stationDragRef = useRef(null);
+  const suppressStationClick = useRef(false);
+  const suppressNeedleClick = useRef(false);
   const playerStyle = useProjectedPlayer(turntableRef);
   const {
     stations,
     selectedId,
     selectedTrack,
-    playlistMeta,
+    selectedStation,
+    stationTracks,
+    stationTrackPosition,
     playbackPhase,
     playerReady,
     playerError,
     needleDown,
+    repeatOne,
+    toggleRepeatOne,
     guideStep,
     chooseStation: tuneStation,
+    chooseTrack,
     stepStation,
     lowerNeedle: playFromNeedle,
     togglePlayback,
   } = usePitRadio();
+
+  useLayoutEffect(() => {
+    const dialog = playlistRef.current;
+    if (!playlistOpen || !dialog) return undefined;
+    const root = document.documentElement;
+    const previousOverflow = root.style.overflow;
+    const previousPadding = root.style.paddingRight;
+    const scrollbarWidth = window.innerWidth - root.clientWidth;
+    if (scrollbarWidth > 0) {
+      root.style.paddingRight = `${parseFloat(getComputedStyle(root).paddingRight) + scrollbarWidth}px`;
+    }
+    root.style.overflow = "hidden";
+    dialog.showModal();
+    playlistCloseRef.current?.focus({ preventScroll: true });
+
+    return () => {
+      root.style.overflow = previousOverflow;
+      root.style.paddingRight = previousPadding;
+      dialog.close();
+      playlistToggleRef.current?.focus({ preventScroll: true });
+    };
+  }, [playlistOpen]);
+
+  const togglePlaylist = () => {
+    setPlaylistOpen((open) => !open);
+  };
+
+  const chooseFromPlaylist = (trackId) => {
+    chooseTrack(trackId);
+    setPlaylistOpen(false);
+  };
+
+  const handlePlaylistKeyDown = (event) => {
+    if (event.key !== "Tab") return;
+    const buttons = event.currentTarget.querySelectorAll("button:not(:disabled)");
+    const first = buttons[0];
+    const last = buttons[buttons.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last?.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first?.focus();
+    }
+  };
 
   const chooseStation = (stationId) => {
     setDrag(null);
@@ -144,7 +205,7 @@ export function PitRadioPage() {
   };
 
   const handleTonearmPointerDown = (event) => {
-    if (needleDown || !playerReady || playerError || guideStep === 1) return;
+    if (needleDown || !playerReady || !selectedTrack) return;
     if (event.pointerType === "mouse" && event.button !== 0) return;
     event.currentTarget.setPointerCapture(event.pointerId);
     const platter = platterRef.current?.getBoundingClientRect();
@@ -161,6 +222,7 @@ export function PitRadioPage() {
       moved: 0,
     };
     tonearmDragRef.current = nextDrag;
+    suppressNeedleClick.current = false;
     setTonearmDrag(nextDrag);
   };
 
@@ -193,31 +255,36 @@ export function PitRadioPage() {
     const shouldLower = current.moved < 7 || current.progress >= 0.58 || isInsideMagneticZone;
     tonearmDragRef.current = null;
     setTonearmDrag(null);
-    if (shouldLower) lowerNeedle();
+    suppressNeedleClick.current = current.moved >= 7;
+    if (current.moved >= 7 && shouldLower) lowerNeedle();
   };
 
   const handlePointerDown = (event, stationId) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     event.currentTarget.setPointerCapture(event.pointerId);
-    setDrag({
+    suppressStationClick.current = false;
+    const nextDrag = {
       stationId,
       pointerId: event.pointerId,
       originX: event.clientX,
       originY: event.clientY,
       x: 0,
       y: 0,
-    });
+    };
+    stationDragRef.current = nextDrag;
+    setDrag(nextDrag);
   };
 
   const handlePointerMove = (event) => {
-    setDrag((current) => {
-      if (!current || current.pointerId !== event.pointerId) return current;
-      return {
-        ...current,
-        x: event.clientX - current.originX,
-        y: event.clientY - current.originY,
-      };
-    });
+    const current = stationDragRef.current;
+    if (!current || current.pointerId !== event.pointerId) return;
+    const nextDrag = {
+      ...current,
+      x: event.clientX - current.originX,
+      y: event.clientY - current.originY,
+    };
+    stationDragRef.current = nextDrag;
+    setDrag(nextDrag);
   };
 
   const handlePointerUp = (event, stationId) => {
@@ -226,12 +293,14 @@ export function PitRadioPage() {
     const target = platter
       ? { x: platter.left + platter.width / 2, y: platter.top + platter.height / 2 }
       : pointer;
-    const moved = drag ? Math.hypot(drag.x, drag.y) : 0;
+    const current = stationDragRef.current;
+    if (!current || current.pointerId !== event.pointerId) return;
+    const moved = Math.hypot(event.clientX - current.originX, event.clientY - current.originY);
+    stationDragRef.current = null;
     const dropThreshold = platter ? Math.max(platter.width * 0.42, 120) : 120;
 
-    if (moved < 7) {
-      chooseStation(stationId);
-    } else if (getPointerDistance(pointer, target) <= dropThreshold) {
+    suppressStationClick.current = moved >= 7;
+    if (moved >= 7 && getPointerDistance(pointer, target) <= dropThreshold) {
       chooseStation(stationId);
     } else {
       setDrag(null);
@@ -257,9 +326,9 @@ export function PitRadioPage() {
         <div className="pit-radio-howto" aria-label="坑底电台玩法说明">
           <img src={withBase("assets/pit-radio/how-to-paper-v3.webp")} alt="" aria-hidden="true" decoding="async" data-page-critical="true" />
           <ol>
-            <li><strong>选一张 CP 贴纸</strong><span>点按，或拖到唱片中央</span></li>
-            <li><strong>唱片等待落针</strong><span>歌曲信号已经接通</span></li>
-            <li><strong>转动唱针</strong><span>放到唱片上开始播放</span></li>
+            <li><strong>选一对 CP</strong><span>点一下贴纸，也可以拖入唱片</span></li>
+            <li><strong>落针，开始听</strong><span>点播放或唱针，也可以拖动唱针</span></li>
+            <li><strong>换首她们的歌</strong><span>点下一首，或点列表图标选歌</span></li>
           </ol>
         </div>
 
@@ -276,7 +345,7 @@ export function PitRadioPage() {
             <div
               className={`pit-radio-turntable is-${playbackPhase}${needleDown ? " has-needle-down" : ""}${tonearmDrag ? " is-dragging-tonearm" : ""}`}
               ref={turntableRef}
-              aria-label={`当前调频：${selectedTrack.cpName}，${selectedTrack.trackTitle}`}
+              aria-label={selectedTrack ? `当前调频：${selectedTrack.cpName}，${selectedTrack.trackTitle}` : "尚未选择 CP"}
               style={{
                 "--tonearm-rest-angle": `${PIT_RADIO_GEOMETRY.tonearm.restAngle}deg`,
                 "--tonearm-play-angle": `${PIT_RADIO_GEOMETRY.tonearm.playAngle}deg`,
@@ -294,14 +363,14 @@ export function PitRadioPage() {
                 <div className="pit-radio-vinyl" role="img" aria-label="黑胶唱片">
                   <span className="pit-radio-vinyl-texture" aria-hidden="true" />
                 </div>
-                <img
+                {selectedTrack && <img
                   key={selectedTrack.id}
                   className="pit-radio-center-sticker"
                   src={withBase(selectedTrack.cpArtwork)}
                   alt={`${selectedTrack.cpName} 已贴在黑胶中央`}
                   decoding="async"
                   data-page-critical="true"
-                />
+                />}
               </div>
             </div>
             <img
@@ -316,35 +385,61 @@ export function PitRadioPage() {
 
             <div className="pit-radio-player-slot" style={playerStyle}>
               <div className={`pit-radio-player-guide${guideStep === 3 ? " is-visible" : ""}`} aria-hidden="true">
-                <b>03</b>
                 <span>{playbackPhase === "playing" ? "正在播放" : "接通信号中"}</span>
               </div>
-              <div className="pit-radio-player-pending" role="group" aria-label={`${selectedTrack.cpName} 网易云歌曲播放器`}>
+              <div className="pit-radio-player-pending" role="group" aria-label={selectedTrack ? `${selectedTrack.cpName} 歌曲播放器` : "等待选择 CP"}>
                   <div className="pit-radio-track-cover">
-                    <img src={selectedTrack.cover} alt={`${selectedTrack.trackTitle} 歌曲封面`} decoding="async" fetchPriority="high" data-page-critical="true" />
+                    {selectedTrack && <img src={selectedTrack.cover} alt={`${selectedTrack.trackTitle} 歌曲封面`} decoding="async" fetchPriority="high" data-page-critical="true" />}
                   </div>
                   <div className="pit-radio-track-copy">
-                    <span>{`NETEASE PLAYLIST · ${selectedTrack.playlistPosition}/${playlistMeta.trackCount}`}</span>
-                    <strong>{selectedTrack.trackTitle}</strong>
-                    <small>{playerError ? "站内播放暂不可用" : playerReady ? needleDown ? `${selectedTrack.cpName} · ${selectedTrack.trackArtist}` : `等待唱针落下 · ${selectedTrack.cpName}` : "网易云音源加载中…"}</small>
-                    <i aria-hidden="true" />
+                    <span>{selectedTrack ? `${selectedTrack.cpName} · 第 ${stationTrackPosition} / ${stationTracks.length} 首` : "PIT FM · 等你选台"}</span>
+                    <strong>{selectedTrack?.trackTitle ?? "先选一对 CP"}</strong>
+                    <small>{!selectedTrack ? "点一下周围的贴纸" : playerError ? "播放暂不可用 · 可以重试" : needleDown ? selectedTrack.trackArtist : "点播放，唱针会自动落下"}</small>
+                    {stationTracks.length > 1 && <span className="pit-radio-switch-hint">可切换歌曲 →</span>}
                   </div>
+                  <div className="pit-radio-player-actions">
                   <div className="pit-radio-controls">
-                    <button type="button" onClick={() => stepStation(-1)} aria-label="上一首歌">
+                    <button type="button" disabled={stationTracks.length < 2} onClick={() => stepStation(-1)} aria-label="上一首歌">
                       <SkipBack weight="fill" />
                     </button>
                     <button
                       className="pit-radio-play"
                       type="button"
                       onClick={togglePlayback}
-                      disabled={!playerReady || !needleDown}
-                      aria-label={!needleDown ? "请先放下唱针" : playbackPhase !== "idle" ? "暂停音乐" : "播放音乐"}
+                      disabled={!playerReady || !selectedTrack}
+                      aria-label={!selectedTrack ? "请先选择 CP" : !needleDown ? "落针播放" : playbackPhase !== "idle" ? "暂停音乐" : "播放音乐"}
                     >
                       {playbackPhase !== "idle" ? <Pause weight="fill" /> : <Play weight="fill" />}
                     </button>
-                    <button type="button" onClick={() => stepStation(1)} aria-label="下一首歌">
+                    <button type="button" disabled={stationTracks.length < 2} onClick={() => stepStation(1)} aria-label="下一首歌">
                       <SkipForward weight="fill" />
                     </button>
+                  </div>
+                  <div className="pit-radio-player-options">
+                    <button
+                      type="button"
+                      disabled={!selectedTrack}
+                      onClick={toggleRepeatOne}
+                      aria-pressed={repeatOne}
+                      aria-label={repeatOne ? "单曲循环，点击切换顺序播放" : "顺序播放，点击切换单曲循环"}
+                      title={repeatOne ? "单曲循环 · 点击切换顺序播放" : "顺序播放 · 点击切换单曲循环"}
+                    >
+                      {repeatOne ? <RepeatOnce weight="bold" /> : <ListNumbers weight="bold" />}
+                    </button>
+                    <button
+                      ref={playlistToggleRef}
+                      type="button"
+                      disabled={!selectedTrack}
+                      onClick={togglePlaylist}
+                      aria-expanded={Boolean(selectedTrack && playlistOpen)}
+                      aria-controls="pit-radio-tracklist"
+                      aria-haspopup="dialog"
+                      aria-label={playlistOpen ? "收起播放列表" : "展开播放列表"}
+                      title={playlistOpen ? "收起播放列表" : "展开播放列表"}
+                    >
+                      <Playlist weight="bold" />
+                    </button>
+                  </div>
                   </div>
                 </div>
             </div>
@@ -360,7 +455,11 @@ export function PitRadioPage() {
               className="pit-radio-tonearm-control"
               type="button"
               aria-label={needleDown ? "唱针已放下" : "拖动或点按唱针开始播放"}
-              disabled={!playerReady || playerError || needleDown || guideStep === 1}
+              disabled={!playerReady || needleDown || !selectedTrack}
+              onClick={(event) => {
+                if (event.detail === 0 || !suppressNeedleClick.current) lowerNeedle();
+                suppressNeedleClick.current = false;
+              }}
               onPointerDown={handleTonearmPointerDown}
               onPointerMove={handleTonearmPointerMove}
               onPointerUp={handleTonearmPointerUp}
@@ -370,7 +469,7 @@ export function PitRadioPage() {
               }}
             />
             <div className={`pit-radio-needle-guide${guideStep === 2 && !needleDown ? " is-visible" : ""}`} aria-hidden="true">
-              <p><b>02</b>转动唱针<br /><span>DROP THE NEEDLE</span></p>
+              <p><b>02</b>点一下，开始播放<br /><span>也可以把唱针拖向唱片</span></p>
               <svg viewBox="0 0 110 90" role="presentation">
                 <path d="M105 79 C78 78 51 65 27 34" />
                 <path d="M32 51 L27 34 L44 38" />
@@ -391,11 +490,15 @@ export function PitRadioPage() {
                     onPointerDown={(event) => handlePointerDown(event, station.id)}
                     onPointerMove={handlePointerMove}
                     onPointerUp={(event) => handlePointerUp(event, station.id)}
-                    onPointerCancel={() => setDrag(null)}
+                    onClick={(event) => {
+                      if (event.detail === 0 || !suppressStationClick.current) chooseStation(station.id);
+                      suppressStationClick.current = false;
+                    }}
+                    onPointerCancel={() => { stationDragRef.current = null; setDrag(null); }}
                     style={isDragging ? { "--drag-x": `${drag.x}px`, "--drag-y": `${drag.y}px` } : undefined}
                   >
                     <img src={withBase(station.sticker)} alt="" draggable="false" loading="eager" decoding="async" fetchPriority={selectedId === station.id ? "high" : "auto"} data-page-critical="true" />
-                    <span>{station.trackCount} TRACKS</span>
+                    <span className="pit-radio-station-count" aria-hidden="true">{station.trackCount} 首歌</span>
                   </button>
                 );
               })}
@@ -403,7 +506,7 @@ export function PitRadioPage() {
           </div>
 
           <div className={`pit-radio-drop-label${guideStep === 1 ? " is-visible" : ""}`} aria-hidden="true">
-            <p><b>01</b>贴纸吸附处<br /><span>DROP CP HERE</span></p>
+            <p><b>01</b>点贴纸，选她们的歌<br /><span>也可以拖入唱片</span></p>
             <svg className="pit-radio-drop-arrow" viewBox="0 0 100 44" role="presentation">
               <path className="pit-radio-drop-arrow-ghost" d="M3 39 C33 39 57 41 75 28 C84 22 89 14 92 5" />
               <path d="M3 37 C32 38 57 39 75 27 C84 21 89 13 92 4" />
@@ -418,11 +521,41 @@ export function PitRadioPage() {
           <a className="pit-radio-playlist-link" href={neteasePlaylistUrl} target="_blank" rel="noreferrer">
             网易云完整歌单 <ArrowSquareOut aria-hidden="true" />
           </a>
-          <a href={selectedTrack.officialUrl} target="_blank" rel="noreferrer">
+          {selectedTrack && <a href={selectedTrack.officialUrl} target="_blank" rel="noreferrer">
             播放异常时打开歌曲页面 <ArrowSquareOut aria-hidden="true" />
-          </a>
+          </a>}
         </p>
       </section>
+
+      {selectedTrack && <dialog
+        ref={playlistRef}
+        id="pit-radio-tracklist"
+        className="pit-radio-playlist-dialog"
+        aria-labelledby="pit-radio-playlist-title"
+        onKeyDown={handlePlaylistKeyDown}
+        onCancel={(event) => { event.preventDefault(); setPlaylistOpen(false); }}
+        onClick={(event) => { if (event.target === event.currentTarget) setPlaylistOpen(false); }}
+      >
+        <section className="pit-radio-playlist-drawer">
+          <header className="pit-radio-playlist-header">
+            <img className="pit-radio-playlist-sticker" src={withBase(selectedStation.sticker)} alt="" />
+            <div>
+              <span>播放列表 · {stationTracks.length} 首</span>
+              <h2 id="pit-radio-playlist-title">{selectedStation.name}</h2>
+            </div>
+            <button ref={playlistCloseRef} type="button" aria-label="关闭播放列表" onClick={() => setPlaylistOpen(false)}>
+              <X size={22} weight="bold" />
+            </button>
+          </header>
+          <div className="pit-radio-tracklist" key={selectedId}>
+            <ol>{stationTracks.map((track, index) => <li key={track.id}>
+              <button type="button" aria-current={track.id === selectedTrack.id ? "true" : undefined} onClick={() => chooseFromPlaylist(track.id)}>
+                <span>{String(index + 1).padStart(2, "0")}</span><span>{track.trackTitle}<small>{track.trackArtist}</small></span>
+              </button>
+            </li>)}</ol>
+          </div>
+        </section>
+      </dialog>}
     </main>
   );
 }

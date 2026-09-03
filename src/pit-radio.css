@@ -147,7 +147,8 @@
   left: 17%;
   width: 43%;
   height: auto;
-  transform: rotate(4.5deg);
+  transform: rotate(4.5deg) scale(0.82);
+  transform-origin: center bottom;
   filter: none;
 }
 
@@ -563,7 +564,7 @@
   display: grid;
   height: 100%;
   padding: clamp(9px, 1vw, 15px) clamp(12px, 1.2vw, 18px);
-  grid-template-columns: 19% minmax(0, 47%) 34%;
+  grid-template-columns: 17% minmax(0, 1fr) 32%;
   align-items: center;
   gap: clamp(8px, 1vw, 15px);
   transform: none;
@@ -622,14 +623,54 @@
   white-space: nowrap;
 }
 
-.pit-radio-track-copy i {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 2px;
-  margin-top: 4px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.05));
+.pit-radio-track-copy > .pit-radio-switch-hint {
+  justify-self: start;
+  margin-top: 3px;
+  padding: 3px 5px;
+  color: #111;
+  background: var(--pink);
+  font-size: clamp(8px, 0.7vw, 11px);
+  letter-spacing: 0;
 }
+
+.pit-radio-player-actions {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.pit-radio-player-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.pit-radio-player-options button {
+  display: grid;
+  place-items: center;
+  width: clamp(24px, 2.4vw, 36px);
+  height: clamp(24px, 2.4vw, 36px);
+  padding: 3px;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.pit-radio-player-options svg {
+  width: clamp(15px, 1.4vw, 22px);
+  height: clamp(15px, 1.4vw, 22px);
+}
+
+.pit-radio-player-options button[aria-pressed="true"],
+.pit-radio-player-options button[aria-expanded="true"] {
+  color: var(--pink);
+  background: #ff5ca81a;
+}
+
+.pit-radio-player-options button:hover:not(:disabled) { color: #fff; }
+.pit-radio-player-options button:disabled { opacity: 0.35; cursor: default; }
 
 .pit-radio-controls {
   display: grid;
@@ -702,6 +743,23 @@
 
 .pit-radio-drop-label p {
   margin: 0;
+  padding: 7px 10px;
+  color: #fff;
+  background: #111;
+  white-space: nowrap;
+}
+
+.pit-radio-drop-label p > b {
+  color: #111;
+  background: var(--pink);
+}
+
+.pit-radio-drop-label.is-visible p {
+  animation: pit-first-step-highlight 2.6s ease-in-out infinite;
+}
+
+.pit-radio-drop-label.is-visible .pit-radio-drop-arrow {
+  animation: pit-first-step-arrow 2.6s ease-in-out infinite;
 }
 
 .pit-radio-drop-arrow {
@@ -724,6 +782,7 @@
 }
 
 .pit-radio-drop-label span {
+  color: var(--pink);
   font-family: "Bradley Hand", "Comic Sans MS", cursive;
   font-size: 11px;
   font-weight: 700;
@@ -760,20 +819,28 @@
   transition: filter 220ms ease;
 }
 
-.pit-radio-station span {
+.pit-radio-station-count {
   position: absolute;
-  right: 8%;
-  bottom: 4%;
+  right: 6%;
+  bottom: -6%;
   padding: 4px 7px;
-  color: white;
+  color: #fff;
   background: #090909;
   font-family: "Roboto Condensed Variable", sans-serif;
-  font-size: 9px;
-  font-weight: 850;
-  letter-spacing: 0.1em;
+  font-size: clamp(9px, 0.8vw, 13px);
+  font-weight: 750;
+  line-height: 1.3;
+  white-space: nowrap;
+  pointer-events: none;
   opacity: 0;
-  transform: translateY(4px);
-  transition: opacity 180ms ease, transform 180ms ease;
+  transform: translateY(3px);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.pit-radio-station:hover .pit-radio-station-count,
+.pit-radio-station:focus-visible .pit-radio-station-count {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .pit-radio-station:hover,
@@ -784,12 +851,6 @@
 
 .pit-radio-station:hover img,
 .pit-radio-station:focus-visible img { filter: grayscale(0) contrast(1.03); }
-
-.pit-radio-station:hover span,
-.pit-radio-station:focus-visible span {
-  opacity: 1;
-  transform: translateY(0);
-}
 
 .pit-radio-station.is-selected {
   visibility: hidden;
@@ -819,8 +880,8 @@
 
 .pit-radio-howto {
   position: absolute;
-  z-index: 7;
-  bottom: 8px;
+  z-index: 3;
+  top: clamp(440px, 31.2vw, 515px);
   left: 5.5vw;
   width: clamp(230px, 19vw, 300px);
   aspect-ratio: 4 / 5;
@@ -938,6 +999,16 @@
   50% { opacity: 1; }
 }
 
+@keyframes pit-first-step-highlight {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 92, 168, 0); }
+  45%, 60% { box-shadow: 0 0 0 5px rgba(255, 92, 168, 0.3); }
+}
+
+@keyframes pit-first-step-arrow {
+  0%, 100% { opacity: 0.7; transform: translate(0, 0) rotate(7deg); }
+  45%, 60% { opacity: 1; transform: translate(3px, -3px) rotate(7deg); }
+}
+
 @keyframes pit-radio-float-in {
   from { opacity: 0; transform: translateY(14px) scale(0.86) rotate(7deg); }
   to { opacity: 1; transform: translateY(0) scale(1) rotate(0); }
@@ -951,7 +1022,7 @@
   .pit-radio-stage { min-height: 800px; }
   .pit-radio-copy { top: 110px; width: 37vw; }
   .pit-radio-console { top: 76px; right: -7vw; width: 78vw; height: 690px; }
-  .pit-radio-howto { bottom: 20px; left: 3.25vw; width: 255px; }
+  .pit-radio-howto { top: 405px; bottom: auto; left: 3.25vw; width: 255px; }
   .pit-radio-source-note { max-width: 320px; justify-content: flex-end; text-align: right; }
 }
 
@@ -1051,11 +1122,17 @@
   .pit-radio-en-title { font-size: 23vw; }
   .pit-radio-manifesto { font-size: 11px; box-shadow: 5px 5px 0 var(--pink); }
   .pit-radio-player-slot { border-radius: 5px; }
-  .pit-radio-player-pending { gap: 3px; }
+  .pit-radio-player-pending { gap: 3px; padding: 4px 8px; grid-template-columns: 16% minmax(0, 1fr) 35%; }
   .pit-radio-player-pending small { display: none; }
+  .pit-radio-track-copy { gap: 2px; }
+  .pit-radio-track-copy > .pit-radio-switch-hint { padding: 2px 4px; margin-top: 1px; }
+  .pit-radio-player-actions { gap: 1px; }
+  .pit-radio-controls { gap: 2px; }
+  .pit-radio-play { width: 24px; }
+  .pit-radio-player-options button { height: 20px; }
   .pit-radio-drop-label {
     top: 40%;
-    left: 10%;
+    left: 14%;
     display: block;
     font-size: 9px;
   }
@@ -1076,14 +1153,109 @@
   }
 }
 
+.pit-radio-controls > button:disabled { opacity: 0.35; cursor: default; }
+.pit-radio-needle-guide span { font-family: var(--headline); font-size: 0.8em; letter-spacing: 0; }
+.pit-radio-needle-guide.is-visible { animation-iteration-count: 2; }
+.pit-radio-playlist-dialog {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #151515;
+  /* Unlike hidden, clip cannot be scrolled by the dialog's native autofocus
+     while the drawer is translated outside the viewport during entry. */
+  overflow: clip;
+  overscroll-behavior: none;
+}
+.pit-radio-playlist-dialog[open] { display: flex; justify-content: flex-end; }
+.pit-radio-playlist-dialog::backdrop { background: rgb(9 9 9 / 30%); }
+.pit-radio-playlist-drawer {
+  display: flex;
+  flex-direction: column;
+  width: min(420px, calc(100% - 24px));
+  height: 100%;
+  background: var(--paper);
+  border-left: 1px solid #151515;
+  box-shadow: -12px 0 36px rgb(0 0 0 / 12%);
+}
+.pit-radio-playlist-dialog[open] .pit-radio-playlist-drawer {
+  animation: pit-playlist-enter 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes pit-playlist-enter { from { transform: translateX(100%); } to { transform: translateX(0); } }
+.pit-radio-playlist-header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: max(24px, env(safe-area-inset-top)) 20px 20px 24px;
+  border-bottom: 1px solid #151515;
+}
+.pit-radio-playlist-sticker { width: 80px; height: 96px; flex-shrink: 0; object-fit: contain; }
+.pit-radio-playlist-header > div { flex: 1; min-width: 0; }
+.pit-radio-playlist-header span { color: #9f275c; font-size: 12px; }
+.pit-radio-playlist-header h2 { margin: 8px 0 0; font-size: 24px; line-height: 1.2; overflow-wrap: anywhere; }
+.pit-radio-playlist-header button {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: transparent;
+  color: #151515;
+  cursor: pointer;
+}
+.pit-radio-playlist-header button:hover { background: #ff5ca830; }
+.pit-radio-tracklist {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 12px 20px max(24px, env(safe-area-inset-bottom));
+}
+.pit-radio-tracklist ol { list-style: none; margin: 0; padding: 0; }
+.pit-radio-tracklist li + li { border-top: 1px solid #d5d1cf; }
+.pit-radio-tracklist li button {
+  display: grid; grid-template-columns: 24px minmax(0,1fr); gap: 10px; align-items: center;
+  width: 100%; min-height: 76px; padding: 16px 8px; text-align: left; border: 0;
+  background: transparent; color: #151515; cursor: pointer; font: inherit; font-size: 14px; line-height: 1.5;
+}
+.pit-radio-tracklist li button[aria-current="true"] { background: #ff5ca81a; box-shadow: inset 3px 0 var(--pink); }
+.pit-radio-tracklist li button:hover { background: #ff5ca830; }
+.pit-radio-tracklist li button small { display: block; margin-top: 4px; color: #645b60; font-size: 12px; }
+.pit-radio-tracklist li button > span { overflow-wrap: anywhere; }
+.pit-radio-shell button:focus-visible { outline: 3px solid var(--pink); outline-offset: 4px; }
+
+@media (max-width: 1024px) {
+  .pit-radio-howto { top: auto; }
+  .pit-radio-source-note { grid-row: 3; max-width: none; }
+}
+@media (max-width: 560px) {
+  .pit-radio-console { height: calc(92vw - 30px); margin-top: 300px; }
+  .pit-radio-howto strong { font-size: 12px; }
+  .pit-radio-howto span { font-size: 10px; }
+  .pit-radio-needle-guide p { left: -16%; }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .pit-radio-playlist-dialog[open] .pit-radio-playlist-drawer { animation: none; }
   .pit-radio-record-spin,
   .pit-radio-center-sticker { animation: none; }
   .pit-radio-tonearm { transition: none; }
   .pit-radio-needle-guide.is-visible { animation: none; }
+  .pit-radio-drop-label.is-visible p,
+  .pit-radio-drop-label.is-visible .pit-radio-drop-arrow { animation: none; }
   .pit-radio-drop-label,
   .pit-radio-player-guide { transition: none; }
   .pit-radio-station { transition: none; }
+  .pit-radio-station-count { transition: none; }
   .pit-radio-floating-record { animation: none; }
   .pit-radio-floating-record.is-playing .pit-radio-floating-disc { animation: none; }
 }
