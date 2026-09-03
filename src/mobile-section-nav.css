@@ -9,18 +9,23 @@
     --mobile-nav-space: calc(90px + env(safe-area-inset-bottom, 0px));
     padding-bottom: var(--mobile-nav-space);
   }
+  .app-shell.has-mobile-navigation:has(> .page-loader),
+  .app-shell.has-mobile-navigation:has(> .route-ready-boundary.is-loading) {
+    padding-bottom: 0;
+  }
 
   .has-mobile-navigation .route-ready-boundary,
   .has-mobile-navigation .page-loader {
     min-height: calc(100svh - var(--mobile-nav-space));
   }
   .has-mobile-navigation .route-ready-boundary.is-loading {
-    height: calc(100svh - var(--mobile-nav-space));
+    height: 100svh;
   }
   .has-mobile-navigation .page-loader.route-ready-loader {
-    bottom: var(--mobile-nav-space);
+    bottom: 0;
     min-height: 0;
   }
+  .has-mobile-navigation > .page-loader { min-height: 100svh; }
 
   .has-mobile-navigation .column-header .column-header-nav { display: none; }
   .has-mobile-navigation .column-header {

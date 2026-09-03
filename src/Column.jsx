@@ -1,11 +1,11 @@
-import columnData from "./data/column-data.json";
+import { lazy } from "react";
+import columnData from "./data/column-index.json";
 import { SiteHeader } from "./SiteHeader.jsx";
 import { useHashRoute } from "./hooks/useHashRoute.js";
 import { ColumnIndex, CollectionView } from "./features/column/CollectionViews.jsx";
-import { ArticleView } from "./features/column/ArticleView.jsx";
 import "./magazine-layout.css";
 
-export { ArticleDocument } from "./features/column/ArticleDocument.jsx";
+const ArticlePage = lazy(() => import("./features/column/ArticlePage.jsx"));
 
 export function ColumnExperience() {
   const route = useHashRoute();
@@ -17,7 +17,7 @@ export function ColumnExperience() {
       <SiteHeader activePath="column" />
       {!collection && <ColumnIndex />}
       {collection && !article && <CollectionView collection={collection} />}
-      {collection && article && <ArticleView collection={collection} article={article} />}
+      {collection && article && <ArticlePage collectionSlug={collection.slug} articleSlug={article.slug} />}
     </main>
   );
 }

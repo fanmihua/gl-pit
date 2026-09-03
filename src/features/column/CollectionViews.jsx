@@ -1,6 +1,6 @@
 import { Fragment, useMemo } from "react";
 import { ArrowRight, CalendarDots, DotsNine, HeartStraight, NotePencil, Paperclip, TelevisionSimple, UsersThree } from "@phosphor-icons/react";
-import columnData from "../../data/column-data.json";
+import columnData from "../../data/column-index.json";
 import { RepoFilmStrip } from "../../RepoFilmStrip.jsx";
 import { withBase } from "../../lib/assets.js";
 

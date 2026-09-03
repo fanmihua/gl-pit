@@ -96,12 +96,12 @@ export function App() {
           routeKey={routeKey}
           kicker={loadingCopy.kicker}
           label={loadingCopy.label}
+          navigation={showMobileNavigation ? <MobileSectionNav activePath={rootRoute} /> : null}
         >
           {page}
           {rootRoute !== "home" && rootRoute !== "about" && rootRoute !== "admin" && <GlobalFooter />}
         </RouteReadyBoundary>
       </Suspense>
-      {showMobileNavigation && <MobileSectionNav activePath={rootRoute} />}
       <GlobalRadioDock hidden={rootRoute === "radio" || rootRoute === "admin"} />
     </div>
   );
