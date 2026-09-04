@@ -1,3 +1,4 @@
+import { t } from "./i18n/runtime.js";
 import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
 import neteasePlaylist from "./data/netease-playlist.json";
 import { nextSequentialTrack, nextStationTrack, tracksForStation, trackSwitchMode } from "./data/pit-radio-playback.js";
@@ -181,7 +182,7 @@ export function PitRadioProvider({ children }) {
 
   return (
     <PitRadioContext.Provider value={value}>
-      {radioActivated && (
+      {t(radioActivated && (
         <audio
           className="pit-radio-global-audio"
           ref={audioRef}
@@ -197,8 +198,8 @@ export function PitRadioProvider({ children }) {
           onEnded={handleAudioEnded}
           onError={handleAudioError}
         />
-      )}
-      {children}
+      ))}
+      {t(children)}
     </PitRadioContext.Provider>
   );
 }

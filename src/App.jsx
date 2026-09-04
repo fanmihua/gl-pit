@@ -1,3 +1,6 @@
+import { t } from "./i18n/runtime.js";
+import { requireCatalog } from './i18n/runtime.js';
+import { useLocale } from './i18n/LanguageSwitcher.jsx';
 import { lazy, Suspense, useEffect, useLayoutEffect, useState } from "react";
 import { GlobalFooter } from "./GlobalFooter.jsx";
 import { GlobalRadioDock } from "./GlobalRadioDock.jsx";
@@ -27,6 +30,8 @@ function readRouteKey() {
 }
 
 export function App() {
+  useLocale();
+  requireCatalog();
   const [rootRoute, setRootRoute] = useState(readRootRoute);
   const [routeKey, setRouteKey] = useState(readRouteKey);
   const loadingCopy = ROUTE_LOADING_COPY[rootRoute] ?? ROUTE_LOADING_COPY.home;
@@ -98,8 +103,8 @@ export function App() {
           label={loadingCopy.label}
           navigation={showMobileNavigation ? <MobileSectionNav activePath={rootRoute} /> : null}
         >
-          {page}
-          {rootRoute !== "home" && rootRoute !== "about" && rootRoute !== "admin" && <GlobalFooter />}
+          {t(page)}
+          {t(rootRoute !== "home" && rootRoute !== "about" && rootRoute !== "admin" && <GlobalFooter />)}
         </RouteReadyBoundary>
       </Suspense>
       <GlobalRadioDock hidden={rootRoute === "radio" || rootRoute === "admin"} />

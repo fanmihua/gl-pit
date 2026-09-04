@@ -6,11 +6,13 @@ import { App } from "./App.jsx";
 import { PitRadioProvider } from "./PitRadioContext.jsx";
 import "./styles.css";
 import "./pit-radio.css";
+import './i18n/localized-layout.css';
+import { initializeLocale } from './i18n/runtime.js';
 
-createRoot(document.getElementById("root")).render(
+initializeLocale().then(() => createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <PitRadioProvider>
       <App />
     </PitRadioProvider>
   </React.StrictMode>,
-);
+));

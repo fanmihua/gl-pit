@@ -1,3 +1,5 @@
+import { t, reactionLabel } from "./i18n/runtime.js";
+import { getLocale } from './i18n/runtime.js';
 import {
   ChatCircleDots,
   CrownSimple,
@@ -116,43 +118,43 @@ function EvidenceCard({
         type="button"
         onClick={onOpen}
         aria-expanded={isExpanded}
-        aria-label={stats.comments > 0 ? `${isExpanded ? "收起" : "展开"}评论：${item.text}` : `评论：${item.text}`}
+        aria-label={t(stats.comments > 0 ? `${isExpanded ? "收起" : "展开"}评论：${item.text}` : `评论：${item.text}`)}
       />
-      {item.is_pinned ? <span className="words-repo-pinned-label"><PushPin weight="fill" aria-hidden="true" />站主置顶</span> : null}
+      {t(item.is_pinned ? <span className="words-repo-pinned-label"><PushPin weight="fill" aria-hidden="true" />{t("站主置顶")}</span> : null)}
       <div className="words-repo-quote-copy">
         <Quotes aria-hidden="true" weight="fill" />
-        <blockquote>{item.text}</blockquote>
+        <blockquote translate="no">{item.text}</blockquote>
         <footer>
-          <strong>— {item.speaker}</strong>
+          <strong translate="no">— {item.speaker}</strong>
         </footer>
       </div>
       <div className="words-repo-card-actions">
         <button
           className={`words-repo-card-like${liked ? " is-liked" : ""}`}
           type="button"
-          aria-label={`${liked ? "取消心动" : "送出心动"}${stats.likes == null ? "，统计加载中" : `，当前 ${stats.likes} 次`}`}
+          aria-label={reactionLabel(liked, stats.likes)}
           aria-pressed={liked}
           disabled={!configured || busy}
           onClick={onLike}
         >
           <Heart weight={liked ? "fill" : "regular"} aria-hidden="true" />
-          <span>{stats.likes ?? "—"}</span>
+          <span>{t(stats.likes ?? "—")}</span>
         </button>
         <button
           className="words-repo-card-meta"
           type="button"
-          aria-label={stats.comments == null ? "查看评论，统计加载中" : stats.comments > 0 ? `${isExpanded ? "收起" : "展开"}${stats.comments} 条评论` : "留下第一条评论"}
+          aria-label={t(stats.comments == null ? "查看评论，统计加载中" : stats.comments > 0 ? `${isExpanded ? "收起" : "展开"}${stats.comments} 条评论` : "留下第一条评论")}
           onClick={onCommentClick}
         >
           <ChatCircleDots weight="bold" aria-hidden="true" />
-          {stats.comments ?? "—"}
+          {t(stats.comments ?? "—")}
         </button>
       </div>
-      {!item.is_pinned ? (
+      {t(!item.is_pinned ? (
         <button
           className="words-repo-drag-handle"
           type="button"
-          aria-label={`移动卡片：${item.text}`}
+          aria-label={t(`移动卡片：${item.text}`)}
           aria-grabbed={isDragging}
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
@@ -162,23 +164,23 @@ function EvidenceCard({
         >
           <DotsSixVertical weight="bold" aria-hidden="true" />
         </button>
-      ) : null}
-      {isExpanded ? (
-        <section className="words-card-comments" aria-label={`${item.text}的评论`}>
+      ) : null)}
+      {t(isExpanded ? (
+        <section className="words-card-comments" aria-label={t(`${item.text}的评论`)}>
           <header>
             <span>
               <ChatCircleDots weight="bold" aria-hidden="true" />
-              {stats.comments == null ? "回声" : `${stats.comments} 条回声`}
-              <i>再点原话收起 ↑</i>
+              {t(stats.comments == null ? "回声" : `${stats.comments} 条回声`)}
+              <i>{t("再点原话收起 ↑")}</i>
             </span>
-            <button type="button" onClick={onCompose}>留一句</button>
+            <button type="button" onClick={onCompose}>{t("留一句")}</button>
           </header>
           <div className="words-card-comments-scroll">
             <CommunityCommentList comments={comments} state={commentsState} />
           </div>
-          {stats.comments > comments.length ? <small>先显示最近 {comments.length} 条</small> : null}
+          {t(stats.comments > comments.length ? <small>{t("先显示最近 ")}{t(comments.length)}{t(" 条")}</small> : null)}
         </section>
-      ) : null}
+      ) : null)}
     </article>
   );
 }
@@ -330,11 +332,11 @@ function EvidenceCanvas({ community, isMobile, newQuoteId, onCompose }) {
     <>
       <header className="words-board-toolbar">
         <div className="words-board-description">
-          <span>OPEN VOICE BOARD</span>
-          <p>按你想看的方式排；拖动任意非置顶卡片，就会切到自己的排序。</p>
+          <span>{t("OPEN VOICE BOARD")}</span>
+          <p>{t("按你想看的方式排；拖动任意非置顶卡片，就会切到自己的排序。")}</p>
         </div>
-        <div className="words-board-sorts" role="group" aria-label="原话排序">
-          {sortOptions.filter((option) => !isMobile || option.id !== "manual").map((option) => (
+        <div className="words-board-sorts" role="group" aria-label={t("原话排序")}>
+          {t(sortOptions.filter((option) => !isMobile || option.id !== "manual").map((option) => (
             <button
               className={sortMode === option.id ? "is-active" : ""}
               type="button"
@@ -342,20 +344,19 @@ function EvidenceCanvas({ community, isMobile, newQuoteId, onCompose }) {
               onClick={() => setSortMode(option.id)}
               key={option.id}
             >
-              {option.label}
+              {t(option.label)}
             </button>
-          ))}
+          )))}
         </div>
-        {isMobile && (
+        {t(isMobile && (
           <button className="mobile-tide-compose" type="button" onClick={onCompose}>
-            <PencilSimpleLine size={16} weight="bold" aria-hidden="true" />留一句
-          </button>
-        )}
+            <PencilSimpleLine size={16} weight="bold" aria-hidden="true" />{t("留一句")}</button>
+        ))}
       </header>
       <div className="words-snap-canvas" ref={canvasRef} aria-describedby={isMobile ? undefined : "words-canvas-instructions"}>
-      {displayColumns.map(({ cardIds, pinned }, columnIndex) => (
+      {t(displayColumns.map(({ cardIds, pinned }, columnIndex) => (
         <div className={`words-snap-column${pinned ? " mobile-pinned-row" : ""}`} key={pinned ? "pinned" : `column-${columnIndex}`}>
-        {cardIds.map((cardId) => {
+        {t(cardIds.map((cardId) => {
         const itemIndex = community.quotes.findIndex((quote) => quote.id === cardId);
         const item = community.quotes[itemIndex];
         if (!item) return null;
@@ -393,9 +394,9 @@ function EvidenceCanvas({ community, isMobile, newQuoteId, onCompose }) {
             onKeyDown={(event) => moveWithKeyboard(event, cardId)}
           />
         );
-        })}
+        }))}
         </div>
-      ))}
+      )))}
       </div>
     </>
   );
@@ -405,7 +406,7 @@ function FrequencyFlow({ isMobile }) {
   const curvePath = isMobile ? mobileFrequencyCurve.path : frequencyCurvePath;
   const plotX = (x) => `${isMobile ? x / 1.06 : x}%`;
   return (
-    <div className="words-frequency-flow" aria-label="词频实时演化图">
+    <div className="words-frequency-flow" aria-label={t("词频实时演化图")}>
       <div className="words-flow-chart">
         <svg className="words-flow-lines" viewBox={`0 0 ${isMobile ? 1060 : 1000} 400`} preserveAspectRatio="none" aria-hidden="true">
           <defs>
@@ -432,7 +433,7 @@ function FrequencyFlow({ isMobile }) {
           />
         </svg>
 
-        {frequencyWords.map((word) => (
+        {t(frequencyWords.map((word) => (
           <span
             className="words-flow-guide"
             style={{
@@ -443,9 +444,9 @@ function FrequencyFlow({ isMobile }) {
             aria-hidden="true"
             key={`${word.name}-guide`}
           />
-        ))}
+        )))}
 
-        {frequencyWords.map((word) => (
+        {t(frequencyWords.map((word) => (
           <div
             className={`words-flow-point is-${word.tone}${word.labelBelow ? " is-label-below" : ""}${word.slug ? ` word-${word.slug}` : ""}`}
             data-word={word.name}
@@ -461,11 +462,11 @@ function FrequencyFlow({ isMobile }) {
           >
             <span className="words-flow-node" aria-hidden="true" />
             <b>
-              <span>{word.name}</span>
-              <small aria-label={`，词频 ${word.value}`}>/ {word.value}</small>
+              <span translate="no" lang="zh-CN">{word.name}</span>
+              <small aria-label={t(`，词频 ${word.value}`)}>/ {t(word.value)}</small>
             </b>
           </div>
-        ))}
+        )))}
 
         <CrownSimple className="words-flow-icon words-flow-crown" weight="bold" aria-hidden="true" />
         <Heart className="words-flow-icon words-flow-heart-two" weight="regular" aria-hidden="true" />
@@ -488,35 +489,33 @@ export function WordsTideLab() {
 
       <section className="words-tide-hero" aria-labelledby="words-tide-title">
         <div className="words-tide-intro">
-          <span className="words-tide-ghost" aria-hidden="true">WORD TIDE</span>
-          <span className="words-tide-eyebrow"><i>*</i> VOICES FROM THE PIT.</span>
+          <span className="words-tide-ghost" aria-hidden="true">{t("WORD TIDE")}</span>
+          <span className="words-tide-eyebrow"><i>*</i>{t(" VOICES FROM THE PIT.")}</span>
           <Heart className="words-tide-note-heart" weight="regular" aria-hidden="true" />
           <Heart className="words-tide-note-heart words-tide-note-heart-bottom" weight="regular" aria-hidden="true" />
-          <h1 id="words-tide-title" aria-label="坑底文学">
+          <h1 id="words-tide-title" aria-label={t("坑底文学")}>
             <span className="words-tide-title-line is-black">
-              {Array.from("坑底").map((character, index) => <i aria-hidden="true" key={`${character}-${index}`}>{character}</i>)}
+              {getLocale() === 'zh' ? Array.from('坑底').map((character, index) => <i aria-hidden="true" key={index}>{character}</i>) : <i>{getLocale() === 'en' ? 'Voices' : 'เสียง'}</i>}
             </span>
             <span className="words-tide-title-line is-pink">
-              {Array.from("文学").map((character, index) => <i aria-hidden="true" key={`${character}-${index}`}>{character}</i>)}
+              {getLocale() === 'zh' ? Array.from('文学').map((character, index) => <i aria-hidden="true" key={index}>{character}</i>) : <i>{getLocale() === 'en' ? 'from the pit' : 'จากด้อม'}</i>}
             </span>
           </h1>
           <img className="words-keyword-underline" src="assets/repo-handdrawn-underline-pink.webp" alt="" aria-hidden="true" data-page-critical="true" />
-          <span className="words-tide-label">WORDS / FREQUENCY / TIDE</span>
+          <span className="words-tide-label">{t("WORDS / FREQUENCY / TIDE")}</span>
         </div>
         <FrequencyFlow isMobile={isMobile} />
       </section>
 
       <TideCommunitySummary community={community} compact={isMobile} />
 
-      <section className="words-archive" id="original-words" aria-label="原话收藏">
-        <p className="words-canvas-instructions" id="words-canvas-instructions">
-          点卡片原位展开评论；按住右上角六点把手可交换位置，卡片不会互相重叠。
-        </p>
+      <section className="words-archive" id="original-words" aria-label={t("原话收藏")}>
+        <p className="words-canvas-instructions" id="words-canvas-instructions">{t("点卡片原位展开评论；按住右上角六点把手可交换位置，卡片不会互相重叠。")}</p>
         <EvidenceCanvas community={community} isMobile={isMobile} newQuoteId={newQuoteId} onCompose={() => setGuestbookOpen(true)} />
       </section>
-      {isMobile ? (
+      {t(isMobile ? (
         <>
-          {(guestbookOpen || community.activeQuote) && (
+          {t((guestbookOpen || community.activeQuote) && (
             <MobileTideSheet
               key={guestbookOpen ? "guestbook" : community.activeQuote.id}
               community={community}
@@ -528,9 +527,9 @@ export function WordsTideLab() {
                 requestAnimationFrame(() => document.getElementById("original-words")?.scrollIntoView({ block: "start", behavior: "auto" }));
               }}
             />
-          )}
+          ))}
         </>
-      ) : <><TideGuestbook community={community} /><QuoteCommentModal community={community} /></>}
+      ) : <><TideGuestbook community={community} /><QuoteCommentModal community={community} /></>)}
     </main>
   );
 }

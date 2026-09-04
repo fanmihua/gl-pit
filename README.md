@@ -1,12 +1,18 @@
 # glfans
 
-> 欢迎入坑。请保管好你的理智，虽然大概率用不上。
-
-[欢迎入坑](https://fanmihua.github.io/glfans/#/) · [考古档案](https://fanmihua.github.io/glfans/#/archive) · [坑底文学](https://fanmihua.github.io/glfans/#/tide-words) · [Repo 文专栏](https://fanmihua.github.io/glfans/#/column) · [来捡表情包](https://fanmihua.github.io/glfans/#/memes) · [坑底电台](https://fanmihua.github.io/glfans/#/radio) · [关于](https://fanmihua.github.io/glfans/#/about)
-
-[参与讨论](https://github.com/fanmihua/glfans/discussions) · [提交问题](https://github.com/fanmihua/glfans/issues)
+[中文](#zh) · [English](#en) · [ไทย](#th)
 
 [![Deploy GitHub Pages](https://github.com/fanmihua/glfans/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/fanmihua/glfans/actions/workflows/deploy-pages.yml)
+
+<a id="zh"></a>
+
+## 中文
+
+> 欢迎入坑。请保管好你的理智，虽然大概率用不上。
+
+[欢迎入坑](https://fanmihua.github.io/glfans/?lang=zh#/) · [考古档案](https://fanmihua.github.io/glfans/?lang=zh#/archive) · [坑底文学](https://fanmihua.github.io/glfans/?lang=zh#/tide-words) · [Repo 文专栏](https://fanmihua.github.io/glfans/?lang=zh#/column) · [来捡表情包](https://fanmihua.github.io/glfans/?lang=zh#/memes) · [坑底电台](https://fanmihua.github.io/glfans/?lang=zh#/radio) · [关于](https://fanmihua.github.io/glfans/?lang=zh#/about)
+
+[参与讨论](https://github.com/fanmihua/glfans/discussions) · [提交问题](https://github.com/fanmihua/glfans/issues)
 
 glfans 是一个正在慢慢挖的泰百小网页。
 
@@ -22,7 +28,7 @@ glfans 是一个正在慢慢挖的泰百小网页。
 
 还没想好。先挖着。
 
-## 现在挖到哪了
+### 现在挖到哪了
 
 `PIT STATUS: 首页片头、考古档案、坑底文学、REPO、MEME PIT、坑底电台都已接通`
 
@@ -39,11 +45,17 @@ glfans 是一个正在慢慢挖的泰百小网页。
 
 换个栏目，歌还可以接着听。坑可以换，心动暂时不用停。
 
+### 三种语言，一份内容
+
+界面、栏目说明、剧集简介和 REPO 正文支持中文、英文与泰语；收录原话、网友评论、歌曲名称、署名及原始图片中的文字保留原文。网站自制操作说明（例如电台「怎么玩」）使用无字底图叠加可翻译文字。手机顶栏使用「中 / EN / TH」分段切换，桌面使用完整语言名下拉菜单，失焦自动关闭。切换不离开当前页面，也不重建播放和表单状态。
+
+译文保存在 `src/i18n/`，访客不需要连接翻译服务。正文按需加载，长篇译文目前仍是需要持续校对的辅助译稿。专名优先采用制作方或发行平台写法，来源记录在 `src/i18n/proper-names.js`；尚未核实的专名保留来源写法，不编造泰语译名。
+
 它还不是一个已经想明白的大网站。只是 Repo 写着写着，原话攒着攒着，表情包拍着拍着，坑又比昨天深了一点。
 
 如果你突然想到点什么，或单纯觉得“这里不对”，欢迎开 [Issue](../../issues)、去 [Discussions](../../discussions) 聊聊，或者直接提交 Pull Request。
 
-## 本地挖坑
+### 本地挖坑
 
 需要 Node.js 22 或更高版本。
 
@@ -57,11 +69,12 @@ npm run dev
 ```bash
 npm run build
 npm run test:sites
+node --test tests/*.test.mjs
 ```
 
 点赞与评论使用 Supabase。需要连接自己的项目时，按 `.env.example` 配置公开连接参数，数据库迁移位于 `supabase/migrations/`。不要将私密密钥放进浏览器配置。线上页面由 GitHub Pages 自动构建发布。
 
-## 坑底公约
+### 坑底公约
 
 - 嗑糖可以，造谣不行。
 - 自由心证可以，替真人盖章不行。
@@ -69,6 +82,170 @@ npm run test:sites
 - 玩梗归玩梗，公开资料和素材尽量标明来源。
 - 如果塌了，先深呼吸；如果没塌，也先别急着贷款一辈子。
 
-## 内容与权利
+### 内容与权利
 
 glfans 是非官方、非商业的粉丝共创站。第三方素材相关权利归原权利人；站点原创版权仅覆盖原创文字、设计与代码。完整边界、反馈流程和素材台账见 [内容权利与素材管理](docs/RIGHTS_POLICY.md)，仓库授权范围见 [LICENSE](LICENSE) 和 [NOTICE](NOTICE)。参与共创前请先看 [CONTRIBUTING](CONTRIBUTING.md)。
+
+---
+
+<a id="en"></a>
+
+## English
+
+> Welcome to the pit. Keep your common sense safe. You probably won’t be using it.
+
+[Enter the Pit](https://fanmihua.github.io/glfans/?lang=en#/) · [GL Archive](https://fanmihua.github.io/glfans/?lang=en#/archive) · [Voices from the Pit](https://fanmihua.github.io/glfans/?lang=en#/tide-words) · [REPO](https://fanmihua.github.io/glfans/?lang=en#/column) · [Meme Camera](https://fanmihua.github.io/glfans/?lang=en#/memes) · [Pit Radio](https://fanmihua.github.io/glfans/?lang=en#/radio) · [About](https://fanmihua.github.io/glfans/?lang=en#/about)
+
+[Join the conversation](https://github.com/fanmihua/glfans/discussions) · [Report an issue](https://github.com/fanmihua/glfans/issues)
+
+glfans is a little Thai GL fan site, one that we’re slowly digging deeper.
+
+It started innocently enough: just watching a series.
+
+Then came the behind-the-scenes clips, the interviews, the frame-by-frame analysis of a glance, the solemn announcement that we were leaving the fandom—and, with the very next video, an equally solemn conclusion:
+
+> **This time really is different.**
+
+And so, here we are.
+
+What will this place eventually become? We haven’t figured that out. We’ll keep digging.
+
+### What’s here so far
+
+`PIT STATUS: Home intro, GL Archive, Quotes, REPO, MEME PIT and Pit Radio are live`
+
+- **GL Archive**: Browse Thai GL series by premiere year, starting in 2022. Explore film strips with airing dates, stories, casts and platforms.
+- **Voices from the Pit**: Watch the word-frequency tide, read fans’ original quotes, leave a like or reply, or share a quote of your own.
+- **REPO**: Follow the evidence index into collections and illustrated essays.
+- **Meme Camera**: Press the instant-camera shutter, watch a meme print and develop, then swipe through your photos to download or retake one.
+- **Pit Radio**: Choose a CP sticker, drop the needle and listen to their songs. Skip tracks, repeat a song or open the selected pair’s playlist.
+- **About this pit**: Meet the people digging it, and the affection that keeps them going.
+
+The pages use black-and-white editorial layouts with pink highlights. On phones, five paper tabs lead to the main sections; quotes and playlists open in sheets, and photos scroll sideways. Radio stickers show track counts, with room to tap the playback controls. Desktop keeps playful touches such as dragging quote cards or dropping a sticker onto the record.
+
+The music can keep playing as you move between sections. Different pit, same flutter.
+
+### Three languages, one shared collection
+
+The interface, section introductions, series descriptions and REPO essays are available in Chinese, English and Thai. Collected quotes, visitor comments, song titles, author names and text inside original media keep their source wording. Site-made instructions, such as the radio’s “How to play”, use a text-free background with a translated text layer.
+
+Phones use the compact **中 / EN / TH** switcher; desktop uses full language names in a dropdown that closes when focus leaves. Switching keeps the current page, playback state and unfinished form input.
+
+Translations live in `src/i18n/`; visitors do not need a translation service. Article text loads on demand. Long-form translations are machine-assisted drafts and still need ongoing review. Proper names follow producers’ or distributors’ published spellings where verified; sources are recorded in `src/i18n/proper-names.js`. Unverified names retain their source spelling rather than an invented Thai translation.
+
+This isn’t a grand website with everything figured out. We just keep writing reviews, collecting quotes and taking meme photos. Somehow the pit gets a little deeper each day.
+
+Have an idea—or simply feel that something is off? Open an [Issue](../../issues), join [Discussions](../../discussions), or send a Pull Request.
+
+### Dig locally
+
+Requires Node.js 22 or later.
+
+```bash
+npm ci
+npm run dev
+```
+
+Production build and checks:
+
+```bash
+npm run build
+npm run test:sites
+node --test tests/*.test.mjs
+```
+
+Likes and comments use Supabase. To connect your own project, configure the public connection settings in `.env.example`; database migrations are in `supabase/migrations/`. Never put private keys in browser configuration. GitHub Pages builds and publishes the live site automatically.
+
+### Ground rules down here
+
+- Enjoy the ship. Don’t spread rumours.
+- Read the chemistry your own way. Don’t declare real people’s relationships for them.
+- Dig into public archives, not private lives.
+- Jokes are welcome; credit public information and source media whenever possible.
+- If the ship sinks, take a breath. If it doesn’t, maybe don’t mortgage your whole future to it just yet.
+
+### Content and rights
+
+glfans is an unofficial, non-commercial fan collaboration. Rights to third-party materials remain with their respective owners; the site’s original copyright covers only its own writing, design and code. See [Content rights and media management](docs/RIGHTS_POLICY.md) for boundaries, feedback procedures and the media inventory, and [LICENSE](LICENSE) and [NOTICE](NOTICE) for the repository’s licensing scope. Please read [CONTRIBUTING](CONTRIBUTING.md) before contributing. The rights policy and contribution guide are currently in Chinese; LICENSE and NOTICE are in English.
+
+---
+
+<a id="th"></a>
+
+## ไทย
+
+> ยินดีต้อนรับเข้าด้อม เก็บสติไว้ให้ดีนะ ถึงส่วนใหญ่จะไม่ได้ใช้ก็ตาม
+
+[เข้าด้อมกัน](https://fanmihua.github.io/glfans/?lang=th#/) · [คลังซีรีส์ GL](https://fanmihua.github.io/glfans/?lang=th#/archive) · [เสียงจากด้อม](https://fanmihua.github.io/glfans/?lang=th#/tide-words) · [บทความ REPO](https://fanmihua.github.io/glfans/?lang=th#/column) · [กล้องสุ่มมีม](https://fanmihua.github.io/glfans/?lang=th#/memes) · [วิทยุประจำด้อม](https://fanmihua.github.io/glfans/?lang=th#/radio) · [เกี่ยวกับ](https://fanmihua.github.io/glfans/?lang=th#/about)
+
+[มาคุยกัน](https://github.com/fanmihua/glfans/discussions) · [แจ้งปัญหา](https://github.com/fanmihua/glfans/issues)
+
+glfans คือเว็บเล็ก ๆ ของแฟนซีรีส์ GL ไทย ที่เราค่อย ๆ ขุดให้ลึกขึ้นทีละนิด
+
+จุดเริ่มต้นง่ายมาก แค่จะลองดูซีรีส์สักเรื่อง
+
+แล้วก็กลายเป็นตามดูเบื้องหลัง ย้อนดูสัมภาษณ์ วิเคราะห์สายตาทีละเฟรม ประกาศว่าจะออกจากด้อม ก่อนที่คลิปถัดไปจะทำให้เราสรุปอย่างจริงจังอีกครั้งว่า—
+
+> **ครั้งนี้ไม่เหมือนเดิมจริง ๆ**
+
+เลยมีหลุมนี้ขึ้นมา
+
+สุดท้ายที่นี่จะกลายเป็นอะไร? ยังคิดไม่ออกหรอก ขุดต่อไปก่อนแล้วกัน
+
+### ตอนนี้ขุดไปถึงไหนแล้ว
+
+`PIT STATUS: หน้าเปิดตัว คลังซีรีส์ เสียงจากด้อม REPO MEME PIT และวิทยุประจำด้อม พร้อมให้สำรวจแล้ว`
+
+- **คลังซีรีส์ GL**: ย้อนดูซีรีส์ GL ไทยตามปีที่เริ่มออกอากาศ ตั้งแต่ปี 2022 ผ่านแถบฟิล์ม พร้อมวันออกอากาศ เรื่องย่อ นักแสดง และช่องทางรับชม
+- **เสียงจากด้อม**: ดูคลื่นความถี่ของคำ อ่านข้อความต้นฉบับจากชาวด้อม กดถูกใจ ตอบกลับ หรือฝากข้อความของตัวเอง
+- **บทความ REPO**: เปิดคลังหลักฐาน เลือกรวมบทความ แล้วอ่านรีวิวและเรื่องเล่าพร้อมภาพทีละเรื่อง
+- **กล้องสุ่มมีม**: กดชัตเตอร์กล้องอินสแตนต์ รอมีมพิมพ์ออกมาและภาพค่อย ๆ ชัด จากนั้นเลื่อนดูรูปเพื่อดาวน์โหลดหรือถ่ายใหม่
+- **วิทยุประจำด้อม**: เลือกสติกเกอร์คู่จิ้น วางเข็ม แล้วฟังเพลงของพวกเธอ เปลี่ยนเพลง เล่นซ้ำเพลงเดียว หรือเปิดเพลย์ลิสต์ของคู่ที่เลือกได้
+- **เกี่ยวกับด้อมนี้**: มารู้จักคนขุดหลุม และความรักที่ทำให้ยังขุดต่อ
+
+หน้าเว็บใช้เลย์เอาต์แบบนิตยสาร โทนขาวดำและสีชมพูเป็นจุดเน้น บนมือถือมีป้ายกระดาษห้าป้ายด้านล่างสำหรับเปลี่ยนหมวด ข้อความและเพลย์ลิสต์เปิดเป็นแผง ส่วนรูปถ่ายเลื่อนดูแนวนอนได้ สติกเกอร์วิทยุแสดงจำนวนเพลง และปุ่มควบคุมมีพื้นที่ให้แตะสะดวก บนเดสก์ท็อปยังมีลูกเล่นอย่างลากการ์ดข้อความ หรือลากสติกเกอร์ไปวางบนแผ่นเสียง
+
+เปลี่ยนหมวดแล้วเพลงก็ยังเล่นต่อได้ เปลี่ยนด้อมได้ แต่ใจยังเต้นต่อไป
+
+### สามภาษา เนื้อหาชุดเดียวกัน
+
+ส่วนติดต่อผู้ใช้ คำแนะนำแต่ละหมวด เรื่องย่อซีรีส์ และเนื้อหาบทความ REPO มีภาษาจีน อังกฤษ และไทย ข้อความที่รวบรวมไว้ ความคิดเห็นของผู้เยี่ยมชม ชื่อเพลง ชื่อผู้เขียน และข้อความในสื่อต้นฉบับยังคงใช้ภาษาต้นทาง ส่วนคำแนะนำที่เว็บทำเอง เช่น “วิธีเล่น” ของวิทยุ ใช้พื้นหลังที่ไม่มีตัวหนังสือ แล้วซ้อนข้อความตามภาษาที่เลือก
+
+มือถือใช้ปุ่มย่อ **中 / EN / TH** ส่วนเดสก์ท็อปใช้เมนูชื่อภาษาเต็ม ซึ่งจะปิดเมื่อโฟกัสออกจากเมนู การเปลี่ยนภาษาไม่พาออกจากหน้าปัจจุบัน ไม่เริ่มสถานะการเล่นเพลงใหม่ และไม่ล้างข้อความที่กำลังกรอก
+
+คำแปลเก็บไว้ใน `src/i18n/` ผู้เยี่ยมชมไม่ต้องเชื่อมต่อบริการแปลภาษา เนื้อหาบทความโหลดเมื่อเปิดอ่าน คำแปลบทความยาวเป็นฉบับที่ใช้เครื่องมือช่วยแปลและยังต้องตรวจทานต่อเนื่อง ชื่อเฉพาะใช้การสะกดที่ผู้ผลิตหรือผู้จัดจำหน่ายเผยแพร่เมื่อยืนยันได้ โดยบันทึกแหล่งอ้างอิงใน `src/i18n/proper-names.js` ชื่อที่ยังไม่ได้ยืนยันจะคงการสะกดจากต้นทาง ไม่แต่งชื่อภาษาไทยขึ้นเอง
+
+ที่นี่ยังไม่ใช่เว็บใหญ่ที่วางแผนไว้ครบทุกอย่าง แค่เขียนรีวิวไป เก็บข้อความไป ถ่ายมีมไป เผลออีกทีหลุมก็ลึกกว่าเมื่อวานนิดหนึ่งแล้ว
+
+ถ้ามีไอเดีย หรือแค่รู้สึกว่า “ตรงนี้ไม่ใช่” เปิด [Issue](../../issues) มาคุยใน [Discussions](../../discussions) หรือส่ง Pull Request ได้เลย
+
+### ขุดบนเครื่องของตัวเอง
+
+ใช้ Node.js เวอร์ชัน 22 ขึ้นไป
+
+```bash
+npm ci
+npm run dev
+```
+
+สร้างเวอร์ชันสำหรับเผยแพร่และตรวจสอบ:
+
+```bash
+npm run build
+npm run test:sites
+node --test tests/*.test.mjs
+```
+
+การกดถูกใจและความคิดเห็นใช้ Supabase หากต้องการเชื่อมต่อโปรเจกต์ของตัวเอง ให้ตั้งค่าการเชื่อมต่อสาธารณะตาม `.env.example` ไฟล์ย้ายโครงสร้างฐานข้อมูลอยู่ใน `supabase/migrations/` ห้ามใส่คีย์ส่วนตัวในค่าที่ส่งไปยังเบราว์เซอร์ เว็บไซต์จริงสร้างและเผยแพร่อัตโนมัติผ่าน GitHub Pages
+
+### กติกาชาวด้อม
+
+- จิ้นได้ แต่อย่าปล่อยข่าวลือ
+- เชื่อในเคมีได้ แต่อย่าตัดสินสถานะความสัมพันธ์แทนคนจริง
+- ย้อนดูข้อมูลสาธารณะได้ แต่อย่าขุดชีวิตส่วนตัว
+- เล่นมุกได้ แต่ข้อมูลและสื่อควรระบุแหล่งที่มาเท่าที่ทำได้
+- ถ้าเรือล่ม หายใจลึก ๆ ก่อน ถ้ายังไม่ล่ม ก็อย่าเพิ่งเดิมพันทั้งชีวิตกับมันนะ
+
+### เนื้อหาและสิทธิ์
+
+glfans เป็นเว็บที่แฟนคลับร่วมกันสร้างอย่างไม่เป็นทางการและไม่แสวงหากำไร สิทธิ์ในสื่อของบุคคลที่สามเป็นของเจ้าของสิทธิ์แต่ละราย ลิขสิทธิ์ต้นฉบับของเว็บครอบคลุมเฉพาะงานเขียน งานออกแบบ และโค้ดที่เว็บสร้างเอง ดูขอบเขต ขั้นตอนแจ้งข้อกังวล และทะเบียนสื่อได้ที่ [สิทธิ์ในเนื้อหาและการจัดการสื่อ](docs/RIGHTS_POLICY.md) ส่วนขอบเขตการอนุญาตของคลังโค้ดอยู่ใน [LICENSE](LICENSE) และ [NOTICE](NOTICE) กรุณาอ่าน [CONTRIBUTING](CONTRIBUTING.md) ก่อนร่วมสร้างเนื้อหา นโยบายสิทธิ์และคู่มือการมีส่วนร่วมปัจจุบันเป็นภาษาจีน ส่วน LICENSE และ NOTICE เป็นภาษาอังกฤษ

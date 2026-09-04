@@ -1,3 +1,4 @@
+import { t } from "../../i18n/runtime.js";
 import { withBase } from "../../lib/assets.js";
 import { HOME_MEDIA_NOTICE } from "../../rights.js";
 import { RightsNotice } from "../../RightsNotice.jsx";
@@ -12,7 +13,7 @@ export function PitOrbitCurves({ className = "", mobileOrbits = null }) {
         style={{ "--orbit-center-x": `${mobileOrbits.centerX}%`, "--orbit-center-y": `${mobileOrbits.centerY}%` }}
         aria-hidden="true"
       >
-        {mobileOrbits.paths.map((path, index) => <path className="orbit-path" d={path} key={index} />)}
+        {t(mobileOrbits.paths.map((path, index) => <path className="orbit-path" d={path} key={index} />))}
       </svg>
     );
   }
@@ -38,7 +39,7 @@ export function EyesOrbitCurves({ mobileOrbits = null }) {
       </defs>
       <path className="eyes-orbit-solid" d={mobileOrbits?.solid ?? "M 68 780 C 34 726, 168 691, 332 724 C 560 770, 760 660, 980 548 C 1200 434, 1400 350, 1590 230 C 1660 185, 1650 274, 1600 330"} />
       <path className="eyes-orbit-dashed" markerEnd="url(#eyes-curve-arrow)" d={mobileOrbits?.dashed ?? "M 1505 230 C 1430 270, 1438 330, 1525 386 C 1635 456, 1634 552, 1538 626 C 1350 770, 1030 708, 720 770 C 560 800, 470 820, 396 838"} />
-      {!mobileOrbits && <circle cx="486" cy="733" r="8" />}
+      {t(!mobileOrbits && <circle cx="486" cy="733" r="8" />)}
     </svg>
   );
 }

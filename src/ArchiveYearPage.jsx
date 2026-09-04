@@ -1,3 +1,6 @@
+import { t } from "./i18n/runtime.js";
+import { seriesName } from './i18n/proper-names.js';
+import { getLocale, requireCatalog } from './i18n/runtime.js';
 import { withBase } from "./lib/assets.js";
 import { useEffect, useRef } from "react";
 import { useMobileLayout } from "./hooks/useMobileLayout.js";
@@ -10,6 +13,7 @@ import "./archive-year-page.css";
 const withArchivePoster = (path) => `${withBase(path)}?v=20260902-hd`;
 
 export function ArchiveYearPage({ year, eventId }) {
+  requireCatalog('archive');
   const { yearEvents, hasArchiveEvents, selectedEvent, selectedIndex, selectEvent } = useArchiveSelection(year, eventId);
   const isMobile = useMobileLayout();
   const filmRef = useRef(null);
@@ -92,7 +96,7 @@ export function ArchiveYearPage({ year, eventId }) {
           src={withArchivePoster(selectedEvent.image)}
           width={selectedEvent.width}
           height={selectedEvent.height}
-          alt={`${selectedEvent.title}《${selectedEvent.titleEn}》剧集封面`}
+          alt={t('{0}剧集封面', [seriesName(selectedEvent, getLocale())])}
           loading="eager"
           decoding="async"
           fetchPriority="high"
@@ -100,28 +104,28 @@ export function ArchiveYearPage({ year, eventId }) {
         />
       </div>
       <figcaption>
-        <span>FRAME {String(selectedIndex + 1).padStart(2, "0")} / {year}</span>
-        <b>{selectedEvent.titleEn}</b>
+        <span>{t("FRAME ")}{t(String(selectedIndex + 1).padStart(2, "0"))} / {t(year)}</span>
+        <b>{t(selectedEvent.titleEn)}</b>
       </figcaption>
-      <span className="archive-year-preview-edge" aria-hidden="true">GL / ARCHIVE</span>
+      <span className="archive-year-preview-edge" aria-hidden="true">{t("GL / ARCHIVE")}</span>
     </figure>
   );
   const summary = hasArchiveEvents && (
     <aside className="archive-year-summary" aria-live="polite">
-      <time dateTime={selectedEvent.startDate}>{formatArchiveRange(selectedEvent)}</time>
-      <h2>{selectedEvent.title}</h2>
-      <small className="archive-year-original-title">{selectedEvent.titleEn}</small>
+      <time dateTime={selectedEvent.startDate}>{t(formatArchiveRange(selectedEvent))}</time>
+      <h2>{seriesName(selectedEvent, getLocale())}</h2>
+      <small className="archive-year-original-title">{t(selectedEvent.titleEn)}</small>
       <dl className="archive-year-facts">
-        <div><dt>播出</dt><dd>{selectedEvent.weekday} · {selectedEvent.status}</dd></div>
-        <div><dt>集数</dt><dd>{selectedEvent.episodes ? `${selectedEvent.episodes} 集` : "待公布"}</dd></div>
-        <div><dt>平台</dt><dd>{selectedEvent.platforms.join(" / ") || selectedEvent.company || "待公布"}</dd></div>
+        <div><dt>{t("播出")}</dt><dd>{t(selectedEvent.weekday)} · {t(selectedEvent.status)}</dd></div>
+        <div><dt>{t("集数")}</dt><dd>{t(selectedEvent.episodes ? `${selectedEvent.episodes} 集` : "待公布")}</dd></div>
+        <div><dt>{t("平台")}</dt><dd>{t(selectedEvent.platforms.join(" / ") || selectedEvent.company || "待公布")}</dd></div>
       </dl>
       <div className="archive-year-cast">
-        <span>主演</span>
-        <p>{selectedEvent.cast?.join(" / ") || "演员资料整理中"}</p>
+        <span>{t("主演")}</span>
+        <p translate="no">{selectedEvent.cast?.join(" / ") || t("演员资料整理中")}</p>
       </div>
       <span className="archive-year-summary-brush" aria-hidden="true" />
-      <p>{selectedEvent.summary}</p>
+      <p>{t(selectedEvent.summary)}</p>
       <img src={withBase("assets/repo-handdrawn-heart-pink.webp")} alt="" aria-hidden="true" data-page-critical="true" />
     </aside>
   );
@@ -133,48 +137,48 @@ export function ArchiveYearPage({ year, eventId }) {
         <a
           className="archive-year-back"
           href="#/archive"
-          aria-label="返回全部年份"
-          title="返回全部年份"
+          aria-label={t("返回全部年份")}
+          title={t("返回全部年份")}
           onClick={(event) => {
             event.preventDefault();
             window.location.hash = "#/archive";
           }}
         >
-          <span>← 返回年份</span>
-          <strong>{year}</strong>
+          <span>{t("← 返回年份")}</span>
+          <strong>{t(year)}</strong>
         </a>
 
         <section className="archive-year-hero" aria-labelledby="archive-year-title">
           <header className="archive-year-masthead">
             <h1 id="archive-year-title">
-              <span className="archive-year-cn-title" aria-label="年度胶卷">
-                {["年", "度", "胶", "卷"].map((character) => (
-                  <i aria-hidden="true" key={character}>{character}</i>
+              <span className="archive-year-cn-title" aria-label={t("年度胶卷")}>
+                {getLocale() !== 'zh' ? <i>{t('年度胶卷')}</i> : ["年", "度", "胶", "卷"].map((character) => (
+                  <i aria-hidden="true" key={character}>{t(character)}</i>
                 ))}
               </span>
-              <strong>YEAR ARCHIVE</strong>
+              <strong>{t("YEAR ARCHIVE")}</strong>
             </h1>
-            <p className="archive-year-tag">拖动剧集胶卷，看看这年<span>播了什么</span>。</p>
+            <p className="archive-year-tag">{t("拖动剧集胶卷，看看这年")}<span>{t("播了什么")}</span>。</p>
           </header>
 
-          {hasArchiveEvents ? !isMobile && (
+          {t(hasArchiveEvents ? !isMobile && (
             <>
-              {preview}
-              {summary}
+              {t(preview)}
+              {t(summary)}
             </>
           ) : (
             <section className="archive-year-empty">
-              <span>{year}</span>
-              <h2>这一年没有入档剧集</h2>
-              <p>当前档案只收录以女性爱情为主线、已经正式播出或确认档期的泰国系列剧。</p>
-              <a href="#/archive/2022">从 2022《GAP》开始看</a>
+              <span>{t(year)}</span>
+              <h2>{t("这一年没有入档剧集")}</h2>
+              <p>{t("当前档案只收录以女性爱情为主线、已经正式播出或确认档期的泰国系列剧。")}</p>
+              <a href="#/archive/2022">{t("从 2022《GAP》开始看")}</a>
             </section>
-          )}
+          ))}
         </section>
 
         <div className="archive-year-switcher-row">
-          <nav className="archive-year-switcher" aria-label="切换年份">
-            {archiveYearList.map((item) => (
+          <nav className="archive-year-switcher" aria-label={t("切换年份")}>
+            {t(archiveYearList.map((item) => (
               <a
                 className={item === year ? "is-active" : ""}
                 href={`#/archive/${item}`}
@@ -184,20 +188,20 @@ export function ArchiveYearPage({ year, eventId }) {
                 }}
                 key={item}
               >
-                {item}
+                {t(item)}
               </a>
-            ))}
+            )))}
           </nav>
           <img className="archive-year-loop" src={withBase("assets/about/annotation-loop-arrow-v1.webp")} alt="" aria-hidden="true" data-page-critical="true" />
-          <p className="archive-year-count" aria-label={`${year} 年共收录 ${yearEvents.length} 部剧集`}>
-            <span>本年收录</span>
-            <strong>{String(yearEvents.length).padStart(2, "0")}</strong>
-            <span>部剧集</span>
+          <p className="archive-year-count" aria-label={t(`${year} 年共收录 ${yearEvents.length} 部剧集`)}>
+            <span>{t("本年收录")}</span>
+            <strong>{t(String(yearEvents.length).padStart(2, "0"))}</strong>
+            <span>{t("部剧集")}</span>
           </p>
         </div>
 
-        {hasArchiveEvents && (
-          <section className="archive-event-browser" aria-label={`${year} 年泰百剧集胶卷`}>
+        {t(hasArchiveEvents && (
+          <section className="archive-event-browser" aria-label={t(`${year} 年泰百剧集胶卷`)}>
             <div
               className="archive-event-film-track"
               ref={filmRef}
@@ -207,7 +211,7 @@ export function ArchiveYearPage({ year, eventId }) {
               onPointerCancel={cancelFilmDrag}
               onScroll={() => { lastScrollAtRef.current = performance.now(); }}
             >
-              {yearEvents.map((event) => (
+              {t(yearEvents.map((event) => (
                 <button
                   className={`archive-event-card${selectedEvent.id === event.id ? " is-active" : ""}`}
                   type="button"
@@ -231,19 +235,19 @@ export function ArchiveYearPage({ year, eventId }) {
                     fetchPriority={selectedEvent.id === event.id ? "high" : "low"}
                   />
                   <span>
-                    <time>{formatArchiveDate(event.startDate)}</time>
-                    <b>{event.title}</b>
+                    <time>{t(formatArchiveDate(event.startDate))}</time>
+                    <b>{seriesName(event, getLocale())}</b>
                   </span>
                 </button>
-              ))}
+              )))}
             </div>
           </section>
-        )}
-        {isMobile && hasArchiveEvents && (
-          <section className="archive-year-details" aria-label="所选剧集详情">
-            {summary}
+        ))}
+        {t(isMobile && hasArchiveEvents && (
+          <section className="archive-year-details" aria-label={t("所选剧集详情")}>
+            {t(summary)}
           </section>
-        )}
+        ))}
       </div>
     </main>
   );

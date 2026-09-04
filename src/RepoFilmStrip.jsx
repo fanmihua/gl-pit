@@ -1,3 +1,4 @@
+import { t } from "./i18n/runtime.js";
 import { withBase } from "./lib/assets.js";
 import { Plus } from "@phosphor-icons/react";
 import "./repo-film-strip.css";
@@ -14,10 +15,10 @@ const filmCollections = [
 
 export function RepoFilmStrip({ critical = false }) {
   return (
-    <div className="repo-film-strip" aria-label="合集影像胶卷">
+    <div className="repo-film-strip" aria-label={t("合集影像胶卷")}>
       <Plus aria-hidden="true" />
       <div className="repo-film-frames">
-        {filmCollections.map((collection) => (
+        {t(filmCollections.map((collection) => (
           <span key={collection.slug} style={{ "--repo-film-focus": collection.focus }}>
             <img
               src={withBase(collection.cover)}
@@ -28,7 +29,7 @@ export function RepoFilmStrip({ critical = false }) {
               data-page-critical={critical ? "true" : undefined}
             />
           </span>
-        ))}
+        )))}
       </div>
       <Plus aria-hidden="true" />
     </div>

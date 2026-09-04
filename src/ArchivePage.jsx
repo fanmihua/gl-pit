@@ -1,3 +1,6 @@
+import { t } from "./i18n/runtime.js";
+import { getLocale, requireCatalog } from './i18n/runtime.js';
+import { seriesName } from './i18n/proper-names.js';
 import { withBase } from "./lib/assets.js";
 import { useEffect, useRef, useState } from "react";
 import { useMobileLayout } from "./hooks/useMobileLayout.js";
@@ -22,6 +25,7 @@ const cornerRolls = [
 ];
 
 export function ArchivePage() {
+  requireCatalog('archive');
   const [, year, eventId] = window.location.hash.replace(/^#\/?/, "").split("/");
   return year ? <ArchiveYearPage year={year} eventId={eventId} /> : <ArchiveOverview />;
 }
@@ -174,7 +178,7 @@ function ArchiveOverview() {
       <SiteHeader activePath="archive" />
       <section className="archive-stage" aria-labelledby="archive-title">
         <div className="archive-corner-collages" aria-hidden="true">
-          {cornerRolls.map((roll, index) => (
+          {t(cornerRolls.map((roll, index) => (
             <img
               className={`archive-corner-card archive-corner-card-${index + 1}`}
               src={withArchivePoster(roll.image)}
@@ -187,7 +191,7 @@ function ArchiveOverview() {
               data-page-critical="true"
               key={roll.id}
             />
-          ))}
+          )))}
         </div>
 
         <header className="archive-masthead">
@@ -199,19 +203,19 @@ function ArchiveOverview() {
           </div>
           <h1 id="archive-title">
             <span aria-hidden="true">
-              {["考", "古", "档", "案"].map((character) => <i key={character}>{character}</i>)}
+              {getLocale() === 'zh' ? ['考', '古', '档', '案'].map(character => <i key={character}>{character}</i>) : <i>{t('考古档案')}</i>}
             </span>
-            <strong>PIT ARCHIVE</strong>
+            <strong>{t("PIT ARCHIVE")}</strong>
           </h1>
-          <p><span>拖动胶卷，翻出那些</span><em>心动时刻</em><span>。</span></p>
+          <p><span>{t("拖动胶卷，翻出那些")}</span><em>{t("心动时刻")}</em><span>。</span></p>
         </header>
 
         <div className="archive-film-heading">
-          <span>按年份归档</span>
+          <span>{t("按年份归档")}</span>
           <p aria-live="polite">
-            <span>当前年份</span>
-            <strong>{archiveYears[activeIndex].year}</strong>
-            <b>{String(activeIndex + 1).padStart(2, "0")} / {String(archiveYears.length).padStart(2, "0")}</b>
+            <span>{t("当前年份")}</span>
+            <strong>{t(archiveYears[activeIndex].year)}</strong>
+            <b>{t(String(activeIndex + 1).padStart(2, "0"))} / {t(String(archiveYears.length).padStart(2, "0"))}</b>
           </p>
         </div>
 
@@ -224,9 +228,9 @@ function ArchiveOverview() {
             onPointerUp={endDrag}
             onPointerCancel={cancelDrag}
             onScroll={syncVisibleRoll}
-            aria-label="泰百剧集年度胶卷"
+            aria-label={t("泰百剧集年度胶卷")}
           >
-            {archiveYears.map((roll, index) => (
+            {t(archiveYears.map((roll, index) => (
               <button
                 className={`archive-film-frame${activeIndex === index ? " is-active" : ""}`}
                 type="button"
@@ -246,7 +250,7 @@ function ArchiveOverview() {
                     src={withArchivePoster(roll.image)}
                     width={roll.width}
                     height={roll.height}
-                    alt={`${roll.year} 年代表剧集《${roll.title}》封面`}
+                    alt={t('{0} 年代表剧集《{1}》封面', [roll.year, seriesName(roll, getLocale())])}
                     style={{ "--archive-focus": roll.focus }}
                     draggable="false"
                     loading="eager"
@@ -256,12 +260,12 @@ function ArchiveOverview() {
                   />
                 </span>
                 <span className="archive-year-stamp">
-                  <b>ARCHIVE YEAR</b>
-                  <strong>{roll.year}</strong>
-                  <small>{roll.count} 部剧集</small>
+                  <b>{t("ARCHIVE YEAR")}</b>
+                  <strong>{t(roll.year)}</strong>
+                  <small>{t(roll.count)}{t(" 部剧集")}</small>
                 </span>
               </button>
-            ))}
+            )))}
           </div>
         </div>
       </section>

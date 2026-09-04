@@ -1,3 +1,6 @@
+import { t } from "../../i18n/runtime.js";
+import { getLocale } from '../../i18n/runtime.js';
+import { localizeCast } from '../../i18n/proper-names.js';
 import { Fragment, useMemo } from "react";
 import { ArrowRight, CalendarDots, DotsNine, HeartStraight, NotePencil, Paperclip, TelevisionSimple, UsersThree } from "@phosphor-icons/react";
 import columnData from "../../data/column-index.json";
@@ -23,28 +26,28 @@ function CollectionCard({ collection, index }) {
       href={`#/column/${collection.slug}`}
       style={{ "--collection-card-focus": coverFocus?.card ?? "50% 50%" }}
     >
-      {index === 0 && (
+      {t(index === 0 && (
         <>
           <span className="card-decoration card-paperclip" aria-hidden="true"><Paperclip /></span>
           <span className="card-decoration card-heart-doodle" aria-hidden="true">
             <img src={withBase("assets/repo-handdrawn-heart-pink.webp")} alt="" decoding="async" />
           </span>
         </>
-      )}
-      {index === 2 && (
+      ))}
+      {t(index === 2 && (
         <span className="card-decoration card-evidence-stamp" aria-hidden="true">
-          <span>EVIDENCE</span><HeartStraight weight="fill" /><span>LOVE</span>
+          <span>{t("EVIDENCE")}</span><HeartStraight weight="fill" /><span>{t("LOVE")}</span>
         </span>
-      )}
-      {index === 5 && <span className="card-decoration card-pink-tape" aria-hidden="true" />}
+      ))}
+      {t(index === 5 && <span className="card-decoration card-pink-tape" aria-hidden="true" />)}
       <div className="collection-cover">
-        <img src={withBase(collection.cover)} alt={`${collection.title}合集封面`} loading="lazy" decoding="async" />
-        <span>{String(index + 1).padStart(2, "0")}</span>
+        <img src={withBase(collection.cover)} alt={t('{0}合集封面', [t(collection.title)])} loading="lazy" decoding="async" />
+        <span>{t(String(index + 1).padStart(2, "0"))}</span>
       </div>
       <div className="collection-card-copy">
-        <span>{collection.issue}</span>
-        <h2>{collection.title}</h2>
-        <p>{visibleArticleCount} 篇 Repo / 侧写</p>
+        <span>{t(collection.issue)}</span>
+        <h2>{t(collection.title)}</h2>
+        <p>{t(visibleArticleCount)}{t(" 篇 Repo / 侧写")}</p>
         <ArrowRight aria-hidden="true" />
       </div>
     </a>
@@ -53,23 +56,24 @@ function CollectionCard({ collection, index }) {
 
 const collectionEditorialNotes = {
   "rival-lover": { roman: "ENEMIES WITH BENEFITS" },
-  us: { roman: "OUR LOVE" },
-  "designing-love": { roman: "DESIGNING LOVE" },
+  us: { roman: "US" },
+  "designing-love": { roman: "LOVE DESIGN" },
   "poisonous-love": { roman: "POISONOUS LOVE" },
-  "my-secret-words": { roman: "MY SECRET WORDS" },
-  affair: { roman: "THE AFFAIR" },
+  "my-secret-words": { roman: "HARMONY SECRET" },
+  affair: { roman: "AFFAIR" },
 };
 
 function CollectionDisplayTitle({ title }) {
+  if (getLocale() !== 'zh') return <h1 className="localized-collection-title">{t(title)}</h1>;
   const characters = Array.from(title);
 
   return (
-    <h1 aria-label={title}>
-      {characters.map((character, index) => (
+    <h1 aria-label={t(title)}>
+      {t(characters.map((character, index) => (
         <span className={index === characters.length - 1 ? "is-pink" : undefined} aria-hidden="true" key={`${character}-${index}`}>
-          {character === " " ? "\u00a0" : character}
+          {t(character === " " ? "\u00a0" : character)}
         </span>
-      ))}
+      )))}
     </h1>
   );
 }
@@ -79,13 +83,13 @@ function ArticleCardTitle({ label }) {
   if (parts.length > 1) {
     return (
       <h3 className="article-card-title article-card-title-split">
-        <strong>{parts[0]}</strong>
-        <small>{parts.slice(1).map((part, index) => (
+        <strong>{t(parts[0])}</strong>
+        <small>{t(parts.slice(1).map((part, index) => (
           <Fragment key={part}>
-            {index > 0 && <i aria-hidden="true">·</i>}
-            {part}
+            {t(index > 0 && <i aria-hidden="true">·</i>)}
+            {t(part)}
           </Fragment>
-        ))}</small>
+        )))}</small>
       </h3>
     );
   }
@@ -94,13 +98,13 @@ function ArticleCardTitle({ label }) {
   if (pendingMatch) {
     return (
       <h3 className="article-card-title article-card-title-split">
-        <strong>{pendingMatch[1].trim()}</strong>
-        <small>{pendingMatch[2]}</small>
+        <strong>{t(pendingMatch[1].trim())}</strong>
+        <small>{t(pendingMatch[2])}</small>
       </h3>
     );
   }
 
-  return <h3 className="article-card-title">{label}</h3>;
+  return <h3 className="article-card-title">{t(label)}</h3>;
 }
 
 const collectionFactIcons = [CalendarDots, NotePencil, TelevisionSimple, UsersThree];
@@ -138,27 +142,27 @@ function CollectionFacts({ xml }) {
 
   return (
     <dl className="collection-facts">
-      {facts.map((fact) => {
+      {t(facts.map((fact) => {
         const Icon = fact.icon;
         const emphasisIndex = fact.emphasis ? fact.value.indexOf(fact.emphasis) : -1;
         return (
           <div className="collection-fact-row" key={fact.label}>
             <Icon weight="bold" aria-hidden="true" />
             <div className="collection-fact-copy">
-              <dt>{fact.label}：</dt>
+              <dt>{t(fact.label)}：</dt>
               <dd>
-                {emphasisIndex >= 0 ? (
+                {getLocale() !== 'zh' ? (/主要演员/.test(fact.label) ? localizeCast(fact.value, getLocale()) : t(fact.value)) : emphasisIndex >= 0 ? (
                   <>
-                    {fact.value.slice(0, emphasisIndex)}
-                    <strong>{fact.emphasis}</strong>
-                    {fact.value.slice(emphasisIndex + fact.emphasis.length)}
+                    {t(fact.value.slice(0, emphasisIndex))}
+                    <strong>{t(fact.emphasis)}</strong>
+                    {t(fact.value.slice(emphasisIndex + fact.emphasis.length))}
                   </>
                 ) : fact.value}
               </dd>
             </div>
           </div>
         );
-      })}
+      }))}
     </dl>
   );
 }
@@ -179,50 +183,50 @@ export function ColumnIndex() {
           data-page-critical="true"
         />
         <div className="hero-hand-note">
-          <span>Love is not a feeling.</span>
-          <span>It&apos;s Evidence.</span>
+          <span>{t("Love is not a feeling.")}</span>
+          <span>{t("It's Evidence.")}</span>
           <img src={withBase("assets/repo-handdrawn-heart-pink.webp")} alt="" aria-hidden="true" decoding="async" />
         </div>
         <div className="column-index-title">
           <h1>
-            <span><b>Repo</b><i>文</i></span>
-            <em aria-label="证据目录">
-              {["证", "据", "目", "录"].map((character) => <span aria-hidden="true" key={character}>{character}</span>)}
+            <span><b>{t("Repo")}</b><i>{t("文")}</i></span>
+            <em aria-label={t("证据目录")}>
+              {getLocale() === 'zh' ? ['证', '据', '目', '录'].map(character => <span aria-hidden="true" key={character}>{character}</span>) : <span>{t('证据目录')}</span>}
             </em>
           </h1>
-          <p>每一份心动，都有迹可循。</p>
+          <p>{t("每一份心动，都有迹可循。")}</p>
           <span className="hero-title-underline" aria-hidden="true" />
           <span className="hero-title-arrow" aria-hidden="true">↗</span>
-          <span className="hero-label hero-label-left">LOVE ARCHIVE / 06 COLLECTIONS</span>
+          <span className="hero-label hero-label-left">{t("LOVE ARCHIVE / 06 COLLECTIONS")}</span>
         </div>
         <aside className="hero-reading-note">
           <div>
-            <span>READING NOTE</span>
-            <strong>这次真的不一样</strong>
-            <p>but 理性磕糖</p>
+            <span>{t("READING NOTE")}</span>
+            <strong>{t("这次真的不一样")}</strong>
+            <p>{t("but 理性磕糖")}</p>
           </div>
         </aside>
-        <span className="hero-label hero-note-label">ROMANCE / EVIDENCE / ARCHIVE</span>
+        <span className="hero-label hero-note-label">{t("ROMANCE / EVIDENCE / ARCHIVE")}</span>
         <DotsNine className="hero-pink-grid" weight="bold" aria-hidden="true" />
       </section>
 
       <RepoFilmStrip critical />
 
-      <section className="collection-index" aria-label="专栏合集">
-        {columnData.collections.map((collection, index) => (
+      <section className="collection-index" aria-label={t("专栏合集")}>
+        {t(columnData.collections.map((collection, index) => (
           <CollectionCard collection={collection} index={index} key={collection.slug} />
-        ))}
+        )))}
       </section>
 
       <section className="repo-index-note" aria-labelledby="repo-index-note-title">
         <div className="repo-index-note-heading">
-          <span>ARCHIVE NOTE</span>
-          <h2 id="repo-index-note-title"><span className="repo-index-note-title-line">目前包含已有泰百repo</span><span className="repo-index-note-title-line">及二创类文章<span className="repo-index-note-title-total">共<strong>21</strong>篇：</span></span></h2>
+          <span>{t("ARCHIVE NOTE")}</span>
+          <h2 id="repo-index-note-title">{getLocale() === 'zh' ? <><span className="repo-index-note-title-line">目前包含已有泰百repo</span><span className="repo-index-note-title-line">及二创类文章<span className="repo-index-note-title-total">共<strong>21</strong>篇：</span></span></> : t('目前包含已有泰百repo及二创类文章共21篇：')}</h2>
         </div>
         <div className="repo-pending-copy">
-          <span>待更新：</span>
-          <p><strong>宿敌恋人</strong><small>ep9-ep10</small></p>
-          <p><strong>月下之影</strong><small>片段</small></p>
+          <span>{t("待更新：")}</span>
+          <p><strong>{t("宿敌恋人")}</strong><small>{t("ep9-ep10")}</small></p>
+          <p><strong>{t("月下之影")}</strong><small>{t("片段")}</small></p>
         </div>
       </section>
 
@@ -255,44 +259,44 @@ export function CollectionView({ collection }) {
           <a
             className="collection-issue-badge"
             href="#/column"
-            aria-label="返回全部合集"
-            title="返回全部合集"
+            aria-label={t("返回全部合集")}
+            title={t("返回全部合集")}
           >
-            <span>← 返回合集</span>
-            <strong>{collectionNumber}</strong>
+            <span>{t("← 返回合集")}</span>
+            <strong>{t(collectionNumber)}</strong>
           </a>
           <div className="collection-title-paper">
-            <CollectionDisplayTitle title={collection.title} />
-            <p>{editorial.roman}</p>
+            <CollectionDisplayTitle title={t(collection.title)} />
+            <p>{t(editorial.roman)}</p>
             <img src={withBase("assets/repo-handdrawn-underline-pink.webp")} alt="" aria-hidden="true" decoding="async" />
           </div>
           <figure className="collection-hero-photo">
             <img className="collection-photo-frame" src={withBase("assets/repo-collection-poster-frame-v1.webp")} alt="" aria-hidden="true" decoding="async" data-page-critical="true" />
-            <img className="collection-cover-art" src={withBase(collection.cover)} alt={`${collection.title}合集封面`} decoding="async" fetchPriority="high" data-page-critical="true" />
+            <img className="collection-cover-art" src={withBase(collection.cover)} alt={t('{0}合集封面', [t(collection.title)])} decoding="async" fetchPriority="high" data-page-critical="true" />
             <img className="collection-photo-brush" src={withBase("assets/repo-collection-pink-brush-v1.webp")} alt="" aria-hidden="true" decoding="async" data-page-critical="true" />
             <Paperclip aria-hidden="true" />
             <img className="collection-photo-heart collection-photo-heart-top" src={withBase("assets/repo-handdrawn-heart-pink.webp")} alt="" aria-hidden="true" decoding="async" />
             <img className="collection-photo-heart collection-photo-heart-side" src={withBase("assets/repo-handdrawn-heart-pink.webp")} alt="" aria-hidden="true" decoding="async" />
           </figure>
           <div className="collection-title-caption" aria-hidden="true">
-            <span>Love is not a feeling.</span>
-            <span>It&apos;s <b>Evidence.</b></span>
+            <span>{t("Love is not a feeling.")}</span>
+            <span>{t("It's ")}<b>{t("Evidence.")}</b></span>
           </div>
           <div className="collection-dossier">
             <CollectionFacts xml={collection.summaryXml} />
           </div>
-          <span className="collection-dossier-repo">ROMANCE / EVIDENCE / ARCHIVE</span>
+          <span className="collection-dossier-repo">{t("ROMANCE / EVIDENCE / ARCHIVE")}</span>
           <DotsNine className="collection-hero-dots" weight="bold" aria-hidden="true" />
         </div>
       </section>
 
-      <section className="article-index" aria-label={`${collection.title}文章列表`}>
+      <section className="article-index" aria-label={t('{0}文章列表', [t(collection.title)])}>
         <div className="article-index-heading">
-          <span>EVIDENCE ARCHIVE</span>
-          <h2>这一坑的 <em>Repo</em></h2>
+          <span>{t("EVIDENCE ARCHIVE")}</span>
+          <h2>{t("这一坑的 ")}<em>{t("Repo")}</em></h2>
         </div>
         <div className={`article-grid article-grid-count-${Math.min(visibleArticles.length, 4)}`}>
-          {visibleArticles.map((article, index) => (
+          {t(visibleArticles.map((article, index) => (
             <a
               className={`article-card article-card-${index + 1} article-card-style-${index % 2 === 0 ? "a" : "b"}`}
               href={`#/column/${collection.slug}/${article.slug}`}
@@ -312,16 +316,16 @@ export function CollectionView({ collection }) {
                 <img src={withBase(article.cover || collection.cover)} alt="" loading="lazy" decoding="async" />
               </div>
               <div>
-                <span>ARTICLE / {String(index + 1).padStart(2, "0")}</span>
+                <span>{t("ARTICLE / ")}{t(String(index + 1).padStart(2, "0"))}</span>
                 <ArticleCardTitle label={article.label} />
                 <ArrowRight aria-hidden="true" />
               </div>
             </a>
-          ))}
+          )))}
         </div>
-        <div className="collection-detail-end" aria-label={`${collection.title}合集结束`}>
-          <span>REPO 文专栏</span>
-          <span>LOVE IS EVIDENCE.</span>
+        <div className="collection-detail-end" aria-label={t('{0}合集结束', [t(collection.title)])}>
+          <span>{t("REPO 文专栏")}</span>
+          <span>{t("LOVE IS EVIDENCE.")}</span>
         </div>
       </section>
     </>

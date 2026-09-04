@@ -1,3 +1,4 @@
+import { t } from "../../i18n/runtime.js";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ArrowLeft, PencilSimpleLine, X } from "@phosphor-icons/react";
 import { createPortal } from "react-dom";
@@ -78,24 +79,24 @@ export function MobileTideSheet({ community, guestbook = false, onClose, onPubli
       <div className="mobile-tide-sheet-panel">
         <header>
           <div className="mobile-tide-sheet-heading">
-            {isWriting && showComments && <button type="button" onClick={() => setWritingRequested(false)} aria-label="返回评论"><ArrowLeft size={18} /></button>}
-            <h2 id="mobile-tide-sheet-title">{guestbook ? "留一句坑底原话" : isWriting ? "写评论" : "这句的回声"}</h2>
+            {t(isWriting && showComments && <button type="button" onClick={() => setWritingRequested(false)} aria-label={t("返回评论")}><ArrowLeft size={18} /></button>)}
+            <h2 id="mobile-tide-sheet-title">{t(guestbook ? "留一句坑底原话" : isWriting ? "写评论" : "这句的回声")}</h2>
           </div>
-          <button className="dialog-close-button" type="button" onClick={onClose} aria-label={guestbook ? "关闭留言" : "关闭回声"}><X size={22} /></button>
+          <button className="dialog-close-button" type="button" onClick={onClose} aria-label={t(guestbook ? "关闭留言" : "关闭回声")}><X size={22} /></button>
         </header>
         <div className="mobile-tide-sheet-scroll" ref={scrollRef} tabIndex={!guestbook && !isWriting ? 0 : undefined}>
           {!guestbook && quote && (
             <>
-              <blockquote>{quote.text}<cite>— {quote.speaker}</cite></blockquote>
-              {showComments && <div
+              <blockquote translate="no">{quote.text}<cite>— {quote.speaker}</cite></blockquote>
+              {t(showComments && <div
                 className="mobile-tide-sheet-comments"
                 hidden={isWriting}
                 role="region"
-                aria-label="回声列表"
+                aria-label={t("回声列表")}
                 aria-busy={community.quoteCommentsState === "loading"}
               >
                 <CommunityCommentList comments={community.quoteComments} state={community.quoteCommentsState} />
-              </div>}
+              </div>)}
             </>
           )}
           <div ref={formRef} hidden={!guestbook && !isWriting}>
@@ -103,7 +104,7 @@ export function MobileTideSheet({ community, guestbook = false, onClose, onPubli
               bodyMaxLength={guestbook ? 120 : 400}
               configured={community.configured}
               footerTarget={formFooter}
-              placeholder={guestbook ? "写下一句坑底原话。" : "说点什么，接梗也行。"}
+              placeholder={t(guestbook ? "写下一句坑底原话。" : "说点什么，接梗也行。")}
               submitLabel={guestbook ? "发布原话" : "留下回声"}
               onSubmit={async ({ nickname, body }) => {
                 const result = guestbook
@@ -121,12 +122,11 @@ export function MobileTideSheet({ community, guestbook = false, onClose, onPubli
           </div>
         </div>
         <footer className="mobile-tide-sheet-form-actions" ref={setFormFooter} hidden={!guestbook && !isWriting} />
-        {!guestbook && !isWriting && <footer className="mobile-tide-sheet-reader-actions">
-          {notice && <p role="status">{notice}</p>}
+        {t(!guestbook && !isWriting && <footer className="mobile-tide-sheet-reader-actions">
+          {t(notice && <p role="status">{t(notice)}</p>)}
           <button ref={writeButtonRef} type="button" onClick={startWriting} disabled={!community.configured}>
-            <PencilSimpleLine size={18} aria-hidden="true" />写评论
-          </button>
-        </footer>}
+            <PencilSimpleLine size={18} aria-hidden="true" />{t("写评论")}</button>
+        </footer>)}
       </div>
     </dialog>,
     document.body,

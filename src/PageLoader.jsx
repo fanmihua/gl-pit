@@ -1,3 +1,4 @@
+import { t } from "./i18n/runtime.js";
 import "./page-loader.css";
 
 export function PageLoader({
@@ -11,19 +12,19 @@ export function PageLoader({
   return (
     <section className={`page-loader${className ? ` ${className}` : ""}`} aria-live="polite" aria-busy="true">
       <div className="page-loader-panel">
-        <span>{kicker}</span>
-        <strong>{label}</strong>
+        <span>{t(kicker)}</span>
+        <strong>{t(label)}</strong>
         <div
           className={`page-loader-track${normalizedProgress === null ? " is-indeterminate" : ""}`}
           role="progressbar"
-          aria-label={label}
+          aria-label={t(label)}
           aria-valuemin="0"
           aria-valuemax="100"
           aria-valuenow={normalizedProgress ?? undefined}
         >
           <i style={normalizedProgress === null ? undefined : { "--load-progress": `${normalizedProgress}%` }} />
         </div>
-        <small>{normalizedProgress === null ? "LOADING" : `${String(normalizedProgress).padStart(2, "0")}%`}</small>
+        <small>{t(normalizedProgress === null ? "LOADING" : `${String(normalizedProgress).padStart(2, "0")}%`)}</small>
       </div>
     </section>
   );

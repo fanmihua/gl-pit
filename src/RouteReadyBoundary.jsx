@@ -1,3 +1,4 @@
+import { t } from "./i18n/runtime.js";
 import { useLayoutEffect, useRef, useState } from "react";
 import { PageLoader } from "./PageLoader.jsx";
 import { firstScreenImages } from "./app/route-assets.js";
@@ -114,16 +115,16 @@ export function RouteReadyBoundary({ routeKey, kicker, label, navigation, childr
 
   return (
     <div className={`route-ready-boundary${ready ? " is-ready" : " is-loading"}`}>
-      <div className="route-ready-content" ref={contentRef}>{children}</div>
-      {ready && navigation}
-      {!ready && (
+      <div className="route-ready-content" ref={contentRef}>{t(children)}</div>
+      {t(ready && navigation)}
+      {t(!ready && (
         <PageLoader
           className="route-ready-loader"
           kicker={kicker}
           label={label}
           progress={progress}
         />
-      )}
+      ))}
     </div>
   );
 }

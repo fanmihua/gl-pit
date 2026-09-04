@@ -1,3 +1,4 @@
+import { t } from "./i18n/runtime.js";
 import { lazy } from "react";
 import columnData from "./data/column-index.json";
 import { SiteHeader } from "./SiteHeader.jsx";
@@ -15,9 +16,9 @@ export function ColumnExperience() {
   return (
     <main className="column-shell">
       <SiteHeader activePath="column" />
-      {!collection && <ColumnIndex />}
-      {collection && !article && <CollectionView collection={collection} />}
-      {collection && article && <ArticlePage collectionSlug={collection.slug} articleSlug={article.slug} />}
+      {t(!collection && <ColumnIndex />)}
+      {t(collection && !article && <CollectionView collection={collection} />)}
+      {t(collection && article && <ArticlePage collectionSlug={collection.slug} articleSlug={article.slug} />)}
     </main>
   );
 }

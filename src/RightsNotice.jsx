@@ -1,3 +1,4 @@
+import { t } from "./i18n/runtime.js";
 import { RIGHTS_SHORT_NOTICE } from "./rights.js";
 import "./rights-notice.css";
 
@@ -5,8 +6,8 @@ import "./rights-notice.css";
 export function RightsNotice({ className = "", notice = RIGHTS_SHORT_NOTICE, linkLabel = "权利说明" }) {
   return (
     <p className={`site-rights-notice ${className}`}>
-      <span>{notice}</span>
-      <a href="#/about/rights">{linkLabel}</a>
+      <span>{t(notice)}</span>
+      <a href="#/about/rights">{t(linkLabel)}</a>
     </p>
   );
 }

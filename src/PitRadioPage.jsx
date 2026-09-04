@@ -1,3 +1,5 @@
+import { t } from "./i18n/runtime.js";
+import { getLocale, trackCount } from './i18n/runtime.js';
 import { withBase } from "./lib/assets.js";
 import { useLayoutEffect, useRef, useState } from "react";
 import {
@@ -224,7 +226,7 @@ export function PitRadioPage() {
   const playerActions = (
     <div className="pit-radio-player-actions">
       <div className="pit-radio-controls">
-        <button type="button" disabled={stationTracks.length < 2} onClick={() => stepStation(-1)} aria-label="上一首歌">
+        <button type="button" disabled={stationTracks.length < 2} onClick={() => stepStation(-1)} aria-label={t("上一首歌")}>
           <SkipBack weight="fill" />
         </button>
         <button
@@ -232,11 +234,11 @@ export function PitRadioPage() {
           type="button"
           onClick={togglePlayback}
           disabled={!playerReady || !selectedTrack}
-          aria-label={!selectedTrack ? "请先选择 CP" : !needleDown ? "落针播放" : playbackPhase !== "idle" ? "暂停音乐" : "播放音乐"}
+          aria-label={t(!selectedTrack ? "请先选择 CP" : !needleDown ? "落针播放" : playbackPhase !== "idle" ? "暂停音乐" : "播放音乐")}
         >
-          {playbackPhase !== "idle" ? <Pause weight="fill" /> : <Play weight="fill" />}
+          {t(playbackPhase !== "idle" ? <Pause weight="fill" /> : <Play weight="fill" />)}
         </button>
-        <button type="button" disabled={stationTracks.length < 2} onClick={() => stepStation(1)} aria-label="下一首歌">
+        <button type="button" disabled={stationTracks.length < 2} onClick={() => stepStation(1)} aria-label={t("下一首歌")}>
           <SkipForward weight="fill" />
         </button>
       </div>
@@ -246,10 +248,10 @@ export function PitRadioPage() {
           disabled={!selectedTrack}
           onClick={toggleRepeatOne}
           aria-pressed={repeatOne}
-          aria-label={repeatOne ? "单曲循环，点击切换顺序播放" : "顺序播放，点击切换单曲循环"}
-          title={repeatOne ? "单曲循环 · 点击切换顺序播放" : "顺序播放 · 点击切换单曲循环"}
+          aria-label={t(repeatOne ? "单曲循环，点击切换顺序播放" : "顺序播放，点击切换单曲循环")}
+          title={t(repeatOne ? "单曲循环 · 点击切换顺序播放" : "顺序播放 · 点击切换单曲循环")}
         >
-          {repeatOne ? <RepeatOnce weight="bold" /> : <ListNumbers weight="bold" />}
+          {t(repeatOne ? <RepeatOnce weight="bold" /> : <ListNumbers weight="bold" />)}
         </button>
         <button
           ref={playlistToggleRef}
@@ -259,8 +261,8 @@ export function PitRadioPage() {
           aria-expanded={Boolean(selectedTrack && playlistOpen)}
           aria-controls="pit-radio-tracklist"
           aria-haspopup="dialog"
-          aria-label={playlistOpen ? "收起播放列表" : "展开播放列表"}
-          title={playlistOpen ? "收起播放列表" : "展开播放列表"}
+          aria-label={t(playlistOpen ? "收起播放列表" : "展开播放列表")}
+          title={t(playlistOpen ? "收起播放列表" : "展开播放列表")}
         >
           <Playlist weight="bold" />
         </button>
@@ -274,27 +276,26 @@ export function PitRadioPage() {
 
       <section className="pit-radio-stage" aria-labelledby="pit-radio-title">
         <div className="pit-radio-copy">
-          <h1 id="pit-radio-title" aria-label="坑底电台 PIT FM">
-            <span className="pit-radio-cn-title">坑底电台</span>
-            <span className="pit-radio-en-title"><b>PIT</b><b>FM</b></span>
+          <h1 id="pit-radio-title" aria-label={t("坑底电台 PIT FM")}>
+            <span className="pit-radio-cn-title">{t("坑底电台")}</span>
+            <span className="pit-radio-en-title"><b>{t("PIT")}</b><b>{t("FM")}</b></span>
           </h1>
-          {isMobile && <MobileRadioHelp />}
-          <p className="pit-radio-manifesto">
-            把她们放上唱片，<em>放下唱针。</em>
+          {t(isMobile && <MobileRadioHelp />)}
+          <p className="pit-radio-manifesto">{t("把她们放上唱片，")}<em>{t("放下唱针。")}</em>
           </p>
-          <p className="pit-radio-side-note">PIT RADIO<br />ON AIR 24/7</p>
+          <p className="pit-radio-side-note">{t("PIT RADIO")}<br />{t("ON AIR 24/7")}</p>
         </div>
 
-        {!isMobile && (
-          <div className="pit-radio-howto" aria-label="坑底电台玩法说明"><RadioHowToContent critical /></div>
-        )}
+        {t(!isMobile && (
+          <div className="pit-radio-howto" aria-label={t("坑底电台玩法说明")}><RadioHowToContent critical /></div>
+        ))}
 
         <div className="pit-radio-console">
           <div className="pit-radio-machine-stack">
             <img
               className="pit-radio-broadcast-card"
               src={withBase("assets/pit-radio/pit-fm-broadcast-card-v1.webp")}
-              alt="PIT FM 坑底广播卡"
+              alt={t("PIT FM 坑底广播卡")}
               decoding="async"
               data-page-critical="true"
             />
@@ -302,7 +303,7 @@ export function PitRadioPage() {
             <div
               className={`pit-radio-turntable is-${playbackPhase}${needleDown ? " has-needle-down" : ""}${tonearmDrag ? " is-dragging-tonearm" : ""}`}
               ref={turntableRef}
-              aria-label={selectedTrack ? `当前调频：${selectedTrack.cpName}，${selectedTrack.trackTitle}` : "尚未选择 CP"}
+              aria-label={t(selectedTrack ? `当前调频：${selectedTrack.cpName}，${selectedTrack.trackTitle}` : "尚未选择 CP")}
               style={{
                 "--tonearm-rest-angle": `${PIT_RADIO_GEOMETRY.tonearm.restAngle}deg`,
                 "--tonearm-play-angle": `${PIT_RADIO_GEOMETRY.tonearm.playAngle}deg`,
@@ -317,23 +318,23 @@ export function PitRadioPage() {
             >
             <div className="pit-radio-record-plane" ref={platterRef}>
               <div className="pit-radio-record-spin">
-                <div className="pit-radio-vinyl" role="img" aria-label="黑胶唱片">
+                <div className="pit-radio-vinyl" role="img" aria-label={t("黑胶唱片")}>
                   <span className="pit-radio-vinyl-texture" aria-hidden="true" />
                 </div>
-                {selectedTrack && <img
+                {t(selectedTrack && <img
                   key={selectedTrack.id}
                   className="pit-radio-center-sticker"
                   src={withBase(selectedTrack.cpArtwork)}
-                  alt={`${selectedTrack.cpName} 已贴在黑胶中央`}
+                  alt={t(`${selectedTrack.cpName} 已贴在黑胶中央`)}
                   decoding="async"
                   data-page-critical="true"
-                />}
+                />)}
               </div>
             </div>
             <img
               className="pit-radio-chassis"
               src={withBase("assets/pit-radio/turntable-chassis-record-backing-v3.webp")}
-              alt="黑色撕纸边坑底唱机"
+              alt={t("黑色撕纸边坑底唱机")}
               decoding="async"
               fetchPriority="high"
               data-page-critical="true"
@@ -342,19 +343,19 @@ export function PitRadioPage() {
 
             <div className="pit-radio-player-slot" style={playerStyle}>
               <div className={`pit-radio-player-guide${guideStep === 3 ? " is-visible" : ""}`} aria-hidden="true">
-                <span>{playbackPhase === "playing" ? "正在播放" : "接通信号中"}</span>
+                <span>{t(playbackPhase === "playing" ? "正在播放" : "接通信号中")}</span>
               </div>
-              <div className="pit-radio-player-pending" role="group" aria-label={selectedTrack ? `${selectedTrack.cpName} 歌曲播放器` : "等待选择 CP"}>
+              <div className="pit-radio-player-pending" role="group" aria-label={t(selectedTrack ? `${selectedTrack.cpName} 歌曲播放器` : "等待选择 CP")}>
                   <div className="pit-radio-track-cover">
-                    {selectedTrack && <img src={selectedTrack.cover} alt={`${selectedTrack.trackTitle} 歌曲封面`} decoding="async" fetchPriority="high" data-page-critical="true" />}
+                    {t(selectedTrack && <img src={selectedTrack.cover} alt={t(`${selectedTrack.trackTitle} 歌曲封面`)} decoding="async" fetchPriority="high" data-page-critical="true" />)}
                   </div>
                   <div className="pit-radio-track-copy">
-                    <span>{selectedTrack ? `${selectedTrack.cpName} · 第 ${stationTrackPosition} / ${stationTracks.length} 首` : "PIT FM · 等你选台"}</span>
-                    <strong>{selectedTrack?.trackTitle ?? "先选一对 CP"}</strong>
-                    <small>{!selectedTrack ? "点一下周围的贴纸" : playerError ? "播放暂不可用 · 可以重试" : needleDown ? selectedTrack.trackArtist : "点播放，唱针会自动落下"}</small>
-                    {stationTracks.length > 1 && <span className="pit-radio-switch-hint">可切换歌曲 →</span>}
+                    <span>{t(selectedTrack ? `${selectedTrack.cpName} · 第 ${stationTrackPosition} / ${stationTracks.length} 首` : "PIT FM · 等你选台")}</span>
+                    <strong translate={selectedTrack ? 'no' : undefined}>{selectedTrack ? selectedTrack.trackTitle : t('先选一对 CP')}</strong>
+                    <small>{t(!selectedTrack ? "点一下周围的贴纸" : playerError ? "播放暂不可用 · 可以重试" : needleDown ? selectedTrack.trackArtist : "点播放，唱针会自动落下")}</small>
+                    {t(stationTracks.length > 1 && <span className="pit-radio-switch-hint">{t("可切换歌曲 →")}</span>)}
                   </div>
-                  {!isMobile && playerActions}
+                  {t(!isMobile && playerActions)}
                 </div>
             </div>
             <img
@@ -368,7 +369,7 @@ export function PitRadioPage() {
             <button
               className="pit-radio-tonearm-control"
               type="button"
-              aria-label={needleDown ? "唱针已放下" : "拖动或点按唱针开始播放"}
+              aria-label={t(needleDown ? "唱针已放下" : "拖动或点按唱针开始播放")}
               disabled={!playerReady || needleDown || !selectedTrack}
               onClick={(event) => {
                 if (event.detail === 0 || !suppressNeedleClick.current) lowerNeedle();
@@ -383,7 +384,7 @@ export function PitRadioPage() {
               }}
             />
             <div className={`pit-radio-needle-guide${guideStep === 2 && !needleDown ? " is-visible" : ""}`} aria-hidden="true">
-              <p><b>02</b>点一下，开始播放<br /><span>也可以把唱针拖向唱片</span></p>
+              <p><b>02</b>{t("点一下，开始播放")}<br /><span>{t("也可以把唱针拖向唱片")}</span></p>
               <svg viewBox="0 0 110 90" role="presentation">
                 <path d="M105 79 C78 78 51 65 27 34" />
                 <path d="M32 51 L27 34 L44 38" />
@@ -391,8 +392,8 @@ export function PitRadioPage() {
             </div>
             </div>
 
-            <div className="pit-radio-stations" aria-label="选择一对 CP 调频">
-              {stations.map((station) => {
+            <div className="pit-radio-stations" aria-label={t("选择一对 CP 调频")}>
+              {t(stations.map((station) => {
                 const isDragging = drag?.stationId === station.id;
                 return (
                   <button
@@ -400,7 +401,7 @@ export function PitRadioPage() {
                     key={station.id}
                     type="button"
                     aria-pressed={selectedId === station.id}
-                    aria-label={`选择 ${station.name} 的 ${station.trackCount} 首歌曲`}
+                    aria-label={getLocale() === 'zh' ? `选择 ${station.name} 的 ${station.trackCount} 首歌曲` : t('选择 {0}，{1}', [station.name, trackCount(station.trackCount)])}
                     onPointerDown={(event) => handlePointerDown(event, station.id)}
                     onPointerMove={handlePointerMove}
                     onPointerUp={(event) => handlePointerUp(event, station.id)}
@@ -412,16 +413,16 @@ export function PitRadioPage() {
                     style={isDragging ? { "--drag-x": `${drag.x}px`, "--drag-y": `${drag.y}px` } : undefined}
                   >
                     <img src={withBase(station.sticker)} alt="" draggable="false" loading="eager" decoding="async" fetchPriority={selectedId === station.id ? "high" : "auto"} data-page-critical="true" />
-                    <span className="pit-radio-station-count" aria-hidden="true">{station.trackCount} 首歌</span>
+                    <span className="pit-radio-station-count" aria-hidden="true">{trackCount(station.trackCount)}</span>
                   </button>
                 );
-              })}
+              }))}
             </div>
           </div>
-          {isMobile && <div className="pit-radio-mobile-controls" role="group" aria-label="歌曲播放控制">{playerActions}</div>}
+          {t(isMobile && <div className="pit-radio-mobile-controls" role="group" aria-label={t("歌曲播放控制")}>{t(playerActions)}</div>)}
 
           <div className={`pit-radio-drop-label${guideStep === 1 ? " is-visible" : ""}`} aria-hidden="true">
-            <p><b>01</b>点贴纸，选她们的歌<br /><span>也可以拖入唱片</span></p>
+            <p><b>01</b>{t("点贴纸，选她们的歌")}<br /><span>{t("也可以拖入唱片")}</span></p>
             <svg className="pit-radio-drop-arrow" viewBox="0 0 100 44" role="presentation">
               <path className="pit-radio-drop-arrow-ghost" d="M3 39 C33 39 57 41 75 28 C84 22 89 14 92 5" />
               <path d="M3 37 C32 38 57 39 75 27 C84 21 89 13 92 4" />
@@ -432,9 +433,8 @@ export function PitRadioPage() {
         </div>
 
         <p className="pit-radio-source-note">
-          <span>网易云歌单音源 · 权利归原权利人</span>
-          <a className="pit-radio-playlist-link" href={neteasePlaylistUrl} target="_blank" rel="noreferrer">
-            网易云完整歌单 <ArrowSquareOut aria-hidden="true" />
+          <span>{t("网易云歌单音源 · 权利归原权利人")}</span>
+          <a className="pit-radio-playlist-link" href={neteasePlaylistUrl} target="_blank" rel="noreferrer">{t("网易云完整歌单 ")}<ArrowSquareOut aria-hidden="true" />
           </a>
         </p>
       </section>
@@ -452,17 +452,17 @@ export function PitRadioPage() {
           <header className="pit-radio-playlist-header">
             <img className="pit-radio-playlist-sticker" src={withBase(selectedStation.sticker)} alt="" />
             <div>
-              <span>播放列表 · {stationTracks.length} 首</span>
-              <h2 id="pit-radio-playlist-title">{selectedStation.name}</h2>
+              <span>{t('播放列表 · ')}{getLocale() === 'zh' ? `${stationTracks.length} 首` : trackCount(stationTracks.length)}</span>
+              <h2 id="pit-radio-playlist-title">{t(selectedStation.name)}</h2>
             </div>
-            <button className="dialog-close-button" ref={playlistCloseRef} type="button" aria-label="关闭播放列表" onClick={() => setPlaylistOpen(false)}>
+            <button className="dialog-close-button" ref={playlistCloseRef} type="button" aria-label={t("关闭播放列表")} onClick={() => setPlaylistOpen(false)}>
               <X size={22} weight="bold" />
             </button>
           </header>
           <div className="pit-radio-tracklist" key={selectedId}>
             <ol>{stationTracks.map((track, index) => <li key={track.id}>
               <button type="button" aria-current={track.id === selectedTrack.id ? "true" : undefined} onClick={() => chooseFromPlaylist(track.id)}>
-                <span>{String(index + 1).padStart(2, "0")}</span><span>{track.trackTitle}<small>{track.trackArtist}</small></span>
+                <span>{t(String(index + 1).padStart(2, "0"))}</span><span translate="no">{track.trackTitle}<small>{track.trackArtist}</small></span>
               </button>
             </li>)}</ol>
           </div>

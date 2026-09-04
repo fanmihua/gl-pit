@@ -1,3 +1,4 @@
+import { t } from "./i18n/runtime.js";
 import { useEffect, useId, useRef, useState } from "react";
 import { ArrowRight, FilmStrip, Files, ImageSquare, Pause, Play, Quotes, VinylRecord, X } from "@phosphor-icons/react";
 import { MOBILE_NAVIGATION } from "./app/mobile-navigation.js";
@@ -24,9 +25,9 @@ export function MobileSectionNav({ activePath }) {
   }, [activePath, isMobile]);
 
   return (
-    <nav className="mobile-section-nav" aria-label="栏目导航">
+    <nav className="mobile-section-nav" aria-label={t("栏目导航")}>
       <div className="mobile-section-tabs">
-        {MOBILE_NAVIGATION.map((item) => {
+        {t(MOBILE_NAVIGATION.map((item) => {
           const Icon = icons[item.id];
           const active = activePath === item.id;
           const playing = item.id === "radio" && controls.isPlaying;
@@ -40,7 +41,7 @@ export function MobileSectionNav({ activePath }) {
                 "aria-expanded": radioOpen, "aria-controls": radioPanelId,
               } : { href: item.href })}
               className={`mobile-section-tab mobile-section-tab--${item.id}${playing ? " is-playing" : ""}`}
-              aria-label={quickControls ? `${item.label}，${controls.status}，打开播放控制` : item.label}
+              aria-label={t(quickControls ? `${item.label}，${controls.status}，打开播放控制` : item.label)}
               aria-current={active ? "page" : undefined}
               onClick={() => setTap((previous) => ({ id: item.id, count: previous.count + 1 }))}
             >
@@ -50,33 +51,33 @@ export function MobileSectionNav({ activePath }) {
                   className={`mobile-tab-icon${tap.id === item.id ? " is-tapped" : ""}`}
                   aria-hidden="true"
                 ><Icon size={24} weight={active ? "fill" : "regular"} /></span>
-                <span className="mobile-tab-label">{item.shortLabel}</span>
-                {playing && <span className="mobile-tab-playing" aria-label="正在播放" />}
+                <span className="mobile-tab-label">{t(item.shortLabel)}</span>
+                {t(playing && <span className="mobile-tab-playing" aria-label={t("正在播放")} />)}
               </span>
             </Tab>
           );
-        })}
+        }))}
       </div>
       <section
         id={radioPanelId}
         ref={radioPanelRef}
         popover="auto"
         className="mobile-radio-controls"
-        aria-label="电台快捷控制"
+        aria-label={t("电台快捷控制")}
         onToggle={(event) => setRadioOpen(event.newState === "open")}
       >
         <header>
-          <span>坑底电台</span>
-          <button className="dialog-close-button" type="button" popoverTarget={radioPanelId} popoverTargetAction="hide" aria-label="关闭电台快捷控制"><X size={20} /></button>
+          <span>{t("坑底电台")}</span>
+          <button className="dialog-close-button" type="button" popoverTarget={radioPanelId} popoverTargetAction="hide" aria-label={t("关闭电台快捷控制")}><X size={20} /></button>
         </header>
-        <p className="mobile-radio-track">{selectedTrack?.trackTitle}</p>
-        <p className="mobile-radio-state" aria-live="polite">{selectedTrack?.cpName} · {controls.status}</p>
+        <p className="mobile-radio-track">{t(selectedTrack?.trackTitle)}</p>
+        <p className="mobile-radio-state" aria-live="polite">{t(selectedTrack?.cpName)} · {t(controls.status)}</p>
         <div className="mobile-radio-actions">
           <button type="button" disabled={controls.disabled} onClick={togglePlayback}>
-            {controls.canPause ? <Pause size={20} weight="fill" aria-hidden="true" /> : <Play size={20} weight="fill" aria-hidden="true" />}
-            {controls.action}
+            {t(controls.canPause ? <Pause size={20} weight="fill" aria-hidden="true" /> : <Play size={20} weight="fill" aria-hidden="true" />)}
+            {t(controls.action)}
           </button>
-          <a href="#/radio" onClick={() => radioPanelRef.current?.hidePopover()}>进入电台<ArrowRight size={18} aria-hidden="true" /></a>
+          <a href="#/radio" onClick={() => radioPanelRef.current?.hidePopover()}>{t("进入电台")}<ArrowRight size={18} aria-hidden="true" /></a>
         </div>
       </section>
     </nav>

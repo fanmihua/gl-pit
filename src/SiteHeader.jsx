@@ -1,9 +1,11 @@
+import { t } from "./i18n/runtime.js";
 import { withBase } from "./lib/assets.js";
 import { useLayoutEffect, useRef } from "react";
 import { Info } from "@phosphor-icons/react";
 import { SITE_NAVIGATION } from "./app/routes.js";
 import { SITE_LOGO } from "./app/brand.js";
 import "./site-header.css";
+import { LanguageSwitcher } from './i18n/LanguageSwitcher.jsx';
 
 
 export function SiteHeader({
@@ -29,20 +31,20 @@ export function SiteHeader({
 
   return (
     <header className={`column-header${isMemeGame ? " is-meme-game" : ""}${immersive ? " is-immersive" : ""}${dark ? " is-dark" : ""}`}>
-      <a className="brand" href="#/" aria-label="返回 glfans 首页">
+      <a className="brand" href="#/" aria-label={t("返回 glfans 首页")}>
         <img
           className="brand-logo"
           src={withBase(SITE_LOGO.src)}
           width={SITE_LOGO.width}
           height={SITE_LOGO.height}
-          alt={SITE_LOGO.alt}
+          alt={t(SITE_LOGO.alt)}
           decoding="async"
           data-page-critical="true"
         />
-        {descriptor && <span className="column-brand-descriptor">{descriptor}</span>}
+        {t(descriptor && <span className="column-brand-descriptor">{t(descriptor)}</span>)}
       </a>
-      <nav ref={navRef} className="column-header-nav" aria-label="主导航">
-        {SITE_NAVIGATION.filter((item) => (
+      <nav ref={navRef} className="column-header-nav" aria-label={t("主导航")}>
+        {t(SITE_NAVIGATION.filter((item) => (
           (showHome || item.id !== "home") && (showAbout || item.id !== "about")
         )).map((item) => (
           <a
@@ -50,21 +52,22 @@ export function SiteHeader({
             href={item.href}
             className={item.id === "about" ? "column-nav-about" : undefined}
             aria-current={activePath === item.id ? "page" : undefined}
-          >{item.label}</a>
+          >{t(item.label)}</a>
+        )))}
+        {t(extraAction && (
+          <button type="button" onClick={extraAction.onClick} aria-label={t(extraAction.ariaLabel || extraAction.label)}>
+            {t(extraAction.label)}
+          </button>
         ))}
-        {extraAction && (
-          <button type="button" onClick={extraAction.onClick} aria-label={extraAction.ariaLabel || extraAction.label}>
-            {extraAction.label}
-          </button>
-        )}
       </nav>
+      <div className="site-header-language"><LanguageSwitcher /></div>
       <div className="mobile-header-actions">
-        {extraAction && (
-          <button type="button" onClick={extraAction.onClick} aria-label={extraAction.ariaLabel || extraAction.label}>
-            {extraAction.label}
+        {t(extraAction && (
+          <button type="button" onClick={extraAction.onClick} aria-label={t(extraAction.ariaLabel || extraAction.label)}>
+            {t(extraAction.label)}
           </button>
-        )}
-        {showAbout && <a href="#/about" aria-label="关于 glfans" aria-current={activePath === "about" ? "page" : undefined}><Info size={24} weight="regular" aria-hidden="true" /></a>}
+        ))}
+        {t(showAbout && <a href="#/about" aria-label={t("关于 glfans")} aria-current={activePath === "about" ? "page" : undefined}><Info size={24} weight="regular" aria-hidden="true" /></a>)}
       </div>
     </header>
   );
