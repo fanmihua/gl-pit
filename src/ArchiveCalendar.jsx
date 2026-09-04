@@ -8,17 +8,28 @@ import { withBase } from './lib/assets.js';
 import { archiveDramas } from './data/archive-dramas.js';
 import schedule from './data/archive-schedule.json';
 import { calendarCopy } from './features/archive/calendar-copy.js';
+import { CalendarFollowControls, CalendarFollowManager } from './features/archive/CalendarFollowing.jsx';
+import { useCalendarFollowing } from './features/archive/useCalendarFollowing.js';
 import { CalendarWeek } from './features/archive/CalendarWeek.jsx';
 import { calendarDate, eventDate, eventStatus, monthDates, moveDate, weekStart } from './features/archive/calendar-model.js';
 import './archive-calendar.css';
 
 const archiveById = new Map(archiveDramas.map((item) => [item.id, item]));
+const confirmedSeriesIds = new Set(schedule.events.filter((event) => !event.needsReview).map((event) => event.seriesId));
+const followableSeries = schedule.series.filter((series) => confirmedSeriesIds.has(series.id));
 const sourcesById = new Map(schedule.series.map((item) => [item.id, item]));
 
 export function ArchiveCalendar({ onClose, returnFocus }) {
   const locale = getLocale(), copy = calendarCopy[locale];
   const mobile = useMobileLayout();
   const dialogRef = useRef(null);
+  const following = useCalendarFollowing();
+  const [managingFollowing, setManagingFollowing] = useState(false);
+  useLayoutEffect(() => {
+    if (managingFollowing) dialogRef.current?.querySelector('.calendar-scroll')?.scrollTo({ top: 0, behavior: 'instant' });
+  }, [managingFollowing]);
+  const followedIds = useMemo(() => new Set(following.seriesIds), [following.seriesIds]);
+  const noFollowedSeries = !followableSeries.some(({ id }) => followedIds.has(id));
   useLayoutEffect(() => {
     const dialog = dialogRef.current;
     const focus = returnFocus || document.activeElement;
@@ -49,12 +60,12 @@ export function ArchiveCalendar({ onClose, returnFocus }) {
   const eventsByDate = useMemo(() => {
     const result = new Map();
     for (const event of schedule.events) {
-      if (event.needsReview) continue;
+      if (event.needsReview || (following.onlyFollowing && !followedIds.has(event.seriesId))) continue;
       const date = eventDate(event, zone);
       result.set(date, [...(result.get(date) || []), event]);
     }
     return result;
-  }, [zone]);
+  }, [zone, following.onlyFollowing, followedIds]);
   const dates = monthDates(selected);
   const dayEvents = eventsByDate.get(selected) || [];
   const covered = schedule.coverage.some((range) => range.from <= selected && selected <= range.to);
@@ -89,23 +100,26 @@ export function ArchiveCalendar({ onClose, returnFocus }) {
       </div>
   );
   const firstDay = weekStart(selected);
+  const followControls = <CalendarFollowControls copy={copy} onlyFollowing={following.onlyFollowing} setOnlyFollowing={following.setOnlyFollowing}
+    managing={managingFollowing} onManage={() => setManagingFollowing((value) => !value)}
+    weekRange={mobile && !managingFollowing ? `${format(firstDay, { month: 'short', day: 'numeric' })} — ${format(moveDate(firstDay, 6), { month: 'short', day: 'numeric' })}` : null} />;
   return createPortal(<dialog className="calendar-dialog" ref={dialogRef} aria-labelledby="calendar-dialog-title"
     onCancel={(event) => { event.preventDefault(); onClose(); }} onClick={(event) => { if (event.target === event.currentTarget) onClose(); }}>
     <div className="calendar-panel">
       <header className="calendar-dialog-header"><h2 id="calendar-dialog-title" tabIndex={-1} autoFocus>{copy.title}</h2><button className="calendar-close" aria-label={copy.close} onClick={onClose}><X size={20} /></button></header>
       {mobile && <div className="calendar-content calendar-mobile-navigation">
         {toolbar}
-        <div className="calendar-week-heading">
-          <div className="calendar-week-caption"><span>{copy.weekView}</span><span>{copy.swipeWeek}</span></div>
-          <h3 aria-live="polite">{format(firstDay, { month: 'short', day: 'numeric' })} — {format(moveDate(firstDay, 6), { month: 'short', day: 'numeric' })}</h3>
-        </div>
+        {followControls}
       </div>}
       <div className="calendar-scroll">
     <div className="calendar-content">
-      {!mobile && toolbar}
-      <div className="calendar-layout">
+      {!mobile && <>{toolbar}{followControls}</>}
+      {managingFollowing ? <CalendarFollowManager copy={copy} series={followableSeries} seriesIds={following.seriesIds} toggleSeries={following.toggleSeries}
+        titleFor={titleFor} imageFor={(id) => archiveById.get(id)?.image} saveFailed={following.saveFailed} />
+        : following.onlyFollowing && noFollowedSeries ? <div className="calendar-follow-empty" role="status"><p>{copy.noFollowing}</p><button type="button" onClick={() => setManagingFollowing(true)}>{copy.chooseSeries}</button></div>
+        : <div className="calendar-layout">
         {mobile ? <CalendarWeek selected={selected} onSelect={setSelected} today={today} eventsByDate={eventsByDate}
-          copy={copy} titleFor={titleFor} episodeFor={episodeFor} timeFor={timeFor} renderDetails={mobileDetails} /> : <section className="calendar-grid" aria-label={copy.selectDate}>
+          copy={following.onlyFollowing ? { ...copy, noEntries: copy.noFollowingEntries } : copy} titleFor={titleFor} episodeFor={episodeFor} timeFor={timeFor} renderDetails={mobileDetails} /> : <section className="calendar-grid" aria-label={copy.selectDate}>
           {copy.weekdays.map((name, index) => <span className="calendar-weekday" key={index}>{name}</span>)}
           {dates.map((date) => {
             const entries = eventsByDate.get(date) || [];
@@ -139,10 +153,10 @@ export function ArchiveCalendar({ onClose, returnFocus }) {
               {archive?.summary && <p className="calendar-program-summary">{t(archive.summary)}</p>}
               <div className="calendar-program-links"><a href={event.sourceUrl} target="_blank" rel="noreferrer">{copy.more}<ArrowUpRight size={14} /></a></div>
             </article>;
-          }) : <div className="calendar-empty"><CalendarBlank size={36} weight="light" /><h3>{covered ? copy.empty : copy.emptyOutside}</h3><p>{copy.emptyNote}</p></div>}
+          }) : <div className="calendar-empty"><CalendarBlank size={36} weight="light" /><h3>{following.onlyFollowing ? copy.noFollowingEntries : covered ? copy.empty : copy.emptyOutside}</h3><p>{following.onlyFollowing ? copy.followingEmptyNote : copy.emptyNote}</p></div>}
         </section>}
-      </div>
-      {mobile ? <details className="calendar-provenance calendar-provenance-disclosure"><summary>{copy.notes}</summary>{provenance}</details> : <aside className="calendar-provenance">{provenance}</aside>}
+      </div>}
+      {!managingFollowing && (mobile ? <details className="calendar-provenance calendar-provenance-disclosure"><summary>{copy.notes}</summary>{provenance}</details> : <aside className="calendar-provenance">{provenance}</aside>)}
     </div>
       </div>
     </div>
