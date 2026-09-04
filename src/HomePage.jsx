@@ -123,7 +123,7 @@ export function HomePage() {
       </section>
 
       <section ref={eyesRef} className="pit-journey-scene pit-eyes-scene" aria-hidden={scene !== "eyes"}>
-        <p className="pit-scene-index">{t("PIT / 01")}</p>
+        <p className="pit-scene-index">{t("PIT / 02")}</p>
         <p className="pit-scene-brand">{t("glfans ARCHIVE ")}<span>⊕</span></p>
         <h2 aria-label={t("两眼一闭就是磕")}>
           <span className="eyes-title-top">{getLocale() === 'zh' ? <><i>两</i><i>眼</i><i>一</i><i>闭</i></> : <i>{t('两眼一闭')}</i>}</span>

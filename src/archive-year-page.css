@@ -483,6 +483,7 @@
 .archive-event-card:focus-visible img,
 .archive-event-card.is-active img { filter: grayscale(0.12) contrast(1.04); transform: scale(1.025); }
 .archive-event-card.is-active time { color: var(--pink); }
+.archive-event-card.is-active img { filter: none; }
 
 @media (min-width: 1101px) and (max-height: 780px) {
   .archive-year-main { padding-top: 60px; }
@@ -645,7 +646,7 @@
   .archive-year-count { flex-shrink: 0; gap: 3px; font-size: 9px; }
   .archive-year-count span:first-child { display: none; }
   .archive-year-count strong { font-size: 16px; }
-  .archive-year-details { display: flex; padding-bottom: 24px; flex-direction: column; }
+  .archive-year-details { display: flex; padding-bottom: 24px; flex-direction: column; overflow-anchor: none; }
   .archive-year-summary { display: flex; width: 100%; height: auto; min-height: 0; padding: 24px 24px 50px; }
   .archive-year-summary h2 { margin-top: 8px; font-size: 28px; white-space: normal; overflow-wrap: anywhere; }
   .archive-year-original-title { align-self: flex-start; white-space: normal; }
@@ -658,21 +659,24 @@
   .archive-year-empty { min-height: 340px; padding: 28px 22px; }
   .archive-event-browser { margin-top: 4px; padding-top: 22px; }
   .archive-event-film-track {
-    --event-card-width: clamp(160px, 44vw, 200px);
-    padding: 0 16px;
-    scroll-padding-inline: 16px;
+    --event-card-width: clamp(144px, 40vw, 180px);
+    padding: 0 calc((100% - var(--event-card-width)) / 2);
+    scroll-padding-inline: 0;
     grid-auto-columns: var(--event-card-width);
     touch-action: pan-x pan-y pinch-zoom;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
   }
-  .archive-event-card { height: auto; grid-template-rows: auto 1fr; border-width: 3px; scroll-snap-align: start; }
+  .archive-event-card { height: auto; grid-template-rows: auto 1fr; border-width: 3px; scroll-snap-align: center; }
   .archive-event-card img { height: auto; aspect-ratio: 3 / 4; }
   .archive-event-card > span { min-height: 48px; }
   .archive-event-card time { font-size: 9px; }
   .archive-event-card:hover img,
   .archive-event-card:focus-visible img,
   .archive-event-card.is-active img { transform: none; }
+  .archive-event-card:not(.is-active):not(:focus-visible) { border-color: rgba(247, 247, 244, 0.5); }
+  .archive-event-card:not(.is-active) img { filter: grayscale(1) contrast(1.14); }
+  .archive-event-card.is-active img { filter: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

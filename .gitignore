@@ -28,3 +28,6 @@ docs/tide-words-community-plan.md
 docs/archive-cast-verification.json
 tests/fixtures/
 scripts/package-brand-favicon.mjs
+
+# Local calendar maintenance notes
+docs/archive-schedule.md

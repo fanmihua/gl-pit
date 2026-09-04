@@ -2,7 +2,8 @@ import { t } from "./i18n/runtime.js";
 import { getLocale, requireCatalog } from './i18n/runtime.js';
 import { seriesName } from './i18n/proper-names.js';
 import { withBase } from "./lib/assets.js";
-import { useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { ArrowRight, CalendarBlank } from '@phosphor-icons/react';
 import { useMobileLayout } from "./hooks/useMobileLayout.js";
 import { ArchiveYearPage } from "./ArchiveYearPage.jsx";
 import { SiteHeader } from "./SiteHeader.jsx";
@@ -10,6 +11,7 @@ import { archiveDramasByYear, archiveRepresentativeIds, archiveYearList } from "
 import "./archive-page.css";
 
 const withArchivePoster = (path) => `${withBase(path)}?v=20260902-hd`;
+const ArchiveCalendar = lazy(() => import('./ArchiveCalendar.jsx').then((module) => ({ default: module.ArchiveCalendar })));
 
 const archiveYears = archiveYearList.map((year) => {
   const dramas = archiveDramasByYear[year];
@@ -27,10 +29,23 @@ const cornerRolls = [
 export function ArchivePage() {
   requireCatalog('archive');
   const [, year, eventId] = window.location.hash.replace(/^#\/?/, "").split("/");
-  return year ? <ArchiveYearPage year={year} eventId={eventId} /> : <ArchiveOverview />;
+  const [calendarOpen, setCalendarOpen] = useState(year === 'calendar');
+  const calendarTriggerRef = useRef(null);
+  useEffect(() => {
+    if (year === 'calendar') {
+      window.history.replaceState(null, '', '#/archive');
+      setCalendarOpen(true);
+    }
+  }, [year]);
+  const openCalendar = (event) => { calendarTriggerRef.current = event.currentTarget; setCalendarOpen(true); };
+  // Each year starts a fresh reel, including its scroll position and drag state.
+  return <>
+    {year && year !== 'calendar' ? <ArchiveYearPage key={year} year={year} eventId={eventId} onOpenCalendar={openCalendar} /> : <ArchiveOverview onOpenCalendar={openCalendar} />}
+    <Suspense fallback={null}>{calendarOpen && <ArchiveCalendar onClose={() => setCalendarOpen(false)} returnFocus={calendarTriggerRef.current} />}</Suspense>
+  </>;
 }
 
-function ArchiveOverview() {
+function ArchiveOverview({ onOpenCalendar }) {
   const isMobile = useMobileLayout();
   const [activeIndex, setActiveIndex] = useState(2);
   const activeIndexRef = useRef(2);
@@ -207,7 +222,9 @@ function ArchiveOverview() {
             </span>
             <strong>{t("PIT ARCHIVE")}</strong>
           </h1>
-          <p><span>{t("拖动胶卷，翻出那些")}</span><em>{t("心动时刻")}</em><span>。</span></p>
+          <button className="archive-calendar-entry" type="button" aria-haspopup="dialog" onClick={onOpenCalendar}>
+            <CalendarBlank size={18} aria-hidden="true" />{t('查看播出日历')}<ArrowRight size={18} aria-hidden="true" />
+          </button>
         </header>
 
         <div className="archive-film-heading">

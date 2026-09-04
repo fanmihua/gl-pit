@@ -24,7 +24,7 @@
 .language-menu button[aria-checked="true"]:hover { background: #ffacd2; }
 .language-menu button:focus-visible, .language-trigger:focus-visible { outline: 2px solid #090909; outline-offset: -2px; }
 .language-switcher-status { position: absolute; z-index: 200; top: 100%; right: 0; width: max-content; max-width: 240px; padding: 8px 12px; color: #090909; background: #f7f7f4; border: 1px solid #dededb; font-size: 12px; line-height: 1.5; }
-.language-switcher--home { position: fixed; z-index: 100; top: max(12px, env(safe-area-inset-top)); right: 24px; padding: 0 4px; background: #f7f7f4; }
+.language-switcher--home { position: fixed; z-index: 100; top: max(12px, env(safe-area-inset-top)); right: 24px; padding: 0 4px; background: transparent; }
 
 html:lang(th) { --headline: 'Noto Sans Thai Variable', sans-serif; --display: 'Noto Sans Thai Variable', sans-serif; --hero-black: 'Noto Sans Thai Variable', sans-serif; }
 html:lang(th) :is(h1,h2,h3,h4,p,span,button,a,dt,dd,label,input,textarea,select,strong,small,i,b,em,blockquote,li,td,th,cite) { font-family: 'Noto Sans Thai Variable', 'Manrope Variable', sans-serif; }

@@ -35,6 +35,7 @@ glfans 是一个正在慢慢挖的泰百小网页。
 现在打开网页，能看到几条已经挖通的路：
 
 - **考古档案**：从 2022 年开始，按首播年份翻泰国 GL 剧集胶卷，看看播出时间、剧情、演员和平台；
+- **播出日历**：从档案标题下的黑色入口打开，桌面看月历，手机左右滑动周历；每天直接列出剧名、集数与时间，点开可以看封面和介绍。只展示已公布日期，状态随时间更新；中文使用北京时间，英文与泰语使用泰国时间；
 - **坑底文学**：看词频潮汐，翻坑底人留下的原话，点个心动、接一句评论，也可以留下一句自己的原话；
 - **Repo 文专栏**：从证据目录进入合集，再一路读到单篇图文档案；
 - **来捡表情包**：按住拍立得快门，等表情包出片、显影，再横向翻相纸，下载或重拍；
@@ -73,6 +74,8 @@ node --test tests/*.test.mjs
 ```
 
 点赞与评论使用 Supabase。需要连接自己的项目时，按 `.env.example` 配置公开连接参数，数据库迁移位于 `supabase/migrations/`。不要将私密密钥放进浏览器配置。线上页面由 GitHub Pages 自动构建发布。
+
+日历数据保存在 `src/data/archive-schedule.json`。维护时运行 `npm run sync:schedule` 拉取公开排期，`npm run test:schedule` 校验规则，`npm run stats:schedule` 生成本地日期与状态统计。同步失败会保留原数据，日期冲突的记录隐藏待核实；不按总集数推算未知播出日期。数据来自 [GL Spotlight](https://glspotlight.com/airing) 和 [TVmaze](https://www.tvmaze.com/api)，来源及许可见 [NOTICE](NOTICE)。数据修改需重新构建发布，定期检查本身不会自动更新线上站点。
 
 ### 坑底公约
 
@@ -115,6 +118,7 @@ What will this place eventually become? We haven’t figured that out. We’ll k
 `PIT STATUS: Home intro, GL Archive, Quotes, REPO, MEME PIT and Pit Radio are live`
 
 - **GL Archive**: Browse Thai GL series by premiere year, starting in 2022. Explore film strips with airing dates, stories, casts and platforms.
+- **Airing calendar**: Open it from the black button below the archive heading. Browse a month on desktop or swipe between weeks on mobile, with titles, episode numbers and times listed by date. Expand an entry for its poster and introduction. Only published dates appear; statuses follow the schedule. Chinese uses Beijing time; English and Thai use Thailand time.
 - **Voices from the Pit**: Watch the word-frequency tide, read fans’ original quotes, leave a like or reply, or share a quote of your own.
 - **REPO**: Follow the evidence index into collections and illustrated essays.
 - **Meme Camera**: Press the instant-camera shutter, watch a meme print and develop, then swipe through your photos to download or retake one.
@@ -155,6 +159,8 @@ node --test tests/*.test.mjs
 ```
 
 Likes and comments use Supabase. To connect your own project, configure the public connection settings in `.env.example`; database migrations are in `supabase/migrations/`. Never put private keys in browser configuration. GitHub Pages builds and publishes the live site automatically.
+
+Calendar data lives in `src/data/archive-schedule.json`. Run `npm run sync:schedule` to fetch public schedules, `npm run test:schedule` to validate the rules, and `npm run stats:schedule` for local date and status statistics. Failed fetches retain existing data; conflicting dates stay hidden for review. Unknown dates are never generated from episode totals. Sources are [GL Spotlight](https://glspotlight.com/airing) and [TVmaze](https://www.tvmaze.com/api); see [NOTICE](NOTICE) for attribution and licensing. Data changes require a new build and deployment; periodic checks alone do not publish them.
 
 ### Ground rules down here
 
@@ -197,6 +203,7 @@ glfans คือเว็บเล็ก ๆ ของแฟนซีรีส�
 `PIT STATUS: หน้าเปิดตัว คลังซีรีส์ เสียงจากด้อม REPO MEME PIT และวิทยุประจำด้อม พร้อมให้สำรวจแล้ว`
 
 - **คลังซีรีส์ GL**: ย้อนดูซีรีส์ GL ไทยตามปีที่เริ่มออกอากาศ ตั้งแต่ปี 2022 ผ่านแถบฟิล์ม พร้อมวันออกอากาศ เรื่องย่อ นักแสดง และช่องทางรับชม
+- **ปฏิทินออกอากาศ**: เปิดจากปุ่มสีดำใต้หัวข้อคลังซีรีส์ เดสก์ท็อปแสดงรายเดือน ส่วนมือถือปัดซ้ายขวาเพื่อเปลี่ยนสัปดาห์ แต่ละวันแสดงชื่อซีรีส์ ตอน และเวลา แตะเพื่อดูภาพและเรื่องย่อ แสดงเฉพาะวันที่ประกาศแล้วและปรับสถานะตามกำหนด ภาษาจีนใช้เวลาปักกิ่ง ภาษาอังกฤษและไทยใช้เวลาไทย
 - **เสียงจากด้อม**: ดูคลื่นความถี่ของคำ อ่านข้อความต้นฉบับจากชาวด้อม กดถูกใจ ตอบกลับ หรือฝากข้อความของตัวเอง
 - **บทความ REPO**: เปิดคลังหลักฐาน เลือกรวมบทความ แล้วอ่านรีวิวและเรื่องเล่าพร้อมภาพทีละเรื่อง
 - **กล้องสุ่มมีม**: กดชัตเตอร์กล้องอินสแตนต์ รอมีมพิมพ์ออกมาและภาพค่อย ๆ ชัด จากนั้นเลื่อนดูรูปเพื่อดาวน์โหลดหรือถ่ายใหม่
@@ -237,6 +244,8 @@ node --test tests/*.test.mjs
 ```
 
 การกดถูกใจและความคิดเห็นใช้ Supabase หากต้องการเชื่อมต่อโปรเจกต์ของตัวเอง ให้ตั้งค่าการเชื่อมต่อสาธารณะตาม `.env.example` ไฟล์ย้ายโครงสร้างฐานข้อมูลอยู่ใน `supabase/migrations/` ห้ามใส่คีย์ส่วนตัวในค่าที่ส่งไปยังเบราว์เซอร์ เว็บไซต์จริงสร้างและเผยแพร่อัตโนมัติผ่าน GitHub Pages
+
+ข้อมูลปฏิทินอยู่ใน `src/data/archive-schedule.json` ใช้ `npm run sync:schedule` เพื่อดึงกำหนดการสาธารณะ, `npm run test:schedule` เพื่อตรวจสอบกฎ และ `npm run stats:schedule` เพื่อสร้างสถิติวันที่และสถานะบนเครื่อง หากดึงข้อมูลไม่สำเร็จจะเก็บข้อมูลเดิมไว้ วันที่ที่ขัดแย้งกันจะซ่อนระหว่างรอตรวจสอบ และไม่คำนวณวันที่ที่ยังไม่ทราบจากจำนวนตอน แหล่งข้อมูลคือ [GL Spotlight](https://glspotlight.com/airing) และ [TVmaze](https://www.tvmaze.com/api) ดูที่มาและใบอนุญาตใน [NOTICE](NOTICE) การแก้ข้อมูลต้องสร้างและเผยแพร่เว็บใหม่ การตรวจสอบเป็นระยะไม่ได้เผยแพร่ข้อมูลขึ้นเว็บโดยอัตโนมัติ
 
 ### กติกาชาวด้อม
 

@@ -2,6 +2,7 @@ import { t } from "./i18n/runtime.js";
 import { seriesName } from './i18n/proper-names.js';
 import { getLocale, requireCatalog } from './i18n/runtime.js';
 import { withBase } from "./lib/assets.js";
+import { ArrowRight, CalendarBlank } from '@phosphor-icons/react';
 import { useEffect, useRef } from "react";
 import { useMobileLayout } from "./hooks/useMobileLayout.js";
 import { SiteHeader } from "./SiteHeader.jsx";
@@ -12,18 +13,23 @@ import "./archive-year-page.css";
 
 const withArchivePoster = (path) => `${withBase(path)}?v=20260902-hd`;
 
-export function ArchiveYearPage({ year, eventId }) {
+export function ArchiveYearPage({ year, eventId, onOpenCalendar }) {
   requireCatalog('archive');
   const { yearEvents, hasArchiveEvents, selectedEvent, selectedIndex, selectEvent } = useArchiveSelection(year, eventId);
   const isMobile = useMobileLayout();
   const filmRef = useRef(null);
   const lastScrollAtRef = useRef(-Infinity);
+  const scrollSelectionRef = useRef(null);
+  const horizontalIntentRef = useRef(false);
+  const userScrolledFilmRef = useRef(false);
+  const revealedDetailsRef = useRef(false);
   const filmDragRef = useRef({ active: false, startX: 0, startY: 0, startScroll: 0, moved: false, nativeTouch: false });
 
   const startFilmDrag = (event) => {
     const track = filmRef.current;
     if (!track || !event.isPrimary || event.button !== 0) return;
     const nativeTouch = isMobile && event.pointerType !== "mouse";
+    horizontalIntentRef.current = false;
     filmDragRef.current = {
       active: true, startX: event.clientX, startY: event.clientY,
       startScroll: track.scrollLeft, nativeTouch,
@@ -38,6 +44,9 @@ export function ArchiveYearPage({ year, eventId }) {
     const track = filmRef.current;
     if (!track || !filmDragRef.current.active) return;
     const delta = event.clientX - filmDragRef.current.startX;
+    if (Math.abs(delta) > 6 && Math.abs(delta) > Math.abs(event.clientY - filmDragRef.current.startY)) {
+      horizontalIntentRef.current = true;
+    }
     if (Math.hypot(delta, event.clientY - filmDragRef.current.startY) > 6) filmDragRef.current.moved = true;
     if (filmDragRef.current.nativeTouch) return;
     track.scrollLeft = filmDragRef.current.startScroll - delta;
@@ -60,6 +69,9 @@ export function ArchiveYearPage({ year, eventId }) {
   };
 
   const cancelFilmDrag = (event) => {
+    // Native panning cancels pointer events. Only an actual film scroll below
+    // will turn this intent into a request to reveal details.
+    if (filmDragRef.current.nativeTouch) horizontalIntentRef.current = true;
     filmDragRef.current.active = false;
     filmDragRef.current.moved = true;
     const track = filmRef.current;
@@ -70,17 +82,80 @@ export function ArchiveYearPage({ year, eventId }) {
   // A selected deep link or year change should reveal its card without moving the page.
   useEffect(() => {
     if (!isMobile) return;
+    // A settled swipe already positioned the card. Do not restart its scrolling.
+    if (scrollSelectionRef.current === selectedEvent?.id) {
+      scrollSelectionRef.current = null;
+      return;
+    }
     const track = filmRef.current;
     const card = track?.querySelector(".archive-event-card.is-active");
     if (!track || !card) return;
     const frame = requestAnimationFrame(() => {
       track.scrollTo({
-        left: track.scrollLeft + card.getBoundingClientRect().left - track.getBoundingClientRect().left - 16,
+        left: track.scrollLeft + card.getBoundingClientRect().left + card.getBoundingClientRect().width / 2
+          - track.getBoundingClientRect().left - track.clientWidth / 2,
         behavior: "instant",
       });
     });
     return () => cancelAnimationFrame(frame);
   }, [isMobile, year, selectedEvent?.id]);
+
+  // On mobile, let scrolling and snap finish before selecting the centered frame.
+  useEffect(() => {
+    if (!isMobile) return;
+    const track = filmRef.current;
+    if (!track) return;
+    let settleTimer;
+    let hasScrolled = false;
+    const selectCenteredCard = () => {
+      if (!hasScrolled) return;
+      if (filmDragRef.current.active && !filmDragRef.current.nativeTouch) return;
+      clearTimeout(settleTimer);
+      hasScrolled = false;
+      const center = track.getBoundingClientRect().left + track.clientWidth / 2;
+      const cards = [...track.querySelectorAll('.archive-event-card')];
+      const card = cards.reduce((nearest, candidate) => {
+        const distance = (item) => {
+          const rect = item.getBoundingClientRect();
+          return Math.abs(rect.left + rect.width / 2 - center);
+        };
+        return !nearest || distance(candidate) < distance(nearest) ? candidate : nearest;
+      }, null);
+      const next = yearEvents.find((item) => item.id === card?.dataset.eventId);
+      if (next && next.id !== selectedEvent?.id) {
+        scrollSelectionRef.current = next.id;
+        selectEvent(next);
+      }
+      if (userScrolledFilmRef.current && !revealedDetailsRef.current) {
+        revealedDetailsRef.current = true;
+        const headerHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--mobile-header-height')) || 46;
+        const offset = track.closest('.archive-event-browser').getBoundingClientRect().top - headerHeight - 12;
+        // Only move down, once per year; never pull someone back up from reading.
+        if (offset > 8) window.scrollBy({
+          top: offset,
+          behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+        });
+      }
+    };
+    const scheduleSelection = (event) => {
+      if (event.type === 'scroll') hasScrolled = true;
+      if (!hasScrolled) return;
+      if (event.type === 'scroll' && horizontalIntentRef.current) userScrolledFilmRef.current = true;
+      clearTimeout(settleTimer);
+      settleTimer = setTimeout(selectCenteredCard, 140);
+    };
+    track.addEventListener('scroll', scheduleSelection, { passive: true });
+    track.addEventListener('scrollend', selectCenteredCard);
+    track.addEventListener('pointerup', scheduleSelection);
+    track.addEventListener('pointercancel', scheduleSelection);
+    return () => {
+      clearTimeout(settleTimer);
+      track.removeEventListener('scroll', scheduleSelection);
+      track.removeEventListener('scrollend', selectCenteredCard);
+      track.removeEventListener('pointerup', scheduleSelection);
+      track.removeEventListener('pointercancel', scheduleSelection);
+    };
+  }, [isMobile, yearEvents, selectedEvent?.id, selectEvent]);
 
   const preview = hasArchiveEvents && (
     <figure
@@ -158,7 +233,9 @@ export function ArchiveYearPage({ year, eventId }) {
               </span>
               <strong>{t("YEAR ARCHIVE")}</strong>
             </h1>
-            <p className="archive-year-tag">{t("拖动剧集胶卷，看看这年")}<span>{t("播了什么")}</span>。</p>
+            <button className="archive-year-tag archive-calendar-entry" type="button" aria-haspopup="dialog" onClick={onOpenCalendar}>
+              <CalendarBlank size={18} aria-hidden="true" />{t('查看播出日历')}<ArrowRight size={18} aria-hidden="true" />
+            </button>
           </header>
 
           {t(hasArchiveEvents ? !isMobile && (
@@ -210,6 +287,11 @@ export function ArchiveYearPage({ year, eventId }) {
               onPointerUp={endFilmDrag}
               onPointerCancel={cancelFilmDrag}
               onScroll={() => { lastScrollAtRef.current = performance.now(); }}
+              onWheel={(event) => {
+                if (Math.abs(event.deltaX) > 4 || (event.shiftKey && Math.abs(event.deltaY) > 4)) {
+                  horizontalIntentRef.current = true;
+                }
+              }}
             >
               {t(yearEvents.map((event) => (
                 <button
@@ -220,6 +302,7 @@ export function ArchiveYearPage({ year, eventId }) {
                     filmDragRef.current.moved = false;
                   }}
                   aria-pressed={selectedEvent.id === event.id}
+                  aria-label={`${t(formatArchiveDate(event.startDate))} ${seriesName(event, getLocale())}`}
                   data-event-id={event.id}
                   key={event.id}
                 >

@@ -4,6 +4,13 @@
   background: var(--paper);
 }
 
+.archive-calendar-entry { display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:44px; padding:10px 20px; color:#fff; background:#090909; border:0; box-shadow:none; font-family:inherit; font-size:13px; font-weight:700; cursor:pointer; transform:rotate(-1.4deg); }
+.archive-calendar-entry svg { flex-shrink:0; }
+.archive-calendar-entry svg:last-child { color:var(--pink); }
+.archive-calendar-entry:hover { color:var(--pink); }
+.archive-calendar-entry:focus-visible { outline:2px solid var(--pink); outline-offset:5px; }
+@media(max-width:760px) { .archive-calendar-entry { font-size:12px; } }
+
 .archive-stage {
   position: relative;
   display: grid;
@@ -124,26 +131,7 @@
   transform-origin: left center;
 }
 
-.archive-masthead p {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  width: fit-content;
-  margin: 22px auto 0;
-  min-height: 40px;
-  padding: 10px 24px 9px;
-  align-items: center;
-  color: #fff;
-  font-size: clamp(13px, 1vw, 16px);
-  font-weight: var(--text-weight-regular);
-  letter-spacing: 0.04em;
-  background: #090909;
-  transform: rotate(-1.4deg);
-}
-
-.archive-masthead p em { color: var(--pink); font-style: normal; font-weight: var(--text-weight-strong); }
-.archive-masthead p span,
-.archive-masthead p em { position: relative; z-index: 1; top: -2px; }
+.archive-masthead .archive-calendar-entry { position:relative; z-index:2; margin:22px auto 0; }
 
 .archive-title-doodles { position: absolute; z-index: 4; inset: 0; pointer-events: none; }
 .archive-doodle-image { position: absolute; display: block; height: auto; object-fit: contain; }
@@ -384,17 +372,17 @@
   .archive-page { min-height: 0; }
   .archive-stage {
     min-height: calc(100dvh - var(--mobile-nav-space, 90px) + 40px);
-    padding: calc(var(--mobile-header-height, 46px) + 176px) 0 0;
+    padding: calc(var(--mobile-header-height, 46px) + 158px) 0 0;
     grid-template-rows: auto minmax(auto, 1fr) auto;
   }
   .archive-corner-collages { position: absolute; inset: 0; pointer-events: none; }
-  .archive-stage::before { top: 100px; font-size: 29vw; }
-  .archive-masthead { width: calc(100vw - 44px); padding-top: 0; transform: translateY(-46px); }
-  .archive-masthead h1 > span { font-size: clamp(66px, 21vw, 94px); }
-  .archive-masthead h1 strong { font-size: clamp(32px, 10.5vw, 46px); }
-  .archive-masthead p { margin-top: 18px; font-size: 10px; }
-  .archive-corner-card-1 { top: 58px; left: -50px; width: 150px; opacity: 0.82; }
-  .archive-corner-card-2 { top: 62px; right: -48px; width: 148px; opacity: 0.82; transform: rotate(5deg) scale(.85); }
+  .archive-stage::before { top: 100px; font-size: 27vw; }
+  .archive-masthead { width: calc(100vw - 60px); padding-top: 0; transform: translateY(-46px); }
+  .archive-masthead h1 > span { font-size: clamp(61px, 19.3vw, 86px); }
+  .archive-masthead h1 strong { font-size: clamp(30px, 9.7vw, 42px); }
+  .archive-masthead .archive-calendar-entry { margin-top:16px; padding-inline:16px; gap:8px; font-size:11px; }
+  .archive-corner-card-1 { top: 58px; left: -50px; width: 138px; opacity: 0.82; }
+  .archive-corner-card-2 { top: 62px; right: -48px; width: 136px; opacity: 0.82; transform: rotate(5deg) scale(.85); }
   .archive-film-heading { width: calc(100% - 36px); margin-bottom: 10px; align-self: end; transform: translateY(-14px); }
   .archive-film-heading > p { gap: 7px; }
   .archive-film-heading > p span { display: none; }
@@ -414,9 +402,9 @@
   .archive-film-frame { height: auto; aspect-ratio: 3 / 4; }
   .archive-year-stamp { top: 0; bottom: auto; width: 68%; padding: 34px 16px 15px; }
   .archive-year-stamp strong { font-size: 48px; }
-  .archive-doodle-loop { top: 31%; left: -1%; width: 34px; }
-  .archive-doodle-accent { top: 17%; right: -1%; width: 30px; }
-  .archive-doodle-heart-one { top: 64%; right: 1%; width: 24px; height: 24px; }
+  .archive-doodle-loop { top: 31%; left: -1%; width: 31px; }
+  .archive-doodle-accent { top: 17%; right: -1%; width: 28px; }
+  .archive-doodle-heart-one { top: 64%; right: 1%; width: 22px; height: 22px; }
   .archive-doodle-heart-two { display: none; }
 }
 

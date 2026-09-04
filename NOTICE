@@ -20,3 +20,14 @@ https://github.com/fanmihua/glfans/issues/new?template=rights-feedback.yml
 
 Please identify the exact page and material at issue. Do not post identity
 documents or other sensitive personal information in a public issue.
+
+Airing calendar data:
+Public schedule references include GL Spotlight (https://glspotlight.com/airing).
+Supplementary episode records are adapted from the TVmaze public API
+(https://www.tvmaze.com/api) under CC BY-SA 4.0:
+https://creativecommons.org/licenses/by-sa/4.0/
+TVmaze-derived records in src/data/archive-schedule.json retain this license.
+Changes include field normalization, date/time validation, and merging with
+other schedule records. Each record retains source links; TVmaze attribution
+also appears in the calendar. This data license does not replace the license
+for unrelated site code or third-party media.

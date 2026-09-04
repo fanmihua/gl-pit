@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { archiveDramasByYear } from "../../data/archive-dramas.js";
 
 function updateArchiveUrl(year, eventId) {
@@ -21,10 +21,10 @@ export function useArchiveSelection(year, eventId) {
   const selectedEvent = yearEvents.find((event) => event.id === selectedId) || initialEvent;
   const selectedIndex = Math.max(0, yearEvents.findIndex((event) => event.id === selectedEvent?.id));
 
-  const selectEvent = (event) => {
+  const selectEvent = useCallback((event) => {
     setSelectedId(event.id);
     updateArchiveUrl(year, event.id);
-  };
+  }, [year]);
 
   return { yearEvents, hasArchiveEvents, selectedEvent, selectedIndex, selectEvent };
 }
