@@ -1,4 +1,5 @@
 import { t } from "../../i18n/runtime.js";
+import { communityText } from '../../i18n/community-copy.js';
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ArrowLeft, PencilSimpleLine, X } from "@phosphor-icons/react";
 import { createPortal } from "react-dom";
@@ -87,7 +88,7 @@ export function MobileTideSheet({ community, guestbook = false, onClose, onPubli
         <div className="mobile-tide-sheet-scroll" ref={scrollRef} tabIndex={!guestbook && !isWriting ? 0 : undefined}>
           {!guestbook && quote && (
             <>
-              <blockquote translate="no">{quote.text}<cite>— {quote.speaker}</cite></blockquote>
+              <blockquote>{communityText(quote.text)}<cite translate="no">— {quote.speaker === '匿名坑底人' ? t(quote.speaker) : quote.speaker}</cite></blockquote>
               {t(showComments && <div
                 className="mobile-tide-sheet-comments"
                 hidden={isWriting}

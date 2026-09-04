@@ -1,0 +1,65 @@
+import { getLocale } from './runtime.js';
+
+// Fixed display translations for the public content present on 2026-09-04.
+// Match the full original text, never an ID: edited/new submissions fall back to
+// their source wording. Originals, authors and interaction records stay intact.
+export const communityCopy = {
+  en: {
+    '这次真的不一样。': 'This time really is different.',
+    '两眼一睁就是磕。': 'Eyes open. Back to shipping.',
+    '正主虚情热演，粉丝假意上头。': 'The stars perform affection; the fans play along, acting swept away.',
+    '卖得专业就打赏，惹怒粉丝就换推。': 'Serve good fanservice and I’ll support you. Upset the fans and I’ll find a new fave.',
+    '只是售后，入坑三月都懂。': 'It’s just post-show fanservice. Three months in the fandom and you know.',
+    '可以嗑，但不要嗑得那么执着。': 'Ship them, sure. Just don’t get too attached.',
+    '每对 CP 在自己 CP 粉眼中都是真情侣。': 'Every ship is a real couple in its own fans’ eyes.',
+    '在别家 CP 粉眼里都一眼假。': 'Fans of other ships can tell it’s fake at a glance.',
+    '路过的狗都得说一句好配。': 'Even a passing dog would say they look good together.',
+    '谁家 CP 这么好磕？哦，原来是我家的。': 'Whose ship is this irresistible? Oh, right. Mine.',
+    '般配，已经说累了。': 'They’re perfect together. I’m tired of saying it.',
+    '剧外也是一种浪漫。': 'There’s romance beyond the screen, too.',
+    '我不入蛊谁入蛊？': 'If I don’t fall under their spell, who will?',
+    '滞后磕 CP 就是爽。': 'Joining a ship late is the best.',
+    '早期的糖也是糖。': 'Old sweet moments are still sweet.',
+    '只是同事？只是姐妹？谈了两年了？': 'Just coworkers? Just sisters? Dating for two years already?',
+    '谁嗑谁上头。': 'Whoever ships them gets hooked.',
+    '现实比剧本会写。': 'Real life writes a better script.',
+    '这里可以投稿，也可以在别人的卡片下接着聊。': 'Share a quote, or join the conversation under someone else’s card.',
+    '剧可以完结，我的脑补不行': 'The series can end. My imagination can’t.',
+    '测试': 'Test',
+    '当当都一样': '“Dangdang”—it’s all the same.',
+    '献上七字箴言': 'Here are seven characters of wisdom.',
+    '我懂': 'I get it', '救命': 'Help!', '真的': 'Really', '感动': 'Moved',
+    '支持': 'Support', '想你': 'Miss you', '朋友': 'Friends', 'CP': 'CP', '喜欢': 'Love',
+  },
+  th: {
+    '这次真的不一样。': 'ครั้งนี้ไม่เหมือนเดิมจริง ๆ',
+    '两眼一睁就是磕。': 'ลืมตาปุ๊บ ก็จิ้นปั๊บ',
+    '正主虚情热演，粉丝假意上头。': 'ศิลปินแสดงความหวาน แฟนคลับก็เล่นตาม ทำเป็นอินสุดใจ',
+    '卖得专业就打赏，惹怒粉丝就换推。': 'ขายเคมีเก่งก็พร้อมเปย์ ทำแฟนโกรธก็เปลี่ยนเมน',
+    '只是售后，入坑三月都懂。': 'ก็แค่แฟนเซอร์วิสหลังซีรีส์จบ อยู่ด้อมสามเดือนก็รู้แล้ว',
+    '可以嗑，但不要嗑得那么执着。': 'จิ้นได้ แต่อย่ายึดติดขนาดนั้นเลย',
+    '每对 CP 在自己 CP 粉眼中都是真情侣。': 'ในสายตาแฟนคู่จิ้น ทุกคู่ก็คือแฟนกันจริง ๆ',
+    '在别家 CP 粉眼里都一眼假。': 'แต่แฟนคู่จิ้นบ้านอื่นมองแวบเดียวก็ว่าไม่จริง',
+    '路过的狗都得说一句好配。': 'ขนาดหมาเดินผ่านยังต้องบอกว่าเหมาะกัน',
+    '谁家 CP 这么好磕？哦，原来是我家的。': 'คู่จิ้นบ้านไหนน่าจิ้นขนาดนี้? อ๋อ บ้านฉันเอง',
+    '般配，已经说累了。': 'เหมาะกัน พูดจนเหนื่อยแล้ว',
+    '剧外也是一种浪漫。': 'นอกจอก็มีความโรแมนติกเหมือนกัน',
+    '我不入蛊谁入蛊？': 'ถ้าฉันไม่หลงมนต์ แล้วใครจะหลง?',
+    '滞后磕 CP 就是爽。': 'มาจิ้นทีหลังนี่มันฟินจริง ๆ',
+    '早期的糖也是糖。': 'โมเมนต์หวานเก่า ๆ ก็ยังหวานอยู่ดี',
+    '只是同事？只是姐妹？谈了两年了？': 'แค่เพื่อนร่วมงาน? แค่พี่น้อง? คบกันมาสองปีแล้วเหรอ?',
+    '谁嗑谁上头。': 'ใครจิ้นก็ถอนตัวไม่ขึ้น',
+    '现实比剧本会写。': 'ชีวิตจริงเขียนเรื่องเก่งกว่าบทละครอีก',
+    '这里可以投稿，也可以在别人的卡片下接着聊。': 'ส่งข้อความของคุณ หรือคุยต่อใต้การ์ดของคนอื่นได้ที่นี่',
+    '剧可以完结，我的脑补不行': 'ซีรีส์จบได้ แต่จินตนาการของฉันจบไม่ได้',
+    '测试': 'ทดสอบ',
+    '当当都一样': '“ตังตัง” ก็เหมือนกันหมด',
+    '献上七字箴言': 'ขอมอบข้อคิดเจ็ดตัวอักษร',
+    '我懂': 'เข้าใจ', '救命': 'ช่วยด้วย', '真的': 'จริง ๆ', '感动': 'ซึ้ง',
+    '支持': 'สนับสนุน', '想你': 'คิดถึง', '朋友': 'เพื่อน', 'CP': 'คู่จิ้น', '喜欢': 'ชอบ',
+  },
+};
+
+export function communityText(source, locale = getLocale()) {
+  return communityCopy[locale]?.[source] ?? source;
+}

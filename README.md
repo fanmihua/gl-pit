@@ -47,7 +47,7 @@ glfans 是一个正在慢慢挖的泰百小网页。
 
 ### 三种语言，一份内容
 
-界面、栏目说明、剧集简介和 REPO 正文支持中文、英文与泰语；收录原话、网友评论、歌曲名称、署名及原始图片中的文字保留原文。网站自制操作说明（例如电台「怎么玩」）使用无字底图叠加可翻译文字。手机顶栏使用「中 / EN / TH」分段切换，桌面使用完整语言名下拉菜单，失焦自动关闭。切换不离开当前页面，也不重建播放和表单状态。
+界面、栏目说明、剧集简介和 REPO 正文支持中文、英文与泰语。坑底文学现有原话、评论和图表词语也有固定英泰译文，仅切换显示，不覆盖原始数据；不接入持续自动翻译，未收录译文的新增或修改内容先显示原文。歌曲名称、署名、REPO 内引用及原始图片中的文字保留原文。网站自制操作说明（例如电台「怎么玩」）使用无字底图叠加可翻译文字。手机顶栏使用「中 / EN / TH」分段切换，桌面使用完整语言名下拉菜单，失焦自动关闭。切换不离开当前页面，也不重建播放和表单状态。
 
 译文保存在 `src/i18n/`，访客不需要连接翻译服务。正文按需加载，长篇译文目前仍是需要持续校对的辅助译稿。专名优先采用制作方或发行平台写法，来源记录在 `src/i18n/proper-names.js`；尚未核实的专名保留来源写法，不编造泰语译名。
 
@@ -127,7 +127,7 @@ The music can keep playing as you move between sections. Different pit, same flu
 
 ### Three languages, one shared collection
 
-The interface, section introductions, series descriptions and REPO essays are available in Chinese, English and Thai. Collected quotes, visitor comments, song titles, author names and text inside original media keep their source wording. Site-made instructions, such as the radio’s “How to play”, use a text-free background with a translated text layer.
+The interface, section introductions, series descriptions and REPO essays are available in Chinese, English and Thai. Existing community quotes, comments and chart words also have saved English and Thai translations for display, without overwriting source data. There is no ongoing automatic translation: new or edited posts without a matching translation keep their original wording. Song titles, author names, quotations within REPO essays and text inside original media remain unchanged. Site-made instructions, such as the radio’s “How to play”, use a text-free background with a translated text layer.
 
 Phones use the compact **中 / EN / TH** switcher; desktop uses full language names in a dropdown that closes when focus leaves. Switching keeps the current page, playback state and unfinished form input.
 
@@ -209,7 +209,7 @@ glfans คือเว็บเล็ก ๆ ของแฟนซีรีส�
 
 ### สามภาษา เนื้อหาชุดเดียวกัน
 
-ส่วนติดต่อผู้ใช้ คำแนะนำแต่ละหมวด เรื่องย่อซีรีส์ และเนื้อหาบทความ REPO มีภาษาจีน อังกฤษ และไทย ข้อความที่รวบรวมไว้ ความคิดเห็นของผู้เยี่ยมชม ชื่อเพลง ชื่อผู้เขียน และข้อความในสื่อต้นฉบับยังคงใช้ภาษาต้นทาง ส่วนคำแนะนำที่เว็บทำเอง เช่น “วิธีเล่น” ของวิทยุ ใช้พื้นหลังที่ไม่มีตัวหนังสือ แล้วซ้อนข้อความตามภาษาที่เลือก
+ส่วนติดต่อผู้ใช้ คำแนะนำแต่ละหมวด เรื่องย่อซีรีส์ และเนื้อหาบทความ REPO มีภาษาจีน อังกฤษ และไทย ข้อความ ความคิดเห็น และคำในกราฟที่มีอยู่ในหมวดเสียงจากด้อมมีคำแปลอังกฤษและไทยที่บันทึกไว้สำหรับแสดงผล โดยไม่เขียนทับข้อมูลต้นฉบับ ไม่มีบริการแปลอัตโนมัติต่อเนื่อง ข้อความใหม่หรือข้อความที่แก้ไขแล้วแต่ยังไม่มีคำแปลจะใช้ภาษาต้นทาง ชื่อเพลง ชื่อผู้เขียน ข้อความอ้างอิงในบทความ REPO และข้อความในสื่อต้นฉบับยังคงเดิม ส่วนคำแนะนำที่เว็บทำเอง เช่น “วิธีเล่น” ของวิทยุ ใช้พื้นหลังที่ไม่มีตัวหนังสือ แล้วซ้อนข้อความตามภาษาที่เลือก
 
 มือถือใช้ปุ่มย่อ **中 / EN / TH** ส่วนเดสก์ท็อปใช้เมนูชื่อภาษาเต็ม ซึ่งจะปิดเมื่อโฟกัสออกจากเมนู การเปลี่ยนภาษาไม่พาออกจากหน้าปัจจุบัน ไม่เริ่มสถานะการเล่นเพลงใหม่ และไม่ล้างข้อความที่กำลังกรอก
 

@@ -195,7 +195,7 @@ export function HomePage() {
           <span>{t("Love")}</span><span>{t("is not a feeling.")}</span><span>{t("It's Evidence.")}</span>
           <img src={withBase("assets/repo-handdrawn-heart-pink.webp")} alt="" />
         </aside>
-        <h2><span>{t("欢迎来到")}</span><strong>{t("坑底")}</strong><i>。</i></h2>
+        <h2><span>{t("欢迎来到")}</span><strong>{t("坑底")}</strong>{getLocale() === 'zh' && <i>。</i>}</h2>
         <div className="welcome-collage" ref={welcomeCollageRef}>
           <WelcomeOrbitCurves mobileOrbit={mobileWelcomeOrbit} desktopOrbit={desktopWelcomeOrbit} />
           <p className="welcome-proof">{t("心动不是感觉，是证据。")}</p>

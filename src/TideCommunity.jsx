@@ -1,5 +1,6 @@
 import { t, reactionLabel } from "./i18n/runtime.js";
 import { getDateLocale } from './i18n/runtime.js';
+import { communityText } from './i18n/community-copy.js';
 import {
   ChatCircleDots,
   Eye,
@@ -88,10 +89,10 @@ export function CommunityCommentList({ comments, state }) {
       {comments.map((comment) => (
         <li key={comment.id}>
           <header>
-            <strong translate="no">{comment.nickname}</strong>
+            <strong translate="no">{comment.nickname === '匿名坑底人' ? t(comment.nickname) : comment.nickname}</strong>
             <time dateTime={comment.created_at}>{new Intl.DateTimeFormat(getDateLocale(), { month: getDateLocale() === 'zh-CN' ? 'numeric' : 'short', day: 'numeric' }).format(new Date(comment.created_at))}</time>
           </header>
-          <p translate="no">{comment.body}</p>
+          <p>{communityText(comment.body)}</p>
         </li>
       ))}
     </ol>
@@ -222,8 +223,8 @@ export function QuoteCommentModal({ community }) {
           </button>
         </header>
         <div className="quote-comment-featured">
-          <blockquote id="quote-comment-title" translate="no">{composerQuote.text}</blockquote>
-          <small translate="no">— {composerQuote.speaker}</small>
+          <blockquote id="quote-comment-title">{communityText(composerQuote.text)}</blockquote>
+          <small translate="no">— {composerQuote.speaker === '匿名坑底人' ? t(composerQuote.speaker) : composerQuote.speaker}</small>
         </div>
         <CommunityCommentForm
           autoFocusBody

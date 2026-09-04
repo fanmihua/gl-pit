@@ -1,5 +1,6 @@
 import { t, reactionLabel } from "./i18n/runtime.js";
 import { getLocale } from './i18n/runtime.js';
+import { communityText } from './i18n/community-copy.js';
 import {
   ChatCircleDots,
   CrownSimple,
@@ -98,7 +99,8 @@ function EvidenceCard({
   onPointerUp,
   stats,
 }) {
-  const copyLength = Array.from(item.text).length;
+  const displayText = communityText(item.text);
+  const copyLength = Array.from(displayText).length;
   const copySize = copyLength <= 9 ? "short-copy" : copyLength >= 16 ? "long-copy" : "medium-copy";
 
   return (
@@ -118,14 +120,14 @@ function EvidenceCard({
         type="button"
         onClick={onOpen}
         aria-expanded={isExpanded}
-        aria-label={t(stats.comments > 0 ? `${isExpanded ? "收起" : "展开"}评论：${item.text}` : `评论：${item.text}`)}
+        aria-label={stats.comments > 0 ? t(isExpanded ? '收起评论：{0}' : '展开评论：{0}', [displayText]) : t('评论：{0}', [displayText])}
       />
       {t(item.is_pinned ? <span className="words-repo-pinned-label"><PushPin weight="fill" aria-hidden="true" />{t("站主置顶")}</span> : null)}
       <div className="words-repo-quote-copy">
         <Quotes aria-hidden="true" weight="fill" />
-        <blockquote translate="no">{item.text}</blockquote>
+        <blockquote>{displayText}</blockquote>
         <footer>
-          <strong translate="no">— {item.speaker}</strong>
+          <strong translate="no">— {item.speaker === '匿名坑底人' ? t(item.speaker) : item.speaker}</strong>
         </footer>
       </div>
       <div className="words-repo-card-actions">
@@ -143,7 +145,7 @@ function EvidenceCard({
         <button
           className="words-repo-card-meta"
           type="button"
-          aria-label={t(stats.comments == null ? "查看评论，统计加载中" : stats.comments > 0 ? `${isExpanded ? "收起" : "展开"}${stats.comments} 条评论` : "留下第一条评论")}
+          aria-label={stats.comments == null ? t('查看评论，统计加载中') : stats.comments > 0 ? t(isExpanded ? '收起{0} 条评论' : '展开{0} 条评论', [stats.comments]) : t('留下第一条评论')}
           onClick={onCommentClick}
         >
           <ChatCircleDots weight="bold" aria-hidden="true" />
@@ -154,7 +156,7 @@ function EvidenceCard({
         <button
           className="words-repo-drag-handle"
           type="button"
-          aria-label={t(`移动卡片：${item.text}`)}
+          aria-label={t(`移动卡片：${displayText}`)}
           aria-grabbed={isDragging}
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
@@ -462,7 +464,7 @@ function FrequencyFlow({ isMobile }) {
           >
             <span className="words-flow-node" aria-hidden="true" />
             <b>
-              <span translate="no" lang="zh-CN">{word.name}</span>
+              <span>{communityText(word.name)}</span>
               <small aria-label={t(`，词频 ${word.value}`)}>/ {t(word.value)}</small>
             </b>
           </div>

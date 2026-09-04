@@ -34,7 +34,7 @@ html:not(:lang(zh)) .column-header-nav { min-width: 0; gap: clamp(12px, 1.5vw, 2
 html:not(:lang(zh)) .column-header-nav a { letter-spacing: .01em; line-height: 1.5; white-space: nowrap; }
 html:not(:lang(zh)) :is(.pit-home-proof,.eyes-proof,.welcome-proof,.about-pullquote,.pit-radio-manifesto) { max-width: 100%; width: fit-content; white-space: normal; line-height: 1.5; letter-spacing: 0; }
 html:not(:lang(zh)) .pit-home-copy h1 { letter-spacing: -.045em; line-height: 1.05; }
-html:not(:lang(zh)) .home-title-row { font-size: clamp(48px, 6.7vw, 112px); white-space: normal; }
+html:not(:lang(zh)) .home-title-row { font-size: clamp(48px, 6.7vw, 112px); white-space: normal; line-height: 1.2; }
 html:not(:lang(zh)) .home-title-row-two { margin-top: .1em; font-size: clamp(44px, 6.2vw, 104px); }
 html:not(:lang(zh)) .home-title-row i { transform: rotate(-2deg); }
 html:not(:lang(zh)) .pit-eyes-scene h2 { max-width: 80vw; line-height: 1.15; letter-spacing: -.045em; font-size: clamp(64px, 8vw, 140px); }
@@ -80,6 +80,14 @@ html:not(:lang(zh)) .words-tide-title-line.is-black { font-size: clamp(72px, 7.2
 html:not(:lang(zh)) .words-tide-title-line.is-pink { font-size: clamp(42px, 4.5vw, 86px); }
 html:not(:lang(zh)) .words-tide-title-line i { letter-spacing: -.025em; transform: rotate(-2deg); line-height: 1.25; }
 html:not(:lang(zh)) .words-repo-pinned-label { white-space: normal; line-height: 1.5; }
+html:not(:lang(zh)) .words-repo-quote-card blockquote { letter-spacing: 0; line-height: 1.55; text-wrap: pretty; overflow-wrap: break-word; }
+html:not(:lang(zh)) .community-comment-list p { overflow-wrap: anywhere; line-height: 1.65; }
+@media (min-width: 761px) {
+  html:not(:lang(zh)) .words-tide-intro h1 { flex-direction: column; align-items: flex-start; gap: 6px; }
+  html:not(:lang(zh)) .words-repo-quote-card { height: auto; grid-template-rows: minmax(var(--card-base-height), auto); }
+  html:not(:lang(zh)) .words-repo-quote-card.is-expanded { grid-template-rows: minmax(var(--card-base-height), auto) auto; }
+  html:not(:lang(zh)) .words-repo-quote-copy { min-height: var(--card-base-height); }
+}
 html:not(:lang(zh)) .community-comment-form-footer { gap: 12px; flex-wrap: wrap; }
 html:not(:lang(zh)) .community-comment-form-footer button { min-height: 44px; white-space: normal; line-height: 1.5; }
 html:not(:lang(zh)) .community-comment-form-footer > span { min-width: 0; line-height: 1.5; }
@@ -126,7 +134,7 @@ html:not(:lang(zh)) .meme-game-tagline { max-width: 100%; white-space: normal; l
   html:not(:lang(zh)) .mobile-tab-label { font-size: 11px; line-height: 1.5; letter-spacing: 0; white-space: normal; text-align: center; }
   html:not(:lang(zh)) .pit-home-copy { top: 82px; width: calc(100% - 40px); left: 20px; }
   html:not(:lang(zh)) .home-title-row { font-size: clamp(36px, 11vw, 60px); justify-content: center; line-height: 1.15; }
-  html:not(:lang(zh)) .home-title-row-two { font-size: clamp(35px, 10.6vw, 58px); margin-top: 0; }
+  html:not(:lang(zh)) .home-title-row-two { font-size: clamp(35px, 10.6vw, 58px); margin-top: .14em; }
   html:not(:lang(zh)) .pit-home-proof { margin: 14px auto 0; font-size: 12px; padding: 6px 10px; }
   html:not(:lang(zh)) .pit-home-meta { max-width: calc(100vw - 36px); font-size: 10px; }
   html:not(:lang(zh)) .pit-eyes-scene h2 { width: calc(100% - 40px); max-width: none; font-size: clamp(40px, 11vw, 66px); }
@@ -162,4 +170,41 @@ html:not(:lang(zh)) .meme-game-tagline { max-width: 100%; white-space: normal; l
   html:not(:lang(zh)) .about-copy p { font-size: 14px; }
   html:not(:lang(zh)) .about-pullquote { font-size: 16px; }
   html:not(:lang(zh)) .meme-game-tagline { font-size: 15px; }
+}
+
+/* Translated phrases must not inherit Chinese per-character collage tracking.
+   Reset the actual text wrappers too: several spans/i have their own tracking. */
+html:not(:lang(zh)) .app-shell :is(h1, h2, h3),
+html:not(:lang(zh)) .app-shell :is(h1, h2, h3) :is(span, i, b, strong, em),
+html:not(:lang(zh)) .collection-title-paper .localized-collection-title,
+html:not(:lang(zh)) .pit-eyes-scene .eyes-title-top,
+html:not(:lang(zh)) .collection-collage + .article-index .article-index-heading h2,
+html:not(:lang(zh)) .collection-collage + .article-index .article-card .article-card-title,
+html:not(:lang(zh)) .collection-collage + .article-index .article-card .article-card-title :is(strong, small) {
+  letter-spacing: normal;
+  word-spacing: normal;
+}
+html:not(:lang(zh)) .app-shell :is(h1, h2, h3) { overflow-wrap: break-word; }
+html:lang(th) .app-shell :is(h1, h2, h3),
+html:lang(th) .app-shell :is(h1, h2, h3) :is(span, i, b, strong, em) {
+  line-height: 1.4;
+}
+html:not(:lang(zh)) .pit-eyes-scene .eyes-title-top { font-size: 1em; white-space: normal; }
+html:not(:lang(zh)) .pit-eyes-scene h2 strong { margin-left: 0; }
+html:not(:lang(zh)) .pit-welcome-scene h2 i { font-size: 1em; }
+html:not(:lang(zh)) .collection-collage + .article-index .article-index-heading h2 {
+  font-size: clamp(32px, 5vw, 72px);
+  line-height: 1.4;
+}
+html:not(:lang(zh)) .collection-collage + .article-index .article-card .article-card-title {
+  font-size: clamp(19px, 2vw, 30px);
+  line-height: 1.4;
+}
+html:not(:lang(zh)) .collection-collage + .article-index .article-card .article-card-title :is(strong, small) {
+  white-space: normal;
+  line-height: 1.4;
+}
+@media (max-width: 760px) {
+  html:not(:lang(zh)) .pit-welcome-scene h2 { left: 20px; width: calc(100% - 40px); }
+  html:not(:lang(zh)) .collection-collage + .article-index .article-card .article-card-title { font-size: 16px; }
 }

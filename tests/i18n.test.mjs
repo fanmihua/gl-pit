@@ -4,6 +4,8 @@ import test from 'node:test';
 import { registerCatalog, translate, LOCALES, readPreferredLocale, reactionLabel } from '../src/i18n/runtime.js';
 import { editorial } from '../src/i18n/editorial.js';
 import { verifiedSeries, seriesName, localizeCast } from '../src/i18n/proper-names.js';
+import { communityCopy, communityText } from '../src/i18n/community-copy.js';
+import { collectedQuotes } from '../src/data/tide-words.js';
 
 const read = file => fs.readFileSync(new URL(file, import.meta.url), 'utf8');
 const catalogs = Object.fromEntries(['en', 'th'].map(locale => [locale, Object.fromEntries(['ui', 'article', 'archive'].map(kind => [kind, JSON.parse(read(`../src/i18n/${locale}-${kind}.json`))]))]));
@@ -63,10 +65,10 @@ test('Public article prose is covered without changing original XML or media', (
   assert.deepEqual(missing, []);
 });
 
-test('Original community content and music titles bypass translation', () => {
-  assert.match(read('../src/WordsTideLab.jsx'), /<blockquote translate="no">\{item\.text\}<\/blockquote>/);
-  assert.match(read('../src/TideCommunity.jsx'), /<p translate="no">\{comment\.body\}<\/p>/);
-  assert.match(read('../src/features/community/MobileTideSheet.jsx'), /<blockquote translate="no">\{quote\.text\}/);
+test('Community uses display translations while music and article quotations keep originals', () => {
+  assert.match(read('../src/WordsTideLab.jsx'), /const displayText = communityText\(item.text\)/);
+  assert.match(read('../src/TideCommunity.jsx'), /<p>\{communityText\(comment.body\)\}<\/p>/);
+  assert.match(read('../src/features/community/MobileTideSheet.jsx'), /<blockquote>\{communityText\(quote.text\)\}/);
   assert.match(read('../src/PitRadioPage.jsx'), /selectedTrack \? selectedTrack\.trackTitle : t\(/);
   assert.match(read('../src/features/column/ArticleDocument.jsx'), /closest\('blockquote, quote'\)/);
 });
@@ -122,7 +124,29 @@ test('Radio instruction artwork has a separate localized heading and text-free t
   const component = read('../src/features/radio/RadioHowTo.jsx');
   assert.match(component, /how-to-paper-blank\.webp/);
   assert.match(component, /<h2 className="pit-radio-howto-title">\{t\("怎么玩"\)\}<\/h2>/);
-  assert.match(read('../src/WordsTideLab.jsx'), /<span translate="no" lang="zh-CN">\{word.name\}<\/span>/);
+  assert.match(read('../src/WordsTideLab.jsx'), /<span>\{communityText\(word.name\)\}<\/span>/);
+});
+
+test('All existing community copy is translated; new or edited posts retain their originals', () => {
+  const existing = [
+    ...collectedQuotes.map(quote => quote.text),
+    '这里可以投稿，也可以在别人的卡片下接着聊。', '剧可以完结，我的脑补不行',
+    '测试', '当当都一样', '献上七字箴言',
+    '我懂', '救命', '真的', '感动', '支持', '想你', '朋友', 'CP', '喜欢',
+  ];
+  assert.deepEqual(Object.keys(communityCopy.en).sort(), Object.keys(communityCopy.th).sort());
+  for (const text of existing) {
+    assert.equal(communityText(text, 'zh'), text);
+    for (const locale of ['en', 'th']) {
+      assert.ok(communityCopy[locale][text]);
+      assert.doesNotMatch(communityText(text, locale), /\p{Script=Han}/u);
+    }
+  }
+  for (const locale of ['zh', 'en', 'th']) {
+    assert.equal(communityText('刚刚新发布的内容', locale), '刚刚新发布的内容');
+    assert.equal(communityText('这次真的不一样。后来补了一句', locale), '这次真的不一样。后来补了一句');
+    assert.equal(communityText('范米花儿 × Conceal', locale), '范米花儿 × Conceal');
+  }
 });
 
 test('Collection card title fragments and remaining cast names are localized', () => {
@@ -133,6 +157,29 @@ test('Collection card title fragments and remaining cast names are localized', (
     assert.doesNotMatch(localizeCast('维罗妮卡·帕加诺（饰 Sita）', locale), /\p{Script=Han}/u);
   }
   assert.match(read('../src/features/column/ArticleDocument.jsx'), /alt=\{t\(imageDescription\)\}/);
+});
+
+test('Localized heading wrappers reset Chinese collage tracking and allow long card titles to wrap', () => {
+  const css = read('../src/i18n/localized-layout.css');
+  assert.match(css, /html:not\(:lang\(zh\)\) \.app-shell :is\(h1, h2, h3\) :is\(span, i, b, strong, em\)/);
+  assert.match(css, /letter-spacing: normal;\s*word-spacing: normal;/);
+  assert.match(css, /\.home-title-row-two \{[^}]*margin-top: \.14em/);
+  assert.match(css, /html:lang\(th\) \.app-shell :is\(h1, h2, h3\)[\s\S]*?line-height: 1\.4/);
+  assert.match(css, /\.article-card-title :is\(strong, small\) \{\s*white-space: normal;/);
+});
+
+test('Community reply labels translate their action as well as the fixed display quote', () => {
+  for (const locale of ['en', 'th']) {
+    const quote = communityText('这次真的不一样。', locale);
+    for (const action of ['展开评论：{0}', '收起评论：{0}']) {
+      const label = translate(action, locale, [quote]);
+      assert.ok(label.includes(quote));
+      assert.doesNotMatch(label, /\p{Script=Han}|\{\d+\}/u);
+    }
+    for (const action of ['展开{0} 条评论', '收起{0} 条评论']) {
+      assert.doesNotMatch(translate(action, locale, [2]), /\p{Script=Han}|\{\d+\}/u);
+    }
+  }
 });
 
 test('Compact language controls keep mobile hit areas and article back is icon-only', () => {
