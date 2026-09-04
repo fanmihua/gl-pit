@@ -50,3 +50,19 @@ export function scheduleStats(events, now = Date.now(), timeZone = 'Asia/Bangkok
   return { generatedAt: new Date(now).toISOString(), timeZone, totals,
     dates: [...dates.values()].sort((a, b) => a.date.localeCompare(b.date)).map(({ seriesIds, ...row }) => ({ ...row, series: seriesIds.size })) };
 }
+
+// Count distinct shows, not episode entries. Build this from the same filtered,
+// localized date map rendered by the calendar, so Following and midnight dates
+// cannot disagree with month navigation.
+export function calendarMonthAvailability(eventsByDate) {
+  const months = new Map();
+  for (const [date, events] of eventsByDate) {
+    if (!events.length) continue;
+    const month = date.slice(0, 7);
+    const entry = months.get(month) || { seriesIds: new Set(), firstDate: date };
+    for (const event of events) entry.seriesIds.add(event.seriesId);
+    if (date < entry.firstDate) entry.firstDate = date;
+    months.set(month, entry);
+  }
+  return new Map([...months].map(([month, { seriesIds, firstDate }]) => [month, { count: seriesIds.size, firstDate }]));
+}

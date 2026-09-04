@@ -1,22 +1,30 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { X, ArrowUpRight, CaretLeft, CaretRight, CalendarBlank } from '@phosphor-icons/react';
+import { X, ArrowUpRight, CaretLeft, CaretRight, CaretDown, CalendarBlank } from '@phosphor-icons/react';
 import { getLocale, getDateLocale, t } from './i18n/runtime.js';
 import { seriesName } from './i18n/proper-names.js';
 import { useMobileLayout } from './hooks/useMobileLayout.js';
 import { withBase } from './lib/assets.js';
 import { archiveDramas } from './data/archive-dramas.js';
-import schedule from './data/archive-schedule.json';
+import currentSchedule from './data/archive-schedule.json';
+import history from './data/archive-history.json';
+import { mergeCalendarData } from './features/archive/calendar-data.js';
+import { CalendarPeriodPicker } from './features/archive/CalendarPeriodPicker.jsx';
 import { calendarCopy } from './features/archive/calendar-copy.js';
 import { CalendarFollowControls, CalendarFollowManager } from './features/archive/CalendarFollowing.jsx';
 import { useCalendarFollowing } from './features/archive/useCalendarFollowing.js';
 import { CalendarWeek } from './features/archive/CalendarWeek.jsx';
-import { calendarDate, eventDate, eventStatus, monthDates, moveDate, weekStart } from './features/archive/calendar-model.js';
+import { calendarDate, calendarMonthAvailability, eventDate, eventStatus, monthDates, moveDate, weekStart } from './features/archive/calendar-model.js';
 import './archive-calendar.css';
 
+const schedule = mergeCalendarData(history, currentSchedule);
 const archiveById = new Map(archiveDramas.map((item) => [item.id, item]));
 const confirmedSeriesIds = new Set(schedule.events.filter((event) => !event.needsReview).map((event) => event.seriesId));
-const followableSeries = schedule.series.filter((series) => confirmedSeriesIds.has(series.id));
+const followableSeries = schedule.series.filter((series) => confirmedSeriesIds.has(series.id)).map((series) => {
+  const archive = archiveById.get(series.id);
+  return { ...series, year: archive?.year || series.premiereDate?.slice(0, 4),
+    searchText: [archive?.title, archive?.titleEn, ...(archive?.cast || []).map((person) => typeof person === 'string' ? person : Object.values(person).join(' '))].join(' ') };
+});
 const sourcesById = new Map(schedule.series.map((item) => [item.id, item]));
 
 export function ArchiveCalendar({ onClose, returnFocus }) {
@@ -25,9 +33,12 @@ export function ArchiveCalendar({ onClose, returnFocus }) {
   const dialogRef = useRef(null);
   const following = useCalendarFollowing();
   const [managingFollowing, setManagingFollowing] = useState(false);
+  const [choosingPeriod, setChoosingPeriod] = useState(false);
+  const [pickerYear, setPickerYear] = useState(new Date().getFullYear());
+  const periodRef = useRef(null);
   useLayoutEffect(() => {
-    if (managingFollowing) dialogRef.current?.querySelector('.calendar-scroll')?.scrollTo({ top: 0, behavior: 'instant' });
-  }, [managingFollowing]);
+    if (managingFollowing || choosingPeriod) dialogRef.current?.querySelector('.calendar-scroll')?.scrollTo({ top: 0, behavior: 'instant' });
+  }, [managingFollowing, choosingPeriod]);
   const followedIds = useMemo(() => new Set(following.seriesIds), [following.seriesIds]);
   const noFollowedSeries = !followableSeries.some(({ id }) => followedIds.has(id));
   useLayoutEffect(() => {
@@ -66,26 +77,30 @@ export function ArchiveCalendar({ onClose, returnFocus }) {
     }
     return result;
   }, [zone, following.onlyFollowing, followedIds]);
+  const monthAvailability = useMemo(() => calendarMonthAvailability(eventsByDate), [eventsByDate]);
+  const calendarYears = [...new Set([...archiveDramas.map((item) => Number(item.year)), Number(today.slice(0, 4)), Number(selected.slice(0, 4)),
+    ...schedule.events.map((event) => Number(event.date.slice(0, 4)))])].sort((a, b) => a - b);
   const dates = monthDates(selected);
   const dayEvents = eventsByDate.get(selected) || [];
   const covered = schedule.coverage.some((range) => range.from <= selected && selected <= range.to);
   const format = (date, options) => new Intl.DateTimeFormat(getDateLocale(), { timeZone: 'UTC', ...options }).format(new Date(`${date}T12:00:00Z`));
   const titleFor = (id) => archiveById.has(id) ? seriesName(archiveById.get(id), locale) : sourcesById.get(id)?.name || id;
   const episodeFor = (event) => event.episode ? (locale === 'zh' ? `第 ${event.episode} 集` : locale === 'th' ? `ตอนที่ ${event.episode}` : `EP. ${String(event.episode).padStart(2, '0')}`) : copy.premiere;
-  const timeFor = (event) => event.airsAt ? new Intl.DateTimeFormat(getDateLocale(), { timeZone: zone, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date(event.airsAt)) : copy.timeUnknown;
+  const timeFor = (event) => event.airsAt ? new Intl.DateTimeFormat(getDateLocale(), { timeZone: zone, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date(event.airsAt)) : eventStatus(event, now) === 'aired' ? copy.timeUnrecorded : copy.timeUnknown;
   const navigateMonth = (direction) => {
     const date = new Date(`${selected.slice(0, 7)}-01T12:00:00Z`);
     date.setUTCMonth(date.getUTCMonth() + direction);
     setSelected(date.toISOString().slice(0, 10));
+    setChoosingPeriod(false);
   };
-  const provenance = <><p>{copy.notice}</p><p><a href="https://glspotlight.com/airing" target="_blank" rel="noreferrer">{copy.sourceName}</a><a href="https://www.tvmaze.com" target="_blank" rel="noreferrer">TVmaze</a><span>{copy.checked}：{new Intl.DateTimeFormat(getDateLocale(), { timeZone: zone, dateStyle: 'medium', timeStyle: 'short' }).format(new Date(schedule.checkedAt))}</span></p>{now - Date.parse(schedule.checkedAt) > 8 * 86400000 && <strong>{copy.stale}</strong>}</>;
+  const provenance = <><p>{copy.notice}</p><p><a href="https://glspotlight.com/airing" target="_blank" rel="noreferrer">{copy.sourceName}</a><a href="https://www.tvmaze.com" target="_blank" rel="noreferrer">TVmaze</a><span>{copy.checked}：{new Intl.DateTimeFormat(getDateLocale(), { timeZone: zone, dateStyle: 'medium', timeStyle: 'short' }).format(new Date(schedule.checkedAt))}</span><span>{copy.historyChecked}：{format(schedule.historyCheckedAt.slice(0, 10), { year: 'numeric', month: 'short', day: 'numeric' })}</span></p>{now - Date.parse(schedule.checkedAt) > 8 * 86400000 && <strong>{copy.stale}</strong>}</>;
   const mobileDetails = (event) => {
     const series = sourcesById.get(event.seriesId), archive = archiveById.get(event.seriesId);
     return <>
       <div className="calendar-week-detail-header">
         {archive?.image && <img className="calendar-week-poster" src={withBase(archive.image)} alt={titleFor(event.seriesId)} loading="lazy" />}
         <div><span className="calendar-week-status">{copy[eventStatus(event, now)]}</span>
-          {series?.network && <p className="calendar-week-facts">{copy.network} · {series.network}</p>}
+          {(event.network || series?.network) && <p className="calendar-week-facts">{copy.network} · {event.network || series.network}</p>}
           {!!series?.platforms.length && <p className="calendar-week-facts">{copy.availability} · {series.platforms.join(' / ')}</p>}
         </div>
       </div>
@@ -95,14 +110,20 @@ export function ArchiveCalendar({ onClose, returnFocus }) {
   };
   const toolbar = (
     <div className="calendar-toolbar">
-        <div className="calendar-period"><button onClick={() => navigateMonth(-1)} aria-label={copy.previous}><CaretLeft size={20} /></button><h2>{format(selected, { year: 'numeric', month: 'long' })}</h2><button onClick={() => navigateMonth(1)} aria-label={copy.next}><CaretRight size={20} /></button><button className="calendar-today" onClick={() => setSelected(today)}>{copy.today}</button></div>
+        <div className="calendar-period"><button onClick={() => navigateMonth(-1)} aria-label={copy.previous}><CaretLeft size={20} /></button><h2><button className="calendar-period-title" ref={periodRef} aria-label={`${format(selected, { year: 'numeric', month: 'long' })} · ${copy.chooseMonth}`} aria-expanded={choosingPeriod} onClick={() => {
+          setPickerYear(Number(selected.slice(0, 4))); setChoosingPeriod((value) => !value); setManagingFollowing(false);
+        }}>{format(selected, { year: 'numeric', month: mobile && locale !== 'zh' ? 'short' : 'long' })}<CaretDown size={12} aria-hidden="true" /></button></h2><button onClick={() => navigateMonth(1)} aria-label={copy.next}><CaretRight size={20} /></button><button className="calendar-today" onClick={() => { setSelected(today); setChoosingPeriod(false); }}>{copy.today}</button></div>
         {locale === 'en' && <span className="calendar-timezone-note">Thailand time · UTC+7</span>}
       </div>
   );
   const firstDay = weekStart(selected);
   const followControls = <CalendarFollowControls copy={copy} onlyFollowing={following.onlyFollowing} setOnlyFollowing={following.setOnlyFollowing}
-    managing={managingFollowing} onManage={() => setManagingFollowing((value) => !value)}
-    weekRange={mobile && !managingFollowing ? `${format(firstDay, { month: 'short', day: 'numeric' })} — ${format(moveDate(firstDay, 6), { month: 'short', day: 'numeric' })}` : null} />;
+    managing={managingFollowing} onManage={() => {
+      setChoosingPeriod(false);
+      if (managingFollowing) following.setOnlyFollowing(true);
+      setManagingFollowing((value) => !value);
+    }}
+    weekRange={mobile && !managingFollowing && !choosingPeriod ? `${format(firstDay, { month: 'short', day: 'numeric' })} — ${format(moveDate(firstDay, 6), { month: 'short', day: 'numeric' })}` : null} />;
   return createPortal(<dialog className="calendar-dialog" ref={dialogRef} aria-labelledby="calendar-dialog-title"
     onCancel={(event) => { event.preventDefault(); onClose(); }} onClick={(event) => { if (event.target === event.currentTarget) onClose(); }}>
     <div className="calendar-panel">
@@ -114,7 +135,9 @@ export function ArchiveCalendar({ onClose, returnFocus }) {
       <div className="calendar-scroll">
     <div className="calendar-content">
       {!mobile && <>{toolbar}{followControls}</>}
-      {managingFollowing ? <CalendarFollowManager copy={copy} series={followableSeries} seriesIds={following.seriesIds} toggleSeries={following.toggleSeries}
+      {choosingPeriod ? <CalendarPeriodPicker selected={selected} year={pickerYear} years={calendarYears} onYearChange={setPickerYear} copy={copy} format={format} availability={monthAvailability}
+        onSelect={(date) => { setSelected(date); setChoosingPeriod(false); requestAnimationFrame(() => periodRef.current?.focus({ preventScroll: true })); }} />
+        : managingFollowing ? <CalendarFollowManager copy={copy} series={followableSeries} seriesIds={following.seriesIds} toggleSeries={following.toggleSeries}
         titleFor={titleFor} imageFor={(id) => archiveById.get(id)?.image} saveFailed={following.saveFailed} />
         : following.onlyFollowing && noFollowedSeries ? <div className="calendar-follow-empty" role="status"><p>{copy.noFollowing}</p><button type="button" onClick={() => setManagingFollowing(true)}>{copy.chooseSeries}</button></div>
         : <div className="calendar-layout">
@@ -145,7 +168,7 @@ export function ArchiveCalendar({ onClose, returnFocus }) {
               <div className="calendar-program-body">
                 {archive?.image && <img src={withBase(archive.image)} alt="" loading="lazy" />}
                 <div><span className="calendar-episode">{episodeFor(event)}</span><h3>{titleFor(event.seriesId)}</h3>
-                  {series?.network && <p>{copy.network} · {series.network}</p>}
+                  {(event.network || series?.network) && <p>{copy.network} · {event.network || series.network}</p>}
                   {!!series?.platforms.length && <p>{copy.availability} · {series.platforms.join(' / ')}</p>}
 
                 </div>
@@ -156,7 +179,7 @@ export function ArchiveCalendar({ onClose, returnFocus }) {
           }) : <div className="calendar-empty"><CalendarBlank size={36} weight="light" /><h3>{following.onlyFollowing ? copy.noFollowingEntries : covered ? copy.empty : copy.emptyOutside}</h3><p>{following.onlyFollowing ? copy.followingEmptyNote : copy.emptyNote}</p></div>}
         </section>}
       </div>}
-      {!managingFollowing && (mobile ? <details className="calendar-provenance calendar-provenance-disclosure"><summary>{copy.notes}</summary>{provenance}</details> : <aside className="calendar-provenance">{provenance}</aside>)}
+      {!managingFollowing && !choosingPeriod && (mobile ? <details className="calendar-provenance calendar-provenance-disclosure"><summary>{copy.notes}</summary>{provenance}</details> : <aside className="calendar-provenance">{provenance}</aside>)}
     </div>
       </div>
     </div>

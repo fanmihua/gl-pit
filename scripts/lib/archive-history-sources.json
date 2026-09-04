@@ -1,0 +1,510 @@
+[
+  {
+    "seriesId": "gap",
+    "id": 64662,
+    "name": "GAP",
+    "premiered": "2022-11-19",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "show-me-love",
+    "id": 67187,
+    "name": "Show Me Love",
+    "premiered": "2023-02-28",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "lucky-my-love",
+    "id": 72291,
+    "name": "Lucky My Love",
+    "premiered": "2023-10-28",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "love-senior",
+    "id": 72578,
+    "name": "Love Senior",
+    "premiered": "2023-11-08",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "blank",
+    "id": 75367,
+    "name": "BLANK - The Series",
+    "premiered": "2024-03-02",
+    "language": null,
+    "season": 1
+  },
+  {
+    "seriesId": "23-5",
+    "id": 65351,
+    "name": "23.5",
+    "premiered": "2024-03-08",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "my-marvellous-dream-is-you",
+    "id": 76741,
+    "name": "My Marvellous Dream Is You",
+    "premiered": "2024-05-08",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "blank-season-2",
+    "id": 75367,
+    "name": "BLANK - The Series",
+    "premiered": "2024-03-02",
+    "language": null,
+    "season": 2,
+    "reviewEpisodes": [
+      6
+    ],
+    "reviewReason": "Finale date conflicts across sources; verify before display."
+  },
+  {
+    "seriesId": "club-friday-love-bully",
+    "id": 78732,
+    "name": "Club Friday The Series 16: Love Bully",
+    "premiered": "2024-06-07",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "the-secret-of-us",
+    "id": 78207,
+    "name": "The Secret of Us",
+    "premiered": "2024-06-24",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "the-loyal-pin",
+    "id": 77811,
+    "name": "The Loyal Pin",
+    "premiered": "2024-08-04",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "affair",
+    "id": 79309,
+    "name": "Affair",
+    "premiered": "2024-08-30",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "reverse-4-you",
+    "id": 78533,
+    "name": "Reverse 4 You",
+    "premiered": "2024-09-03",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "unlock-your-love",
+    "id": 79868,
+    "name": "Unlock Your Love",
+    "premiered": "2024-09-11",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "apple-my-love",
+    "id": 79963,
+    "name": "Apple My Love",
+    "premiered": "2024-10-12",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "pluto",
+    "id": 71989,
+    "name": "Pluto",
+    "premiered": "2024-10-19",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "petrichor",
+    "id": 79453,
+    "name": "Petrichor",
+    "premiered": "2024-11-23",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "mate",
+    "id": 80531,
+    "name": "Mate",
+    "premiered": "2024-11-26",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "i-am-devil",
+    "id": 81979,
+    "name": "I Am Devil",
+    "premiered": "2024-12-25",
+    "language": null,
+    "season": 1
+  },
+  {
+    "seriesId": "us",
+    "id": 76333,
+    "name": "Us",
+    "premiered": "2025-01-18",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "reverse-with-me",
+    "id": 80139,
+    "name": "Reverse with Me",
+    "premiered": "2025-02-05",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "im-your-moon",
+    "id": 84164,
+    "name": "I'm Your Moon",
+    "premiered": "2025-03-16",
+    "language": null,
+    "season": 1
+  },
+  {
+    "seriesId": "music-story-losing-control",
+    "id": 86328,
+    "name": "Music Story: Losing Control",
+    "premiered": "2025-04-23",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "denied-love",
+    "id": 85108,
+    "name": "Denied Love",
+    "premiered": "2025-05-29",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "whale-store-xoxo",
+    "id": 81081,
+    "name": "Whale Store xoxo",
+    "premiered": "2025-06-25",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "only-you",
+    "id": 85213,
+    "name": "Only you",
+    "premiered": "2025-07-18",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "harmony-secret",
+    "id": 85325,
+    "name": "Harmony Secret",
+    "premiered": "2025-07-26",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "somewhere-somehow",
+    "id": 85739,
+    "name": "Somewhere Somehow",
+    "premiered": "2025-08-08",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "roller-coaster",
+    "id": 85826,
+    "name": "Roller Coaster",
+    "premiered": "2025-08-13",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "queendom",
+    "id": 86050,
+    "name": "Queendom",
+    "premiered": "2025-08-14",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "i-am-devil-season-2",
+    "id": 81979,
+    "name": "I Am Devil",
+    "premiered": "2024-12-25",
+    "language": null,
+    "season": 2
+  },
+  {
+    "seriesId": "poisonous-love",
+    "id": 86049,
+    "name": "Poisonous love",
+    "premiered": "2025-09-20",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "love-design",
+    "id": 86062,
+    "name": "Love Design",
+    "premiered": "2025-10-02",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "player",
+    "id": 86052,
+    "name": "Player",
+    "premiered": "2025-10-03",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "dangerous-queen",
+    "id": 86051,
+    "name": "Dangerous Queen",
+    "premiered": "2025-10-05",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "unlimited-love",
+    "id": 86192,
+    "name": "Unlimited Love",
+    "premiered": "2025-10-11",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "my-safe-zone",
+    "id": 85224,
+    "name": "My Safe Zone",
+    "premiered": "2025-10-24",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "mission-love-or-lies",
+    "id": 87972,
+    "name": "Mission: Love Or Lies",
+    "premiered": "2025-10-29",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "clairebell",
+    "id": 85476,
+    "name": "ClaireBell",
+    "premiered": "2025-11-01",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "runaway",
+    "id": 86186,
+    "name": "Runaway",
+    "premiered": "2025-11-04",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "like-a-palette",
+    "id": 86188,
+    "name": "Like a Palette",
+    "premiered": "2025-11-29",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "muteluv-hello-is-this-luck",
+    "id": 81088,
+    "name": "MU-TE-LUV",
+    "premiered": "2025-08-25",
+    "language": "Thai",
+    "season": 1,
+    "episodeNumbers": [
+      17,
+      18,
+      19,
+      20
+    ],
+    "numberOffset": 16,
+    "namePrefix": "Hello, Is This Luck?"
+  },
+  {
+    "seriesId": "the-earth",
+    "id": 85850,
+    "name": "4 Elements: The Earth",
+    "premiered": "2026-01-24",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "be-my-angel",
+    "id": 86190,
+    "name": "Be my angel",
+    "premiered": "2026-01-30",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "i-wanna-be-suptar",
+    "id": 89605,
+    "name": "I Wanna Be Sup'tar",
+    "premiered": "2026-02-06",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "heart-code",
+    "id": 87884,
+    "name": "Heart Code",
+    "premiered": "2026-02-13",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "frozen-valentine",
+    "id": 90052,
+    "name": "Frozen Valentine",
+    "premiered": "2026-02-12",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "play-park",
+    "id": 86187,
+    "name": "Play Park",
+    "premiered": "2026-02-20",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "my-only-sunshine",
+    "id": 90149,
+    "name": "My Only Sunshine",
+    "premiered": "2026-02-25",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "girl-rules",
+    "id": 81090,
+    "name": "Girl Rules",
+    "premiered": "2026-03-09",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "the-water",
+    "id": 85174,
+    "name": "4 Elements: The Water",
+    "premiered": "2026-03-21",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "shadow-of-love",
+    "id": 91051,
+    "name": "Shadow of Love",
+    "premiered": "2026-03-24",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "broken-of-love",
+    "id": 88838,
+    "name": "Broken (of) Love",
+    "premiered": "2026-03-28",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "hometown-romance",
+    "id": 90097,
+    "name": "Hometown Romance",
+    "premiered": "2026-04-03",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "shades",
+    "id": 86063,
+    "name": "Shades",
+    "premiered": "2026-04-18",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "fulfill",
+    "id": 90146,
+    "name": "Fulfill",
+    "premiered": "2026-04-24",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "enemies-with-benefits",
+    "id": 88619,
+    "name": "Enemies with Benefits",
+    "premiered": "2026-05-03",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "love-beyond-dreams",
+    "id": 90150,
+    "name": "Love Beyond Dreams",
+    "premiered": "2026-05-06",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "the-air",
+    "id": 84956,
+    "name": "4 Elements: The Air",
+    "premiered": "2026-05-16",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "chasing-love",
+    "id": 90095,
+    "name": "Chasing Love",
+    "premiered": "2026-05-29",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "ai-girl",
+    "id": 90147,
+    "name": "AI Girl",
+    "premiered": "2026-07-01",
+    "language": "Thai",
+    "season": 1
+  },
+  {
+    "seriesId": "the-fire",
+    "id": 85851,
+    "name": "4 Elements: The Fire",
+    "premiered": "2026-07-11",
+    "language": "Thai",
+    "season": 1
+  }
+]

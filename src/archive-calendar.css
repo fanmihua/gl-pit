@@ -175,3 +175,26 @@
   .calendar-follow-label { display:none; }
   .calendar-follow-short { display:inline; }
 }
+
+/* Keep the existing compact toolbar; its month title opens fast navigation. */
+.calendar-period h2 .calendar-period-title { display:flex; justify-content:center; gap:6px; width:100%; font:inherit; padding-inline:4px; }
+.calendar-period-title:hover { color:#aa1d63; }
+.calendar-period-picker { padding:16px 0 24px; }
+.calendar-picker-years { display:flex; flex-wrap:wrap; gap:8px; padding-bottom:16px; border-bottom:1px solid #d5d5ce; }
+.calendar-picker-months { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin-top:16px; }
+.calendar-period-picker button { min-height:44px; padding:8px 14px; border:1px solid #deded7; background:#fff; color:#090909; font:inherit; font-size:14px; cursor:pointer; }
+.calendar-period-picker button[aria-pressed="true"] { border-color:#090909; background:#090909; color:#fff; }
+.calendar-follow-search { display:block; margin:12px 0 18px; }
+.calendar-follow-search input { box-sizing:border-box; width:100%; min-height:44px; padding:10px 12px; border:1px solid #bbb; border-radius:0; background:#fff; color:#090909; font:inherit; font-size:16px; }
+.calendar-follow-year { margin:0 0 20px; }
+.calendar-follow-year h3 { font-size:16px; margin:0 0 8px; }
+.calendar-sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+@media (max-width:760px) {
+  .calendar-picker-months { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .calendar-period h2 .calendar-period-title { gap:3px; }
+}
+
+.calendar-picker-months button { display:flex; flex-direction:column; justify-content:center; align-items:center; gap:4px; min-height:64px; }
+.calendar-picker-months small { font-size:11px; font-weight:400; line-height:1.4; opacity:.75; }
+.calendar-period-picker button:disabled { border-color:#e5e5df; background:transparent; color:#999; cursor:default; }
+.calendar-period-picker button:disabled[aria-pressed="true"] { box-shadow:inset 0 0 0 1px #ccc; }

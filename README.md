@@ -75,7 +75,7 @@ node --test tests/*.test.mjs
 
 点赞与评论使用 Supabase。需要连接自己的项目时，按 `.env.example` 配置公开连接参数，数据库迁移位于 `supabase/migrations/`。不要将私密密钥放进浏览器配置。线上页面由 GitHub Pages 自动构建发布。
 
-日历数据保存在 `src/data/archive-schedule.json`。维护时运行 `npm run sync:schedule` 拉取公开排期，`npm run test:schedule` 校验规则，`npm run stats:schedule` 生成本地日期与状态统计。同步失败会保留原数据，日期冲突的记录隐藏待核实；不按总集数推算未知播出日期。数据来自 [GL Spotlight](https://glspotlight.com/airing) 和 [TVmaze](https://www.tvmaze.com/api)，来源及许可见 [NOTICE](NOTICE)。数据修改需重新构建发布，定期检查本身不会自动更新线上站点。
+日历的近期数据保存在 `src/data/archive-schedule.json`，历史日期独立保存在 `src/data/archive-history.json`，周更新不会覆盖历史。点击月份标题可选择年份与月份，无排期月份置灰，有排期月份显示去重剧集数，按当前关注筛选联动，并定位当月第一条排期；选剧支持按剧名、演员和年份搜索，点击完成后切换到关注。历史只收录来源明确的逐集日期，缺少逐集资料的剧仅展示首播。运行 `npm run sync:history` 可按已核对的剧集、季和单元映射重新获取历史；映射和首播来源在 `scripts/lib/archive-history-*`，新匹配需人工核对。维护时运行 `npm run sync:schedule` 拉取公开排期，`npm run test:schedule` 校验规则，`npm run stats:schedule` 生成本地日期与状态统计。同步失败会保留原数据，日期冲突的记录隐藏待核实；不按总集数推算未知播出日期。数据来自 [GL Spotlight](https://glspotlight.com/airing) 和 [TVmaze](https://www.tvmaze.com/api)，来源及许可见 [NOTICE](NOTICE)。数据修改需重新构建发布，定期检查本身不会自动更新线上站点。
 
 ### 坑底公约
 
@@ -160,7 +160,7 @@ node --test tests/*.test.mjs
 
 Likes and comments use Supabase. To connect your own project, configure the public connection settings in `.env.example`; database migrations are in `supabase/migrations/`. Never put private keys in browser configuration. GitHub Pages builds and publishes the live site automatically.
 
-Calendar data lives in `src/data/archive-schedule.json`. Run `npm run sync:schedule` to fetch public schedules, `npm run test:schedule` to validate the rules, and `npm run stats:schedule` for local date and status statistics. Failed fetches retain existing data; conflicting dates stay hidden for review. Unknown dates are never generated from episode totals. Sources are [GL Spotlight](https://glspotlight.com/airing) and [TVmaze](https://www.tvmaze.com/api); see [NOTICE](NOTICE) for attribution and licensing. Data changes require a new build and deployment; periodic checks alone do not publish them.
+Recent calendar data lives in `src/data/archive-schedule.json`; history is separate in `src/data/archive-history.json` and survives weekly updates. Click the month heading to choose a year/month. Empty months are disabled; available months show distinct show counts for the active filter and open at the first listing. Search the show chooser by title, cast or year; Done switches to Following. History uses sourced episode dates, or only a verified premiere where episode dates are unavailable. Run `npm run sync:history` to refresh reviewed show/season/anthology mappings in `scripts/lib/archive-history-*`; new mappings require review. Run `npm run sync:schedule` to fetch public schedules, `npm run test:schedule` to validate the rules, and `npm run stats:schedule` for local date and status statistics. Failed fetches retain existing data; conflicting dates stay hidden for review. Unknown dates are never generated from episode totals. Sources are [GL Spotlight](https://glspotlight.com/airing) and [TVmaze](https://www.tvmaze.com/api); see [NOTICE](NOTICE) for attribution and licensing. Data changes require a new build and deployment; periodic checks alone do not publish them.
 
 ### Ground rules down here
 
@@ -245,7 +245,7 @@ node --test tests/*.test.mjs
 
 การกดถูกใจและความคิดเห็นใช้ Supabase หากต้องการเชื่อมต่อโปรเจกต์ของตัวเอง ให้ตั้งค่าการเชื่อมต่อสาธารณะตาม `.env.example` ไฟล์ย้ายโครงสร้างฐานข้อมูลอยู่ใน `supabase/migrations/` ห้ามใส่คีย์ส่วนตัวในค่าที่ส่งไปยังเบราว์เซอร์ เว็บไซต์จริงสร้างและเผยแพร่อัตโนมัติผ่าน GitHub Pages
 
-ข้อมูลปฏิทินอยู่ใน `src/data/archive-schedule.json` ใช้ `npm run sync:schedule` เพื่อดึงกำหนดการสาธารณะ, `npm run test:schedule` เพื่อตรวจสอบกฎ และ `npm run stats:schedule` เพื่อสร้างสถิติวันที่และสถานะบนเครื่อง หากดึงข้อมูลไม่สำเร็จจะเก็บข้อมูลเดิมไว้ วันที่ที่ขัดแย้งกันจะซ่อนระหว่างรอตรวจสอบ และไม่คำนวณวันที่ที่ยังไม่ทราบจากจำนวนตอน แหล่งข้อมูลคือ [GL Spotlight](https://glspotlight.com/airing) และ [TVmaze](https://www.tvmaze.com/api) ดูที่มาและใบอนุญาตใน [NOTICE](NOTICE) การแก้ข้อมูลต้องสร้างและเผยแพร่เว็บใหม่ การตรวจสอบเป็นระยะไม่ได้เผยแพร่ข้อมูลขึ้นเว็บโดยอัตโนมัติ
+ข้อมูลล่าสุดอยู่ใน `src/data/archive-schedule.json` ส่วนข้อมูลย้อนหลังแยกไว้ใน `src/data/archive-history.json` และไม่ถูกเขียนทับเมื่ออัปเดตรายสัปดาห์ แตะชื่อเดือนเพื่อเลือกปีและเดือน เดือนที่ไม่มีรายการจะเลือกไม่ได้ เดือนที่มีรายการแสดงจำนวนซีรีส์ที่ไม่ซ้ำตามตัวกรอง และเปิดไปยังรายการแรกของเดือน ค้นหาซีรีส์ด้วยชื่อ นักแสดง หรือปี แล้วกดเสร็จเพื่อดูเฉพาะเรื่องที่ติดตาม ข้อมูลย้อนหลังใช้วันที่รายตอนจากแหล่งข้อมูล หากไม่มีจะลงเฉพาะวันฉายตอนแรกที่ยืนยันแล้ว ใช้ `npm run sync:history` เพื่ออัปเดตข้อมูลจากรายการซีรีส์ ซีซัน และตอนย่อยที่ตรวจสอบแล้วใน `scripts/lib/archive-history-*` รายการใหม่ต้องตรวจสอบก่อน ใช้ `npm run sync:schedule` เพื่อดึงกำหนดการสาธารณะ, `npm run test:schedule` เพื่อตรวจสอบกฎ และ `npm run stats:schedule` เพื่อสร้างสถิติวันที่และสถานะบนเครื่อง หากดึงข้อมูลไม่สำเร็จจะเก็บข้อมูลเดิมไว้ วันที่ที่ขัดแย้งกันจะซ่อนระหว่างรอตรวจสอบ และไม่คำนวณวันที่ที่ยังไม่ทราบจากจำนวนตอน แหล่งข้อมูลคือ [GL Spotlight](https://glspotlight.com/airing) และ [TVmaze](https://www.tvmaze.com/api) ดูที่มาและใบอนุญาตใน [NOTICE](NOTICE) การแก้ข้อมูลต้องสร้างและเผยแพร่เว็บใหม่ การตรวจสอบเป็นระยะไม่ได้เผยแพร่ข้อมูลขึ้นเว็บโดยอัตโนมัติ
 
 ### กติกาชาวด้อม
 

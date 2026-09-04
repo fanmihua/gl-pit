@@ -26,7 +26,10 @@ Public schedule references include GL Spotlight (https://glspotlight.com/airing)
 Supplementary episode records are adapted from the TVmaze public API
 (https://www.tvmaze.com/api) under CC BY-SA 4.0:
 https://creativecommons.org/licenses/by-sa/4.0/
-TVmaze-derived records in src/data/archive-schedule.json retain this license.
+TVmaze-derived records in src/data/archive-schedule.json and
+src/data/archive-history.json retain this license. Historical records select
+reviewed seasons and anthology segments, with source episode numbers mapped
+to the corresponding archive entries.
 Changes include field normalization, date/time validation, and merging with
 other schedule records. Each record retains source links; TVmaze attribution
 also appears in the calendar. This data license does not replace the license
