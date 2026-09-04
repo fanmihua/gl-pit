@@ -9,7 +9,7 @@ import { archiveDramas } from './data/archive-dramas.js';
 import schedule from './data/archive-schedule.json';
 import { calendarCopy } from './features/archive/calendar-copy.js';
 import { CalendarWeek } from './features/archive/CalendarWeek.jsx';
-import { calendarDate, eventDate, eventStatus, monthDates, moveDate } from './features/archive/calendar-model.js';
+import { calendarDate, eventDate, eventStatus, monthDates, moveDate, weekStart } from './features/archive/calendar-model.js';
 import './archive-calendar.css';
 
 const archiveById = new Map(archiveDramas.map((item) => [item.id, item]));
@@ -27,7 +27,7 @@ export function ArchiveCalendar({ onClose, returnFocus }) {
     document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
     dialog.showModal();
-    dialog.querySelector('.calendar-close')?.focus({ preventScroll: true });
+    dialog.querySelector('#calendar-dialog-title')?.focus({ preventScroll: true });
     return () => {
       dialog.close();
       document.documentElement.style.overflow = rootOverflow;
@@ -62,8 +62,7 @@ export function ArchiveCalendar({ onClose, returnFocus }) {
   const titleFor = (id) => archiveById.has(id) ? seriesName(archiveById.get(id), locale) : sourcesById.get(id)?.name || id;
   const episodeFor = (event) => event.episode ? (locale === 'zh' ? `第 ${event.episode} 集` : locale === 'th' ? `ตอนที่ ${event.episode}` : `EP. ${String(event.episode).padStart(2, '0')}`) : copy.premiere;
   const timeFor = (event) => event.airsAt ? new Intl.DateTimeFormat(getDateLocale(), { timeZone: zone, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date(event.airsAt)) : copy.timeUnknown;
-  const navigate = (direction) => {
-    if (mobile) return setSelected(moveDate(selected, direction * 7));
+  const navigateMonth = (direction) => {
     const date = new Date(`${selected.slice(0, 7)}-01T12:00:00Z`);
     date.setUTCMonth(date.getUTCMonth() + direction);
     setSelected(date.toISOString().slice(0, 10));
@@ -83,19 +82,30 @@ export function ArchiveCalendar({ onClose, returnFocus }) {
       <a href={event.sourceUrl} target="_blank" rel="noreferrer">{copy.more}<ArrowUpRight size={14} /></a>
     </>;
   };
+  const toolbar = (
+    <div className="calendar-toolbar">
+        <div className="calendar-period"><button onClick={() => navigateMonth(-1)} aria-label={copy.previous}><CaretLeft size={20} /></button><h2>{format(selected, { year: 'numeric', month: 'long' })}</h2><button onClick={() => navigateMonth(1)} aria-label={copy.next}><CaretRight size={20} /></button><button className="calendar-today" onClick={() => setSelected(today)}>{copy.today}</button></div>
+        {locale === 'en' && <span className="calendar-timezone-note">Thailand time · UTC+7</span>}
+      </div>
+  );
+  const firstDay = weekStart(selected);
   return createPortal(<dialog className="calendar-dialog" ref={dialogRef} aria-labelledby="calendar-dialog-title"
     onCancel={(event) => { event.preventDefault(); onClose(); }} onClick={(event) => { if (event.target === event.currentTarget) onClose(); }}>
     <div className="calendar-panel">
-      <header className="calendar-dialog-header"><h2 id="calendar-dialog-title">{copy.title}</h2><button className="calendar-close" aria-label={copy.close} onClick={onClose}><X size={20} /></button></header>
+      <header className="calendar-dialog-header"><h2 id="calendar-dialog-title" tabIndex={-1} autoFocus>{copy.title}</h2><button className="calendar-close" aria-label={copy.close} onClick={onClose}><X size={20} /></button></header>
+      {mobile && <div className="calendar-content calendar-mobile-navigation">
+        {toolbar}
+        <div className="calendar-week-heading">
+          <div className="calendar-week-caption"><span>{copy.weekView}</span><span>{copy.swipeWeek}</span></div>
+          <h3 aria-live="polite">{format(firstDay, { month: 'short', day: 'numeric' })} — {format(moveDate(firstDay, 6), { month: 'short', day: 'numeric' })}</h3>
+        </div>
+      </div>}
       <div className="calendar-scroll">
     <div className="calendar-content">
-      <div className="calendar-toolbar">
-        <div className="calendar-period"><button onClick={() => navigate(-1)} aria-label={copy.previous}><CaretLeft size={20} /></button><h2>{format(selected, { year: 'numeric', month: 'long' })}</h2><button onClick={() => navigate(1)} aria-label={copy.next}><CaretRight size={20} /></button><button className="calendar-today" onClick={() => setSelected(today)}>{copy.today}</button></div>
-        {locale === 'en' && <span className="calendar-timezone-note">Thailand time · UTC+7</span>}
-      </div>
+      {!mobile && toolbar}
       <div className="calendar-layout">
         {mobile ? <CalendarWeek selected={selected} onSelect={setSelected} today={today} eventsByDate={eventsByDate}
-          copy={copy} format={format} titleFor={titleFor} episodeFor={episodeFor} timeFor={timeFor} renderDetails={mobileDetails} /> : <section className="calendar-grid" aria-label={copy.selectDate}>
+          copy={copy} titleFor={titleFor} episodeFor={episodeFor} timeFor={timeFor} renderDetails={mobileDetails} /> : <section className="calendar-grid" aria-label={copy.selectDate}>
           {copy.weekdays.map((name, index) => <span className="calendar-weekday" key={index}>{name}</span>)}
           {dates.map((date) => {
             const entries = eventsByDate.get(date) || [];

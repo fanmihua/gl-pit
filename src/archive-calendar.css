@@ -6,6 +6,7 @@
 .calendar-dialog-header h2 { margin:0; font-size:24px; font-weight:800; }
 .calendar-close { display:grid; place-items:center; width:44px; height:44px; padding:0; flex-shrink:0; border:0; background:transparent; color:#090909; cursor:pointer; }
 .calendar-close:focus-visible { outline:2px solid #090909; outline-offset:-4px; }
+#calendar-dialog-title:focus { outline:none; }
 .calendar-scroll { overflow:auto; overscroll-behavior:contain; min-height:0; }
 .calendar-content { padding:0 28px 24px; color:#090909; }
 .calendar-toolbar { display:flex; justify-content:space-between; align-items:center; gap:20px; padding:6px 0; border-top:2px solid #090909; }
@@ -80,6 +81,10 @@
   .calendar-period .calendar-today { position:relative; margin-left:8px; border:0; }
   .calendar-period .calendar-today::before { content:''; position:absolute; inset:8px 0; border:1px solid #bbb; pointer-events:none; }
   .calendar-scroll { flex:1; }
+  .calendar-mobile-navigation { flex-shrink:0; padding-bottom:0; }
+  .calendar-week-heading { border-top:1px solid #aaa; border-bottom:1px solid #d5d5ce; }
+  .calendar-scroll .calendar-layout { border-top:0; }
+  .calendar-week-page>.calendar-week-day:first-child { border-top:0; }
   .calendar-provenance-disclosure { padding:8px 0; }
   .calendar-provenance-disclosure summary { min-height:44px; align-content:center; cursor:pointer; font-size:12px; }
   .calendar-provenance-disclosure:not([open]) { border-bottom:0; }
@@ -102,22 +107,22 @@
 }
 
 .calendar-week-browser { min-width:0; }
-.calendar-week-caption { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:8px 0 2px; font-size:11px; color:#666; }
+.calendar-week-caption { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:5px 0 0; font-size:11px; color:#666; }
 .calendar-week-caption>span:last-child { text-align:right; }
 .calendar-week-track { display:flex; align-items:flex-start; width:100%; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; scrollbar-width:none; overscroll-behavior-x:contain; touch-action:pan-x pan-y pinch-zoom; overflow-anchor:none; }
 .calendar-week-track::-webkit-scrollbar { display:none; }
 .calendar-week-page { flex:0 0 100%; min-width:0; scroll-snap-align:start; scroll-snap-stop:always; }
 /* Adjacent weeks remain available for swiping without stretching this week's height. */
 .calendar-week-page[aria-hidden="true"] { height:0; overflow:visible; }
-.calendar-week-page h3 { margin:0; padding:6px 0 8px; font-size:15px; line-height:1.5; }
+.calendar-week-heading h3 { margin:0; padding:3px 0 6px; font-size:14px; line-height:1.5; }
 .calendar-week-day { display:grid; grid-template-columns:42px minmax(0,1fr); align-items:start; gap:10px; width:100%; min-height:64px; padding:10px 0; border:0; border-top:1px solid #d5d5ce; background:transparent; color:#090909; font:inherit; text-align:left; }
 .calendar-week-date { display:flex; flex-direction:column; align-items:center; gap:3px; padding-top:3px; font-size:11px; color:#666; }
 .calendar-week-date strong { display:grid; width:30px; height:30px; place-items:center; font-size:20px; color:#090909; }
 .calendar-week-day.is-today .calendar-week-date strong { border-radius:50%; background:#090909; color:white; }
-.calendar-week-day.is-selected .calendar-week-date { color:#b72f72; }
+.calendar-week-day.is-today .calendar-week-date { color:#b72f72; }
 .calendar-week-entries { display:grid; gap:7px; }
 .calendar-week-entry { display:block; padding:0; border-left:2px solid var(--pink); background:#fff; }
-.calendar-week-day.is-selected .calendar-week-entry-toggle { background:var(--calendar-selected-bg); }
+.calendar-week-day.is-today .calendar-week-entry-toggle { background:var(--calendar-selected-bg); }
 .calendar-week-entry-toggle { display:grid; grid-template-columns:minmax(0,1fr) 15px; align-items:center; gap:4px 8px; width:100%; min-height:60px; padding:9px 11px; background:transparent; color:inherit; border:0; font:inherit; text-align:left; cursor:pointer; }
 .calendar-week-entry-toggle>strong { font-size:13px; line-height:1.6; font-weight:600; overflow-wrap:anywhere; }
 .calendar-week-entry-toggle>span { grid-column:1/-1; display:flex; align-items:baseline; flex-wrap:wrap; gap:5px 14px; font-size:11px; line-height:1.5; }

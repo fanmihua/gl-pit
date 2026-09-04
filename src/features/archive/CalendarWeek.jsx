@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { CaretDown } from '@phosphor-icons/react';
 import { moveDate, weekStart } from './calendar-model.js';
 
-export function CalendarWeek({ selected, onSelect, today, eventsByDate, copy, format, titleFor, episodeFor, timeFor, renderDetails }) {
+export function CalendarWeek({ selected, onSelect, today, eventsByDate, copy, titleFor, episodeFor, timeFor, renderDetails }) {
   const trackRef = useRef(null);
   const [expanded, setExpanded] = useState(null);
   const start = weekStart(selected);
@@ -35,7 +35,6 @@ export function CalendarWeek({ selected, onSelect, today, eventsByDate, copy, fo
   }, [start, onSelect]);
 
   return <section className="calendar-week-browser" aria-label={copy.weekView}>
-    <div className="calendar-week-caption"><span>{copy.weekView}</span><span>{copy.swipeWeek}</span></div>
     <div className="calendar-week-track" ref={trackRef} tabIndex={0} aria-label={copy.swipeWeek}
       onKeyDown={(event) => {
         if (event.target !== event.currentTarget || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
@@ -45,12 +44,11 @@ export function CalendarWeek({ selected, onSelect, today, eventsByDate, copy, fo
       {[-1, 0, 1].map((offset) => {
         const first = moveDate(start, offset * 7);
         return <div className="calendar-week-page" key={first} aria-hidden={offset !== 0 ? true : undefined}>
-          <h3>{format(first, { month: 'short', day: 'numeric' })} — {format(moveDate(first, 6), { month: 'short', day: 'numeric' })}</h3>
           {Array.from({ length: 7 }, (_, index) => {
             const date = moveDate(first, index);
             const entries = eventsByDate.get(date) || [];
             return <div key={date}
-              className={`calendar-week-day${date === selected ? ' is-selected' : ''}${date === today ? ' is-today' : ''}`}
+              className={`calendar-week-day${date === today ? ' is-today' : ''}`}
               aria-current={date === today ? 'date' : undefined}>
               <span className="calendar-week-date"><span>{copy.weekdays[index]}</span><strong>{Number(date.slice(-2))}</strong></span>
               <div className="calendar-week-entries">{entries.length ? entries.map((event) => {
